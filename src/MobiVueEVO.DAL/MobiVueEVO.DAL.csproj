@@ -11,11 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Masters\Pallet\PalletItemFactory.cs" />
-    <Compile Remove="Masters\Pallet\PalletTypeFactory.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="DotNetZip" Version="1.16.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0-preview.2.21154.6" />

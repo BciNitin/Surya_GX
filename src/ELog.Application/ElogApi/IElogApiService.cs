@@ -1,8 +1,6 @@
 ﻿
 
 using Abp.Application.Services;
-
-using ELog.Application.Reports.Dto;
 using ELog.Core.SQLDtoEntities;
 using System.Collections.Generic;
 using System.Threading.Tasks;

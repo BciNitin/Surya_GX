@@ -1,7 +1,6 @@
 ﻿using Abp.Application.Services;
 
 using ELog.Application.CommonDto;
-using ELog.Application.SAP.PurchaseOrder.Dto;
 using ELog.Application.SelectLists.Dto;
 
 using System.Collections.Generic;
@@ -94,19 +93,11 @@ namespace ELog.Application.SelectLists
 
         Task<List<SelectListDto>> GetDeviceTypesAsync();
 
-        Task<List<PurchaseOrderInternalDto>> GetPurchaseOrdersAsync();
-
-        Task<List<PurchaseOrderInternalDto>> GetPurchaseOrdersAutoCompleteAsync(string input);
-
         List<SelectListDto> GetSortByVehicleInspection();
 
         List<SelectListDto> GetSortByMaterialInspection();
 
         List<SelectListDto> GetTemperatureUnit();
-
-        List<SelectListDto> GetWeighingMachineFrequencyType();
-
-        List<SelectListDto> GetWeighingMachineBalancedType();
 
         List<SelectListDto> GetSortByChecklistType();
 
@@ -143,17 +134,12 @@ namespace ELog.Application.SelectLists
         List<SelectListDto> GetCalibrationStatus();
 
         List<SelectListDto> GetSortByWeighingCalibration();
-        Task<double> GetWeightByWeighingMachineIdAsync(int weighingMachineId, bool isWeightUOMType);
-        Task<List<PurchaseOrderInternalDto>> GetPurchaseOrdersByPlantIdAsync(int? plantId);
-        Task<List<SelectListDtoWithPlantId>> GetAllWeighingMachineByPlantIdAsync(int? plantId);
         //List<SelectListDto> getSortByWeighingCalibration();
         Task<List<SelectListDto>> GetMaterialMasterAsync();
         Task<List<SelectListDtoWithPlantId>> GetAllCheckList(string subModule);
         Task<List<SelectListDto>> GetAllPalletCode();
         Task<List<SelectListDto>> GetAllShipperCode();
         Task<List<SelectListDto>> GetProcessOrdersAssignedToCubicleAsync();
-
-        Task<string> GetStampingDueOnInfoByIdAsync(int weighingMachineId);
 
         Task<List<SelectListDtoWithPlantId>> GetAllInspectionCheckList(string subModule);
 
