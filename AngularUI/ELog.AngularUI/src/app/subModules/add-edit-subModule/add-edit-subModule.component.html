@@ -1,0 +1,158 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="row user-component-content row-filter-container">
+                <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10">
+                    <h3 class="title">
+                        {{isOnlyView?'Sub-Module Details':subModuleId?'Edit Sub-Module':'Add Sub-Module'}}
+                    </h3>
+                </div>
+                <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <h3 class="pull-right" *ngIf="isOnlyView && subModuleId && isPermissionGranted('SubModule.Edit')">
+                        <i class="material-icons edit-icon" (click)="GoToAddEditModule(subModuleId)">note_alt</i>
+                        <button type="button" (click)="GoToAddEditModule(subModuleId)" class="btn add-circle-button">Edit</button>
+                    </h3>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <!-- <div class="panel-heading gray-panel-header">
+                        <h4 class="panel-title dark-text">
+                            <a data-toggle="collapse" class="view_pointer" data-parent="#accordion">
+                                {{isOnlyView?'Sub-Module Details':subModuleId?'Edit Sub-Module':'Add Sub-Module'}}
+                                <span *ngIf="isOnlyView && subModuleId && isPermissionGranted('SubModule.Edit')"
+                                    (click)="GoToAddEditModule(subModuleId)" class="pull-right edit_mode_pointer"><span
+                                        class="material-icons edit_mode_pointer">note_alt</span>Edit</span>
+                            </a>
+                        </h4>
+                    </div> -->
+                    <div id="collapse1" class="panel-collapse collapse in dark-text">
+                        <div class="panel-body">
+                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditModuleForm="ngForm">
+                                <div class="panel-group" id="accordion2">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading gray-panel-header">
+                                            <h4 class="panel-title dark-text">
+                                                <a data-toggle="collapse" data-parent="#accordion2" href="#collapse2">Details</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse2" class="panel-collapse collapse in dark-text">
+                                            <div class="panel-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                                        <mat-form-field>
+                                                            <mat-label>Sub-Module Name</mat-label>
+                                                            <input matInput name="Name" [(ngModel)]="subModule.name" required
+                                                                   formControlName="nameFormControl" [errorStateMatcher]="matcher"
+                                                                   maxlength="100" />
+                                                            <mat-error *ngIf="addEditFormGroup?.get('nameFormControl')?.hasError('required')
+                                                || addEditFormGroup?.get('nameFormControl')?.hasError('whitespace')">
+                                                                Sub-Module name is required.
+                                                            </mat-error>
+                                                            <mat-error *ngIf="addEditFormGroup?.get('nameFormControl')?.hasError('maxlength')">
+                                                                Sub-Module name max length exceeded.
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                                        <mat-form-field>
+                                                            <mat-label>Display Name</mat-label>
+                                                            <input matInput name="DisplayName" required
+                                                                   [(ngModel)]="subModule.displayName"
+                                                                   formControlName="displayNameFormControl"
+                                                                   [errorStateMatcher]="matcher" maxlength="100" />
+                                                            <mat-error *ngIf="addEditFormGroup?.get('displayNameFormControl')?.hasError('required')
+                                                || addEditFormGroup?.get('displayNameFormControl')?.hasError('whitespace')">
+                                                                Display name is required.
+                                                            </mat-error>
+                                                            <mat-error *ngIf="addEditFormGroup?.get('displayNameFormControl')?.hasError('maxlength')">
+                                                                Display name max length exceeded.
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                                        <mat-form-field>
+                                                            <mat-label>Description</mat-label>
+                                                            <textarea matInput name="Description" required
+                                                                      formControlName="descriptionFormControl"
+                                                                      [errorStateMatcher]="matcher" [(ngModel)]="subModule.description"
+                                                                      maxlength="5000"></textarea>
+                                                            <mat-error *ngIf="addEditFormGroup?.get('descriptionFormControl')?.hasError('required')
+                                                || addEditFormGroup?.get('descriptionFormControl')?.hasError('whitespace')">
+                                                                Description is required.
+                                                            </mat-error>
+                                                            <mat-error *ngIf="addEditFormGroup?.get('descriptionFormControl')?.hasError('maxlength')">
+                                                                Description max length exceeded.
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                                        <mat-form-field>
+                                                            <mat-label>Select Sub-Module Type</mat-label>
+                                                            <mat-select required formControlName="subModuleTypeIdFormControl"
+                                                                        [errorStateMatcher]="matcher"
+                                                                        [(ngModel)]="subModule.subModuleTypeId" name="subModuleTypeId">
+                                                                <mat-option>Select Sub-Module Type</mat-option>
+                                                                <mat-option *ngFor="let subModuleType of subModuleTypes"
+                                                                            [value]="subModuleType.id">
+                                                                    {{subModuleType.value}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                            <mat-error *ngIf="addEditFormGroup?.get('subModuleTypeIdFormControl')?.hasError('required')">
+                                                                Sub-Module type is required.
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="row" *ngIf="subModule.isApprovalWorkflowRequired==true">
+                                                    <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12 is-active-mt">
+
+                                                        <mat-checkbox formControlName="isApprovalRequiredFormControl"
+                                                                      name="isApprovalRequired" [(ngModel)]="subModule.isApprovalRequired">
+                                                            Is approval required
+                                                        </mat-checkbox>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row" *ngIf="subModule.isApprovalWorkflowRequired==false">
+                                                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                                        <label class="note">
+                                                            Approval workflow is not applicable for {{
+                                                subModule.displayName
+                                                            }} submodule.
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn filter-back-button pull-right" *ngIf="!isOnlyView && subModuleId"
+                                            (click)="GoToModuleListFromEdit()">
+                                        Cancel
+                                    </button>
+                                    <button class="btn filter-back-button pull-right" *ngIf="isOnlyView"
+                                            (click)="GoToModuleListFromView()">
+                                        Back
+                                    </button>
+                                    <button class="btn btn-primary pull-right"
+                                            *ngIf="!isOnlyView && subModuleId  && isPermissionGranted('SubModule.Edit')"
+                                            (click)="markDirty() &&  addEditFormGroup.valid  && UpdateModule()">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

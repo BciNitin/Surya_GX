@@ -1,0 +1,196 @@
+[
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "CubicleAssignment",
+    "Status": "Cancelled",
+    "IsDeleted": 0
+  },
+
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "CubicleAssignment",
+    "IsDeleted": 0,
+    "Status": "Dispensed"
+  },
+
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "CubicleAssignment",
+    "IsDeleted": 0,
+    "Status": "InProgress"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "CubicleAssignment",
+    "IsDeleted": 0,
+    "Status": "Open"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "CubicleAssignment",
+    "IsDeleted": 0,
+    "Status": "Close"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "CubicleCleaning",
+    "IsDeleted": 0,
+    "Status": "Started"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "CubicleCleaning",
+    "IsDeleted": 0,
+    "Status": "Cleaned"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "CubicleCleaning",
+    "IsDeleted": 0,
+    "Status": "Verified"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "CubicleCleaning",
+    "IsDeleted": 0,
+    "Status": "Uncleaned"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "EquipmentCleaning",
+    "IsDeleted": 0,
+    "Status": "Started"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "EquipmentCleaning",
+    "IsDeleted": 0,
+    "Status": "Cleaned"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "EquipmentCleaning",
+    "IsDeleted": 0,
+    "Status": "Verified"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "EquipmentCleaning",
+    "IsDeleted": 0,
+    "Status": "Uncleaned"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "LineClearance",
+    "IsDeleted": 0,
+    "Status": "Started"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "LineClearance",
+    "IsDeleted": 0,
+    "Status": "Verified"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "LineClearance",
+    "IsDeleted": 0,
+    "Status": "Approved"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "LineClearance",
+    "IsDeleted": 0,
+    "Status": "Rejected"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "LineClearance",
+    "IsDeleted": 0,
+    "Status": "Cancelled"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "Picking",
+    "IsDeleted": 0,
+    "Status": "InProgress"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "Picking",
+    "IsDeleted": 0,
+    "Status": "Completed"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "Prestage",
+    "IsDeleted": 0,
+    "Status": "InProgress"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "Prestage",
+    "IsDeleted": 0,
+    "Status": "Completed"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "Staging",
+    "IsDeleted": 0,
+    "Status": "InProgress"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "Staging",
+    "IsDeleted": 0,
+    "Status": "Completed"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "Dispensing",
+    "IsDeleted": 0,
+    "Status": "InProgress"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "Dispensing",
+    "IsDeleted": 0,
+    "Status": "Completed"
+  },
+  {
+    "ModuleName": "Sampling",
+    "SubModuleName": "Sampling",
+    "IsDeleted": 0,
+    "Status": "InProgress"
+  },
+  {
+    "ModuleName": "Sampling",
+    "SubModuleName": "Sampling",
+    "IsDeleted": 0,
+    "Status": "Completed"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "StageOut",
+    "IsDeleted": 0,
+    "Status": "InProgress"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "StageOut",
+    "IsDeleted": 0,
+    "Status": "Completed"
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "ReturntoVendor",
+    "IsDeleted": 0,
+    "Status": "NotPosted "
+  },
+  {
+    "ModuleName": "Dispensing",
+    "SubModuleName": "ReturntoVendor",
+    "IsDeleted": 0,
+    "Status": "Posted"
+  }
+]

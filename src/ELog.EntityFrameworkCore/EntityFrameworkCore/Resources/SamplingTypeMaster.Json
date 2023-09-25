@@ -1,0 +1,26 @@
+[
+  {
+    "Type": "Control Sample/Reserve Sample",
+    "IsDeleted": 0
+  },
+  {
+    "Type": "Individual Analysis",
+    "IsDeleted": 0
+  },
+  {
+    "Type": "Sample for Micro Analysis",
+    "IsDeleted": 0
+  },
+  {
+    "Type": "Sample for Chemical Analysis",
+    "IsDeleted": 0
+  },
+  {
+    "Type": "Packaging Material Sample for Analysis",
+    "IsDeleted": 0
+  },
+  {
+    "Type": "Left Over Sample",
+    "IsDeleted": 0
+  }
+]

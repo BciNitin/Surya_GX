@@ -1,0 +1,18 @@
+[
+  {
+    "TransferType": "PutAwayPalletToBin",
+    "IsDeleted": 0
+  },
+  {
+    "TransferType": "PutAwayMaterialToBin",
+    "IsDeleted": 0
+  },
+  {
+    "TransferType": "BinToBinTranferPalletToBin",
+    "IsDeleted": 0
+  },
+  {
+    "TransferType": "BinToBinTranferMaterialToBin",
+    "IsDeleted": 0
+  }
+]

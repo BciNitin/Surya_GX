@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BarcodeLib" Version="2.4.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.9" />
+    <PackageReference Include="Microsoft.PowerBI.Api" Version="4.5.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ELog.Connector\ELog.HardwareConnector.csproj" />
+    <ProjectReference Include="..\..\ERPConnector\ELog.ERPConnectorFactory\PMMS.ERPConnectorFactory\ELog.ERPConnectorFactory.csproj" />
+    <ProjectReference Include="..\..\ERPConnector\ELog.ERPConnector\ELog.ERPConnector.csproj" />
+  </ItemGroup>
+
+</Project>

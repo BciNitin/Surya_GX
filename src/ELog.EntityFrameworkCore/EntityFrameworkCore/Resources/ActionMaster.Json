@@ -1,0 +1,27 @@
+[
+  {
+    "Action": "Add",
+    "IsDeleted": 0
+  },
+
+  {
+    "Action": "Edit",
+    "IsDeleted": 0
+  },
+  {
+    "Action": "Delete",
+    "IsDeleted": 0
+  },
+  {
+    "Action": "View",
+    "IsDeleted": 0
+  },
+  {
+    "Action": "Print",
+    "IsDeleted": 0
+  },
+  {
+    "Action": "Approver",
+    "IsDeleted": 0
+  }
+]

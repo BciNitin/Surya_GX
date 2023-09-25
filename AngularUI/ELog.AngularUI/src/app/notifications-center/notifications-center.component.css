@@ -1,0 +1,57 @@
+.notification-tabs {}
+
+.notification-tabs>ul.nav-tabs {}
+
+.notification-tabs>ul.nav-tabs>li {
+    left: 0px;
+    top: 0px;
+}
+
+.notification-tabs>ul.nav-tabs>li>a {}
+
+.notification-tabs>ul.nav-tabs>li>a:before {
+    bottom: 0px;
+    border-bottom: 2px solid #ee5b36;
+}
+
+.notification-tabs .tab-content {
+    padding: 15px;
+}
+
+.notification-list {
+    list-style: none;
+    padding: 0;
+}
+
+.notification-list>li {
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.notification-list>li>figure {
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+}
+
+.notification-list>li>figure>img {}
+
+.notification-list>li>p {
+    margin: 0px;
+    padding: 0 20px 0 20px;
+    max-width: 92%;
+    width: 92%;
+}
+
+.notification-list>li>span {
+    background: #ccc;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "ApprovalStatus": "Submitted",
+    "IsDeleted": 0
+  },
+  {
+    "ApprovalStatus": "Approved",
+    "IsDeleted": 0
+  },
+  {
+    "ApprovalStatus": "Rejected",
+    "IsDeleted": 0
+  }
+]

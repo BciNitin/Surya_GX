@@ -1,0 +1,18 @@
+[
+  {
+    "ModeName": "Production",
+    "IsController": 0
+  },
+  {
+    "ModeName": "Quality Assurance",
+    "IsController": 0
+  },
+  {
+    "ModeName": "Store",
+    "IsController": 0
+  },
+  {
+    "ModeName": "Quality Control",
+    "IsController": 0
+  }
+]

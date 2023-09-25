@@ -1,0 +1,95 @@
+# Docker
+# Build a Docker image 
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- feature/aks-cluster
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+  createInfra: false
+  environmentServiceName: 'Visual Studio Enterprise Subscription – MPN (294d51bc-6108-4cff-a8a4-e09870140f12)' 
+
+stages:
+- stage: CopyTerrafromFiles
+  displayName: Copy Terraform Files
+  jobs:  
+  - job: CopyFiles
+    displayName: Copy Files
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: $(Build.SourcesDirectory)
+        contents: '**'
+        targetFolder: '$(Build.ArtifactStagingDirectory)/Terraform'   
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+- stage: DeployTerraform
+  displayName: Deploy Terraform
+  jobs:  
+    - job: DeployInfrastructure
+      displayName: Deploy Infrastructure
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+      - task: DownloadBuildArtifacts@0
+        displayName: Download Artifact
+        inputs:
+          buildType: 'current'
+          downloadType: 'single'
+          downloadPath: '$(System.ArtifactsDirectory)'
+          artifactName: 'Drop'
+      - task: TerraformInstaller@0
+        inputs:
+          terraformVersion: 'latest'
+      - task: TerraformCLI@0
+        displayName: 'Terraform Init'
+        inputs:
+          command: 'init'
+          workingDirectory: '$(System.ArtifactsDirectory)/drop/Terraform'
+          backendType: 'selfConfigured'
+          resourceAddress: 
+          resourceId: 
+      - task: TerraformCLI@0
+        displayName: 'Terraform Validate'
+        condition: eq(variables.createInfra, true)
+        inputs:
+          command: 'validate'
+          workingDirectory: '$(System.ArtifactsDirectory)/drop/Terraform'
+          resourceAddress: 
+          resourceId:
+      - task: TerraformCLI@0
+        displayName: 'Terraform Plan'
+        condition: eq(variables.createInfra, true)
+        inputs:
+          command: 'plan'
+          workingDirectory: '$(System.ArtifactsDirectory)/drop/Terraform'
+          environmentServiceName: $(environmentServiceName)
+          commandOptions: '-out=tfplan -input=false -var-file=dev.tfvars'
+          resourceAddress: 
+          resourceId:
+      - task: TerraformCLI@0
+        displayName: 'Terraform Apply'
+        condition: eq(variables.createInfra, true)
+        inputs:
+          command: 'apply'
+          workingDirectory: '$(System.ArtifactsDirectory)/drop/Terraform'
+          environmentServiceName: $(environmentServiceName)
+          commandOptions: '-input=false tfplan'
+          resourceAddress: 
+          resourceId:
+      - task: TerraformCLI@0
+        displayName: 'Destroy Terraform'
+        condition: eq(variables.createInfra, false)
+        inputs:
+          command: 'destroy'
+          workingDirectory: '$(System.ArtifactsDirectory)/drop/Terraform'
+          environmentServiceName: $(environmentServiceName)
+          commandOptions: '-var-file=dev.tfvars'
+          resourceAddress: 
+          resourceId:

@@ -1,0 +1,132 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+		<RootNamespace>ELog.EntityFrameworkCore</RootNamespace>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="Migrations\20210601110003_PMMSRolePermissionsTable.cs" />
+		<Compile Remove="Migrations\20210601110003_PMMSRolePermissionsTable.Designer.cs" />
+		<Compile Remove="Migrations\20210608085557_PMMSPermissionTableChanges.cs" />
+		<Compile Remove="Migrations\20210608085557_PMMSPermissionTableChanges.Designer.cs" />
+		<Compile Remove="Migrations\20210608154724_PMMSPermissionTableChanges.cs" />
+		<Compile Remove="Migrations\20210608154724_PMMSPermissionTableChanges.Designer.cs" />
+		<Compile Remove="Migrations\20210627174737_AddedSubModuleTypeMasterSeed.cs" />
+		<Compile Remove="Migrations\20210627174737_AddedSubModuleTypeMasterSeed.Designer.cs" />
+		<Compile Remove="Migrations\20210627174940_AddedSubModuleTypeMasterSeed.cs" />
+		<Compile Remove="Migrations\20210627174940_AddedSubModuleTypeMasterSeed.Designer.cs" />
+		<Compile Remove="Migrations\20210810074442_Added UserPlants entity.cs" />
+		<Compile Remove="Migrations\20210810074442_Added UserPlants entity.Designer.cs" />
+		<Compile Remove="Migrations\20210830161610_GRN entities added.cs" />
+		<Compile Remove="Migrations\20210830161610_GRN entities added.Designer.cs" />
+		<Compile Remove="Migrations\20210903120056_standard Weighbox id Column added in StandardWeightBox.cs" />
+		<Compile Remove="Migrations\20210903120056_standard Weighbox id Column added in StandardWeightBox.Designer.cs" />
+		<Compile Remove="Migrations\20210901065251_Weight Capture Header Foregin key Added in materialConsignemtDetails table and temporal table changes..cs" />
+		<Compile Remove="Migrations\20210901065251_Weight Capture Header Foregin key Added in materialConsignemtDetails table and temporal table changes..Designer.cs" />
+		<Compile Remove="Migrations\20210911121654_Put Away entities added.cs" />
+		<Compile Remove="Migrations\20210911121654_Put Away entities added.Designer.cs" />
+		<Compile Remove="Migrations\20210920075112_Added LocationId and PalletId in PutAwayDetail Table and Removed from Header table.cs" />
+		<Compile Remove="Migrations\20210920075112_Added LocationId and PalletId in PutAwayDetail Table and Removed from Header table.Designer.cs" />
+    <Compile Remove="Migrations\20210923084413_Update-AreaUsageLog.cs" />
+    <Compile Remove="Migrations\20210923084413_Update-AreaUsageLog.Designer.cs" />
+    <Compile Remove="Migrations\20211027094918_Add-InProcessLabel.cs" />
+    <Compile Remove="Migrations\20211027094918_Add-InProcessLabel.Designer.cs" />
+    <Compile Remove="Migrations\20220215054230_Add-PalletMaster1.cs" />
+    <Compile Remove="Migrations\20220215054230_Add-PalletMaster1.Designer.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="BarcodeLib" Version="2.4.0" />
+		<PackageReference Include="EFCore.BulkExtensions" Version="3.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.9" />
+		<PackageReference Include="Microsoft.PowerBI.Api" Version="4.5.0" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.7" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ELog.Core\ELog.Core.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="EntityFrameworkCore\Resources\ActionMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\CubicleCleaningTypeMaster.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\MaterialTransferTypeMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\CalibrationTestStatusMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\FrequencyTypeMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\CalibrationStatusMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\StatusMaster.Json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\SamplingTypeMaster.Json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\TransactionStatusMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\CheckpointTypeMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\HolidayTypeMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\ModeMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\UnitOfMeasurementTypeMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\DeviceTypeMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\SubModuleTypeMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\ApprovalStatusMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\Country_State.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\EquipmentTypeMaster.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\Module.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\ModuleSubModule.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\SubModule.Json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="EntityFrameworkCore\Resources\EquipmentCleaningTypeMaster.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>	
+	</ItemGroup>
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties entityframeworkcore_4resources_4country_3state_1json__JsonSchema="https://beaujs.com/schema.json" />
+		</VisualStudio>
+	</ProjectExtensions>
+</Project>

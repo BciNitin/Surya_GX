@@ -1,0 +1,42 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-20">
+        <div class="card main-content">
+            <!-- <button class="btn filter-back-button pull-right"  (click)="close()">X</button> -->
+            <div class="row user-component-content row-filter-container">
+                <div class="col-12">
+                    <h2 class="title">{{ "Weighing Balance Stamping Due Alert Message" | localize }}</h2>
+                </div>
+            </div>
+            <div class="body table-responsive" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                 [scrollWindow]="false" [ngClass]="{'table-scroll':DueOnWeighingMachineList?.length != 0}">
+                <table class="table table-hover table-striped table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="th-center-align">{{ "Weighing Balance ID" | localize }}</th>
+                            <th class="th-center-align">{{ "Sub Plant" | localize }}</th>
+                            <th class="th-center-align">{{ "Stamping Done On" | localize }}</th>
+                            <th class="th-center-align">{{ "Stamping Due On" | localize }}</th>
+                            <th class="th-center-align">{{ "Remaining Days Left" | localize }}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let dueOnWeighingMachineList of DueOnWeighingMachineList">
+                            <td class="td-center-align add-wrap">{{dueOnWeighingMachineList.weighingMachineCode}}</td>
+                            <td class="td-center-align add-wrap">{{dueOnWeighingMachineList.subPlant}}</td>
+                            <td class="td-center-align add-wrap">{{dueOnWeighingMachineList.stampingDoneOn| date:'dd/MM/yyyy'}}</td>
+                            <td class="td-center-align add-wrap">{{dueOnWeighingMachineList.stampingDueOn| date:'dd/MM/yyyy'}}</td>
+                            <td class="td-center-align add-wrap">{{dueOnWeighingMachineList.dueDays }}</td>
+                        </tr>
+                        <tr *ngIf="DueOnWeighingMachineList?.length == 0">
+                            <td colspan="5" class="no-data-available">No data to display.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn filter-back-button pull-right" (click)="close()">
+                Ok
+            </button>
+        </div>
+     </div>
+</div>

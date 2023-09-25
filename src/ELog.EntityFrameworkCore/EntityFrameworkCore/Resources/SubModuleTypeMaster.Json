@@ -1,0 +1,11 @@
+[
+  {
+    "SubModuleType": "Recommended",
+  },
+  {
+    "SubModuleType": "Mandatory",
+  },
+  {
+    "SubModuleType": "Optional",
+  }
+]

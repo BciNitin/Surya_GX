@@ -1,0 +1,334 @@
+<form class="contact_form" [formGroup]="contactForm">
+    <div class="elements">
+      <div class="element_name">
+        <input
+        id="name"
+          type="text"
+          class="field"
+          formControlName="name"
+          placeholder="Name"
+          (blur)="OnBlur($event)"
+        />
+        <!-- <div
+          *ngIf="
+            registerFormControl.name.invalid &&
+            (registerFormControl.name.dirty || registerFormControl.name.touched)
+          "
+          class="alert"
+        >
+          <div *ngIf="registerFormControl.name.errors?.required">
+            Name required
+          </div>
+          <div *ngIf="registerFormControl.name.errors?.minlength">
+            Enter valid name
+          </div>
+        </div> -->
+      </div>
+
+      <br />
+      <div class="element_name">
+        <input
+        id="email"
+          type="text"
+          class="field"
+          formControlName="email"
+          placeholder="Email"
+          (blur)="OnBlur($event)"
+        />
+        <!-- <div
+          *ngIf="
+            registerFormControl.email.invalid &&
+            (registerFormControl.email.dirty ||
+              registerFormControl.email.touched)
+          "
+          class="alert"
+        >
+          <div *ngIf="registerFormControl.email.errors?.required">
+            Email required
+          </div>
+          <div *ngIf="registerFormControl.email.errors?.pattern">
+            Enter valid email address
+          </div>
+        </div> -->
+      </div>
+      </div>
+      <button  type="submit" (click)="onSubmit()">Submit</button>
+      <button  type="submit" (click)="onChange()">Change</button>
+  
+    </form>
+
+<!-- <form class="contact_form" [formGroup]="viewForm.form_name">
+    <div class="elements">
+        <div class="element_name">
+            <input type="text" class="field" formControlName="name" placeholder="Name" />
+            <div *ngIf="
+            registerFormControl.name.invalid &&
+            (registerFormControl.name.dirty || registerFormControl.name.touched)
+          " class="alert">
+                <div *ngIf="registerFormControl.name.errors?.required">
+                    Name required
+                </div>
+                <div *ngIf="registerFormControl.name.errors?.minlength">
+                    Enter valid name
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div>
+    <div class="siteWrap">
+
+        <section class="admin-wrapper">
+            <div class="heighthh">
+                <section class="lpanel-wrapper" style="display: none">
+                    <ul>
+                        <li>
+                            <span>
+                                <svg width="24" height="21" viewBox="0 0 24 21" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                                        stroke="#26404E" stroke-dasharray="3 1" />
+                                    <path
+                                        d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                                        fill="white" />
+                                    <path
+                                        d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                                        stroke="#26404E" stroke-width="3" />
+                                </svg>
+                            </span>
+                            <p>Controls</p>
+                        </li>
+                    </ul>
+                </section>
+                <a class="addElement trans"><i class="fa fa-plus" aria-hidden="true"></i>
+                    <p>Element</p>
+                </a>
+                <section class="middle-wrapper">
+                    <div class="form-wrapper">
+                        <div class="formheader">
+                            <label for="formname">Form Name* </label>
+                            <input id="formname" class="formname" type="text" placeholder="Please enter form name">
+
+
+                        </div>
+                        <form id="creator" class="creator sortable">
+                            <div class="form-group ui-state-default">
+                                <label for="exampleInputEmail1" class="label">
+                                    <p class="lbtx">Email address</p><span class="lbrq">*</span><span
+                                        class="lbtt"></span>
+                                </label>
+                                <input type="password" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                                    anyone else.</small>
+                            </div>
+                            <div class="form-group ui-state-default">
+                                <label for="name" class="label">
+                                    <p class="lbtx">Name</p><span class="lbrq">*</span><span class="lbtt"></span>
+                                </label>
+                                <input type="text" class="form-control" id="name">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                                    anyone else.</small>
+                            </div>
+                            <button (click)="Submit()">Submit</button>
+                        </form>
+                    </div>
+                </section>
+                <section class="rpanel-wrapper">
+                    <div class="theme_setting">
+                        <ul class="nav nav-pills ">
+                            <li class="active" data-toggle="tooltip" title=" "><a data-toggle="pill"
+                                    href="#editProperty" class="trans active"><i class="fa fa-sliders"
+                                        aria-hidden="true"></i></a></li>
+                            <li data-toggle="tooltip" title=""><a data-toggle="pill" href="#menu1" class="trans"><i
+                                        class="fa fa-sliders" aria-hidden="true"></i></a></li>
+                            <li><a data-toggle="pill" href="#menu2" class="trans">Header</a></li>
+                            <li><a data-toggle="pill" href="#menu3" class="trans">Footer</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content form_edit">
+                        <div id="editProperty" class="tab-pane fade in active">
+                            <div class="accordion" id="faq">
+                                <div class="card">
+                                    <div class="card-header" id="infohead">
+                                        <a href="#" class="btn btn-header-link" data-toggle="collapse"
+                                            data-target="#inof" aria-expanded="true" aria-controls="faq1">
+                                            <p>INFO</p> <i class="fa fa-chevron-down trans" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div id="inof" class="collapse show" aria-labelledby="infohead" data-parent="#faq">
+                                        <div class="card-body">
+                                            <div class="basic_info">
+                                                <div class="form-group comform-group">
+                                                    <label for="name" class="label">
+                                                        Form Name
+                                                    </label>
+                                                    <input type="text" class="form-control" id="name" readonly>
+                                                </div>
+                                                <div class="form-group comform-group">
+                                                    <label for="name" class="label">
+                                                        Type
+                                                    </label>
+                                                    <input type="text" class="form-control" id="name" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="label_setting">
+                                                <p class="labheading">Label</p>
+                                                <div class="hidentext">
+                                                    <div class="form-group hd-wraper">
+                                                        <label for="hidden" class="label">
+                                                            Hidden
+                                                        </label>
+                                                        <input type="checkbox" class="form-control switch_1"
+                                                            id="hidden">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="labeltext" class="label">
+                                                            Text
+                                                        </label>
+                                                        <input type="text" class="form-control" id="labeltext">
+                                                    </div>
+                                                </div>
+                                                <div class="swc-block">
+                                                    <div class="form-group">
+                                                        <label for="size" class="label">
+                                                            Size
+                                                        </label>
+                                                        <input type="number" min="1" max="20" class="form-control"
+                                                            id="size">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="weight" class="label">
+                                                            Weight
+                                                        </label>
+                                                        <input type="number" class="form-control" id="weight">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="color" class="label">
+                                                            Color
+                                                        </label>
+                                                        <input id="color" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="aling-wrapper">
+                                                    <span class="label">Alingment</span>
+                                                    <div class="aling-block">
+                                                        <a class="left"><i class="fa fa-align-left"
+                                                                aria-hidden="true"></i></a>
+                                                        <a class="center"><i class="fa fa-align-center"
+                                                                aria-hidden="true"></i></a>
+                                                        <a class="right"><i class="fa fa-align-right"
+                                                                aria-hidden="true"></i></a>
+                                                        <a class="iwidthset"><i class="fa fa-align-left"
+                                                                aria-hidden="true"></i><i class="fa fa-align-left"
+                                                                aria-hidden="true"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tooltip-wrapper">
+                                                <p class="labheading">Tooltip</p>
+                                                <div class="tooltip-block">
+                                                    <div class="form-group hd-wraper">
+                                                        <label for="visibility" class="label"> Visibility </label>
+                                                        <input type="checkbox" id="visibility" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="visibilitytext" class="label"> Text </label>
+                                                        <input type="text" id="visibilitytext" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="generic-wrapper">
+                                                <p class="labheading">Generic</p>
+                                                <div class="generic-block">
+                                                    <div class="form-group">
+                                                        <label for="readonly" class="label"> Read only </label>
+                                                        <input type="checkbox" id="readonly"
+                                                            class="form-control switch_1">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="required" class="label"> Required </label>
+                                                        <input type="checkbox" id="required"
+                                                            class="form-control switch_1">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="genhidden" class="label"> Hidden </label>
+                                                        <input type="checkbox" id="genhidden"
+                                                            class="form-control switch_1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="propertyhead">
+                                        <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse"
+                                            data-target="#property" aria-expanded="true" aria-controls="faq2">
+                                            <p>Property</p> <i class="fa fa-chevron-down trans" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div id="property" class="collapse show" aria-labelledby="propertyhead"
+                                        data-parent="#faq">
+                                        <div class="card-body">
+                                            <ul class="property-wrapper">
+                                                <li class="form-group inputtheme">
+                                                    <span>Theme</span>
+                                                    <div class="inputcolor form-control">
+                                                        <input id="color3" class="form-control" readonly />
+                                                    </div>
+                                                </li>
+                                                <li class="form-group inputplace">
+                                                    <span>Placeholder</span>
+                                                    <input type="text" placeholder="" class="form-control" />
+                                                </li>
+                                                <li class="form-group inputtype">
+                                                    <span>Input Type</span>
+                                                    <select class="form-control">
+                                                        <option>text</option>
+                                                        <option>email</option>
+                                                        <option>number</option>
+                                                        <option>tel</option>
+                                                        <option>url</option>
+                                                        <option>password</option>
+                                                    </select>
+                                                </li>
+                                                <li class="form-group inputmin">
+                                                    <span>Min Character</span>
+                                                    <input type="number">
+                                                </li>
+                                                <li class="form-group inputtmax">
+                                                    <span>Max Character</span>
+                                                    <input type="number">
+                                                </li>
+                                                <div class="aling-wrapper">
+                                                    <span class="label">Input Width</span>
+                                                    <div class="aling-block">
+                                                        <a class="left"><i class="fa fa-align-left"
+                                                                aria-hidden="true"></i></a>
+                                                        <a class="center"><i class="fa fa-align-center"
+                                                                aria-hidden="true"></i></a>
+                                                        <a class="right"><i class="fa fa-align-right"
+                                                                aria-hidden="true"></i></a>
+
+                                                    </div>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu1" class="tab-pane fade in">
+                            SDDSSDSDEEEFCDFE
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+</div> -->

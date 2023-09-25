@@ -1,0 +1,119 @@
+.panel-group {
+    padding: 10px 10px 10px;
+}
+
+.divder {
+    width: 100%;
+    height: 1px;
+    background: #bfbfbf;
+    margin: 1rem 0;
+}
+
+#divder_field {
+    min-height: auto;
+    max-height: inherit;
+}
+
+
+.phara_list {
+    padding: 10px 0;
+}
+
+.rkadde-block textarea {
+    widows: 100%;
+    min-height: 50px;
+    background: #fff
+}
+
+.rkadde-block > div {
+    display: flex;
+    align-items: center;
+}
+
+    .rkadde-block > div .example-full-width {
+        flex: 0 0 60%;
+        background: #fff;
+    }
+
+.rkadde-block .approval-button {
+    flex: 0 0 40%;
+    padding-left: 20px;
+}
+
+    .rkadde-block .approval-button > input:nth-last-child(2) {
+        margin-right: 10px;
+        background: #07a707;
+        color: #fff;
+    }
+
+.plrt0 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.container100 {
+    width: 100%;
+    padding: 0 15px;
+}
+
+    .container100 .mat-form-field {
+        padding: 10px 10px 0 10px;
+    }
+
+.typecheckbox label,
+.typeradio label {
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+}
+
+.typecheckbox,
+.typeradio {
+    padding: 10px 10px 0;
+    height: 49px;
+}
+
+    .typecheckbox .d-flex,
+    .typeradio .d-flex {
+        display: flex;
+        text-align: left;
+        flex-wrap: wrap;
+    }
+
+.radiolistgroup {
+    margin: 0 10px 0 0;
+}
+
+.fieldes > div {
+    margin-bottom: 10px;
+}
+ 
+td {
+    text-align: center;
+    padding:10px;
+}
+
+th {
+    text-align: center;
+}
+
+.mat-radio-button{
+    margin-right: 5px;
+}
+
+
+[type="checkbox"].checkboxAll {
+    position: initial;
+    opacity: initial;
+}
+
+[type="checkbox"].checkboxAll2 {
+    position: initial;
+    opacity: initial;
+}
+[type="radio"].radioAll{
+    position: initial;
+    opacity: initial;
+    margin:0 5px;
+}
+

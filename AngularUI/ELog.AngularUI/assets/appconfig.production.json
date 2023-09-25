@@ -1,0 +1,22 @@
+{
+  "remoteServiceBaseUrl": "http://localhost:21021",
+  "appBaseUrl": "http://localhost:4200",
+  "Environment": "Prod",
+  "buildVersion":"1.0.0.20211210",
+  "externalAuthProvider": {
+  },
+  "localeMappings": [
+    {
+      "from": "pt-BR",
+      "to": "pt"
+    },
+    {
+      "from": "zh-CN",
+      "to": "zh"
+    },
+    {
+      "from": "he-IL",
+      "to": "he"
+    }
+  ]
+}

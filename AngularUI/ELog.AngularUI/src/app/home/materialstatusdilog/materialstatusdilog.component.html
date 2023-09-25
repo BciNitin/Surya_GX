@@ -1,0 +1,54 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-20">
+        <div class="card main-content">
+            <!-- <button class="btn filter-back-button pull-right"  (click)="close()">X</button> -->
+            <div class="row user-component-content row-filter-container">
+                <div class="col-12">
+                    <h2 class="title">{{ "Material Status Alert Message" | localize }}</h2>
+                </div>
+            </div>
+            <div class="body table-responsive" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                 [scrollWindow]="false" [ngClass]="{'table-scroll':MaterialStatusDtoList?.length != 0}">
+                <table class="table table-hover table-striped table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="th-center-align">{{ "Material Code" | localize}}</th>
+                            <th class="th-center-align">{{ "Material Description" | localize }}</th>
+                            <th class="th-center-align">{{ "SAP Batch No    " | localize }}</th>
+                            <th class="th-center-align">{{ "Mfg Date" | localize }}</th>
+                            <th class="th-center-align">{{ "Exp Date" | localize }}</th>
+                            <th class="th-center-align">{{ "Remaining days left for Expiry" | localize }}</th>
+                            <th class="th-center-align">{{ "Retest Date/In-House Retest Date" | localize }}</th>
+                            <th class="th-center-align">{{ "Remaining days left for Retest" | localize }}</th>
+                            <th class="th-center-align">{{ "View" | localize }}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let materialList of MaterialStatusDtoList">
+                            <td class="td-center-align ">{{materialList.materialCode}}</td>
+                            <td class="td-center-align">{{materialList.materialDescription}}</td>
+                            <td class="td-center-align">{{materialList.sapBatchNo}}</td>
+                            <td class="td-center-align">{{materialList.mfgDate | date:'dd/MM/yyyy'}}</td>
+                            <td class="td-center-align">{{materialList.expiryDate | date:'dd/MM/yyyy'}}</td>
+                            <td class="td-center-align font-bold"   [style.background]="materialList.daysLeftForExpiry >'15'? '#65E765':'yellow'">{{materialList.daysLeftForExpiry}}</td>
+                            <td class="td-center-align ">{{materialList.retestDate| date:'dd/MM/yyyy'}}</td>
+                            <td class="td-center-align font-bold" [style.background]="materialList.daysLeftForRetest >'15'? '#65E765':'yellow'">{{materialList.daysLeftForRetest }}</td>
+                            <td class="td-center-align remove-td-padding">
+                                <i matTooltip="View" (click)="GoToViewMaterialDeatils(materialList.id,materialList.sapBatchNo)"
+                                    class="material-icons material-icon-action"
+                                    >visibility</i>
+                            </td>
+                        </tr>
+                        <tr *ngIf="MaterialStatusDtoList?.length == 0">
+                            <td colspan="5" class="no-data-available">No data to display.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn filter-back-button pull-right" (click)="close()">
+                OK
+            </button>
+        </div>
+</div>
+</div>

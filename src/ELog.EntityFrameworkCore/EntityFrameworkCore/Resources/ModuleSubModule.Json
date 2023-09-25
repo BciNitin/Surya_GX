@@ -1,0 +1,281 @@
+[
+  {
+    "ModuleName": "Admin",
+    "SubModuleName": "User",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Admin",
+    "SubModuleName": "Role",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Admin",
+    "SubModuleName": "Password",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Admin",
+    "SubModuleName": "Module",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Admin",
+    "SubModuleName": "SubModule",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "Plant",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "Gate",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "Location",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "Cubicle",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "Equipment",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "Calendar",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "HandlingUnit",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "UnitOfMeasurement",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "StandardWeightBox",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "StandardWeight",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "Department",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "Area",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "WeighingMachine",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsApprovalRequired": 0,
+    "IsMandatory": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "Checklist",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "Device",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "ChecklistType",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "ActivityMaster",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "VehicleInspectionReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "MaterialInspectionReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "AllocationReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "CubicleAssignmentReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "PickingReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "CubicleCleaningReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "EquipmentCleaningReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "LineClearanceReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "DispensingReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "DispensingTrackingReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "WeighingCalibrationReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Report",
+    "SubModuleName": "DispatchReport",
+    "IsSelected": 1,
+    "IsDeleted": 0,
+    "IsMandatory": 1,
+    "IsApprovalRequired": 0
+  },
+  {
+    "ModuleName": "Master",
+    "SubModuleName": "PRNFileMaster",
+    "IsSelected": 0,
+    "IsDeleted": 0,
+    "IsMandatory": 0,
+    "IsApprovalRequired": 0
+  }
+]

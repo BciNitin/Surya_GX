@@ -1,0 +1,784 @@
+<!-- <link rel="stylesheet" href="../../assets/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<div class="siteWrap">
+  <section class="admin-wrapper">
+    <div class="heighthh">
+      <!-- =========================left panel start ============================-->
+      <section class="lpanel-wrapper">
+        <a class="addElement trans">
+          <p>Add Form Element</p> <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+        <div class="heading">
+          <p>Form Elements</p><span class="closeElement material-symbols-outlined">
+            close
+          </span>
+        </div>
+        <ul class="field-list">
+          <li role="button"  class="field-item" id="field-item-head" data-fieldname="Heading"  (click)="showFields('single_input_text')">
+          <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Heading</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-text" data-fieldname="Input text" (click)="showFields('input_email')">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Input text</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-email" data-fieldname="Email" (click)="showFields('single_input_text')">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Email</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-number" data-fieldname="Number">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Number</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-phone" data-fieldname="Phone">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Phone</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-number" data-fieldname="Number">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Number</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-phone" data-fieldname="Phone">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Phone</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-number" data-fieldname="Number">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Number</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-phone" data-fieldname="Phone">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Phone</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-number" data-fieldname="Number">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Number</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-phone" data-fieldname="Phone">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Phone</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-number" data-fieldname="Number">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Number</p>
+          </li>
+          <li role="button" class="field-item" id="field-item-phone" data-fieldname="Phone">
+            <span>
+              <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.5 6.5H2.5C1.39543 6.5 0.5 7.39543 0.5 8.5V18.5C0.5 19.6046 1.39543 20.5 2.5 20.5H17.5C18.6046 20.5 19.5 19.6046 19.5 18.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5Z"
+                  stroke="#fff" stroke-dasharray="3 1" />
+                <path
+                  d="M22 0H7C5.89543 0 5 0.89543 5 2V13C5 14.1046 5.89543 15 7 15H22C23.1046 15 24 14.1046 24 13V2C24 0.89543 23.1046 0 22 0Z"
+                  fill="#fff" />
+                <path
+                  d="M22 1.5H7C6.72386 1.5 6.5 1.72386 6.5 2V13C6.5 13.2761 6.72386 13.5 7 13.5H22C22.2761 13.5 22.5 13.2761 22.5 13V2C22.5 1.72386 22.2761 1.5 22 1.5Z"
+                  stroke="#fff" stroke-width="3" />
+              </svg>
+            </span>
+            <p>Phone</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ============================left panel end ============================-->
+      <!-- =========================middle panel start ============================-->
+      <section class="middle-wrapper">
+        <div class="form-wrapper">
+          <div class="formheader">
+            <label for="formname">Form Name* </label>
+            <input id="formname" class="formname" type="text" placeholder="Please enter form name">
+          </div>
+          <!-- <form id="creator" class="creator width50 sortable" style="width: 100%;max-width:100%">
+            <div class="form-group ui-state-default" id>
+              <label for="date" class>
+                <p class="lbtx">Date</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="date" class="form-control" id="date" aria-describedby="emailHelp"
+                placeholder="Write here...">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group ui-state-default active" id>
+              <label for="room" class>
+                <p class="lbtx">Room No</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="room" placeholder="Enter Room No">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group ui-state-default" id>
+              <label for="equipment" class>
+                <p class="lbtx">Equipment No/Identification No</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="equipment" placeholder="Equipment No/Identification No">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group ui-state-default" id>
+              <label for="meter" class>
+                <p class="lbtx">Lux Meter Code No</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="meter" placeholder="Lux Meter Code No">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group ui-state-default" id>
+              <label for="meter" class>
+                <p class="lbtx">Lux Meter Code No</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="meter" placeholder="Lux Meter Code No">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div  id="accordion3" class=" panel-group ng-tns-c306-0"
+              style="flex: 0 0 100%;overflow-x: scroll;">
+              <div  class=" panel panel-default ng-tns-c306-0">
+                <div  class="gray-panel-header  panel-heading ng-tns-c306-0">
+                  <h4  class="dark-text  panel-title ng-tns-c306-0"><a
+                       data-toggle="collapse" data-parent="#accordion3" href="#collapse3"
+                      aria-expanded="true" class=" ng-tns-c306-0">Readings (LUX)</a></h4>
+                </div>
+                <div  id="collapse3" aria-expanded="true"
+                  class="dark-text  panel-collapse ng-tns-c306-0 collapse in" style="">
+                  <div  class=" panel-body table-responsive ng-tns-c306-0">
+                    <table _ngcontent-dkh-c306=""
+                      class=" table table-bordered table-hover table-sm table-striped ng-tns-c306-0">
+                      <thead  class=" ng-tns-c306-0">
+                        <tr  class=" ng-tns-c306-0">
+                          <th  class=" th-center-align ng-tns-c306-0">1</th>
+                          <th  class=" th-center-align ng-tns-c306-0">2</th>
+                          <th  class=" th-center-align ng-tns-c306-0">3</th>
+                          <th  class=" th-center-align ng-tns-c306-0">4</th>
+                          <th  class=" th-center-align ng-tns-c306-0">5</th>
+                        </tr>
+                        <tr  class=" ng-tns-c306-0">
+                          <th  class=" th-center-align ng-tns-c306-0"><input
+                              type="text" place="" placeholder="jkskds" max-width:="" style="
+                  max-width: 100px;
+              "></th>
+                          <th  class=" th-center-align ng-tns-c306-0"><input
+                              type="text" place="" placeholder="jkskds" style="
+                  max-width: 100px;
+              "></th>
+                          <th  class=" th-center-align ng-tns-c306-0"><input
+                              type="text" place="" placeholder="jkskds" style="
+                  max-width: 100px;
+              "></th>
+                          <th  class=" th-center-align ng-tns-c306-0"><input
+                              type="text" place="" placeholder="jkskds" style="
+                  max-width: 100px;
+              "></th>
+                          <th  class=" th-center-align ng-tns-c306-0"><input
+                              type="text" place="" placeholder="jkskds" style="
+                  max-width: 100px;
+              "></th>
+                        </tr>
+                      </thead>
+                      <tbody  class=" ng-tns-c306-0"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group ui-state-default" id>
+              <label for="average" class>
+                <p class="lbtx">Average Reading (Lux)</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="average" placeholder="Average Reading (Lux)">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group ui-state-default" id>
+              <label for="comlies" class>
+                <p class="lbtx">Complies / Not Complies</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="comlies" placeholder="Complies / Not Complies">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group ui-state-default" id>
+              <label for="due" class>
+                <p class="lbtx">Due on (Date)</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="due" placeholder="Due on (Date)">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group ui-state-default" id>
+              <label for="donedate" class>
+                <p class="lbtx">Done By Sign/Date</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="donedate" placeholder="Done By Sign/Date">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group ui-state-default" id>
+              <label for="checckedsign" class>
+                <p class="lbtx">Checked By Sign/Dat</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="checckedsign" placeholder="Checked By Sign/Dat">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+
+            <div class="form-group ui-state-default" id>
+              <label for="verifiedqa" class>
+                <p class="lbtx">Verified By (QA) Sign/Date</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="verifiedqa" placeholder="Verified By (QA) Sign/Date">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group ui-state-default" id>
+              <label for="remark" class>
+                <p class="lbtx">Remark</p>
+                <span class="lbrq">*</span>
+              </label>
+              <input type="text" class="form-control" id="remark" placeholder="Remark">
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+          </form> -->
+
+
+       <form id="creator" class="creator sortable">
+ 
+<!-- <div [innerHTML]='htmlcode'></div> -->
+<div #div ></div>
+            <!-- <div class="form-group ui-state-default itemEmail" id>
+              <label for="InputEmail" class>
+                <p class="lbtx">Email address</p>
+                <span class="lbrq">*</span>
+                <span class="lbtt"></span>
+              </label>
+              <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp"
+                placeholder="Write here...">
+              <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+              <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group ui-state-default itemText" id>
+              <label for="Inputtext" class>
+                <p class="lbtx">Name</p>
+                <span class="lbrq">*</span>
+                <span class="lbtt"></span>
+              </label>
+              <input type="text" class="form-control" id="Inputtext" aria-describedby
+                placeholder="Write here...">
+              <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+              <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+              <div class="editdelete trans">
+                <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            
+              <div class="form-group ui-state-default itemPhone" id>
+                <label for="Inputtel" class>
+                  <p class="lbtx">Phone</p>
+                  <span class="lbrq">*</span>
+                  <span class="lbtt"></span>
+                </label>
+                <input type="tel" min="1" maxlength="10" class="form-control" id="Inputtel" aria-describedby
+                  placeholder="Write here..." pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+                <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                <div class="editdelete trans">
+                  <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                  <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                </div>
+              </div>
+              <div class="form-group ui-state-default itemNuber" id>
+                <label for="Inputnumber" class>
+                  <p class="lbtx">Number</p>
+                  <span class="lbrq">*</span>
+                  <span class="lbtt"></span>
+                </label>
+                <input type="number" min="1" max class="form-control" id="Inputnumber" aria-describedby
+                  placeholder="Write here...">
+                <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                <div class="editdelete trans">
+                  <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                  <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                </div>
+              </div>
+              <div class="form-group ui-state-default itemPassword" id>
+                <label for="Inputpassword" class>
+                  <p class="lbtx">Password</p>
+                  <span class="lbrq">*</span>
+                  <span class="lbtt"></span>
+                </label>
+                <input type="password"  class="form-control" id="Inputpassword" aria-describedby
+                  placeholder="Write here...">
+                <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                <div class="editdelete trans">
+                  <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                  <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                </div>
+              </div>
+              <div class="form-group ui-state-default itemNumber" id>
+                <label for="Inputnumber" class>
+                  <p class="lbtx">Number</p>
+                  <span class="lbrq">*</span>
+                  <span class="lbtt"></span>
+                </label>
+                <input type="number" min="1" max class="form-control" id="Inputnumber" aria-describedby
+                  placeholder="Write here...">
+                <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                <div class="editdelete trans">
+                  <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                  <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                </div>
+              </div>
+              <div class="form-group ui-state-default itemPassword" id>
+                <label for="Inputpassword" class>
+                  <p class="lbtx">Password</p>
+                  <span class="lbrq">*</span>
+                  <span class="lbtt"></span>
+                </label>
+                <input type="password"  class="form-control" id="Inputpassword" aria-describedby
+                  placeholder="Write here...">
+                <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                <div class="editdelete trans">
+                  <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                  <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                </div>
+              </div>
+              <div class="form-group ui-state-default itemButton" id>
+                <input type="button"  class="form-control" id="Inputbutton" aria-describedby
+                  placeholder="Button" value="Button">
+                <div class="editdelete trans">
+                  <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                  <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                </div>
+              </div> -->
+
+          </form>
+        </div>
+      </section>
+      <!-- =========================middle panel end ============================-->
+      <!-- right panel start -->
+      <section class="rpanel-wrapper">
+        <div class="theme_setting">
+          <ul class="nav nav-pills ">
+            <li class="active" data-toggle="tooltip" title=" "><a data-toggle="pill" href="#editProperty"
+                class="trans active"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
+            <li data-toggle="tooltip" title><a data-toggle="pill" href="#menu1" class="trans"><i class="fa fa-sliders"
+                  aria-hidden="true"></i></a></li>
+            <!-- <li><a data-toggle="pill" href="#menu2" class="trans">Header</a></li>
+              <li><a data-toggle="pill" href="#menu3" class="trans">Footer</a></li> -->
+          </ul>
+        </div>
+        <div class="tab-content form_edit">
+          <!-- <div id="home" class="tab-pane fade in active">
+              <ul class="nav nav-pills ">
+                <li class="active" data-toggle="tooltip" title="Property"><a data-toggle="pill" href="#info"
+                    class="trans active">info</a></li>
+                <li data-toggle="tooltip" title="Form Design"><a data-toggle="pill" href="#property" class="trans">property</a></li>
+              </ul>
+              <div class="tab-content form_edit">
+                <div id="info" class="tab-pane fade in">saadsdededede</div>
+                <div id="property" class="tab-pane fade in ">Popertyynsbabssdededede</div>
+              </div>
+            </div> -->
+          <div id="editProperty" class="tab-pane fade in active">
+            <!-- <div class="container">
+    
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Collapsible Group 1</a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Collapsible Group 2</a>
+          </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Collapsible Group 3</a>
+          </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+        </div>
+      </div>
+    </div> 
+  </div> -->
+            <div class="accordion" id="faq">
+              <div class="card">
+                <div class="card-header" id="infohead">
+                  <a href="javascript:void(0)" class="btn btn-header-link" data-toggle="collapse" data-target="#inof"
+                    aria-expanded="true" aria-controls="faq1">
+                    <p>INFO</p> <i class="fa fa-chevron-down trans" aria-hidden="true"></i>
+                  </a>
+                </div>
+                <div id="inof" class="collapse show" aria-labelledby="infohead" data-parent="#faq">
+                  <div class="card-body">
+                    <div class="basic_info">
+                      <div class="form-group comform-group">
+                        <label for="name" class="labels">
+                          Form Name
+                        </label>
+                        <input type="text" class="form-control" id="name" readonly>
+                      </div>
+                      <div class="form-group comform-group">
+                        <label for="name" class="labels">
+                          Type
+                        </label>
+                        <input type="text" class="form-control" id="name" readonly>
+                      </div>
+                    </div>
+                    <div class="label_setting">
+                      <p class="labheading">Label</p>
+                      <div class="hidentext">
+                        <div class="form-group hd-wraper">
+                          <label for="hidden" class="labels">
+                            Hidden
+                          </label>
+                          <input type="checkbox" class="form-control switch_1" id="hidden">
+                        </div>
+                        <div class="form-group">
+                          <label for="labeltext" class="labels">
+                            Text
+                          </label>
+                          <input type="text" class="form-control" id="labeltext">
+                        </div>
+                      </div>
+                      <div class="swc-block">
+                        <div class="form-group">
+                          <label for="size" class="labels">
+                            Size
+                          </label>
+                          <input type="number" min="1" max="20" class="form-control" id="size">
+                        </div>
+                        <div class="form-group">
+                          <label for="weight" class="labels">
+                            Weight
+                          </label>
+                          <input type="number" class="form-control" id="weight">
+                        </div>
+                        <div class="form-group">
+                          <label for="color" class="labels">
+                            Color
+                          </label>
+                          <input id="color" class="form-control" />
+                        </div>
+                      </div>
+                      <div class="aling-wrapper">
+                        <span class="labels">Alingment</span>
+                        <div class="aling-block">
+                          <a class="left"><i class="fa fa-align-left" aria-hidden="true"></i></a>
+                          <a class="center"><i class="fa fa-align-center" aria-hidden="true"></i></a>
+                          <a class="right"><i class="fa fa-align-right" aria-hidden="true"></i></a>
+                          <a class="iwidthset"><i class="fa fa-align-left" aria-hidden="true"></i><i
+                              class="fa fa-align-left" aria-hidden="true"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tooltip-wrapper">
+                      <p class="labheading">Tooltip</p>
+                      <div class="tooltip-block">
+                        <div class="form-group hd-wraper">
+                          <label for="visibility" class="labels"> Visibility </label>
+                          <input type="checkbox" id="visibility" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="visibilitytext" class="labels"> Text </label>
+                          <input type="text" id="visibilitytext" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="generic-wrapper">
+                      <p class="labheading">Generic</p>
+                      <div class="generic-block">
+                        <div class="form-group">
+                          <label for="readonly" class="labels"> Read only </label>
+                          <input type="checkbox" id="readonly" class="form-control switch_1">
+                        </div>
+                        <div class="form-group">
+                          <label for="required" class="labels"> Required </label>
+                          <input type="checkbox" id="required" class="form-control switch_1">
+                        </div>
+                        <div class="form-group">
+                          <label for="genhidden" class="labels"> Hidden </label>
+                          <input type="checkbox" id="genhidden" class="form-control switch_1">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="propertyhead">
+                  <a href="javascript:void(0)" class="btn btn-header-link collapsed" data-toggle="collapse"
+                    data-target="#property" aria-expanded="true" aria-controls="faq2">
+                    <p>Property</p> <i class="fa fa-chevron-down trans" aria-hidden="true"></i>
+                  </a>
+                </div>
+                <div id="property" class="collapse show" aria-labelledby="propertyhead" data-parent="#faq">
+                  <div class="card-body">
+                    <ul class="property-wrapper">
+                      <li class="form-group inputtheme">
+                        <span>Theme</span>
+                        <div class="inputcolor form-control">
+                          <input id="color3" class="form-control" readonly />
+                          <!-- <label for="color3" [textContent]="colorList2[0].value" readonly></label> -->
+                        </div>
+                      </li>
+                      <li class="form-group inputplace">
+                        <span>Placeholder</span>
+                        <input type="text" placeholder class="form-control" />
+                      </li>
+                      <li class="form-group inputtype">
+                        <span>Input Type</span>
+                        <select class="form-control">
+                          <option>text</option>
+                          <option>email</option>
+                          <option>number</option>
+                          <option>tel</option>
+                          <option>url</option>
+                          <option>password</option>
+                        </select>
+                      </li>
+                      <li class="form-group inputmin">
+                        <span>Min Character</span>
+                        <input type="number">
+                      </li>
+                      <li class="form-group inputtmax">
+                        <span>Max Character</span>
+                        <input type="number">
+                      </li>
+                      <div class="aling-wrapper">
+                        <span class="labels">Input Width</span>
+                        <div class="aling-block">
+                          <a class="left"><i class="fa fa-align-left" aria-hidden="true"></i></a>
+                          <a class="center"><i class="fa fa-align-center" aria-hidden="true"></i></a>
+                          <a class="right"><i class="fa fa-align-right" aria-hidden="true"></i></a>
+
+                        </div>
+                      </div>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="menu1" class="tab-pane fade in">
+            SDDSSDSDEEEFCDFE
+          </div>
+        </div>
+      </section>
+      <!-- ============================right panel end ============================-->
+    </div>
+  </section>
+</div>

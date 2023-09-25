@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pmms-angular-deployment
+  labels:
+    app: pmmsangular
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pmmsangular
+  template:
+    metadata:
+      labels:
+        app: pmmsangular
+    spec:
+      containers:
+      - name: pmmsangular
+        image: #{dockerRepoUrl}#/#{dockerRepoName}#:angular-#{Build.BuildId}#
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: pmmsk8sdockerauth
+---
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: pmms-angular-service
+    labels:
+      app: pmmsangular
+  spec:
+    ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30011
+      protocol: TCP
+      name: http
+    selector:
+      app: pmmsangular
+    type: LoadBalancer

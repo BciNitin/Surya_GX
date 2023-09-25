@@ -1,0 +1,2385 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="siteWrap">
+    <ul class="header-block">
+        <li class="hedleft d-flex align-items-center">
+            <a href="javascript:void(0)" class="logo-block">
+                <img src="../../assets/images/elog/gx-logo.png" alt="Bar Code India Limited">
+            </a>
+            <div class="logname-block">{{formName}}</div>
+        </li>
+        <li class="hedmidd d-flex align-items-center ">
+            <div class="autosave-block autosave-block d-flex align-items-center">
+                <img src="../../assets/images/elog/download.png" alt="Bar Code India Limited">
+                <p>Autosaved at {{autosavetime   | date: "hh:mm"}}</p>
+            </div>
+            <ul class="undo-block d-flex align-items-center">
+                <li class="undo">
+                    <svg width="20" height="20" viewBox="0 0 20 20">
+
+                        <g id="Group_660" data-name="Group 660" transform="translate(8696 1383)">
+                            <rect id="Rectangle_898" data-name="Rectangle 898" class="svgfill-none" width="20" height="20" transform="translate(-8696 -1383)" />
+                            <path id="shape_SHAPE:shapes_02._Arrows_Arrow_-_U-shaped_" data-name="shape [SHAPE:shapes/02. Arrows/Arrow - U-shaped]" class="svgfill" d="M1608.816,1012.783h0c.856,0,1.714,0,2.57,0a5.034,5.034,0,0,1,2.119.373,4.119,4.119,0,0,1,1.1,6.776,3.989,3.989,0,0,1-1.756.96,10.213,10.213,0,0,1-2.405.139h-2.856v-1.576h1.251c.626,0,1.252,0,1.877.013a6.613,6.613,0,0,0,1.682-.1,2.53,2.53,0,0,0,.642-4.68,3.524,3.524,0,0,0-1.79-.327c-.81,0-1.622,0-2.432,0v1.748l-4.393-2.536,4.393-2.536Z" transform="translate(-10296.423 -2389.035)" />
+                        </g>
+                    </svg>
+                </li>
+                <li class="redo">
+                    <svg width="20" height="20" viewBox="0 0 20 20">
+                        <g id="Group_663" data-name="Group 663" transform="translate(8652 1358)">
+                            <rect id="Rectangle_900" data-name="Rectangle 900" class="svgfill-none" width="20" height="20" transform="translate(-8652 -1358)" />
+                            <path id="shape_SHAPE:shapes_02._Arrows_Arrow_-_U-shaped_" data-name="shape [SHAPE:shapes/02. Arrows/Arrow - U-shaped]" class="svgfill" d="M1611.532,1012.783h0c-.856,0-1.714,0-2.57,0a5.034,5.034,0,0,0-2.119.373,4.119,4.119,0,0,0-1.1,6.776,3.989,3.989,0,0,0,1.756.96,10.213,10.213,0,0,0,2.405.139h2.856v-1.576h-1.251c-.626,0-1.252,0-1.877.013a6.613,6.613,0,0,1-1.682-.1,2.53,2.53,0,0,1-.642-4.68,3.524,3.524,0,0,1,1.79-.327c.81,0,1.622,0,2.432,0v1.748l4.393-2.536-4.393-2.536Z" transform="translate(-10252.423 -2364.035)" />
+                        </g>
+                    </svg>
+                </li>
+            </ul>
+        </li>
+        <li class="hedright text-right">
+            <ul class=" d-flex align-items-center">
+                <!-- <li data-toggle="modal" (click)="getPreviewModal()" data-target="#previewModal">Preview</li> -->
+                <li data-toggle="modal" (click)="showPreview()" data-target="#previewModal">Preview</li>
+                <li>
+
+                    <!-- <button type="submit" *ngIf="fieldLength" class="btn btn-primary form-control">Submit</button> -->
+                    <a class="" id="publish" (click)="saveOrUpdate()">Save</a>
+                    <ul class="subpublish">
+                        <li>All Done?</li>
+                        <li>Publish Now</li>
+                        <li>Unpublish</li>
+                    </ul>
+                </li>
+                <li class="user">
+                    <a class="" href="javascript:void(0)">
+                        <span class="material-symbols-outlined">account_circle</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <section class="admin-wrapper">
+        <div class="heighthh">
+            <!-- =========================left panel start ============================-->
+            <section class="lpanel-wrapper panel-group scroll" id="accordion2">
+                <div class="fprop-wrapper panel panel-default">
+                    <div class="com-tabing">
+                        <a class="d-flex card-links" data-toggle="collapse" data-parent="#accordion2" href="#logProperties" aria-expanded="true">
+                            <svg width="6" height="8" viewBox="0 0 6 8" class="trans">
+                                <path id="Polygon_2" data-name="Polygon 2" class="svgfill" d="M4,0,8,6H0Z" transform="translate(6) rotate(90)" />
+                            </svg>
+                            <p>Log Properties</p>
+                        </a>
+                    </div>
+
+                    <div class="fprop-section scroll panel-collapse collapse in" id="logProperties">
+                        <form id="form-name" class="">
+                            <div class="form-group p3">
+                                <label for="formName" class="flabel">
+                                    <p class="lbtx fontfamli1">Form Name *</p>
+                                    <span class="lbrq fontfamli1">Required</span>
+                                </label>
+                                <input type="text" class="form-control" (change)="setFormName($event.target)" id="formName" [(ngModel)]="formName" [ngModelOptions]="{standalone: true}" placeholder="Write here...">
+                                <small *ngIf="formNameError == true" class="alert alert-danger">form name already exists</small>
+                            </div>
+                            <div class="form-group p3 depart-wrapper" style="display: none">
+                                <label for="department" class="com-label fontfamli1">Department</label>
+                                <select>
+                                    <option>Production</option>
+                                    <option>Water</option>
+                                    <option>Engineering</option>
+                                </select>
+                            </div>
+                            <div class="divder"> </div>
+                            <div class="act-expire p3">
+                                <div class="active-wrapper align-items-center">
+                                    <input type="checkbox" [(ngModel)]="isformstatus" (click)="SetFormActive($event)" class="form-control switch_1" id="active" [ngModelOptions]="{standalone: true}">
+                                    <label for="active" class="com-label fontfamli1">
+                                        Active
+                                    </label>
+                                </div>
+                                <p class="ar-dates trans">
+                                    <a class="active trans fontfamli1">Add start &amp; End Dates</a>
+                                    <a class="unactive trans fontfamli1">Remove start &amp; End Dates</a>
+                                </p>
+                                <!--
+                                                                  <div class="form-group expiry-date">
+                                                                      <label for="expirydate" class="com-label">
+                                                                          Expiry Date
+                                                                      </label>
+                                                                      <input type="date" class="form-control" id="expirydate">
+                                                                  </div>
+                                -->
+                            </div>
+                            <div class="form-group p3">
+                                <ul class="datetime">
+                                    <li class="d-flex align-items-center startdate">
+                                        <label for="startdate" class="com-label fontfamli1">Activation date</label>
+                                        <input type="datetime-local" [(ngModel)]="formstartdate" id="startdate" class="form-control" (change)="SetFormStartDate($event.target)" [ngModelOptions]="{standalone: true}">
+                                    </li>
+
+                                </ul>
+                                <ul class="datetime">
+                                    <li class="d-flex align-items-center enddate">
+                                        <label for="enddate" class="com-label fontfamli1">Deactivation date</label>
+                                        <input type="datetime-local" id="enddate" class="form-control" [(ngModel)]="formenddate" [ngModelOptions]="{standalone: true}" (change)="SetFormEndDate($event.target)">
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="form-group p3 d-flex align-items-center frequencyf-block">
+                                <label _ngcontent-the-c1="" class="com-label fontfamli1" for="pcolor">
+                                    Input Frequency
+                                </label>
+                                <input _ngcontent-cko-c1="" class="form-control switch_1" id="active" type="checkbox">
+                                <p class="onoff com-label fontfamli1">On / Off</p>
+                                <!-- <select (change)="setfrequesncy($event.target)">
+                                    <option>Choose Option</option>
+                                    <option>Single</option>
+                                    <option>Multiple</option>
+                                </select> -->
+                            </div>
+                            <div class="divder" style="display:none"></div>
+                            <div class="form-group p3 log-access-block" style="display:none">
+                                <h2 class="heading1 fontfamli1">Log Access</h2>
+                                <ul class="log-access">
+                                    <li class="levels">
+                                        <select>
+                                            <option>Level 1</option>
+                                            <option>Level 2</option>
+                                            <option>Level 3</option>
+                                        </select>
+                                    </li>
+                                    <li class="vep">
+                                        <select>
+                                            <option>Level 1</option>
+                                            <option>Level 1</option>
+                                        </select>
+                                    </li>
+                                    <li class="addbutton fontfamli1">+</li>
+                                </ul>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+                <div class="add-component panel">
+                    <div class="com-tabing">
+                        <a class="d-flex card-links" data-toggle="collapse" data-parent="#accordion2" href="#addComponent" aria-expanded="false">
+                            <svg width="6" height="8" viewBox="0 0 6 8" class="trans">
+                                <path id="Polygon_2" data-name="Polygon 2" class="svgfill" d="M4,0,8,6H0Z" transform="translate(6) rotate(90)" />
+                            </svg>
+                            <p>Add component</p>
+                        </a>
+                    </div>
+                    <div class="compo-wrapper scroll panel-collapse collapse" id="addComponent">
+                        <h2 class="heading1 fontfamli1">Interactive compponents</h2>
+                        <ul class="compo-list">
+                            <li data-fieldname="Text Field" class="trans">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="50 20 75 20 75 40 50 40" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="40 40 15 40 15 20 40 20" />
+                                                <g>
+                                                    <path class="svgfill" d="M19.38,36.21l4.6-12h1.46l4.62,12h-1.56l-1.21-3.21h-5.2l-1.15,3.21h-1.57Zm3.18-4.48h4.27l-1.94-5.22c-.04-.11-.07-.2-.09-.27-.02-.07-.05-.17-.09-.3h-.03c-.04,.13-.08,.23-.1,.31-.02,.08-.05,.16-.09,.26l-1.92,5.22Z" />
+                                                    <path class="svgfill" d="M37.57,36.21h-1.37v-1.14h-.03c-.29,.43-.66,.76-1.1,.99-.44,.23-.93,.35-1.47,.35-.85,0-1.52-.23-2-.69s-.72-1.03-.72-1.72c0-.8,.25-1.43,.75-1.87s1.21-.72,2.11-.82l2.47-.28v-.54c0-.62-.16-1.08-.48-1.39-.32-.31-.76-.46-1.32-.46s-.97,.12-1.31,.36-.61,.57-.79,.99l-1.2-.49c.28-.65,.71-1.15,1.29-1.51,.58-.36,1.28-.54,2.09-.54,1,0,1.76,.27,2.3,.8,.53,.53,.8,1.28,.8,2.24v5.73Zm-1.37-3.48v-.59l-2.38,.27c-.53,.06-.92,.21-1.17,.46-.25,.24-.38,.57-.38,.97,0,.44,.14,.79,.43,1.06s.67,.4,1.14,.4c.7,0,1.27-.24,1.7-.72,.43-.48,.65-1.09,.65-1.84Z" />
+                                                </g>
+                                                <line class="svgstrock-1 svgfill-none" x1="45" y1="15" x2="45" y2="45" />
+                                                <line class="svgstrock-1 svgfill-none" x1="40" y1="15" x2="50" y2="15" />
+                                                <line class="svgstrock-1 svgfill-none" x1="40" y1="45" x2="50" y2="45" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Text Field</p>
+                                <div class="trans" (click)="showFields('single_input_text')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Text Field</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="Search Field">
+                                <span>
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </span>
+                                <p>Search Field</p>
+                                <div class="trans" (click)="showFields('search_input')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Search Field</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="Textarea">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="50 15 75 15 75 45 15 45 15 15 40 15" />
+                                                <g>
+                                                    <path class="svgfill" d="M19.38,31.21l4.6-12h1.46l4.62,12h-1.56l-1.21-3.21h-5.2l-1.15,3.21h-1.57Zm3.18-4.48h4.27l-1.94-5.22c-.04-.11-.07-.2-.09-.27-.02-.07-.05-.17-.09-.3h-.03c-.04,.13-.08,.23-.1,.31-.02,.08-.05,.16-.09,.26l-1.92,5.22Z" />
+                                                    <path class="svgfill" d="M37.57,31.21h-1.37v-1.14h-.03c-.29,.43-.66,.76-1.1,.99-.44,.23-.93,.35-1.47,.35-.85,0-1.52-.23-2-.69s-.72-1.03-.72-1.72c0-.8,.25-1.43,.75-1.87s1.21-.72,2.11-.82l2.47-.28v-.54c0-.62-.16-1.08-.48-1.39-.32-.31-.76-.46-1.32-.46s-.97,.12-1.31,.36-.61,.57-.79,.99l-1.2-.49c.28-.65,.71-1.15,1.29-1.51,.58-.36,1.28-.54,2.09-.54,1,0,1.76,.27,2.3,.8,.53,.53,.8,1.28,.8,2.24v5.73Zm-1.37-3.48v-.59l-2.38,.27c-.53,.06-.92,.21-1.17,.46-.25,.24-.38,.57-.38,.97,0,.44,.14,.79,.43,1.06s.67,.4,1.14,.4c.7,0,1.27-.24,1.7-.72,.43-.48,.65-1.09,.65-1.84Z" />
+                                                </g>
+                                                <line class="svgstrock-1 svgfill-none" x1="45" y1="10" x2="45" y2="40" />
+                                                <line class="svgstrock-1 svgfill-none" x1="40" y1="10" x2="50" y2="10" />
+                                                <line class="svgstrock-1 svgfill-none" x1="40" y1="40" x2="50" y2="40" />
+                                                <line class="svgstrock-1 svgfill-none" x1="67" y1="42" x2="72" y2="37" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Text Area Field</p>
+                                <div class="trans" (click)="showFields('text_area_field')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Area Field</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="Number Field">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <g>
+                                                    <path class="svgfill" d="M23.74,36.21h-1.37v-10.35c-.39,.27-.83,.52-1.3,.74-.48,.23-.93,.4-1.36,.53l-.32-1.18c.59-.16,1.2-.41,1.83-.77s1.16-.77,1.58-1.24h.94v12.27Z" />
+                                                    <path class="svgfill" d="M26.71,36.21v-.59c0-.51,.06-.97,.17-1.36,.11-.39,.3-.76,.55-1.11s.59-.7,1.01-1.05c.42-.35,.92-.75,1.53-1.19,.44-.31,.8-.61,1.09-.9s.53-.57,.71-.85c.18-.28,.31-.57,.38-.87s.11-.58,.11-.87c0-.74-.19-1.3-.57-1.67-.38-.37-.86-.55-1.44-.55-.65,0-1.18,.16-1.59,.49-.41,.33-.76,.8-1.05,1.43l-1.16-.54c.41-.85,.94-1.49,1.57-1.93,.63-.44,1.39-.65,2.28-.65s1.71,.29,2.36,.87,.98,1.43,.98,2.55c0,.35-.05,.72-.16,1.1-.11,.38-.27,.75-.49,1.09-.22,.35-.49,.69-.8,1.01-.31,.32-.69,.66-1.16,1-.55,.4-1,.74-1.37,1.01s-.66,.53-.86,.77c-.22,.25-.36,.49-.44,.73s-.11,.51-.11,.84h5.86v1.23h-7.41Z" />
+                                                    <path class="svgfill" d="M35.75,34.19l1.17-.59c.22,.55,.54,.95,.96,1.22s.95,.4,1.59,.4c.75,0,1.34-.2,1.78-.59,.44-.39,.66-.96,.66-1.69,0-.78-.28-1.36-.84-1.75-.56-.39-1.4-.59-2.51-.59h-.93v-1.2h.88c.99,0,1.73-.18,2.22-.55,.49-.37,.74-.9,.74-1.59s-.19-1.19-.58-1.54c-.39-.35-.83-.52-1.34-.52s-.95,.13-1.33,.4c-.38,.27-.71,.69-.98,1.27l-1.15-.5c.41-.84,.9-1.45,1.48-1.82,.58-.37,1.26-.55,2.05-.55,.94,0,1.72,.27,2.34,.79,.62,.53,.92,1.27,.92,2.21,0,.64-.16,1.2-.47,1.69-.31,.49-.82,.9-1.52,1.21v.03c.7,.13,1.28,.44,1.74,.93,.46,.49,.69,1.17,.69,2.07,0,.99-.35,1.82-1.05,2.48-.7,.66-1.65,.99-2.85,.99-.78,0-1.51-.18-2.18-.54-.67-.36-1.17-.93-1.5-1.69Z" />
+                                                </g>
+                                                <g>
+                                                    <polyline class="svgstrock-1 svgfill-none" points="57 20 75 20 75 40 57 40" />
+                                                    <polyline class="svgstrock-1 svgfill-none" points="47 40 15 40 15 20 47 20" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="52" y1="15" x2="52" y2="45" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="47" y1="15" x2="57" y2="15" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="47" y1="45" x2="57" y2="45" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Number Field</p>
+                                <div class="trans" (click)="showFields('input_number')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Number Field</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="Email Field">
+                                <span>
+
+
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="45 20 75 20 75 40 45 40" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="35 40 15 40 15 20 35 20" />
+                                                <path class="svgfill" d="M27.4,31.49h-.04c-.21,.49-.48,.86-.83,1.1-.34,.25-.75,.37-1.22,.37-.66,0-1.18-.24-1.58-.71-.4-.47-.6-1.11-.6-1.91,0-1.05,.27-1.92,.82-2.62s1.25-1.04,2.12-1.04c.34,0,.64,.08,.9,.24s.44,.33,.55,.52h.03l.06-.66h.93c-.11,1.28-.19,2.24-.24,2.9-.06,.65-.08,.99-.08,1.02-.02,.48,.04,.83,.18,1.05s.36,.33,.66,.33c.46,0,.85-.27,1.18-.82,.33-.54,.49-1.25,.49-2.11,0-1.23-.4-2.24-1.21-3.02s-1.89-1.18-3.24-1.18c-1.45,0-2.63,.48-3.53,1.43-.9,.95-1.35,2.14-1.35,3.56s.43,2.53,1.3,3.39c.86,.86,2.03,1.29,3.5,1.29,.6,0,1.16-.06,1.66-.18s.98-.29,1.4-.52l.38,.88c-.48,.23-1.01,.41-1.59,.54s-1.22,.19-1.92,.19c-1.73,0-3.12-.51-4.17-1.53s-1.58-2.36-1.58-4.01,.55-3.11,1.65-4.23c1.1-1.12,2.53-1.68,4.31-1.68,1.52,0,2.81,.47,3.85,1.41,1.05,.94,1.57,2.17,1.57,3.68,0,1.11-.28,2.02-.84,2.73-.56,.71-1.2,1.07-1.91,1.07-.48,0-.85-.13-1.12-.38s-.43-.62-.49-1.1Zm-1.26-3.94c-.59,0-1.07,.26-1.43,.78s-.54,1.2-.54,2.03c0,.53,.12,.95,.36,1.26,.24,.31,.56,.46,.96,.46,.58,0,1.03-.28,1.37-.85,.34-.57,.51-1.31,.51-2.24,0-.48-.1-.84-.31-1.08-.21-.24-.51-.36-.91-.36Z" />
+                                                <line class="svgstrock-1 svgfill-none" x1="40" y1="15" x2="40" y2="45" />
+                                                <line class="svgstrock-1 svgfill-none" x1="35" y1="15" x2="45" y2="15" />
+                                                <line class="svgstrock-1 svgfill-none" x1="35" y1="45" x2="45" y2="45" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Email Field</p>
+                                <div class="trans" (click)="showFields('input_email')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Email Field</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="Password">
+                                <span>
+
+
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <g>
+                                                    <path class="svgfill" d="M27.84,29.89l-2.88,.67,1.94,2.67-1.23,.85-1.74-2.79-1.76,2.79-1.23-.85,1.94-2.67-2.9-.67,.5-1.4,2.82,.94-.16-3.23h1.54l-.14,3.23,2.82-.94,.47,1.4Z" />
+                                                    <path class="svgfill" d="M37.15,29.89l-2.88,.67,1.94,2.67-1.23,.85-1.74-2.79-1.76,2.79-1.23-.85,1.94-2.67-2.9-.67,.5-1.4,2.82,.94-.16-3.23h1.54l-.14,3.23,2.82-.94,.47,1.4Z" />
+                                                    <path class="svgfill" d="M46.46,29.89l-2.88,.67,1.94,2.67-1.23,.85-1.74-2.79-1.76,2.79-1.23-.85,1.94-2.67-2.9-.67,.5-1.4,2.82,.94-.16-3.23h1.54l-.14,3.23,2.82-.94,.47,1.4Z" />
+                                                </g>
+                                                <g>
+                                                    <polyline class="svgstrock-1 svgfill-none" points="58 20 75 20 75 40 58 40" />
+                                                    <polyline class="svgstrock-1 svgfill-none" points="48 40 15 40 15 20 48 20" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="53" y1="15" x2="53" y2="45" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="48" y1="15" x2="58" y2="15" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="48" y1="45" x2="58" y2="45" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Password field</p>
+                                <div class="trans" (click)="showFields('input_password')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Password field</p>
+                                </div>
+                            </li>
+                            <!-- <li data-fieldname="Checkbox">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="55 27 55 40 35 40 35 20 54 20" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="38 30 43 35 58 20" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Checkbox</p>
+                                <div class="trans" (click)="showFields('checkbox')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Checkbox</p>
+                                </div>
+                            </li> -->
+                            <li data-fieldname="Checklist">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="40 17.25 40 27 25 27 25 12 39.25 12" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="27.25 19.5 31 23.25 42.25 12" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="40 38.25 40 48 25 48 25 33 39.25 33" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="27.25 40.5 31 44.25 42.25 33" />
+                                                <line class="svgstrock-1 svgfill-none" x1="50" y1="20" x2="65" y2="20" />
+                                                <line class="svgstrock-1 svgfill-none" x1="50" y1="40" x2="65" y2="40" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Checklist</p>
+                                <div class="trans" (click)="showFields('check_list')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Checklist</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="radio-list">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <line class="svgstrock-1 svgfill-none" x1="50" y1="20" x2="65" y2="20" />
+                                                <line class="svgstrock-1 svgfill-none" x1="50" y1="40" x2="65" y2="40" />
+                                                <circle class="svgstrock-1 svgfill-none" cx="35" cy="20" r="8" />
+                                                <circle class="svgfill" cx="35" cy="20" r="5" />
+                                                <circle class="svgstrock-1 svgfill-none" cx="35" cy="40" r="8" />
+                                                <circle class="svgfill" cx="35" cy="40" r="5" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Radio List</p>
+                                <div class="trans" (click)="showFields('radio_list')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Radio List</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="select-field">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <rect class="svgstrock-1 svgfill-none" x="15" y="20" width="60" height="20" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="60 28 64 32 68 28" />
+                                                <line class="svgstrock-1 svgfill-none" x1="20" y1="30" x2="40" y2="30" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Select Field</p>
+                                <div class="trans" (click)="showFields('select_field')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Select Field</p>
+                                </div>
+                            </li>
+                            <li class="" data-fieldname="Month Year">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <rect class="svgstrock-1 svgfill-none" x="10" y="20" width="70" height="20" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="30" x2="35" y2="30" />
+                                                <g>
+                                                    <circle class="svgstrock-1 svgfill-none" cx="70" cy="30" r="5" />
+                                                    <polyline class="svgstrock-1 svgfill-none" points="72.17 30 70 30 70 26.41" />
+                                                </g>
+                                                <g>
+                                                    <rect class="svgstrock-1 svgfill" x="50" y="27" width="10" height="1" />
+                                                    <rect class="svgstrock-1 svgfill-none" x="50" y="28" width="10" height="7" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="52" y1="27" x2="52" y2="25" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="58" y1="27" x2="58" y2="25" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="55" y1="27" x2="55" y2="25" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Month &amp; Year</p>
+                                <div class="trans" (click)="showFields('input_monthyear')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Month &amp; Year</p>
+                                </div>
+                            </li>
+                            <li class="" data-fieldname="Date Month Year">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <rect class="svgstrock-1 svgfill-none" x="10" y="20" width="70" height="20" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="30" x2="35" y2="30" />
+                                                <g>
+                                                    <circle class="svgstrock-1 svgfill-none" cx="70" cy="30" r="5" />
+                                                    <polyline class="svgstrock-1 svgfill-none" points="72.17 30 70 30 70 26.41" />
+                                                </g>
+                                                <g>
+                                                    <rect class="svgstrock-1 svgfill" x="50" y="27" width="10" height="1" />
+                                                    <rect class="svgstrock-1 svgfill-none" x="50" y="28" width="10" height="7" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="52" y1="27" x2="52" y2="25" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="58" y1="27" x2="58" y2="25" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="55" y1="27" x2="55" y2="25" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Date/Month &amp; Year</p>
+                                <div class="trans" (click)="showFields('input_date')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Date/Month &amp; Year</p>
+                                </div>
+                            </li>
+                            <li class="" data-fieldname="Time">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <rect class="svgstrock-1 svgfill-none" x="10" y="20" width="70" height="20" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="30" x2="35" y2="30" />
+                                                <g>
+                                                    <circle class="svgstrock-1 svgfill-none" cx="70" cy="30" r="5" />
+                                                    <polyline class="svgstrock-1 svgfill-none" points="72.17 30 70 30 70 26.41" />
+                                                </g>
+                                                <g>
+                                                    <rect class="svgstrock-1 svgfill" x="50" y="27" width="10" height="1" />
+                                                    <rect class="svgstrock-1 svgfill-none" x="50" y="28" width="10" height="7" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="52" y1="27" x2="52" y2="25" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="58" y1="27" x2="58" y2="25" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="55" y1="27" x2="55" y2="25" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Time</p>
+                                <div class="trans" (click)="showFields('input_time')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Time</p>
+                                </div>
+                            </li>
+                            <li class="" data-fieldname="Button">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="50 38 25 38 25 22 65 22 65 38 53 38" />
+                                                <line class="svgstrock-1 svgfill-none" x1="35" y1="30" x2="55" y2="30" />
+                                                <polygon class="svgstrock-1 svgfill-none" points="50 35 50 45 57 42 50 35" />
+                                                <line class="svgstrock-1 svgfill-none" x1="55" y1="47" x2="53.5" y2="43.5" />
+                                                <g>
+                                                    <line class="svgstrock-1 svgfill-none" x1="25" y1="18" x2="25" y2="12" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="21" y1="22" x2="15" y2="22" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="22.17" y1="19.17" x2="17.93" y2="14.93" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Button</p>
+                                <div class="trans" (click)="showFields('input_button')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Button</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="table">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <rect class="svgstrock-1 svgfill-none" x="15" y="15" width="20" height="10" />
+                                                <rect class="svgstrock-1 svgfill-none" x="35" y="15" width="20" height="10" />
+                                                <rect class="svgstrock-1 svgfill-none" x="55" y="15" width="20" height="10" />
+                                                <rect class="svgstrock-1 svgfill-none" x="15" y="25" width="20" height="10" />
+                                                <rect class="svgstrock-1 svgfill-none" x="35" y="25" width="20" height="10" />
+                                                <rect class="svgstrock-1 svgfill-none" x="55" y="25" width="20" height="10" />
+                                                <rect class="svgstrock-1 svgfill-none" x="15" y="35" width="20" height="10" />
+                                                <rect class="svgstrock-1 svgfill-none" x="35" y="35" width="20" height="10" />
+                                                <rect class="svgstrock-1 svgfill-none" x="55" y="35" width="20" height="10" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Table</p>
+                                <div class="trans" (click)="showFields('table_field')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Table</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="accordion">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <rect class="svgstrock-1 svgfill-none" x="15" y="15" width="60" height="35" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="10" x2="40" y2="10" />
+                                                <rect class="svgstrock-1 svgfill-none" x="25" y="25" width="40" height="5" />
+                                                <rect class="svgstrock-1 svgfill-none" x="25" y="35" width="40" height="5" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Group</p>
+                                <div class="trans" (click)="showFields('accordion_field')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Group</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="approvalButton">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <g>
+                                                    <path class="svgstrock-1 svgfill-none" d="M49.14,44.14c-1.14,1.15-2.83,1.76-4.62,1.4-.34-.07-.68-.1-1.01-.1-1.69,0-3.3,.84-4.26,2.28-1.01,1.52-2.63,2.28-4.25,2.28s-3.24-.76-4.25-2.28c-.96-1.44-2.57-2.28-4.26-2.28-.33,0-.67,.03-1.01,.1-.35,.07-.69,.1-1.03,.1-3.13,0-5.64-2.89-4.99-6.12,.07-.34,.1-.68,.1-1.01,0-1.69-.84-3.3-2.28-4.26-1.52-1.01-2.28-2.63-2.28-4.25s.76-3.24,2.28-4.25c1.44-.96,2.28-2.57,2.28-4.26,0-.33-.03-.67-.1-1.01-.07-.35-.1-.69-.1-1.03,0-3.13,2.89-5.64,6.12-4.99,.34,.07,.68,.1,1.01,.1,1.69,0,3.3-.84,4.26-2.28,2.02-3.04,6.48-3.04,8.5,0,.96,1.44,2.57,2.28,4.26,2.28,.33,0,.67-.03,1.01-.1,.35-.07,.69-.1,1.03-.1,1.39,0,2.67,.58,3.59,1.5" />
+                                                    <polyline class="svgstrock-1 svgfill-none" points="60 38 35 38 35 22 75 22 75 38 63 38" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="45" y1="30" x2="65" y2="30" />
+                                                    <polygon class="svgstrock-1 svgfill-none" points="60 35 60 45 67 42 60 35" />
+                                                    <line class="svgstrock-1 svgfill-none" x1="65" y1="47" x2="63.5" y2="43.5" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Approval Button</p>
+                                <div class="trans" (click)="showFields('approval_button')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Approval Button</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="approvalChecklist">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <path class="svgstrock-1 svgfill-none" d="M59.14,44.14c-1.14,1.15-2.83,1.76-4.62,1.4-.34-.07-.68-.1-1.01-.1-1.69,0-3.3,.84-4.26,2.28-1.01,1.52-2.63,2.28-4.25,2.28s-3.24-.76-4.25-2.28c-.96-1.44-2.57-2.28-4.26-2.28-.33,0-.67,.03-1.01,.1-.35,.07-.69,.1-1.03,.1-3.13,0-5.64-2.89-4.99-6.12,.07-.34,.1-.68,.1-1.01,0-1.69-.84-3.3-2.28-4.26-1.52-1.01-2.28-2.63-2.28-4.25s.76-3.24,2.28-4.25c1.44-.96,2.28-2.57,2.28-4.26,0-.33-.03-.67-.1-1.01-.07-.35-.1-.69-.1-1.03,0-3.13,2.89-5.64,6.12-4.99,.34,.07,.68,.1,1.01,.1,1.69,0,3.3-.84,4.26-2.28,2.02-3.04,6.48-3.04,8.5,0,.96,1.44,2.57,2.28,4.26,2.28,.33,0,.67-.03,1.01-.1,.35-.07,.69-.1,1.03-.1,1.39,0,2.67,.58,3.59,1.5" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="65 27 65 40 45 40 45 20 64 20" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="48 30 53 35 68 20" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Approval Checkbox</p>
+                                <div class="trans" (click)="showFields('approval_checklist')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Approval Checkbox</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="uploadButton">
+                                <span>
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                </span>
+                                <p>Upload Button</p>
+                                <div class="trans" (click)="showFields('upload_button')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Upload Button</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="inputRange">
+                                <span>
+                                    <i class="fa fa-sliders" aria-hidden="true"></i>
+                                    <!-- <svg viewBox="0 0 512 512" style="width: 90px;height: 60px;">
+                                        <path class="svgfill"
+                                            d="M67.508 468.467c-58.005-58.013-58.016-151.92 0-209.943l225.011-225.04c44.643-44.645 117.279-44.645 161.92 0 44.743 44.749 44.753 117.186 0 161.944l-189.465 189.49c-31.41 31.413-82.518 31.412-113.926.001-31.479-31.482-31.49-82.453 0-113.944L311.51 110.491c4.687-4.687 12.286-4.687 16.972 0l16.967 16.971c4.685 4.686 4.685 12.283 0 16.969L184.983 304.917c-12.724 12.724-12.73 33.328 0 46.058 12.696 12.697 33.356 12.699 46.054-.001l189.465-189.489c25.987-25.989 25.994-68.06.001-94.056-25.931-25.934-68.119-25.932-94.049 0l-225.01 225.039c-39.249 39.252-39.258 102.795-.001 142.057 39.285 39.29 102.885 39.287 142.162-.028A739446.174 739446.174 0 0 1 439.497 238.49c4.686-4.687 12.282-4.684 16.969.004l16.967 16.971c4.685 4.686 4.689 12.279.004 16.965a755654.128 755654.128 0 0 0-195.881 195.996c-58.034 58.092-152.004 58.093-210.048.041z">
+                                        </path>
+                                    </svg> -->
+                                </span>
+                                <p>Input Range</p>
+                                <div class="trans" (click)="showFields('input_range')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Input Range</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="inputBlank">
+                                <span>
+                                   
+                                </span>
+                                <p> </p> 
+                            </li>
+
+                        </ul>
+                        <h2 class="heading1">Fixed compponents</h2>
+                        <ul class="compo-list">
+                            <li data-fieldname="Heading">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <g>
+                                                    <path class="svgfill" d="M24.01,36h-2.5v-6.48h-7.06v6.48h-2.49v-15h2.49v6.31h7.06v-6.31h2.5v15Z" />
+                                                    <path class="svgfill" d="M32.07,36h-2.43v-12.26c-.45,.3-.94,.57-1.47,.81-.53,.24-1.07,.44-1.62,.61l-.63-2c.84-.24,1.66-.57,2.48-1.01,.82-.44,1.52-.93,2.11-1.48h1.55v15.34Z" />
+                                                    <path class="svgfill" d="M49.4,36h-2v-5.18h-5.65v5.18h-1.99v-12h1.99v5.05h5.65v-5.05h2v12Z" />
+                                                    <path class="svgfill" d="M51.83,36v-.74c0-.56,.08-1.05,.23-1.49s.37-.84,.65-1.21c.29-.37,.62-.72,1.02-1.04,.4-.33,.83-.67,1.31-1.02,.4-.28,.74-.56,1.02-.82,.28-.26,.51-.52,.69-.78,.18-.26,.31-.52,.4-.79,.09-.27,.13-.56,.13-.86,0-.6-.17-1.06-.5-1.37s-.76-.47-1.29-.47-1.01,.15-1.38,.46-.69,.74-.95,1.3l-1.59-.69c.41-.86,.95-1.52,1.63-1.99,.68-.47,1.5-.7,2.47-.7,1.04,0,1.89,.3,2.57,.89,.67,.59,1.01,1.44,1.01,2.52,0,.44-.07,.86-.21,1.27-.14,.41-.33,.78-.57,1.13-.25,.35-.54,.68-.87,1-.33,.31-.71,.63-1.15,.94-.41,.31-.78,.57-1.09,.8-.31,.23-.57,.45-.76,.66-.2,.22-.34,.44-.43,.64-.08,.21-.12,.43-.12,.68h5.45v1.67h-7.68Z" />
+                                                    <path class="svgfill" d="M71.6,36h-1.5v-3.89h-4.24v3.89h-1.49v-9h1.49v3.79h4.24v-3.79h1.5v9Z" />
+                                                    <path class="svgfill" d="M73.21,34.51l1.17-.64c.15,.35,.38,.62,.67,.81,.29,.19,.65,.28,1.09,.28,.48,0,.87-.13,1.17-.38s.45-.62,.45-1.09c0-.5-.19-.88-.58-1.14-.39-.25-.95-.39-1.69-.39h-.71v-1.19h.67c.67,0,1.17-.12,1.51-.36s.5-.6,.5-1.08c0-.43-.13-.75-.38-.97s-.55-.33-.9-.33-.63,.09-.9,.26c-.27,.17-.49,.45-.68,.83l-1.14-.53c.28-.57,.67-1,1.15-1.3,.48-.3,1.05-.45,1.71-.45,.8,0,1.44,.2,1.92,.61,.48,.41,.72,.97,.72,1.69,0,.48-.12,.91-.37,1.28-.25,.37-.64,.66-1.17,.86v.03c.54,.1,.99,.34,1.33,.71,.34,.37,.51,.87,.51,1.48,0,.79-.28,1.43-.84,1.92-.56,.49-1.3,.74-2.24,.74-.67,0-1.27-.14-1.78-.41s-.9-.69-1.17-1.24Z" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Heading</p>
+                                <div class="trans" (click)="showFields('heading_field')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Heading</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="paragraph">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="20" x2="75" y2="20" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="25" x2="75" y2="25" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="30" x2="75" y2="30" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="35" x2="75" y2="35" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="40" x2="50" y2="40" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Paragraph</p>
+                                <div class="trans" (click)="showFields('paragraph_field')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Paragraph</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <line class="svgfill-none svgstrock-1" x1="10" y1="30" x2="80" y2="30" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Divider Line</p>
+                                <div class="trans" (click)="showFields('divder_field')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Divider Line</p>
+                                </div>
+                            </li>
+                            <li data-fieldname="lineBreak">
+                                <span>
+                                    <svg width="90" height="60" viewBox="0 0 90 60">
+
+                                        <g>
+                                            <g>
+                                                <rect class="svgfill-none" width="90" height="60" />
+                                                <line class="svgstrock-2 svgstrock-1 svgfill-none" x1="30" y1="20" x2="75" y2="20" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="30" x2="75" y2="30" />
+                                                <line class="svgstrock-1 svgfill-none" x1="15" y1="40" x2="50" y2="40" />
+                                                <polyline class="svgstrock-1 svgfill-none" points="15 23 18 20 15 17" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <p>Line Break</p>
+                                <div class="trans" (click)="showFields('line_break')">
+                                    <span>
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <p>Add Line Break</p>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="nav-panel panel">
+                    <div class="com-tabing">
+                        <a class="d-flex card-links" data-toggle="collapse" data-parent="#accordion2" href="#navigationPanel" aria-expanded="false">
+                            <svg width="6" height="8" viewBox="0 0 6 8" class="trans">
+                                <path id="Polygon_2" data-name="Polygon 2" class="svgfill" d="M4,0,8,6H0Z" transform="translate(6) rotate(90)" />
+                            </svg>
+                            <p>Navigation panel</p>
+                        </a>
+
+                    </div>
+                    <div class="navpanel-wrapper scroll panel-collapse collapse" id="navigationPanel">
+                        <ul class="naveditadd">
+                            <li class="navselect">
+                                <select>
+                                    <option>Selection 1</option>
+                                    <option>Selection 2</option>
+                                    <option>Selection 3</option>
+                                </select>
+                            </li>
+                            <li class="navedit">
+                                <span class="material-symbols-outlined">edit_square</span>
+                            </li>
+                            <li class="navadd">+ New Section</li>
+                        </ul>
+                        <ul class="navlist-wrapper">
+                            <li class="trans">
+                                <div class="navlistname">
+                                    <span class="material-symbols-outlined">text_fields</span>
+                                    <p>Text Fields 1</p>
+                                </div>
+                                <div class="navlistdcv">
+                                    <div class="navlistdelete">
+                                        <span class="material-symbols-outlined">delete</span>
+                                    </div>
+                                    <div class="navlistclone">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                    </div>
+                                    <div class="navlistvisibil">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="nav-panel panel">
+                    <div class="com-tabing">
+                        <a class="d-flex card-links" data-toggle="collapse" data-parent="#accordion2"
+                           href="#logaccessPanel" aria-expanded="false">
+                            <svg width="6" height="8" viewBox="0 0 6 8" class="trans">
+                                <path id="Polygon_2" data-name="Polygon 2" class="svgfill" d="M4,0,8,6H0Z"
+                                      transform="translate(6) rotate(90)" />
+                            </svg>
+                            <p>Log Access</p>
+                        </a>
+
+                    </div>
+                    <div class="navpanel-wrapper scroll panel-collapse collapse" id="logaccessPanel">
+                        <br>
+
+                        <div class="form-group p3 log-access-block">
+                            <ul class="log-access-value" style="display: block;">
+                                <li class="d-flex  align-items-center">
+                                    <b class="com-label fontfamli1 roas">IT :</b>
+                                    <div class="peas">
+                                        <ul class="d-flex com-label fontfamli1">
+                                            <li>Add,</li>
+                                            <li>Edit,</li>
+                                            <li>Delete,</li>
+                                            <li>View,</li>
+                                            <li>Print,</li>
+                                            <li>Approver</li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <ul class="log-access">
+                                <li class="levels">  
+                                </li>
+                                <li class="vep">
+                                </li>
+                                <button class="com-button2 addbutton fontfamli1"> <span class="material-symbols-outlined">add</span></button>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="notification-panel panel">
+                    <div class="com-tabing">
+                        <a class="d-flex card-links" data-toggle="collapse" data-parent="#accordion2"
+                           href="#notificationPanel" aria-expanded="false">
+                            <svg width="6" height="8" viewBox="0 0 6 8" class="trans">
+                                <path id="Polygon_2" data-name="Polygon 2" class="svgfill" d="M4,0,8,6H0Z"
+                                      transform="translate(6) rotate(90)" />
+                            </svg>
+                            <p>Notification</p>
+                        </a>
+                    </div>
+                    <div class="notification-wrapper scroll panel-collapse collapse" id="notificationPanel">
+                        <div class="form-group p3  d-flex align-items-center ">
+                            <label for="formName" class="com-label fontfamli1 w83">Type</label>
+                            <mat-form-field appearance="fill" id="chooseType" class="wcal83 matreset">
+                                <mat-label>Notification Type</mat-label>
+                                <mat-select [formControl]="toppings" multiple>
+                                    <mat-option *ngFor="let topping of toppingList"
+                                                [value]="topping">{{topping}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group p3 d-flex align-items-center not-rol ">
+                            <label for="notificationrole" class="com-label fontfamli1 w83">Role</label>
+                            <mat-form-field appearance="fill" id="notificationrole" class="wcal83 matreset">
+                                <mat-label>Notification Role</mat-label>
+                                <mat-select [formControl]="toppings" multiple>
+                                    <mat-option *ngFor="let topping of toppingList"
+                                                [value]="topping">{{topping}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group p3 d-flex align-items-center not-to-email">
+                            <label for="nte" class="com-label fontfamli1 w83">To Email</label>
+                            <input type="email" placeholder="add email with ;" id="nte" class="form-control wcal83">
+                        </div>
+                        <div class="form-group p3 d-flex align-items-center not-to-number">
+                            <label for="ntn" class="com-label fontfamli1 w83">To Number</label>
+                            <input type="tel" placeholder="add number with ;" id="ntn" class="form-control wcal83">
+                        </div>
+                        <div class="form-group p3 d-flex align-items-center repeat">
+                            <label for="repeat" class="com-label fontfamli1 w83">Repeat</label>
+                            <select id="repeat" class="wcal83">
+                                <option>Daily</option>
+                                <option>Weekly</option>
+                                <option>Fortnight</option>
+                                <option>Monthly</option>
+                                <option>Yearly</option>
+                            </select>
+                        </div>
+                        <div class="form-group p3 d-flex align-items-center repeat">
+                            <label for="notstartdate" class="com-label fontfamli1 w83">Start Date</label>
+                            <input _ngcontent-msc-c1="" class="form-control wcal83" id="notstartdate" type="date">
+                        </div>
+                        <div class="form-group p3 d-flex align-items-center repeat">
+                            <label for="notenddate" class="com-label fontfamli1 w83">End Date</label>
+                            <input _ngcontent-msc-c1="" class="form-control wcal83" id="notenddate" type="date">
+                        </div>
+                        <div class="form-group p3 d-flex align-items-center repeat">
+                            <label for="noteremark" class="com-label fontfamli1 w83">Remark</label>
+                            <textarea class="form-control wcal83"  id="noteremark"  rows="4" cols="50" placeholder="Please type remark"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- ============================left panel end ============================-->
+            <!-- =========================middle panel start ============================-->
+            <section class="middle-wrapper">
+                <div class="form-wrapper">
+
+                    <!-- <form id="creator" class="creator width50 sortable" style="width: 100%;max-width:100%">
+                      <div class="form-group ui-state-default" id>
+                        <label for="date" class>
+                          <p class="lbtx">Date</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="date" class="form-control" id="date" aria-describedby="emailHelp"
+                          placeholder="Write here...">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+                      <div class="form-group ui-state-default active" id>
+                        <label for="room" class>
+                          <p class="lbtx">Room No</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="room" placeholder="Enter Room No">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+                      <div class="form-group ui-state-default" id>
+                        <label for="equipment" class>
+                          <p class="lbtx">Equipment No/Identification No</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="equipment" placeholder="Equipment No/Identification No">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group ui-state-default" id>
+                        <label for="meter" class>
+                          <p class="lbtx">Lux Meter Code No</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="meter" placeholder="Lux Meter Code No">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+
+                      <div class="form-group ui-state-default" id>
+                        <label for="meter" class>
+                          <p class="lbtx">Lux Meter Code No</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="meter" placeholder="Lux Meter Code No">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+
+                      <div  id="accordion3" class=" panel-group ng-tns-c306-0"
+                        style="flex: 0 0 100%;overflow-x: scroll;">
+                        <div  class=" panel panel-default ng-tns-c306-0">
+                          <div  class="gray-panel-header  panel-heading ng-tns-c306-0">
+                            <h4  class="dark-text  panel-title ng-tns-c306-0"><a
+                                 data-toggle="collapse" data-parent="#accordion3" href="#collapse3"
+                                aria-expanded="true" class=" ng-tns-c306-0">Readings (LUX)</a></h4>
+                          </div>
+                          <div  id="collapse3" aria-expanded="true"
+                            class="dark-text  panel-collapse ng-tns-c306-0 collapse in" style="">
+                            <div  class=" panel-body table-responsive ng-tns-c306-0">
+                              <table _ngcontent-dkh-c306=""
+                                class=" table table-bordered table-hover table-sm table-striped ng-tns-c306-0">
+                                <thead  class=" ng-tns-c306-0">
+                                  <tr  class=" ng-tns-c306-0">
+                                    <th  class=" th-center-align ng-tns-c306-0">1</th>
+                                    <th  class=" th-center-align ng-tns-c306-0">2</th>
+                                    <th  class=" th-center-align ng-tns-c306-0">3</th>
+                                    <th  class=" th-center-align ng-tns-c306-0">4</th>
+                                    <th  class=" th-center-align ng-tns-c306-0">5</th>
+                                  </tr>
+                                  <tr  class=" ng-tns-c306-0">
+                                    <th  class=" th-center-align ng-tns-c306-0"><input
+                                        type="text" place="" placeholder="jkskds" max-width:="" style="
+                            max-width: 100px;
+                        "></th>
+                                    <th  class=" th-center-align ng-tns-c306-0"><input
+                                        type="text" place="" placeholder="jkskds" style="
+                            max-width: 100px;
+                        "></th>
+                                    <th  class=" th-center-align ng-tns-c306-0"><input
+                                        type="text" place="" placeholder="jkskds" style="
+                            max-width: 100px;
+                        "></th>
+                                    <th  class=" th-center-align ng-tns-c306-0"><input
+                                        type="text" place="" placeholder="jkskds" style="
+                            max-width: 100px;
+                        "></th>
+                                    <th  class=" th-center-align ng-tns-c306-0"><input
+                                        type="text" place="" placeholder="jkskds" style="
+                            max-width: 100px;
+                        "></th>
+                                  </tr>
+                                </thead>
+                                <tbody  class=" ng-tns-c306-0"></tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="form-group ui-state-default" id>
+                        <label for="average" class>
+                          <p class="lbtx">Average Reading (Lux)</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="average" placeholder="Average Reading (Lux)">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+                      <div class="form-group ui-state-default" id>
+                        <label for="comlies" class>
+                          <p class="lbtx">Complies / Not Complies</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="comlies" placeholder="Complies / Not Complies">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+
+                      <div class="form-group ui-state-default" id>
+                        <label for="due" class>
+                          <p class="lbtx">Due on (Date)</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="due" placeholder="Due on (Date)">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+                      <div class="form-group ui-state-default" id>
+                        <label for="donedate" class>
+                          <p class="lbtx">Done By Sign/Date</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="donedate" placeholder="Done By Sign/Date">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+                      <div class="form-group ui-state-default" id>
+                        <label for="checckedsign" class>
+                          <p class="lbtx">Checked By Sign/Dat</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="checckedsign" placeholder="Checked By Sign/Dat">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+
+                      <div class="form-group ui-state-default" id>
+                        <label for="verifiedqa" class>
+                          <p class="lbtx">Verified By (QA) Sign/Date</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="verifiedqa" placeholder="Verified By (QA) Sign/Date">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+                      <div class="form-group ui-state-default" id>
+                        <label for="remark" class>
+                          <p class="lbtx">Remark</p>
+                          <span class="lbrq">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="remark" placeholder="Remark">
+                        <div class="editdelete trans">
+                          <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                          <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+                    </form> -->
+                    <!-- convert input field attribute into json objects cr_bci_0001 start-->
+                    <!-- <p  style="padding: 20px 20px;">
+                        &lt;div class="form-group col-md-6"&gt;
+                        &lt;label class="classStyle">Enter Name&lt;&gt;
+                        &lt;input readonly placeholder="Enter Name" class="classStyle" type="text" maxlength="10" class="form-control" pattern="[a-zA-Z0-9\s]+" value="shubham" name="form_fields" title="Name of User" id="name" &gt;
+                        &lt;&gt;
+                    </p> -->
+                    <!-- <form id='foobar' style="padding: 100px 100px;" method="post" action="#">
+                        <div class="form-group col-md-6">
+                            <label class="classStyle">Enter Name</label>
+                            <input readonly placeholder="Enter Name" class="classStyle form-control" type="text" maxlength="10" pattern="[a-zA-Z0-9\s]+" value="shubham" name="name" title="Name of User" id="name" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="shubham">Enter Email</label>
+                            <input readonly placeholder="Enter Email" class="shubham form-control" type="email" maxlength="50" class="form-control" pattern="[a-zA-Z0-9\s]+" value="shubham@gmail.com" name="email" title="User Email" id="email" />
+                        </div>
+                        <button type="submit" class="btn btn-primary form-control">Submit</button>
+                    </form>
+                        <pre style="margin-left: 20px;margin-right: 30px;" id='output1'></pre> -->
+                    <!-- convert input field attribute into json objects cr_bci_0001 end-->
+
+                    <form id="dropzone" class="creator">
+                        <div #div class="sortable">
+                            <!-- <table>
+                                <tr>
+                                  <th rowspan="2">Simple header</th>
+                                  <th colspan="2">Combo header</th>
+                                </tr>
+                                <tr>
+                                   skip 1st column because it merges vertically
+                                  <th>Sub 1</th>
+                                  <th>Sub 2</th>
+                                </tr>
+                                <tr>
+                                  <td>Col 1</td>
+                                  <td>Col 2</td>
+                                  <td>Col 3</td>
+                                </tr>
+                              </table> -->
+                        </div>
+
+                        <!-- cr_bci_0001 start -->
+                        <!--
+                                                <button type="submit" *ngIf="fieldLength" class="btn btn-primary form-control">Submit</button>
+                                                <pre style="margin-left: 20px;margin-right: 30px;" id='output1'></pre>
+                        -->
+                        <pre style="margin-left: -3px;" id='output2'></pre>
+
+                        <!-- cr_bci_0001 end -->
+                        <!--   <div class="form-group width50  itemEmail draggable ui-widget-content ui-state-default" id>
+                             <label for="InputEmail" class>
+                                 <p class="lbtx">Email address</p>
+                                 <span class="lbrq">*</span>
+                                 <span class="lbtt"></span>
+                             </label>
+                             <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Write here...">
+                             <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                             <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                             <div class="editdelete trans">
+                                 <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                 <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                             </div>
+                         </div>
+                        <div class="form-group width50 itemText draggable ui-widget-content ui-state-default" id>
+                             <label for="Inputtext" class>
+                                 <p class="lbtx">Name</p>
+                                 <span class="lbrq">*</span>
+                                 <span class="lbtt"></span>
+                             </label>
+                             <input type="text" class="form-control" id="Inputtext" aria-describedby placeholder="Write here...">
+                             <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                             <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                             <div class="editdelete trans">
+                                 <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                 <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                             </div>
+                         </div>
+                         <div class="form-group itemPhone draggable ui-widget-content ui-state-default" id>
+                               <label for="Inputtel" class>
+                                   <p class="lbtx">Phone</p>
+                                   <span class="lbrq">*</span>
+                                   <span class="lbtt"></span>
+                               </label>
+                               <input type="tel" min="1" maxlength="10" class="form-control" id="Inputtel" aria-describedby placeholder="Write here..." pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+                               <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                               <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                               <div class="editdelete trans">
+                                   <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                   <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                               </div>
+                           </div>
+                         <div class="form-group itemNuber" id>
+                               <label for="Inputnumber" class>
+                                   <p class="lbtx">Number</p>
+                                   <span class="lbrq">*</span>
+                                   <span class="lbtt"></span>
+                               </label>
+                               <input type="number" min="1" max class="form-control" id="Inputnumber" aria-describedby placeholder="Write here...">
+                               <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                               <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                               <div class="editdelete trans">
+                                   <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                   <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                               </div>
+                           </div>
+                           <div class="form-group itemPassword" id>
+                               <label for="Inputpassword" class>
+                                   <p class="lbtx">Password</p>
+                                   <span class="lbrq">*</span>
+                                   <span class="lbtt"></span>
+                               </label>
+                               <input type="password" class="form-control" id="Inputpassword" aria-describedby placeholder="Write here...">
+                               <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                               <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                               <div class="editdelete trans">
+                                   <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                   <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                               </div>
+                           </div>
+                           <div class="form-group itemNumber" id>
+                               <label for="Inputnumber" class>
+                                   <p class="lbtx">Number</p>
+                                   <span class="lbrq">*</span>
+                                   <span class="lbtt"></span>
+                               </label>
+                               <input type="number" min="1" max class="form-control" id="Inputnumber" aria-describedby placeholder="Write here...">
+                               <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                               <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                               <div class="editdelete trans">
+                                   <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                   <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                               </div>
+                           </div>
+                           <div class="form-group itemPassword" id>
+                               <label for="Inputpassword" class>
+                                   <p class="lbtx">Password</p>
+                                   <span class="lbrq">*</span>
+                                   <span class="lbtt"></span>
+                               </label>
+                               <input type="password" class="form-control" id="Inputpassword" aria-describedby placeholder="Write here...">
+                               <small id="errow" class="fommsg-errow">We'll never share your email with anyone else.</small>
+                               <small id="succes" class="fommsg-succes">We'll never share your email with anyone else.</small>
+                               <div class="editdelete trans">
+                                   <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                   <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                               </div>
+                           </div>
+                           <div class="form-group itemButton" id>
+                               <input type="button" class="form-control" id="Inputbutton" aria-describedby placeholder="Button" value="Button">
+                               <div class="editdelete trans">
+                                   <span class="edit trans"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                   <span class="delete trans"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                               </div>
+                           </div> -->
+                    </form>
+
+                </div>
+
+            </section>
+            <!-- =========================middle panel end ============================-->
+            <!-- right panel start -->
+            <section class="rpanel-wrapper">
+
+                <div class="tab-content form_edit">
+                    <!-- <div id="home" class="tab-pane fade in active">
+                      <ul class="nav nav-pills ">
+                        <li class="active" data-toggle="tooltip" title="Property"><a data-toggle="pill" href="#info"
+                            class="trans active">info</a></li>
+                        <li data-toggle="tooltip" title="Form Design"><a data-toggle="pill" href="#property" class="trans">property</a></li>
+                      </ul>
+                      <div class="tab-content form_edit">
+                        <div id="info" class="tab-pane fade in">saadsdededede</div>
+                        <div id="property" class="tab-pane fade in ">Popertyynsbabssdededede</div>
+                      </div>
+                    </div> -->
+                    <div id="editProperty" class="">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="com-tabing">
+                                    <a class="d-flex card-links" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true">
+                                        <svg width="6" height="8" viewBox="0 0 6 8" class="trans">
+                                            <path id="Polygon_2" data-name="Polygon 2" class="svgfill" d="M4,0,8,6H0Z" transform="translate(6) rotate(90)" />
+                                        </svg>
+                                        <p>Component Settings</p>
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div class="comp-wl-block p1020">
+                                        <div class="comp-width ">
+                                            <p class="com-label fontfamli1">Component Width</p>
+                                            <ul class="width-option d-flex">
+                                                <li (click)="setWidth('col-md-12')" [class.activeAnchorWidth]="('col-md-12' === setWidths)">100%</li>
+                                                <li (click)="setWidth('col-md-6')" [class.activeAnchorWidth]="('col-md-6' === setWidths)">50%</li>
+                                                <li (click)="setWidth('col-md-4')" [class.activeAnchorWidth]="('col-md-4' === setWidths)">30%</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="divder"></div>
+                                    <div class="d-flex p1020 rrh-block">
+                                        <ul class="d-flex flex-wrap ">
+                                            <li class="d-flex">
+                                                <input type="checkbox" class="form-control switch_1" [(ngModel)]="Required" (change)="setCommonJson($event.target.checked,'generic_properties','required')" id="required">
+                                                <!--cr_bci_0001-->
+                                                <label for="required" class="com-label ">
+                                                    Required
+                                                </label>
+                                            </li>
+                                            <li class="d-flex">
+                                                <input type="checkbox" class="form-control switch_1" [(ngModel)]="Readonly" (change)="setCommonJson($event.target.checked,'generic_properties','read_only')" id="readonly">
+                                                <label for="readonly" class="com-label">
+                                                    Read Only
+                                                </label>
+                                            </li>
+                                            <!-- <li class="d-flex">
+                                                <input type="checkbox" class="form-control switch_1"
+                                                       [(ngModel)]="Hidden" (click)="setCheck($event.target)" id="hidden">
+                                                <label for="hidden" class="com-label">
+                                                    Hidden
+                                                </label>
+                                            </li> -->
+                                            <li class="d-flex" *ngIf="!(showHideDateMonth || showHideDate || showHideButton)">
+                                                <input type="checkbox" [(ngModel)]="unique" class="form-control switch_1" (change)="setCommonJson($event.target.checked,'generic_properties','unique')" id="unique">
+                                                <label for="unique" class="com-label">
+                                                    Unique
+                                                </label>
+                                            </li>
+
+
+                                            <li class="d-flex" *ngIf="showHideInput || showHideNumber">
+                                                <input type="checkbox" class="form-control switch_1" [(ngModel)]="autogenerated" (change)="setCommonJson($event.target.checked,'generic_properties','autogenerated')" id="autogenerated">
+
+                                                <label for="autoincrement" class="com-label">
+                                                    Autogenerated Id
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="divder"></div>
+
+                                    <div class="mmcd-block p1020"  *ngIf="showHideInput || showHideNumber">
+                                        <div class="size-edit d-flex align-items-center">
+                                            <label for="selectfields" class="com-label fontfamli1">Fields</label>
+                                            <select #Calfields >
+                                                <option>--Select--</option>
+                                                <!-- <option value="F1">F1</option> -->
+                                                <!-- <option value="F2">F2</option> -->
+                                                <option *ngFor="let item of testObject1 | keyvalue" value="{{item.value}}" [disabled]="((item.key == labelText))">{{item.key}}</option>
+                                            </select>
+                                            <input type="button" value="Add" class="form-control com-label fontfamli1" style="width:35px;
+                                            position: relative;
+                                            left: 10px" (click)="getFeilds(Calfields.value)">
+                                        </div>
+                                        <div class="size-edit d-flex align-items-center" >
+                                            <label for="labeloperators" class="com-label fontfamli1">Operators</label>
+                                            <select #caloperators >
+                                                <option>--Select--</option>
+                                                <option value="+">+</option>
+                                                <option value="-">-</option>
+                                                <option value="*">*</option>
+                                                <option value="/">/</option>
+                                                <option value="%">%</option>
+                                            </select>
+                                            <input type="button"  value="Add" class=" form-control com-label fontfamli1" 
+                                            style="width: 35px;
+                                            position: relative;
+                                            left: 10px" (click)="getOperators(caloperators.value)">
+                                        </div>
+                                        <div class="label-text d-flex" style="margin-top: 10px;">
+                                            <label for="labelnumber" class="com-label fontfamli1"></label>
+                                            <input class="form-control"
+                                            #calvalue
+                                             type="number" id="labelnumber" 
+                                             placeholder="Enter value 1 here"
+                                             (change)="getCalVal(calvalue.value)">
+                                        </div>
+                                        <!-- <div class="label-text d-flex" style="margin-top: 10px;">
+                                            <label for="labelnumber" class="com-label fontfamli1"></label>
+                                            <input class="form-control"
+                                            #calvalue2
+                                             type="number" id="labelnumber" 
+                                             placeholder="Enter value 2 here"
+                                             (blur)="getCalVal2(calvalue2.value)">
+                                        </div> -->
+                                        <div class="label-text d-flex">
+                                            <label for="labelnumber" class="com-label fontfamli1"></label>
+                                            <input type="button" class="form-control" 
+                                            value="Add" (click)="Calculator()">
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="labelformula" class="com-label fontfamli1">Formula</label>
+                                            <input type="text" [(ngModel)]="Cal_Formula" class="form-control" id="labelformula" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="divder"></div>
+
+                                    <div class="mmcd-block p1020" *ngIf="showHideInput">
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">Label Text</label>
+                                            <input class="form-control" type="text" id="labeltext" [class.activess]="(formID != null )" (change)="setLabelText($event.target)" [(ngModel)]="labelText" placeholder="Enter text here">
+                                        </div>
+                                        <div class="size-edit d-flex align-items-center">
+                                            <label for="textsize" class="com-label fontfamli1">Text Size</label>
+                                            <select (change)="setfontfamli1($event.target.value)" [(ngModel)]="selectedValue7">
+                                                <option [ngValue]="undefined" selected>Select</option>
+                                                <option>8px</option>
+                                                <option>10px</option>
+                                                <option>12px</option>
+                                                <option>14px</option>
+                                                <option>16px</option>
+                                            </select>
+                                        </div>
+                                        <div class="color-edit d-flex align-items-center">
+                                            <label for="color" class="com-label fontfamli1">Color</label>
+                                            <input class="form-control" type="color" (change)="setLabelColor($event.target)" [(ngModel)]="labelColor">
+                                            <span class="">{{labelColor?labelColor:'#000000'}}</span>
+                                        </div>
+                                        <div class="minmax-section">
+                                            <ul class="d-flex">
+                                                <li class="minlength d-flex">
+                                                    <label class="com-label" for="minlength">Minlength</label>
+                                                    <input class="form-control" type="number" id="minlength" [(ngModel)]="Minlength" (change)="setCommonJson($event.target.value,'validation_properties','Validators_minLength')" placeholder="None">
+                                                </li>
+                                                <li class="maxlength d-flex">
+                                                    <label class="com-label" for="maxlength">Maxlength</label>
+                                                    <input class="form-control" type="number" id="maxlength" [(ngModel)]="Maxlength" (change)="setCommonJson($event.target.value,'validation_properties','Validators_maxLength')" placeholder="None">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="char-allowed d-flex align-items-center">
+                                            <label class="com-label" for='charactersAllo'>Input validation</label>
+                                            <select id="charactersAllo" (change)="setCommonJson($event.target.value,'validation_properties','RegExp')" [(ngModel)]="selectedValue4">
+                                                <option [ngValue]="Select" selected>Select</option>
+                                                <option value="^[1-9]\\d*$">Lowercase Alphabets (a-z)</option>
+                                                <option value="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">Email</option>
+                                                <option value="^((\\+91-?)|0)?[0-9]{10}$">Mobile No with country code</option>
+                                                <option value="[0-9]{5}">Number</option>
+                                                <option value="^[^\s]+(\s+[^\s]+)*$">No whitespace</option>
+                                                <option value="^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$">No whitespace and character restrictions</option>
+                                                <option value="^[a-zA-Z0-9 ]+$">Alpha Numerics</option>
+                                                <option value="[a-zA-Z][a-zA-Z ]+">Only Characters</option>
+                                                <option value="^[a-zA-Z ]*$">Only Alphabets and space</option>
+                                                <option value="^[0-9]*$">Only Number</option>
+                                                <option value="^(?=.*[a-z])(? =.*[A-Z])(? =.*[0-9])(? =.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$">Password</option>
+                                                <option value="(https?: //)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]* /?">Url</option>
+                                                <option value="^[a-zA-Z0-9]*$">strictly alphanumeric</option>
+                                                <option value="^-?[0-9]\\d*(\\.\\d{1,2})?$">Numbers</option>
+                                                <option value="^[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*$">At least One alphabets</option>
+                                                <option value="^[a-zA-Z0-9_]*$">Restrict special character</option>
+                                                <option value="^[a-zA-Z0-9]{10}$">Alphanumeric exact 10 letters</option>
+                                                <option value="^[a-zA-Z]+$">Only Text</option>
+                                                <option value="custome">Custome</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-text d-flex align-items-center">
+                                            <label class="com-label" for="defaulttext">Default Text</label>
+                                            <input (change)="setCommonJson($event.target.value,'field_properties','RegExp')" [(ngModel)]="inputPlaceHolder" class="form-control" type="text" id="defaulttext" placeholder="Default Fill Text">
+                                        </div>
+                                        <div class="include  d-flex align-items-center" style="display: none !important">
+                                            <input type="checkbox" class="form-control switch_1" id="inclbutton">
+                                            <label for="inclbutton" class="com-label">
+                                                Include "Clear Field" button
+                                            </label>
+                                        </div>
+                                        <div class="custome-valid" *ngIf="selectedValue4=='custome'">
+                                            <div class="d-flex align-items-center">
+                                                <label class="com-label w83" for='validationType'>
+                                                    Type
+                                                    validation
+                                                </label>
+                                                <select id="validationType" class="wcal83" (change)="setCommonJson($event.target.value,'validation_properties','type_validation')" [(ngModel)]="validationType">
+                                                    <option [ngValue]="Select" selected>Select</option>
+                                                    <option value="onvalue"> On Value</option>
+                                                    <option value="onfield"> On Field</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="custome-valid" *ngIf="validationType=='onfield'">
+                                            <div class="d-flex align-items-center">
+                                                <label class="com-label w83" for='validationType'></label>
+                                                <select (change)="setCommonJson($event.target.value,'validation_properties','type_validation_parent')" [(ngModel)]="type_validation_parent" id="validationTypeParent" class="wcal83">
+                                                    <option [ngValue]="Select" selected>Parent Field</option>
+                                                    <option *ngFor="let item of testObject1 | keyvalue" value="{{item.value}}">
+                                                        {{item.key}}
+                                                    </option>
+                                                    <!-- [disabled]="((item.key == labelText))" -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="custome-valid" *ngIf="validationType">
+                                            <div class="d-flex align-items-center">
+                                                <label class="com-label w83" for='validationType'></label>
+                                                <select id="validationTypeOperator" class="wcal83" (change)="setCommonJson($event.target.value,'validation_properties','type_validation_operator')" [(ngModel)]="validationTypeOperator">
+                                                    <option [ngValue]="Select" selected>Select</option>
+                                                    <option value="=<"> =&lt;</option>
+                                                    <option value="=>"> =&gt; </option>
+                                                    <option value="!=="> !== </option>
+                                                </select>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <label class="com-label w83" for='validationType'></label>
+
+                                                <input id="validationTypeText" type="text" (change)="setCommonJson($event.target.value,'validation_properties','type_validation_text')" [(ngModel)]="validationTypeText" class="form-control">
+                                                <!-- <select id="validationTypeText" class="wcal83"
+                                                (change)="setCheck($event.target)" [(ngModel)]="validationTypeText">
+                                                    <option [ngValue]="Select" selected>Select</option>
+                                                    <option value="Text">Text</option>
+                                                    <option value="Number">Number </option>
+                                                </select> -->
+
+                                            </div>
+                                        </div>
+                                        <div class="include  d-flex align-items-center" style="display: none !important">
+                                            <input type="checkbox" class="form-control switch_1" id="inclbutton">
+                                            <label for="inclbutton" class="com-label">
+                                                Include "Clear Field" button
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mmcd-block p1020" *ngIf="showHideEmail">
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">Label Text</label>
+                                            <input class="form-control" type="text" id="labeltext" (change)="setLabelText($event.target)" [(ngModel)]="labelText" placeholder="Enter text here">
+                                        </div>
+                                        <div class="size-edit d-flex align-items-center">
+                                            <label for="textsize" class="com-label fontfamli1">Text Size</label>
+                                            <select (change)="setfontfamli1($event.target.value)" [(ngModel)]="selectedValue7">
+                                                <option selected>Select</option>
+                                                <option>8px</option>
+                                                <option>10px</option>
+                                                <option>12px</option>
+                                                <option>14px</option>
+                                                <option>16px</option>
+                                            </select>
+                                        </div>
+                                        <div class="color-edit d-flex align-items-center">
+                                            <label for="color" class="com-label fontfamli1">Color</label>
+                                            <input class="form-control" type="color" (change)="setLabelColor($event.target)" [(ngModel)]="labelColor">
+                                            <span class="">{{labelColor?labelColor:'#000000'}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="number-block p1020" *ngIf="showHideNumber">
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">Label Text</label>
+                                            <input class="form-control" type="text" id="labeltext" (change)="setLabelText($event.target)" [(ngModel)]="labelText" placeholder="Enter text here">
+                                        </div>
+                                        <div class="size-edit d-flex align-items-center">
+                                            <label for="textsize" class="com-label fontfamli1">Text Size</label>
+                                            <select (change)="setfontfamli1($event.target.value)" [(ngModel)]="selectedValue7">
+                                                <option selected>Select</option>
+                                                <option>8px</option>
+                                                <option>10px</option>
+                                                <option>12px</option>
+                                                <option>14px</option>
+                                                <option>16px</option>
+                                            </select>
+                                        </div>
+                                        <div class="color-edit d-flex align-items-center">
+                                            <label for="color" class="com-label fontfamli1">Color</label>
+                                            <input class="form-control" type="color" (change)="setLabelColor($event.target)" [(ngModel)]="labelColor">
+                                            <span class="">{{labelColor?labelColor:'#000000'}}</span>
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="minimum" class="com-label fontfamli1">Minimum</label>
+                                            <input class="form-control spinner" pattern="[0-9]*" [(ngModel)]="Minlength" (change)="setCommonJson($event.target.value,'validation_properties','Validators_minLength')" id="minlength" type="number" placeholder="None">
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="maximum" class="com-label fontfamli1">Maximum</label>
+                                            <input class="form-control spinner" pattern="[0-9]*" [(ngModel)]="Maxlength" (change)="setCommonJson($event.target.value,'validation_properties','Validators_maxLength')" id="maxlength" type="number" placeholder="None">
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="increment" class="com-label fontfamli1">Increment</label>
+                                            <input class="form-control spinner" pattern="[0-9]*" id="spinner" min="1" type="number" id="minimum" placeholder="None">
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="default-fill" class="com-label fontfamli1">Default Fill</label>
+                                            <input class="form-control" type="number" id="default-fill" placeholder="Default Fill number">
+                                        </div>
+                                    </div>
+
+                                    <div class="sf-block" *ngIf="showHideSelect">
+                                        <div class="label-text d-flex p1020">
+                                            <label class="com-label fontfamli1" for="labeltext">Label Text</label>
+                                            <input class="form-control" id="select" (change)="setLabelText($event.target)" [(ngModel)]="labelText" placeholder="Enter text here" type="text">
+                                        </div>
+                                        <div class="divder"></div>
+
+                                        <div class="p1020 mt2">
+                                            <div class="d-flex align-items-center lipbr-block">
+                                                <p class="heading1">Add Options</p>
+                                                <p class="small-text">Populate from Binding or Relation</p>
+                                            </div>
+
+                                            <ul class="items-option">
+                                                <li id="addOption">
+                                                    <input class="form-control" (change)="setOptionsForSelect($event.target)" id="labeltext" placeholder="Item 1 Text" type="text">
+                                                    <div class="d-flex align-items-center justify-content-end">
+                                                        <input type="checkbox" class="form-control switch_1" (change)="setStaticSection($event.target)" [(ngModel)]="staticSection" id="inclbutton">
+                                                        <label for="inclbutton" class="com-label">
+                                                            Static Section
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <div class="d-flex align-items-center itemname">
+                                                    <label for="list" class="heading1">Options :</label>
+                                                    <p class="com-button2">
+                                                        <span class="material-symbols-outlined">add</span>
+                                                        <span (click)="deselectOptionsForSelect()" class="material-symbols-outlined">remove</span>
+                                                    </p>
+                                                </div>
+                                                <select id="getnayar" multiple>
+                                                    <option style="margin:0px !important" *ngFor="let dat of arrayForSelectOptionss" value="{{dat}}">{{dat}}</option>
+                                                </select>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="sf-block" *ngIf="showHideRadio">
+                                        <div class="label-text d-flex p1020">
+                                            <label class="com-label fontfamli1" for="labeltext">Label Text</label>
+                                            <input class="form-control" id="radio" (change)="setLabelText($event.target)" [(ngModel)]="labelText" placeholder="Enter text here" type="text">
+                                        </div>
+                                        <div class="divder"></div>
+                                        <div class="p1020 mt2">
+                                            <div class="d-flex align-items-center lipbr-block">
+                                                <p class="heading1">Add Radio Options</p>
+                                                <p class="small-text">Populate from Binding or Relation</p>
+                                            </div>
+                                            <ul class="items-option">
+                                                <li id="addOption">
+                                                    <div class="d-flex align-items-center itemname">
+                                                    </div>
+                                                    <input class="form-control"  (change)="setOptionsForRadioCheckbox($event.target)" id="radio" placeholder="Item 1 Text" type="text">
+                                                    <div class="asbd-block d-flex align-items-center">
+                                                        <div class="ud-block d-flex align-items-center">
+                                                            <p class="com-button2"><span class="material-symbols-outlined">expand_more</span></p>
+                                                            <p class="com-button2"><span class="material-symbols-outlined">expand_less</span></p>
+                                                        </div>
+                                                        <div class="include d-flex align-items-center">
+                                                            <input type="checkbox" class="form-control switch_1" id="inclbutton">
+                                                            <label for="inclbutton" (click)="setCheck($event.target)" class="com-label">
+                                                                Select by Default
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <div class="d-flex align-items-center itemname">
+                                                    <label for="list" class="heading1">Options :</label>
+                                                    <p class="com-button2">
+                                                        <span class="material-symbols-outlined">add</span>
+                                                        <span (click)="deselectOptionsForRadioCheckbox($event.target)" id="radio" class="material-symbols-outlined">remove</span>
+                                                    </p>
+                                                </div>
+                                                <select id="getnayars" multiple>
+                                                    <option style="margin:0px !important" *ngFor="let dat of arrayForSelectOptionss" value="{{dat}}">{{dat}}</option>
+                                                </select>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="sf-block" *ngIf="showHideCheckList">
+                                        <div class="label-text d-flex p1020">
+                                            <label class="com-label fontfamli1" for="labeltext">Label Text</label>
+                                            <input class="form-control" id="select" (change)="setLabelText($event.target)" [(ngModel)]="labelText" placeholder="Enter text here" type="text">
+                                        </div>
+                                        <div class="divder"></div>
+                                        <div class="p1020 mt2">
+                                            <div class="d-flex align-items-center lipbr-block">
+                                                <p class="heading1">Add Checklist</p>
+                                                <p class="small-text">Populate from Binding or Relation</p>
+                                            </div>
+                                            <ul class="items-option">
+                                                <li id="addOption">
+                                                    <div class="d-flex align-items-center itemname">
+
+                                                    </div>
+                                                    <input class="form-control" (change)="setOptionsForRadioCheckbox($event.target)" id="checklist" placeholder="Item 1 Text" type="text">
+                                                    <div class="asbd-block d-flex align-items-center">
+                                                        <div class="ud-block d-flex align-items-center">
+                                                            <p class="com-button2"><span class="material-symbols-outlined">expand_more</span></p>
+                                                            <p class="com-button2"><span class="material-symbols-outlined">expand_less</span></p>
+                                                        </div>
+                                                        <div class="include d-flex align-items-center">
+                                                            <input type="checkbox" class="form-control switch_1" id="inclbutton">
+                                                            <label for="inclbutton" (click)="setCheck($event.target)" class="com-label">
+                                                                Select by Default
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <div class="d-flex align-items-center itemname">
+                                                    <label for="list" class="heading1">Options :</label>
+
+                                                    <p class="com-button2">
+                                                        <span class="material-symbols-outlined">add</span>
+                                                        <span (click)="deselectOptionsForRadioCheckbox($event.target)" id="checkbox" class="material-symbols-outlined">remove</span>
+                                                    </p>
+                                                </div>
+                                                <select id="getnayarss" multiple>
+                                                    <option style="margin:0px !important" *ngFor="let dat of arrayForSelectOptionss" value="{{dat}}">{{dat}}</option>
+                                                </select>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="sf-block" *ngIf="showHideCheckbox">
+                                        <div class="label-text d-flex p1020">
+                                            <label class="com-label fontfamli1" for="labeltext">Label Text</label>
+                                            <input class="form-control" id="select" (change)="setLabelText($event.target)" [(ngModel)]="labelText" placeholder="Enter text here" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="hededit-block p1020" *ngIf="showHideHeading">
+
+                                        <div class="select-heading d-flex">
+                                            <p class="com-label">Heading Size</p>
+                                            <ul class="heading-option d-flex setfontsize">
+                                                <a (click)="setfontsize('H1')">
+                                                <li [class.activeAnchorWidth]="('H1' === selectedValue8)">H1</li>
+                                                </a>
+                                                <a (click)="setfontsize('H2')">
+                                                <li [class.activeAnchorWidth]="('H2' === selectedValue8)">H2</li>
+                                                </a>
+                                                <a (click)="setfontsize('H3')">
+                                                <li [class.activeAnchorWidth]="('H3' === selectedValue8)">H3</li>
+                                                </a>
+                                            </ul>
+                                        </div>
+                                        <div class="color-edit d-flex align-items-center">
+                                            <label for="color" class="com-label fontfamli1">Color</label>
+                                            <input class="form-control" type="color" (change)="setLabelColor($event.target)" [(ngModel)]="labelColor">
+                                            <span class="">{{labelColor?labelColor:'#000000'}}</span>
+                                        </div>
+                                        <div class="heading-textarea">
+                                            <textarea class="form-control" (change)="setLabelText($event.target)" [(ngModel)]="labelText" id="heading-text" name="heading-text" rows="4" cols="50" placeholder="Pressure Diffrential Record"></textarea>
+                                            <p>Required</p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="dt-block" *ngIf="showHideDateMonth">
+
+                                        <div class="cbhif-block d-flex align-items-center">
+                                            <div class="include  d-flex align-items-center p1020">
+                                                <input type="checkbox" class="form-control switch_1" id="captureButton">
+                                                <label for="captureButton" class="com-label">Capture Button</label>
+                                            </div>
+                                            <div class="include  d-flex align-items-center p1020">
+                                                <input type="checkbox" class="form-control switch_1" id="hidField">
+                                                <label for="hidField" class="com-label">Hide Input Field</label>
+                                            </div>
+                                        </div>
+                                        <div class="divder"></div>
+                                        <div class="label-text d-flex p1020">
+                                            <label for="labeltext" class="com-label fontfamli1">Label Text</label>
+                                            <input (change)="setLabelText($event.target)" [(ngModel)]="labelText" class="form-control" type="text" id="labeltext" placeholder="Month &amp; Year">
+                                            <p class="required">Required</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="dt-block" *ngIf="showHideDate">
+
+                                        <div class="cbhif-block d-flex align-items-center">
+                                            <div class="include  d-flex align-items-center p1020">
+                                                <input type="checkbox" class="form-control switch_1" id="captureButton">
+                                                <label for="captureButton" class="com-label">Capture Button</label>
+                                            </div>
+                                            <div class="include  d-flex align-items-center p1020">
+                                                <input type="checkbox" class="form-control switch_1" id="hidField">
+                                                <label for="hidField" class="com-label">Hide Input Field</label>
+                                            </div>
+                                        </div>
+                                        <div class="divder"></div>
+                                        <div class="label-text d-flex p1020">
+                                            <label for="labeltext" class="com-label fontfamli1">Label Text</label>
+                                            <input (change)="setLabelText($event.target)" [(ngModel)]="labelText" class="form-control" type="text" id="labeltext" placeholder="Month &amp; Year">
+                                            <p class="required">Required</p>
+                                        </div>
+                                        <div class="p1020">
+                                            <div class="label-text d-flex">
+                                                <label for="formate" class="com-label fontfamli1">Formate</label>
+                                                <select id="formate">
+                                                    <option>YYYY-MM-DD</option>
+                                                    <option>DD-MM-YYYY</option>
+                                                    <option>MM-DD-YYYY</option>
+                                                    <option>YYYY-DD-MM</option>
+                                                </select>
+                                            </div>
+                                            <div class="label-text d-flex">
+                                                <label for="monthyearMin" class="com-label fontfamli1">Min</label>
+                                                <div class="include  d-flex align-items-center p1020">
+                                                    <input type="checkbox" class="form-control switch_1" [(ngModel)]="defaultDateMin" (change)="setMinDate($event.target)" id="captureButton">
+                                                    <label for="captureButton" class="com-label">Current</label>
+                                                </div>
+                                                <input type="date" id="monthMin" [(ngModel)]="minDate" (change)="setMinDate($event.target)" name="monthyearMin" class="form-control">
+                                            </div>
+                                            <div class="label-text d-flex">
+                                                <label for="monthyearMax" class="com-label fontfamli1">Max</label>
+                                                <div class="include  d-flex align-items-center p1020">
+                                                    <input type="checkbox" class="form-control switch_1" [(ngModel)]="defaultDateMax" (change)="setMaxDate($event.target)" id="captureButton">
+                                                    <label for="captureButton" class="com-label">Current</label>
+                                                </div>
+                                                <input type="date" id="monthyearMax" [(ngModel)]="maxDate" (change)="setMaxDate($event.target)" name="monthyearMax" class="form-control">
+                                            </div>
+                                            <div class="label-text d-flex">
+                                                <label for="defaultYearmonth" class="com-label fontfamli1">Default</label>
+                                                <div class="include  d-flex align-items-center p1020">
+                                                    <input type="checkbox" class="form-control switch_1" [(ngModel)]="defaultDate" (change)="setDefaultDate($event.target)" id="captureButton">
+                                                    <label for="captureButton" class="com-label">Current</label>
+                                                </div>
+                                                <input type="date" [(ngModel)]="currentDate" (change)="setDefaultDate($event.target)" id="defaultYearmonth" name="defaultYearmonth" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mmcd-block p1020" *ngIf="showHideButton">
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">Label Text</label>
+                                            <input class="form-control" type="text" id="labeltext" (change)="setLabelText($event.target)" [(ngModel)]="labelText" placeholder="Enter text here">
+                                        </div>
+                                        <div class="size-edit d-flex align-items-center mb8">
+                                            <label for="textsize" class="com-label fontfamli1 ">Text Size</label>
+                                            <select (change)="setfontfamli1($event.target.value)" [(ngModel)]="selectedValue17">
+                                                <option [ngValue]="Select" selected>Select</option>
+                                                <option>8px</option>
+                                                <option>10px</option>
+                                                <option>12px</option>
+                                                <option>14px</option>
+                                                <option>16px</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="label-text button-type d-flex" *ngIf="approvalButton">
+                                            <label for="labeltext" class="com-label  fontfamli1">Button Type</label>
+                                            <select class='wcal83' [(ngModel)]="fieldType" (change)="setButtonName($event.target)">
+                                                <option selected>Select</option>
+                                                <option>submit</option>
+                                                <option>reset</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="color-edit d-flex align-items-center">
+                                            <label for="color" class="com-label fontfamli1">Color</label>
+                                            <input class="form-control" type="color" (change)="setLabelColor($event.target)" [(ngModel)]="labelColor">
+                                            <span class="">{{labelColor?labelColor:'#000000'}}</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="mmcd-block p1020" *ngIf="showHideTable">
+                                        <div>Table Fields</div>
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">Label Text</label>
+                                            <input (change)="setLabelText($event.target)" [(ngModel)]="labelText" class="form-control" type="text" id="" placeholder="Enter text here">
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">No of children</label>
+                                            <input class="form-control" type="text" id="" (change)="setTableChildren($event.target.value)" placeholder="Enter text here">
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">No of rows</label>
+                                            <input class="form-control" type="text" id="rows" (change)="setRowsColumns($event.target)" placeholder="Enter text here">
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">No of columns</label>
+                                            <input class="form-control" type="text" id="columns" (change)="setRowsColumns($event.target)" placeholder="Enter text here">
+                                        </div>
+
+                                        <div class="size-edit d-flex align-items-center">
+                                            <label for="textsize" class="com-label fontfamli1">Select component</label>
+                                            <select>
+                                                <option [ngValue]="Select" selected>Select</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="mmcd-block p1020" *ngIf="showHidefile">
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">Label Text</label>
+                                            <input class="form-control" type="text" id="labeltext" (change)="setLabelText($event.target)" [(ngModel)]="labelText" placeholder="Enter text here">
+                                        </div>
+                                        <div class="size-edit d-flex align-items-center mb8">
+                                            <label for="textsize" class="com-label fontfamli1">Text Size</label>
+                                            <select (change)="setfontfamli1($event.target.value)" [(ngModel)]="selectedValue17">
+                                                <option [ngValue]="Select" selected>Select</option>
+                                                <option>8px</option>
+                                                <option>10px</option>
+                                                <option>12px</option>
+                                                <option>14px</option>
+                                                <option>16px</option>
+                                            </select>
+                                        </div>
+                                        <div class="color-edit d-flex align-items-center">
+                                            <label for="color" class="com-label fontfamli1">Color</label>
+                                            <input class="form-control" type="color" (change)="setLabelColor($event.target)" [(ngModel)]="labelColor">
+                                            <span class="">{{labelColor?labelColor:'#000000'}}</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb8">
+                                            <label for="chooseType" class="com-label  fontfamli1 w83">
+                                                Choose
+                                                Type
+                                            </label>
+                                            <mat-form-field appearance="fill" id="chooseType" class="wcal83 matreset">
+                                                <mat-label>File types</mat-label>
+                                                <mat-select (selectionChange)="setFileTypes($event.value)" [formControl]="toppings" multiple>
+                                                    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">Set Size</label>
+                                            <input class="form-control" type="text" id="labeltext" (change)="setFileSize($event.target)" [(ngModel)]="fileSize" placeholder="Enter text here">
+                                        </div>
+                                    </div>
+
+                                    <div class="number-block p1020" *ngIf="showHideRange">
+                                        <div class="label-text d-flex">
+                                            <label for="labeltext" class="com-label fontfamli1">Label Text</label>
+                                            <input class="form-control" type="text" id="labeltext" (change)="setLabelText($event.target)" [(ngModel)]="labelText" placeholder="Enter text here">
+                                        </div>
+                                        <div class="size-edit d-flex align-items-center">
+                                            <label for="textsize" class="com-label fontfamli1">Text Size</label>
+                                            <select (change)="setfontfamli1($event.target.value)" [(ngModel)]="selectedValue7">
+                                                <option selected>Select</option>
+                                                <option>8px</option>
+                                                <option>10px</option>
+                                                <option>12px</option>
+                                                <option>14px</option>
+                                                <option>16px</option>
+                                            </select>
+                                        </div>
+                                        <div class="color-edit d-flex align-items-center">
+                                            <label for="color" class="com-label fontfamli1">Color</label>
+                                            <input class="form-control" type="color" (change)="setLabelColor($event.target)" [(ngModel)]="labelColor">
+                                            <span class="">{{labelColor?labelColor:'#000000'}}</span>
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="minimum" class="com-label fontfamli1">Minimum</label>
+                                            <input class="form-control spinner" pattern="[0-9]*" [(ngModel)]="Minlength" (change)="setCommonJson($event.target.value,'validation_properties','Validators_minLength')" id="minlength" type="number" placeholder="None">
+                                        </div>
+                                        <div class="label-text d-flex">
+                                            <label for="maximum" class="com-label fontfamli1">Maximum</label>
+                                            <input class="form-control spinner" pattern="[0-9]*" [(ngModel)]="Maxlength" (change)="setCommonJson($event.target.value,'validation_properties','Validators_maxLength')" id="maxlength" type="number" placeholder="None">
+                                        </div>
+                                    </div>
+
+                                    <div class="tooltips-section p1020" *ngIf="tooltipsBlock" style="display: none">
+
+                                        <h2 class="heading1">Tooltip</h2>
+                                        <ul>
+                                            <li class="d-flex align-items-center">
+                                                <label class="com-label" for="tolheading">Default Text</label>
+                                                <input class="form-control" type="number" id="tolheading" placeholder="Default Fill Text">
+                                            </li>
+                                            <li class="d-flex align-items-center">
+                                                <label class="com-label" for="description">Description</label>
+                                                <input class="form-control" type="number" id="description" placeholder="Description Text">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel">
+                                <div class="com-tabing">
+                                    <a class="d-flex card-links" data-toggle="collapse" href="#collapseTwo" aria-expanded="false">
+                                        <svg width="6" height="8" viewBox="0 0 6 8" class="trans">
+                                            <path id="Polygon_2" data-name="Polygon 2" class="svgfill" d="M4,0,8,6H0Z" transform="translate(6) rotate(90)" />
+                                        </svg>
+                                        <p>Binding &amp; Relations</p>
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <!-- cr_bci_0001 start -->
+                                        <div class="divder"></div>
+                                        <div class="panel" style="padding: 0px 12px 10px 9px;color: #7c7c7c;">
+                                            <select (change)="showBindingRelation($event.target.value)" [(ngModel)]="selectedValue1">
+                                                <option [ngValue]="undefined" selected>No Binding or Relation</option>
+                                                <option>Bind To Master</option>
+                                                <option>Relate To Another Component</option>
+                                            </select>
+                                            <!-- Relation Type -->
+                                            <div *ngIf="selectedValue1 == 'Relate To Another Component'" class="com-tabing3" style="display:flex;width: 100%;">
+                                                <div>Relation Type</div>
+                                                <select (change)="showRelationType($event.target.value)" [(ngModel)]="selectedValue2">
+                                                    <option [ngValue]="undefined" disabled selected>Select</option>
+                                                    <option value="Autofill">Autofill</option>
+                                                    <option value="Dependent">Dependent</option>
+                                                </select>
+                                                <span class="material-symbols-outlined">info</span>
+                                            </div>
+                                            <!-- Parent Field -->
+                                            <div *ngIf="selectedValue1 == 'Relate To Another Component'" class="com-tabing4" style="display:flex;width: 100%;">
+                                                <div class="com-tabing1-parent-field">Parent Fields</div>
+                                                <!-- <select class="com-tabing1-selected" (change)="setParentField($event.target.value)" [(ngModel)]="selectedValue3">
+                                                    <option class="com-tabing1-component" [ngValue]="undefined" selected disabled>
+                                                        Select Another Component
+                                                    </option>
+                                                    <option *ngFor="let item of testObject1 | keyvalue" value="{{item.value}}" [disabled]="((item.key == labelText))">
+                                                        {{item.key}}
+                                                    </option>
+                                                </select> -->
+                                                <mat-form-field appearance="fill" id="chooseType" class="wcal83 matreset">
+                                                    <mat-label>Parent Fields</mat-label>
+                                                    <mat-select [(ngModel)]="selectedValue3" (selectionChange)="setParentField($event.value)" multiple>
+                                                        <mat-option *ngFor="let item of testObject1 | keyvalue"
+                                                                    [value]="item.key" [disabled]="((item.key == labelText))">{{item.key}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                            
+                                            </div>
+                                            <!-- Binding Table -->
+                                            <div *ngIf="(selectedValue1 == 'Bind To Master') || (selectedValue1 == 'Relate To Another Component' && selectedValue2 && selectedValue3) " class="com-tabing1" style="display:flex;width: 100%;">
+                                                <div>Binding Table</div>
+                                                <!-- [(ngModel)]="selectedValue" -->
+                                                <select (change)="showCurrentTableColumn($event.target.value)" [(ngModel)]="selectedValue">
+                                                    <option [ngValue]="undefined" selected disabled>
+                                                        Select a Table for Binding
+                                                    </option>
+                                                    <option *ngFor="let dat of modules" value="{{dat.tablE_NAME}}">
+                                                        {{dat.tablE_NAME}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <!-- Binding Column -->
+                                            <!-- selectedValue == veps &&  -->
+                                            <!-- [class.acti]="'Autofill' === selectedValue2" -->
+                                            <div *ngIf="((selectedValue1 == 'Bind To Master' && selectedValue) || ((selectedValue1 == 'Relate To Another Component') && (selectedValue2) && (selectedValue3) && (selectedValue)))" style="width: 50%; display:inline-block;">
+                                                <p class="same-class">
+                                                    Binding Column &nbsp;
+                                                    <span class="material-symbols-outlined" style="font-size: 13px !important;float: right;">info</span>
+                                                </p>
+                                                <div class="com-tabing2">
+                                                    <div class="card-body" *ngFor="let da of modules1" (click)="setStateAsActives(da.columnName)" [class.actives]="(da.columnName === bindingColumns)" [class.activess]="(selectedValue2 === 'Autofill')">
+                                                        <a [class.activess]="(selectedValue2 === 'Autofill')">
+                                                            <p>&nbsp;&nbsp;{{da.columnName}}</p>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Display Column -->
+                                            <div *ngIf="((selectedValue1 == 'Bind To Master' && selectedValue) || (selectedValue1 == 'Relate To Another Component' && selectedValue2  && selectedValue3  && selectedValue))" style="width: 50%; display:inline-block;">
+                                                <p class="same-class">
+                                                    Display Column &nbsp;
+                                                    <span class="material-symbols-outlined" style="font-size: 13px !important;float:right;">info</span>
+                                                </p>
+                                                <div class="com-tabing2">
+                                                    <div class="card-body" *ngFor="let da of modules1" (click)="setStateAsActive(da.columnName)" [class.active]="(da.columnName === displayColumns)">
+                                                        <a>
+                                                            <p>&nbsp;&nbsp;{{da.columnName}}</p>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Filter Column -->
+                                            <div *ngIf="((selectedValue1 == 'Relate To Another Component' && selectedValue2 != 'Autofill'  && selectedValue3  && selectedValue))" style="width: 50%; display:inline-block;">
+                                                <p class="same-class">
+                                                    Filter Column &nbsp;
+                                                    <span class="material-symbols-outlined" style="font-size: 13px !important;float: right;">info</span>
+                                                </p>
+                                                <div class="com-tabing2">
+                                                    <div class="card-body" *ngFor="let da of modules1" (click)="setStateAsActiv(da.columnName)" [class.activ]="(da.columnName === filterColumns)">
+                                                        <a>
+                                                            <p>&nbsp;&nbsp;{{da.columnName}}</p>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- cr_bci_0001 end -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- ============================right panel end ============================-->
+        </div>
+    </section>
+</div>
+
+<!-- preview strat -->
+<div class="modal fade previewModal" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="panel-group" id="accordion">
+                <div class="panel-group">
+                    <div class="container-fluid">
+                       
+                        <ng-container *ngFor="let x of formNewData">
+
+                            <div class="{{x.grid_system[0] ? x.grid_system[0].width :  'col-md-12'}}">
+                                <!-- heading-->
+                                <div class="col-md-12 heading_list" *ngIf="(x.field_properties[0].field_type=='heading') || (x.field_properties[0].field_type=='heading_field')">
+                                    <h1>
+                                        <div [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</div>
+                                    </h1>
+                                </div>
+
+                                <!-- paragraph-->
+                                <div class="col-md-12 phara_list" *ngIf="(x.field_properties[0].field_type=='paragraph') || (x.field_properties[0].field_type=='paragraph_field')" [ngStyle]="x.field_properties[0].css_attribute">
+                                    <p>{{x.label.DisplayName}}</p>
+                                </div>
+
+                                <!-- devider-->
+                                <div [ngStyle]="x.label.css_attribute" *ngIf="(x.field_properties[0].field_type=='devider' || x.field_properties[0].field_type=='divder_field')" class='form-group' id='divder_field'>
+                                    <p class='divder'></p>
+                                </div>
+
+                                <!-- Text-->
+
+                                <mat-form-field class="example-full-width" appearance="outline" *ngIf="(x.field_properties[0].field_type=='text')">
+                                    <mat-label [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</mat-label>
+                                    <input [ngStyle]="x.field_properties[0].css_attribute" matInput type="{{x.field_properties[0].field_type}}" name="{{x.label.name}}" id="{{x.label.name}}" placeholder="{{x.field_properties[0].placeholder}}" readonly="{{x.generic_properties[0].read_only}}" value="{{x.generic_properties[0].autogenerated ?  randomNumber : null}}" (focusout)="x.dependency_attributes.dependent ? validateValue(x.label.name,$event.target.value,x.dependency_attributes,x.validation_properties):null;x.generic_properties[0].unique ? uniqueCheck($event,x.label.name):null;">
+                                    <mat-autocomplete #autoProductCode="matAutocomplete" autoActiveFirstOption required>
+                                        <mat-option *ngIf="isProductCodeLoading" class="is-loading">Loading...</mat-option>
+                                        <ng-container *ngIf="!isProductCodeLoading">
+
+                                            <mat-option *ngFor="let option of this.options" [value]="option[x.dependency_attributes.display_column]">
+
+                                                {{option[x.dependency_attributes.display_column]}}
+                                            </mat-option>
+                                        </ng-container>
+                                    </mat-autocomplete>
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field>
+
+                                <!-- file-->
+
+                                <!-- <mat-form-field class="example-full-width" appearance="outline" *ngIf="(x.field_properties[0].field_type=='file')">
+                                    <mat-label [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</mat-label>
+                                    <input [ngStyle]="x.field_properties[0].css_attribute" type="file" name="{{x.label.name}}" id="{{x.label.name}}" placeholder="{{x.field_properties[0].placeholder}}" readonly="{{x.generic_properties[0].read_only}}" value="{{x.generic_properties[0].autogenerated ?  randomNumber : null}}" (focusout)="x.dependency_attributes.dependent ? validateValue(x.label.name,$event.target.value,x.dependency_attributes,x.validation_properties):null;x.generic_properties[0].unique ? uniqueCheck($event,x.label.name):null;">
+
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field> -->
+
+                                <div class="example-full-width" appearance="outline" *ngIf="(x.field_properties[0].field_type=='file')">
+                                    <label [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</label>
+                                    <input [ngStyle]="x.field_properties[0].css_attribute" type="file" name="{{x.label.name}}" id="{{x.label.name}}" placeholder="{{x.field_properties[0].placeholder}}" readonly="{{x.generic_properties[0].read_only}}" value="{{x.generic_properties[0].autogenerated ?  randomNumber : null}}" (focusout)="x.dependency_attributes.dependent ? validateValue(x.label.name,$event.target.value,x.dependency_attributes,x.validation_properties):null;x.generic_properties[0].unique ? uniqueCheck($event,x.label.name):null;">
+
+                                    <!-- <mat-error>{{x.label.DisplayName}} is required</mat-error> -->
+                                </div>
+
+                                
+
+                                <!-- search-->
+
+                                <mat-form-field class="example-full-width" appearance="outline" *ngIf="(x.field_properties[0].field_type=='search')">
+                                    <mat-label [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</mat-label>
+                                    <input [ngStyle]="x.field_properties[0].css_attribute" id="{{x.label.name}}" matInput type="{{x.field_properties[0].field_type}}" placeholder="{{x.field_properties[0].placeholder}}" [matAutocomplete]="auto" readonly="{{x.generic_properties[0].read_only}}">
+
+                                    <mat-autocomplete #auto="matAutocomplete">
+
+                                        <mat-option *ngFor="let option of this.options" [value]="option[x.dependency_attributes.display_column]" (click)="changeOption(option[x.dependency_attributes.binding_column],x.label.name)">
+                                            {{option[x.dependency_attributes.display_column]}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field>
+
+                                <!-- select-->
+
+                                <!-- <mat-form-field class="example-full-width" appearance="outline" *ngIf="x.field_properties[0].field_type=='select' || x.field_properties[0].field_type=='select-one'" (click)="SearchPartialVal($event,x.dependency_attributes,x.label.name,x.field_properties)">
+                                    <mat-label [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</mat-label>
+                                    <mat-select [ngStyle]="x.field_properties[0].css_attribute" id="{{x.label.name}}" (selectionChange)="changeOption($event,x.label.name)">
+
+                                        <mat-option *ngFor="let Soption of pusheditems[x.label.name]" [value]="x.dependency_attributes.display_column != '' ? Soption[x.dependency_attributes.display_column]: Soption">
+                                            {{x.dependency_attributes.display_column != '' ? Soption[x.dependency_attributes.display_column]: Soption}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field> -->
+
+
+                                <div class="example-full-width" appearance="outline" *ngIf="x.field_properties[0].field_type=='select' || x.field_properties[0].field_type=='select-one'" (click)="SearchPartialVal($event,x.dependency_attributes,x.label.name,x.field_properties)">
+                                    <label [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</label>
+                                    <select [(ngModel)]="Soption" [ngStyle]="x.field_properties[0].css_attribute" name="{{x.label.name}}" id="{{x.label.name}}" >
+                                        <option *ngFor="let Soption of x.dependency_attributes.options" [value]="Soption">
+                                            {{Soption}}
+                                        </option>
+                                    </select>
+                                </div> 
+
+                                <!-- email-->
+                                <mat-form-field class="example-full-width" appearance="outline" *ngIf="(x.field_properties[0].field_type=='email')">
+                                    <mat-label [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</mat-label>
+                                    <input [ngStyle]="x.field_properties[0].css_attribute" id="{{x.label.name}}" matInput type="{{x.field_properties[0].field_type}}" placeholder="{{x.field_properties[0].placeholder}}" readonly="{{x.generic_properties[0].read_only}}">
+                                    <mat-autocomplete #autoProductCode="matAutocomplete" autoActiveFirstOption required>
+                                        <mat-option *ngIf="isProductCodeLoading" class="is-loading">Loading...</mat-option>
+                                        <ng-container *ngIf="!isProductCodeLoading">
+                                            <mat-option *ngFor="let option of this.options" [value]="option[x.dependency_attributes.display_column]">
+                                                {{option[x.dependency_attributes.display_column]}}
+                                            </mat-option>
+                                        </ng-container>
+                                    </mat-autocomplete>
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field>
+
+                                <!-- password -->
+                                <mat-form-field class="example-full-width" appearance="outline" *ngIf="(x.field_properties[0].field_type=='password')">
+                                    <mat-label [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</mat-label>
+                                    <input [ngStyle]="x.field_properties[0].css_attribute" matInput type="{{x.field_properties[0].field_type}}" name="{{x.label.name}}" id="{{x.label.name}}" placeholder="{{x.field_properties[0].placeholder}}" readonly="{{x.generic_properties[0].read_only}}" value="{{x.generic_properties[0].autogenerated ?  randomNumber : null}}" (focusout)="x.dependency_attributes.dependent ? validateValue(x.label.name,$event.target.value,x.dependency_attributes,x.validation_properties):null;x.generic_properties[0].unique ? uniqueCheck($event,x.label.name):null;">
+                                    <mat-autocomplete #autoProductCode="matAutocomplete" autoActiveFirstOption required>
+                                        <mat-option *ngIf="isProductCodeLoading" class="is-loading">Loading...</mat-option>
+                                        <ng-container *ngIf="!isProductCodeLoading">
+                                            <mat-option *ngFor="let option of this.options" [value]="option[x.dependency_attributes.display_column]">
+                                                {{option[x.dependency_attributes.display_column]}}
+                                            </mat-option>
+                                        </ng-container>
+                                    </mat-autocomplete>
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field>
+
+                                <!-- TextArea-->
+
+                                <mat-form-field class="example-full-width" appearance="outline" *ngIf="x.field_properties[0].field_type=='textarea'">
+                                    <mat-label [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</mat-label>
+                                    <textarea [ngStyle]="x.field_properties[0].css_attribute" id="{{x.label.name}}" matInput rows="1" cols="1"></textarea>
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field>
+
+                                <!-- Date-->
+                                <mat-form-field class="example-full-width" appearance="outline" *ngIf="(x.field_properties[0].field_type=='date')">
+                                    <mat-label>{{x.label.DisplayName}}</mat-label>
+                                    <input id="{{x.label.name}}" matInput [value]="dt | date:'yyyy-MM-dd'" [min]="x.validation_properties.defaultDateMin ? dt : x.validation_properties.minDate" [max]="x.validation_properties.defaultDateMax ? dt : x.validation_properties.maxDate" type="{{x.field_properties[0].field_type}}" readonly="{{x.generic_properties[0].read_only}}">
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field>
+
+
+                                <!-- Month -->
+                                <mat-form-field class="example-full-width" appearance="outline" *ngIf="(x.field_properties[0].field_type=='month')">
+                                    <mat-label>{{x.label.DisplayName}}</mat-label>
+                                    <input id="{{x.label.name}}" matInput [value]="dt | date:'yyyy-MM-dd'" type="{{x.field_properties[0].field_type}}" readonly="{{x.generic_properties[0].read_only}}">
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field>
+
+                                <!-- Time -->
+                                <mat-form-field class="example-full-width" appearance="outline" *ngIf="(x.field_properties[0].field_type=='time')">
+                                    <mat-label>{{x.label.DisplayName}}</mat-label>
+                                    <input id="{{x.label.name}}" matInput [value]="dt | date:'yyyy-MM-dd'" type="{{x.field_properties[0].field_type}}" readonly="{{x.generic_properties[0].read_only}}">
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field>
+
+
+                                <!-- Number-->
+
+                                <mat-form-field class="example-full-width" appearance="outline" *ngIf="(x.field_properties[0].field_type=='number')">
+                                    <mat-label [ngStyle]="x.label.css_attribute">{{x.label.DisplayName}}</mat-label>
+                                    <input [ngStyle]="x.field_properties[0].css_attribute" name="{{x.label.name}}" id="{{x.label.name}}" value="{{x.generic_properties[0].autogenerated ?  randomNumber : null}}" matInput type="{{x.field_properties[0].field_type}}" placeholder="{{x.field_properties[0].placeholder}}" readonly="{{x.generic_properties[0].read_only}}" (focusout)="validateValue(x.label.name,$event.target.value,x.dependency_attributes,x.validation_properties)">
+
+
+                                    <mat-autocomplete #autoProductCode="matAutocomplete" autoActiveFirstOption required>
+                                        <mat-option *ngIf="isProductCodeLoading" class="is-loading">Loading...</mat-option>
+                                        <ng-container *ngIf="!isProductCodeLoading">
+
+                                            <mat-option *ngFor="let option of this.options" [value]="option.Id">
+
+                                                {{option[x.dependency_attributes.display_column]}}
+                                            </mat-option>
+                                        </ng-container>
+                                    </mat-autocomplete>
+                                    <mat-error>{{x.label.DisplayName}} is required</mat-error>
+                                </mat-form-field>
+
+
+                                <!-- Range -->
+                                <mat-card *ngIf="x.field_properties[0].field_type=='range'">
+                                    <mat-card-content>
+                                        <div> {{x.label.name}}</div>
+
+                                        <mat-slider id="{{x.label.name}}" class="example-margin" min="{{x.validation_properties.Validators_minLength}}" max="{{x.validation_properties.Validators_maxLength}}" step="5" thumbLabel="true" tickInterval="true" [value]="rangeVal" style="width:80%">
+                                        </mat-slider>
+                                    </mat-card-content>
+                                </mat-card>
+
+                                <!-- radio-->
+
+                                <div *ngIf="x.field_properties[0].field_type=='radio'">
+                                    <label id="example-radio-group-label">
+                                        {{x.label.name}}
+                                    </label>
+                                    <mat-radio-group aria-labelledby="example-radio-group-label" required>
+                                        <br />
+                                        <mat-radio-button [value]="op" *ngFor="let op of x.dependency_attributes.options">
+                                            {{op}} <br />
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+
+                                </div>
+
+                                <!-- checkbox -->
+
+                                <div *ngIf="x.field_properties[0].field_type=='checkbox'">
+                                    <label id="example-radio-group-label">
+                                        {{x.label.name}}
+                                    </label>
+                                    <br />
+                                    <mat-checkbox name="{{x.label.name}}[]" [value]="chk" *ngFor="let chk of x.dependency_attributes.options">
+                                        {{chk}}
+                                    </mat-checkbox>
+
+                                </div>
+
+                                <div *ngIf="x.field_properties[0].field_type=='Approval checkbox'">
+                                    <mat-checkbox name="{{x.label.name}}[]" [value]="x.label.DisplayName" >
+                                        {{x.label.DisplayName}}
+                                    </mat-checkbox>
+                                </div>
+
+
+                                <!-- checkbox -->
+
+                                <div *ngIf="x.field_properties[0].field_type=='checkbox'">
+                                    <label id="example-radio-group-label">
+                                        {{x.label.name}}
+                                    </label>
+                                    <br />
+                                    <mat-checkbox name="{{x.label.name}}[]" [value]="chk" *ngFor="let chk of x.dependency_attributes.options">
+                                        {{chk}}
+                                    </mat-checkbox>
+
+                                </div>
+
+                            
+                                <!-- Submit-->
+                                <div class="row" *ngIf="x.field_properties[0].field_type=='button' || x.field_properties[0].field_type=='submit' || x.field_properties[0].field_type=='Approval Button'">
+                                    <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    </div>
+                                    <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                        <button class="btn btn-primary approve-reject-button pull-right" color="primary">
+                                            {{x.label.name}}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="x.field_properties[0].field_type=='reset'">
+                                    <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    </div>
+                                    <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                        <input class="btn btn-primary approve-reject-button pull-right" (click)="reset()" color="primary" type="reset">
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- preview end -->

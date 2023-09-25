@@ -1,0 +1,940 @@
+[
+  {
+    "Name": "User",
+    "DisplayName": "User",
+    "Description": "User",
+    "SubModuleType": "Optional",
+    "Sequence": 1,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Password",
+    "DisplayName": "Password",
+    "Description": "Password",
+    "SubModuleType": "Optional",
+    "Sequence": 3,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Role",
+    "DisplayName": "Role",
+    "Description": "Role",
+    "SubModuleType": "Optional",
+    "Sequence": 2,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Module",
+    "DisplayName": "Module",
+    "Description": "Module",
+    "Sequence": 3,
+    "IsDeleted": 0,
+    "SubModuleType": "Optional",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "SubModule",
+    "DisplayName": "SubModule",
+    "Description": "SubModule",
+    "Sequence": 4,
+    "IsDeleted": 0,
+    "SubModuleType": "Optional",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "GateEntry",
+    "DisplayName": "Gate Entry",
+    "Description": "Gate pass activities controls and manage the external vehicle movement inside the plant for unloading the material.",
+    "Sequence": 1,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "VehicleInspection",
+    "DisplayName": "Vehicle Inspection",
+    "Description": "Before unloading material from the vehicle, vehicle will be inspected against the defined checklist",
+    "Sequence": 2,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+
+  {
+    "Name": "MaterialInspection",
+    "DisplayName": "Material Inspection",
+    "Description": "Visual Material Inspection is the process where material is inspected after the material has arrived, mostly from outside plant (from Vendor, other plants etc.)",
+    "Sequence": 3,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "MaterialLabelPrinting",
+    "DisplayName": "Material Label Printing",
+    "Description": "The Module will be used to capture weight and print material label for each container.",
+    "Sequence": 4,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Palletization",
+    "DisplayName": "Palletization",
+    "Description": "This module will be used to map pallet and material containers placed on pallet.",
+    "Sequence": 5,
+    "IsDeleted": 0,
+    "SubModuleType": "Optional",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "PutAway",
+    "DisplayName": "Put Away",
+    "Description": "This module will be used to map Pallet, Material to Bins, material and pallet placed in Bins will be mapped.",
+    "Sequence": 6,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "BintoBinTransfer",
+    "DisplayName": "Bin to Bin Transfer",
+    "Description": "This module will be used to transfer material or pallet from one bin to other.",
+    "Sequence": 7,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "CubicleAssignment",
+    "DisplayName": "Cubicle Assignment",
+    "Description": "This module will be used to assign cubicle for dispensing of Raw material and Packing material against the process order.",
+    "Sequence": 1,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "CubicleCleaning",
+    "DisplayName": "Cubicle Cleaning",
+    "Description": "This module will be used for Cubicle cleaning process.to log the Area usage and cleaning digitally in system.",
+    "Sequence": 1,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "EquipmentCleaning",
+    "DisplayName": "Equipment Cleaning",
+    "Description": "This module will be used for Equipment cleaning process.to log the Area usage and cleaning digitally in system.",
+    "Sequence": 2,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+
+  {
+    "Name": "LineClearance",
+    "DisplayName": "Line Clearance",
+    "Description": "This module will be used for Line Clearance of cubicle against process order/ Group.",
+    "Sequence": 3,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Picking",
+    "DisplayName": "Picking",
+    "Description": "The Module will be used to Pick material from Location and place in Pre stage area.",
+    "Sequence": 4,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Prestage",
+    "DisplayName": "Pre stage",
+    "Description": "This module will be used to validate material movement from pre staging area to Dispensing booth.",
+    "Sequence": 5,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Staging",
+    "DisplayName": "Staging",
+    "Description": "This module will be used to validate material movement from staging area to Dispensing booth.",
+    "Sequence": 6,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Dispensing",
+    "DisplayName": "Dispensing",
+    "Description": "This module will be used to Dispensed material which is to be issued to Production department.",
+    "Sequence": 7,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "StageOut",
+    "DisplayName": "Stage Out",
+    "Description": "This module will be used stage out the Loose Material.",
+    "Sequence": 8,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "ReallocateDispensedMaterialBin",
+    "DisplayName": "Reallocate Dispensed Material Bin",
+    "Description": "This module will be used to transfer material or pallet from one bin to other.",
+    "Sequence": 9,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Description": "This module will be used return the rejected material to vendor.",
+    "DisplayName": "Return to Vendor",
+    "IsDeleted": 0,
+    "Name": "ReturntoVendor",
+    "Sequence": 10,
+    "SubModuleType": "Optional",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Destruction",
+    "DisplayName": "Destruction",
+    "Description": "This module will be used destroy the rejected material.",
+    "Sequence": 11,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "WeighingCalibration",
+    "DisplayName": "Weighing Calibration",
+    "Description": "This module will be used to Calibrate the weighing balance as per the planner.",
+    "Sequence": 1,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Plant",
+    "DisplayName": "Plant",
+    "Description": "The master module will be used to create/update the Plant Master details in database. Different Plants in the organization will be mentioned here.",
+    "SubModuleType": "Optional",
+    "Sequence": 1,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Gate",
+    "DisplayName": "Gate",
+    "Description": "All inward stock movement starts, and all outward movement ends through Gate. Gate pass is generated at the gate which helps controlling vehicle movement inside a plant.",
+    "SubModuleType": "Optional",
+    "Sequence": 2,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Location",
+    "DisplayName": "Location",
+    "Description": "The master module will be used to create/update the Location Master details in database. A barcode will be generated for Locations and will affix on the locations, this will provide a unique identification to each Location. User can take print out of Location barcode as well through this module.",
+    "SubModuleType": "Optional",
+    "Sequence": 3,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Cubicle",
+    "DisplayName": "Cubicle",
+    "Description": "Cubicles are generally closed areas under zone and are meant for specific activities. Many times, they may be restricted except few authorized users.",
+    "SubModuleType": "Optional",
+    "Sequence": 4,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Equipment",
+    "DisplayName": "Equipment",
+    "Description": "Equipment that are required to perform various activities. For example, for weighing activity the weight machine or weighing scale is used. Similarly, computers, scanners, machineries etc. are equipment that are used in warehouse activities as catalyst or helper but they themselves are not consumed for production.",
+    "SubModuleType": "Optional",
+    "Sequence": 5,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Calendar",
+    "DisplayName": "Calendar",
+    "Description": "This master will contain Calendar details which will define weekly off and Holiday for particular plant.",
+    "SubModuleType": "Optional",
+    "Sequence": 6,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "HandlingUnit",
+    "DisplayName": "Handling Unit",
+    "Description": "A Handling Unit is a physical unit consisting of packaging materials (load carriers/packing material) and the goods contained on/in it. A handling unit is always a combination of products and packaging materials.",
+    "SubModuleType": "Optional",
+    "Sequence": 7,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "StandardWeightBox",
+    "DisplayName": "Standard Weight Box",
+    "Description": "This master will contain Standard Weight Box details which are used while weighing calibration. With the help of this master, in this master Standard Weight Box Id will be maintain as unique id.",
+    "SubModuleType": "Optional",
+    "Sequence": 8,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "StandardWeight",
+    "DisplayName": "Standard Weight",
+    "Description": "This master will contain Standard Weight details which are used while weighing calibration. With the help of this master, in this master Standard weight Id will be maintain as unique Id.",
+    "SubModuleType": "Optional",
+    "Sequence": 9,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Department",
+    "DisplayName": "Department",
+    "Description": "This master will contain Department details which will define department in Plants. With the help of this master will maintain department details.",
+    "SubModuleType": "Optional",
+    "Sequence": 10,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "UnitOfMeasurement",
+    "DisplayName": "Unit Of Measurement",
+    "Description": "Unit of Measure (UoM) is a quantity used as a standard of measurement for the inventory. PMMS defines all standard units used in inventory and the conversion rates from one to another.",
+    "SubModuleType": "Optional",
+    "Sequence": 11,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Area",
+    "DisplayName": "Area",
+    "Description": "This master will contain Area details which will define Area in Departments. With the help of this master will maintain area details.",
+    "SubModuleType": "Optional",
+    "Sequence": 12,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "WeighingMachine",
+    "DisplayName": "Weighing Machine",
+    "Description": "This master will contain Weighing Machine details. With the help of this master, user will print barcode label for Weighing Machine to provide unique identification to each Weighing Machine at Store and will be able to update or delete the required Weighing Machine details.",
+    "SubModuleType": "Optional",
+    "Sequence": 13,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Checklist",
+    "DisplayName": "Checklist",
+    "Description": "Checklist is used in various activities like vehicle inspection, material inspection, cubicle cleaning, line, clearance for Cubicle etc. Checklist will be created as per module will displayed in that specific module only.",
+    "SubModuleType": "Optional",
+    "Sequence": 14,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "Device",
+    "DisplayName": "Device",
+    "Description": "Device",
+    "SubModuleType": "Optional",
+    "Sequence": 15,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "ChecklistType",
+    "DisplayName": "Checklist Type",
+    "Description": "Checklist Type",
+    "SubModuleType": "Optional",
+    "Sequence": 16,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+  },
+  {
+    "Name": "GRNPosting",
+    "DisplayName": "GRN Posting",
+    "Description": "GRN Posting",
+    "SubModuleType": "Mandatory",
+    "Sequence": 17,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "WeightCapture",
+    "DisplayName": "Weight Capture",
+    "Description": "The Module will be used to capture weight of a material",
+    "SubModuleType": "Recommended",
+    "Sequence": 18,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "CubicleCleaning(Sampling)",
+    "DisplayName": "Cubicle Cleaning(Sampling)",
+    "Description": "This module will be used for Cubicle cleaning process.to log the Area usage and cleaning digitally in system.",
+    "Sequence": 19,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "EquipmentCleaning(Sampling)",
+    "DisplayName": "Equipment Cleaning(Sampling)",
+    "Description": "This module will be used for Equipment cleaning process.to log the Area usage and cleaning digitally in system.",
+    "Sequence": 20,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "CubicleAssignment(Sampling)",
+    "DisplayName": "Cubicle Assignment(Sampling)",
+    "Description": "This module will be used to assign cubicle for sampling of Raw material and Packing material against the Inspection Lot/A.R.No.",
+    "SubModuleType": "Recommended",
+    "Sequence": 21,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "LineClearance(Sampling)",
+    "DisplayName": "Line Clearance(Sampling)",
+    "Description": "This module will be used for Line Clearance of cubicle against process order/ Group.",
+    "Sequence": 22,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "EquipmentAssignment",
+    "DisplayName": "Equipment Assignment",
+    "Description": "This module will be used for assignment of Equipment to cubicles.",
+    "Sequence": 12,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "EquipmentAssignment(Sampling)",
+    "DisplayName": "Equipment Assignment(Sampling)",
+    "Description": "This module will be used for assignment of Equipment to cubicles while sampling.",
+    "Sequence": 23,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Picking(Sampling)",
+    "DisplayName": "Picking(Sampling)",
+    "Description": "This module will be used for picking material while sampling.",
+    "Sequence": 1,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Prestage(Sampling)",
+    "DisplayName": "Pre stage(Sampling)",
+    "Description": "This module will be used to validate material movement from pre staging area to Sampling booth.",
+    "Sequence": 24,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Staging(Sampling)",
+    "DisplayName": "Staging(Sampling)",
+    "Description": "This module will be used to validate material movement from staging area to Dispensing booth.",
+    "Sequence": 25,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "RecipeMaster",
+    "DisplayName": "Recipe Master",
+    "Description": "Recipe Master",
+    "SubModuleType": "Optional",
+    "Sequence": 15,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "CageLabelPrinting",
+    "DisplayName": "Cage Label Printing",
+    "Description": "Cage Label Printing",
+    "SubModuleType": "Optional",
+    "Sequence": 15,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "ApprovalLevelMaster",
+    "DisplayName": "Approval Level Master",
+    "Description": "ApprovalLevelMaster",
+    "SubModuleType": "Optional",
+    "Sequence": 16,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "ApprovalUserModuleMappingMaster",
+    "DisplayName": "Approval User Module Mapping Master",
+    "Description": "ApprovalUserModuleMappingMaster",
+    "SubModuleType": "Optional",
+    "Sequence": 17,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "ActivityMaster",
+    "DisplayName": "Activity Master",
+    "Description": "ActivityMaster",
+    "SubModuleType": "Optional",
+    "Sequence": 18,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+
+  },
+
+  {
+    "Name": "RecipeApproval",
+    "DisplayName": "Recipe Approval",
+    "Description": "RecipeApproval",
+    "SubModuleType": "Optional",
+    "Sequence": 19,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "RecipeLinkToProcessOrder",
+    "DisplayName": "Recipe Link To ProcessOrder",
+    "Description": "RecipeLinkToProcessOrder",
+    "SubModuleType": "Optional",
+    "Sequence": 20,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "AreaUsageLog",
+    "DisplayName": "Area Usage Log",
+    "Description": "AreaUsageLog",
+    "SubModuleType": "Optional",
+    "Sequence": 21,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "EquipmentCleaning",
+    "DisplayName": "Equipment Cleaning",
+    "Description": "EquipmentCleaning",
+    "SubModuleType": "Optional",
+    "Sequence": 22,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "CubicleAssignments",
+    "DisplayName": "Cubicle Assignments",
+    "Description": "CubicleAssignments",
+    "SubModuleType": "Optional",
+    "Sequence": 23,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "WeightVerification",
+    "DisplayName": "Weight Verification",
+    "Description": "WeightVerification",
+    "SubModuleType": "Optional",
+    "Sequence": 24,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "Consumption",
+    "DisplayName": "Consumption",
+    "Description": "Consumption",
+    "SubModuleType": "Optional",
+    "Sequence": 25,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "InProcessLabel",
+    "DisplayName": "In Process Label",
+    "Description": "InProcessLabel",
+    "SubModuleType": "Optional",
+    "Sequence": 26,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "Putaway(WIP)",
+    "DisplayName": "Putaway(WIP)",
+    "Description": "Putaway (WIP)",
+    "SubModuleType": "Optional",
+    "Sequence": 27,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "WIPPicking",
+    "DisplayName": "Picking(WIP)",
+    "Description": "Picking WIP",
+    "SubModuleType": "Optional",
+    "Sequence": 28,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+
+  {
+    "Name": "WIPPacking",
+    "DisplayName": "Issue To Packing",
+    "Description": "Issue To Packing-WIP",
+    "SubModuleType": "Optional",
+    "Sequence": 29,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "Sampling",
+    "DisplayName": "Sampling",
+    "Description": "This module will be used to Dispensed material which is to be issued to Production department.",
+    "Sequence": 26,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "StageOut(Sampling)",
+    "DisplayName": "Stage Out(Sampling)",
+    "Description": "This module will be used for stage Out Loosed containers.",
+    "Sequence": 27,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "Destruction(Sampling)",
+    "DisplayName": "Destruction(Sampling)",
+    "Description": "This module will be used destroy the rejected material.",
+    "Sequence": 28,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "VehicleInspectionReport",
+    "DisplayName": "Vehicle Inspection Report",
+    "Description": "",
+    "Sequence": 29,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "MaterialInspectionReport",
+    "DisplayName": "Material Inspection Report",
+    "Description": "",
+    "Sequence": 30,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "AllocationReport",
+    "DisplayName": "Allocation Report",
+    "Description": "",
+    "Sequence": 31,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "CubicleAssignmentReport",
+    "DisplayName": "Cubicle Assignment Report",
+    "Description": "",
+    "Sequence": 32,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "PickingReport",
+    "DisplayName": "Picking Report",
+    "Description": "",
+    "Sequence": 33,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "CubicleCleaningReport",
+    "DisplayName": "Cubicle Cleaning Report",
+    "Description": "",
+    "Sequence": 34,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "EquipmentCleaningReport",
+    "DisplayName": "Equipment Cleaning Report",
+    "Description": "",
+    "Sequence": 35,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "LineClearanceReport",
+    "DisplayName": "Line Clearance Report",
+    "Description": "",
+    "Sequence": 36,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "DispensingReport",
+    "DisplayName": "Dispensing Report",
+    "Description": "",
+    "Sequence": 37,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "DispensingTrackingReport",
+    "DisplayName": "Dispensing Tracking Report",
+    "Description": "",
+    "Sequence": 38,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "WeighingCalibrationReport",
+    "DisplayName": "Weighing Calibration Report",
+    "Description": "",
+    "Sequence": 38,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+
+  },
+
+  {
+    "Name": "LabelPrintPacking",
+    "DisplayName": "Label Print Packing",
+    "Description": "Packing for Label Print Purpose",
+    "SubModuleType": "Optional",
+    "Sequence": 30,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+
+  {
+    "Name": "PostWIPDataToSAP",
+    "DisplayName": "Post To SAP",
+    "Description": "WIP Data Post To SAP",
+    "SubModuleType": "Optional",
+    "Sequence": 31,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+
+  {
+    "Name": "WIPPalletMaster",
+    "DisplayName": "Palletization(WIP)",
+    "Description": "WIP Pallet",
+    "SubModuleType": "Optional",
+    "Sequence": 32,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "MaterialReturn",
+    "DisplayName": "Material Return",
+    "Description": "MaterialReturn",
+    "SubModuleType": "Optional",
+    "Sequence": 33,
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "FgPutAway",
+    "DisplayName": "FG-Put Away",
+    "Description": "",
+    "Sequence": 1,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1
+  },
+  {
+    "Name": "FgPicking",
+    "DisplayName": "FG-Picking",
+    "Description": "",
+    "Sequence": 2,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1
+  },
+  {
+    "Name": "Loading",
+    "DisplayName": "Loading",
+    "Description": "",
+    "Sequence": 3,
+    "IsDeleted": 0,
+    "SubModuleType": "Recommended",
+    "IsActive": 1
+  },
+  {
+    "Name": "DispatchReport",
+    "DisplayName": "DispatchReport",
+    "Description": "",
+    "Sequence": 36,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  },
+  {
+    "Name": "WIPLineClearance",
+    "DisplayName": "Line Clearance(WIP)",
+    "Description": "WIP LineClearance",
+    "Sequence": 34,
+    "IsDeleted": 0,
+    "SubModuleType": "Optional",
+    "IsActive": 1
+  },
+  {
+    "Name": "Equipment Cleaning(WIP)",
+    "DisplayName": "Equipment Cleaning(WIP)",
+    "Description": "Equipment Cleaning for WIP",
+    "Sequence": 35,
+    "IsDeleted": 0,
+    "SubModuleType": "Optional",
+    "IsActive": 1
+  },
+  {
+    "Name": "WIPMaterialVerification",
+    "DisplayName": "Material Verification(WIP)",
+    "Description": "Material Verification for WIP",
+    "Sequence": 36,
+    "IsDeleted": 0,
+    "SubModuleType": "Optional",
+    "IsActive": 1
+  },
+  {
+    "Name": "PRNFileMaster",
+    "DisplayName": "PRN Entry Master",
+    "Description": "This master will contain PRN File details which will define when user printing level.",
+    "SubModuleType": "Optional",
+    "Sequence": 37,
+    "IsDeleted": 0,
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 1
+
+  },
+  {
+    "Name": "MaterialStatusLabel",
+    "DisplayName": "Material Status Label",
+    "Description": "This module will be used to Scan Printed Material Label Barcode and display status of material on each stage of WMS processing.",
+    "Sequence": 40,
+    "IsDeleted": 0,
+    "SubModuleType": "Mandatory",
+    "IsActive": 1,
+    "IsApprovalWorkflowRequired": 0
+  }
+
+
+
+]

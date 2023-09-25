@@ -1,0 +1,148 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="row user-component-content row-filter-container">
+    <div class="col-12">
+        <h2 class="title">{{ "Sub-Modules" | localize }}</h2>
+    </div>
+</div>
+            <form class="row clearfix row-filter-container">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 remove-padding">
+                    <div class="nav-item dropdown">
+                        <span class="nav-link dropdown-toggle span-filter" (click)="isFilterOpen=!isFilterOpen">
+                            <i class="material-icons span-filter-icon">
+                                filter_alt
+                            </i>
+                            <h5 class="span-filter-text">Filter</h5>
+                        </span>
+                        <div class="dropdown-menu user-filter-container remove-filter-padding"
+                            [ngClass]="{'display-nav-block':isFilterOpen}">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <mat-form-field>
+                                        <mat-label>Select Module Name</mat-label>
+                                        <mat-select [(ngModel)]="moduleId" name="moduleId">
+                                            <mat-option>Select Module Name</mat-option>
+                                            <mat-option *ngFor="let module of modules" [value]="module.id">
+                                                {{module.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <mat-form-field>
+                                        <mat-label>Select Status</mat-label>
+                                        <mat-select [(ngModel)]="status" name="status">
+                                            <mat-option>Select Status</mat-option>
+                                            <mat-option *ngFor="let status of statuses" [value]="status.id">
+                                                {{status.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <mat-form-field>
+                                        <mat-label>Select Is Approval Required</mat-label>
+                                        <mat-select [(ngModel)]="approvalRequired" name="approvalRequired">
+                                            <mat-option>Select Is Approval Required</mat-option>
+                                            <mat-option [value]="1">Yes</mat-option>
+                                            <mat-option [value]="2">No</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <mat-form-field>
+                                        <mat-label>Select Sort By</mat-label>
+                                        <mat-select [(ngModel)]="sortBy" name="sortBy">
+                                            <mat-option>Select Sort By</mat-option>
+                                            <mat-option *ngFor="let subModuleSort of subModuleSortBy"
+                                                [value]="subModuleSort.id">
+                                                {{subModuleSort.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <mat-form-field>
+                                        <mat-label>Asc</mat-label>
+                                        <mat-select [(ngModel)]="sortByOrder" name="sortByOrder"
+                                            [disabled]="sortBy==null">
+                                            <mat-option>Asc</mat-option>
+                                            <mat-option [value]=2>Desc</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 apply-margin">
+                                    <button type="button" (click)="ApplySearch()" class="btn btn-primary">
+                                        Apply
+                                    </button>
+                                    <button type="button" (click)="ClearSearch()" class="btn filter-clear-button">
+                                        Clear
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 remove-padding">
+                    <mat-form-field class="search-container">
+                        <mat-icon matPrefix>search</mat-icon>
+                        <mat-label>Search</mat-label>
+                        <input matInput #searchTextBox name="keyword" [(ngModel)]="keyword" value=""
+                            placeholder="Search" (focus)="onFocusOfSearchBox($event)">
+                    </mat-form-field>
+                </div>
+            </form>
+            <div class="row clearfix row-filter-container">
+                <div class="col-12 filter-by-string filter-font" *ngIf="filterBy && !isFilterOpen">Filter By : {{filterBy}}</div>
+            </div>
+
+            <div class="body table-responsive" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                (scrolled)="onScroll()" [scrollWindow]="false" [ngClass]="{'table-scroll':subModules?.length != 0}">
+                <table class="table table-hover table-striped table-sm table-bordered" [busy]="isTableLoading">
+                    <thead>
+                        <tr>
+                            <th class="th-center-align">{{ "Sub-Module Name" | localize }}</th>
+                            <th class="th-center-align">{{ "Display Name" | localize }}</th>
+                            <th class="th-center-align">{{ "Sub-Module Type" | localize }}</th>
+                            <th class="th-center-align">{{ "Module Name" | localize }}</th>
+                            <th class="th-center-align">{{"Is Approval Required" | localize}}</th>
+                            <th class="th-center-align">{{ "Status" | localize }}</th>
+                            <th class="th-center-align">{{ "Action" | localize }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let subModule of subModules" (tap)="onSelect($event,subModule)">
+                            <td class="td-center-align add-wrap">{{ subModule.name }}</td>
+                            <td class="td-center-align add-wrap">{{ subModule.displayName }}</td>
+                            <td class="td-center-align add-wrap">{{ subModule.subModuleType}}</td>
+                            <td class="td-center-align add-wrap">{{ subModule.moduleName}}</td>
+                            <td class="td-center-align add-wrap">{{ subModule.userEnteredApprovalRequired}}</td>
+                            <td class="td-center-align add-wrap">
+                                <span class="material-icons-outlined active-icon-green"
+                                    *ngIf="subModule.isActive">check_circle_outline</span>
+                                <span class="material-icons-outlined inactive-icon-red"
+                                    *ngIf="!subModule.isActive">do_disturb_on</span>
+                            </td>
+                            <td class="td-center-align remove-td-Padding">
+                                <i matTooltip="View Sub-Module" class="material-icons material-icon-action"
+                                    (click)="GoToViewModule(subModule)"
+                                    *ngIf="isPermissionGranted('SubModule.View')">visibility</i>
+                            </td>
+                        </tr>
+                        <tr *ngIf="subModules?.length == 0">
+                            <td colspan="7" class="no-data-available">No data to display.</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

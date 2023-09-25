@@ -1,0 +1,159 @@
+<div class="row clearfix" [@routerTransition] id="roleWrapper">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="row user-component-content row-filter-container">
+                <div class="col-12">
+                    <h2 class="title">{{ "Role Management" | localize }}</h2>
+                </div>
+            </div>
+
+            <form class="row clearfix row-filter-container">
+
+                <div class="col-lg-6 col-md-5 col-sm-5 col-xs-5">
+
+                    <div class="nav-item dropdown">
+                        <span class="nav-link dropdown-toggle span-filter" (click)="isFilterOpen=!isFilterOpen">
+                            <i class="material-icons span-filter-icon">
+                                filter_alt
+                            </i>
+                            <h5 class="span-filter-text">Filter</h5>
+                        </span>
+
+                        <div class="dropdown-menu role-filter-container remove-filter-padding"
+                            [ngClass]="{'display-nav-block':isFilterOpen}">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <mat-form-field>
+                                        <mat-label>Select Status</mat-label>
+                                        <mat-select [(ngModel)]="status" name="status">
+                                            <mat-option>Select Status</mat-option>
+                                            <mat-option *ngFor="let status of statuses" [value]="status.id">
+                                                {{status.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                </div>
+                                <!-- <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+
+                                    <mat-form-field>
+                                        <mat-label>Select Approval Status</mat-label>
+                                        <mat-select [(ngModel)]="approvalStatusId" name="approvalStatus">
+                                            <mat-option>Select Approval Status</mat-option>
+                                            <mat-option *ngFor="let userstatus of approvalStatuses"
+                                                [value]="userstatus.id">
+                                                {{userstatus.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div> -->
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <mat-form-field>
+                                        <mat-label>Select Sort By</mat-label>
+                                        <mat-select [(ngModel)]="sortBy" name="sortBy">
+                                            <mat-option>Select Sort By</mat-option>
+                                            <mat-option *ngFor="let roleSort of roleSortBy" [value]="roleSort.id">
+                                                {{roleSort.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+
+                                    <mat-form-field>
+                                        <mat-label>Asc</mat-label>
+                                        <mat-select [(ngModel)]="sortByOrder" name="sortByOrder"
+                                            [disabled]="sortBy==null">
+
+                                            <mat-option>Asc</mat-option>
+                                            <mat-option [value]=2>Desc</mat-option>
+
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 apply-margin">
+                                    <div class="form-group">
+                                    <button type="button" (click)="ApplySearch()" class="btn btn-primary">Apply</button>
+                                    <button type="button" (click)="ClearSearch()"
+                                        class="btn filter-clear-button">Clear</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
+                    <mat-form-field class="search-container">
+                        <mat-icon matPrefix>search</mat-icon>
+                        <mat-label>Search</mat-label>
+                        <input matInput #searchTextBox name="keyword" [(ngModel)]="keyword" value=""
+                            placeholder="Search" (focus)="onFocusOfSearchBox($event)">
+                    </mat-form-field>
+                </div>
+                <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <div class="add-button-container">
+                        <i class="material-icons add-circle-icon" (click)="addRole()"
+                            *ngIf="isPermissionGranted('Role.Add')">add_circle</i>
+                        <button type="button" (click)="addRole()" class="btn add-circle-button"
+                            *ngIf="isPermissionGranted('Role.Add')">Add</button>
+                    </div>
+                </div>
+            </form>
+            <div class="row clearfix row-filter-container">
+                <div class="col-12 filter-by-string filter-font" *ngIf="filterBy && !isFilterOpen">Filter By :
+                    {{filterBy}}</div>
+            </div>
+            <div class="body tabelScroll mh500 table-responsive" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                (scrolled)="onScroll()" [scrollWindow]="false" [ngClass]="{'table-scroll':roles?.length != 0}">
+                <table class="table table-hover table-striped table-sm table-bordered" [busy]="isTableLoading">
+                    <thead>
+                        <tr>
+                            <th class="th-center-align">{{ "Role Name" | localize }}</th>
+                            <th class="th-center-align">{{ "Display Name" | localize }}</th>
+                            <th class="th-center-align">{{ "Description" | localize }}</th>
+                         <!--   <th class="th-center-align">{{ "Approval Status" | localize }}</th>-->
+                           <!-- <th class="th-center-align">{{ "Status" | localize }}</th>-->
+                            <th class="th-center-align">{{ "Action" | localize }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let role of roles" (tap)="onSelect($event,role)">
+                            <td class="td-center-align add-wrap">{{ role.name }}</td>
+                            <td class="td-center-align add-wrap">{{ role.displayName }}</td>
+                            <td class="td-center-align add-wrap">{{ role.description }}</td>
+                         <!--   <td class="td-center-align add-wrap">{{role.userEnteredApprovalStatus}}</td>-->
+                          <!--  <td class="td-center-align">
+                                <span class="material-icons-outlined active-icon-green"
+                                    *ngIf="role.isActive">check_circle_outline</span>
+                                <span class="material-icons-outlined inactive-icon-red"
+                                    *ngIf="!role.isActive">do_disturb_on</span>
+
+                            </td>-->
+                            <td class="td-center-align remove-td-padding">
+
+                                <i matTooltip="View Role" class="material-icons material-icon-action"
+                                    (click)="GoToViewRole(role)" *ngIf="isPermissionGranted('Role.View')">visibility</i>
+                                <i matTooltip="Delete Role" class="material-icons material-icon-action deleteRole"
+                                    (tap)="delete(role)" (click)="delete(role)"
+                                    *ngIf="isPermissionGranted('Role.Delete')">delete</i>
+                            </td>
+                        </tr>
+                        <tr *ngIf="roles?.length == 0">
+                            <td colspan="5" class="no-data-available">No data to display.</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

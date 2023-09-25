@@ -1,0 +1,230 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card main-content">
+        <div class="row user-component-content row-filter-container">
+          <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10">
+            <h3 class="title">{{isOnlyView?'Role Details':roleId?'Edit Role':'Add Role'}}
+            </h3>
+          </div>
+          <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <h3 class="pull-right" *ngIf="isOnlyView && roleId && isPermissionGranted('Role.Edit') && !isSuperAdminRole">
+              <i class="material-icons edit-icon" (click)="GoToAddEditRole(roleId)">note_alt</i>
+              <button type="button" (click)="GoToAddEditRole(roleId)" class="btn add-circle-button">Edit</button>
+            </h3>
+          </div>
+        </div>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <!-- <div class="panel-heading gray-panel-header">
+            <h4 class="panel-title dark-text">
+                <a data-toggle="collapse" class="view_pointer" data-parent="#accordion">
+                    {{isOnlyView?'Role Details':roleId?'Edit Role':'Add Role'}}
+                    <span *ngIf="isOnlyView  && !isSuperAdminRole s&& roleId && isPermissionGranted('Role.Edit')"
+                        (click)="GoToAddEditRole(roleId)" class="pull-right edit_mode_pointer"><span
+                            class="material-icons edit_mode_pointer">note_alt</span>Edit</span>
+                </a>
+            </h4>
+        </div> -->
+        <div id="collapse1" class="panel-collapse collapse in dark-text">
+            <div class="panel-body">
+                <div class="panel-group" id="accordion2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading gray-panel-header">
+                            <h4 class="panel-title dark-text">
+                                <a data-toggle="collapse" data-parent="#accordion2" href="#collapse2">Details</a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse in dark-text">
+                            <div class="panel-body">
+                                <form novalidate autocomplete="off" [formGroup]="addEditFormGroup"
+                                    #addEditRoleForm="ngForm">
+                                    <div class="row fieldes">
+                                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-label>Role Name</mat-label>
+                                                <input matInput name="Name" [(ngModel)]="role.name" required
+                                                    formControlName="nameFormControl" [errorStateMatcher]="matcher"
+                                                    maxlength="100" />
+                                                <mat-error *ngIf="addEditFormGroup?.get('nameFormControl')?.hasError('required')
+                                                || addEditFormGroup?.get('nameFormControl')?.hasError('whitespace')">
+                                                    Role name is required.
+                                                </mat-error>
+                                                <mat-error
+                                                    *ngIf="addEditFormGroup?.get('nameFormControl')?.hasError('maxlength')">
+                                                    Role name max length exceeded.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-label>Display Name</mat-label>
+                                                <input matInput name="DisplayName" required
+                                                    [(ngModel)]="role.displayName"
+                                                    formControlName="displayNameFormControl"
+                                                    [errorStateMatcher]="matcher" maxlength="100" />
+                                                <mat-error
+                                                    *ngIf="addEditFormGroup?.get('displayNameFormControl')?.hasError('required')
+                                                || addEditFormGroup?.get('displayNameFormControl')?.hasError('whitespace')">
+                                                    Display name is required.
+                                                </mat-error>
+                                                <mat-error
+                                                    *ngIf="addEditFormGroup?.get('displayNameFormControl')?.hasError('maxlength')">
+                                                    Display name is required.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-label>Description</mat-label>
+                                                <textarea matInput name="Description"
+                                                    formControlName="descriptionFormControl"
+                                                    [errorStateMatcher]="matcher" [(ngModel)]="role.description"
+                                                    maxlength="5000"></textarea>
+
+                                                <mat-error
+                                                    *ngIf="addEditFormGroup?.get('descriptionFormControl')?.hasError('maxlength')">
+                                                    Description max length exceeded.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+                                    <!-- <div class="row">
+
+                                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                            <mat-checkbox formControlName="isActiveFormControl" name="isActive"
+                                                [(ngModel)]="role.isActive">
+                                                Is Active
+                                            </mat-checkbox>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12" *ngIf="roleId>0">
+                                            <mat-form-field>
+                                                <mat-label>Approval Status</mat-label>
+                                                <input matInput name="approvalStatus"
+                                                    formControlName="approvalStatusFormControl"
+                                                    [(ngModel)]="role.userEnteredApprovalStatus">
+                                            </mat-form-field>
+                                        </div>
+                                    </div> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-group" id="accordion3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading gray-panel-header">
+                            <h4 class="panel-title dark-text">
+                                <a data-toggle="collapse" data-parent="#accordion3" href="#collapse3">Permissions</a>
+                            </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse in dark-text">
+                            <div class="panel-body table-responsive tabelScroll " >
+                                <table class="table table-hover table-striped table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <mat-checkbox [(ngModel)]="allSubModuleSelected" name="all" value="all"
+                                                              (change)="checkUncheckAllSubModules()"
+                                                              [disabled]="isOnlyView==true">
+                                                </mat-checkbox>
+                                                {{ "Module-SubModules" | localize }}
+                                            </th>
+                                            <th class="th-center-align">{{ "Add" | localize }}</th>
+                                            <th class="th-center-align">{{ "Edit" | localize }}</th>
+                                            <th class="th-center-align">{{ "Delete" | localize }}</th>
+                                            <th class="th-center-align">{{ "View" | localize }}</th>
+                                            <th class="th-center-align">{{ "Print" | localize }}</th>
+                                          <!--  <th class="th-center-align">{{ "Approve" | localize }}</th>
+                                            <th class="th-center-align">{{ "Import" | localize }}</th>
+                                            <th class="th-center-align">{{ "Export" | localize }}</th>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let role of this.RolePermissions">
+                                            <td  >
+                                                <mat-checkbox [(ngModel)]="role.isGranted" name="subModule_name"
+                                                    value="subModule_name"
+                                                    (change)="checkUncheckSubModulePermissions(role.moduleSubModuleId)"
+                                                    [disabled]="isOnlyView==true || isSuperAdminPermission(role.subModuleName,role.isSuperAdminPermission,null)">
+                                                </mat-checkbox>
+                                                {{role.moduleName}} - {{role.subModuleName}}
+                                            </td>
+                                            <td   class="td-center-align add-wrap text-overflow-none" *ngFor="let permission of role.grantedPermissions">
+                                                <mat-checkbox
+                                                    [checked]="permission.isGranted && !isModuleSubModule(role.subModuleName,permission.action) "
+                                                    (change)=onPermissionChange($event,role.moduleSubModuleId,permission.id)
+                                                    [disabled]="isOnlyView==true || isModuleSubModule(role.subModuleName,permission.action) || isSuperAdminPermission(role.subModuleName,role.isSuperAdminPermission,permission.action)||IsPasswordSubModule(role.subModuleName,role.isSuperAdminPermission,permission.action) && isModuleSubModuleFlag==true">
+                                                </mat-checkbox>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                         
+                    </div>
+                    <!-- <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12" *ngIf="isOnlyView">
+         <mat-form-field
+             *ngIf="isOnlyView && role.isApprovalRequired && isPermissionGranted('Role.Approver')">
+             <mat-label>Approval/Reject Description</mat-label>
+
+             <textarea matInput name="Approval/Reject Description"
+                 [(ngModel)]="role.approvalStatusDescription" maxlength="5000"
+                 (focus)="this.isdescriptionValid=true;"></textarea>
+         </mat-form-field>
+         <div class="mat-error approve-description-error" *ngIf="!isdescriptionValid">
+             Rejection reason is required.
+         </div>
+         <button class="btn filter-back-button pull-right" *ngIf="isOnlyView"
+             (click)="GoToRoleListFromView()">Back</button>
+         <button class="btn btn-danger approve-reject-button filter-back-button pull-right"
+             *ngIf="isOnlyView && role.isApprovalRequired && isPermissionGranted('Role.Approver')  && role.userEnteredApprovalStatus!='Rejected'"
+             (click)="RejectRole()">Reject</button>
+         <button class="btn btn-success approve-reject-button filter-back-button pull-right"
+             *ngIf="isOnlyView && role.isApprovalRequired && isPermissionGranted('Role.Approver') && role.userEnteredApprovalStatus!='Approved'"
+             (click)="ApproveRole()">Approve</button>
+     </div>-->
+     <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12"  *ngIf="isOnlyView" >
+        <button class="btn filter-back-button pull-right" onclick="history.back()">
+            Back
+        </button>
+    </div>
+
+                    <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12" *ngIf="!isOnlyView">
+                        <button class="btn filter-back-button pull-right" *ngIf="!roleId"
+                                (click)="GoToRoleListFromAdd()">
+                            Cancel
+                        </button>
+                        <button class="btn filter-back-button pull-right" *ngIf="!isOnlyView && roleId"
+                                (click)="GoToRoleListFromEdit()">
+                            Cancel
+                        </button>
+
+                        <button class="btn btn-primary pull-right" *ngIf="!roleId"
+                                (click)="markDirty() && addEditFormGroup.valid && AddRole()">
+                            Add
+                        </button>
+                        <button class="btn btn-primary pull-right" *ngIf="!isOnlyView && roleId"
+                                (click)="markDirty() && addEditFormGroup.valid && UpdateRole()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>

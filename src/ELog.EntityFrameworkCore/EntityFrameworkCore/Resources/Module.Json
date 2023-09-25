@@ -1,0 +1,78 @@
+[
+  {
+    "Name": "Admin",
+    "DisplayName": "Admin",
+    "Description": "Admin",
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "Inward",
+    "DisplayName": "Inward",
+    "Description": "Inward",
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+
+  {
+    "Name": "Dispensing",
+    "DisplayName": "Dispensing",
+    "Description": "Dispensing",
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "WeighingCalibration",
+    "DisplayName": "Weighing Calibration",
+    "Description": "This module will be used to Calibrate the weighing balance as per the planner.",
+    "IsActive": 1
+  },
+  {
+    "Name": "Master",
+    "DisplayName": "Master",
+    "Description": "Master",
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "Sampling",
+    "DisplayName": "Sampling",
+    "Description": "Sampling",
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "Report",
+    "DisplayName": "Report",
+    "Description": "Report",
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "WIP",
+    "DisplayName": "WIP",
+    "Description": "WIP",
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "TransactionApprovalMatrix",
+    "DisplayName": "TransactionApprovalMatrix",
+    "Description": "TransactionApprovalMatrix",
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "FinishedGoods",
+    "DisplayName": "Finished Goods",
+    "Description": "Finished Goods Operations.",
+    "IsDeleted": 0,
+    "IsActive": 1
+  },
+  {
+    "Name": "MaterialStatusLabel",
+    "DisplayName": "Material Status Label",
+    "Description": "This module will be used to Scan Printed Material Label Barcode and display status of material on each stage of WMS processing.",
+    "IsActive": 1
+  }
+]

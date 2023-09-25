@@ -1,0 +1,181 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card main-content">
+        <div class="row user-component-content row-filter-container">
+          <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10">
+            <h3 class="title">{{isOnlyView?'Module Details':moduleId?'Edit Module':'Add Module'}}
+            </h3>
+          </div>
+          <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <h3 class="pull-right" *ngIf="isOnlyView && moduleId && isPermissionGranted('Module.Edit')">
+              <i class="material-icons edit-icon" (click)="GoToAddEditModule(moduleId)">note_alt</i>
+              <button type="button" (click)="GoToAddEditModule(moduleId)" class="btn add-circle-button">Edit</button>
+            </h3>
+          </div>
+        </div>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <!-- <div class="panel-heading gray-panel-header">
+            <h4 class="panel-title dark-text">
+                <a data-toggle="collapse" class="view_pointer" data-parent="#accordion">
+                    {{isOnlyView?'Module Details':moduleId?'Edit Module':'Add Module'}}
+                    <span *ngIf="isOnlyView && moduleId && isPermissionGranted('Module.Edit')" (click)="GoToAddEditModule(moduleId)"
+                          class="pull-right edit_mode_pointer"><span class="material-icons edit_mode_pointer">note_alt</span>Edit</span>
+                </a>
+            </h4>
+        </div> -->
+        <div id="collapse1" class="panel-collapse collapse in dark-text">
+            <div class="panel-body">
+                <form novalidate autocomplete="off" [formGroup]="addEditFormGroup"
+                      #addEditModuleForm="ngForm">
+                    <div class="panel-group" id="accordion2">
+                        <div class="panel panel-default">
+                            <div class="panel-heading gray-panel-header">
+                                <h4 class="panel-title dark-text">
+                                    <a data-toggle="collapse" data-parent="#accordion2" href="#collapse2">Details</a>
+                                </h4>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse in dark-text">
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-label>Module Name</mat-label>
+                                                <input matInput name="Name" [(ngModel)]="module.name" required
+                                                       formControlName="nameFormControl" [errorStateMatcher]="matcher"
+                                                       maxlength="100" />
+                                                <mat-error *ngIf="addEditFormGroup?.get('nameFormControl')?.hasError('required')
+                                                || addEditFormGroup?.get('nameFormControl')?.hasError('whitespace')">
+                                                    Module name is required.
+                                                </mat-error>
+                                                <mat-error *ngIf="addEditFormGroup?.get('nameFormControl')?.hasError('maxlength')">
+                                                    Module name max length exceeded.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-label>Display Name</mat-label>
+                                                <input matInput name="DisplayName" required
+                                                       [(ngModel)]="module.displayName"
+                                                       formControlName="displayNameFormControl"
+                                                       [errorStateMatcher]="matcher" maxlength="100" />
+                                                <mat-error *ngIf="addEditFormGroup?.get('displayNameFormControl')?.hasError('required')
+                                                || addEditFormGroup?.get('displayNameFormControl')?.hasError('whitespace')">
+                                                    Display name is required.
+                                                </mat-error>
+                                                <mat-error *ngIf="addEditFormGroup?.get('displayNameFormControl')?.hasError('maxlength')">
+                                                    Display name max length exceeded.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-label>Description</mat-label>
+                                                <textarea matInput name="Description" required
+                                                          formControlName="descriptionFormControl"
+                                                          [errorStateMatcher]="matcher"
+                                                          [(ngModel)]="module.description"
+                                                          maxlength="5000"></textarea>
+                                                <mat-error *ngIf="addEditFormGroup?.get('descriptionFormControl')?.hasError('required')
+                                                || addEditFormGroup?.get('descriptionFormControl')?.hasError('whitespace')">
+                                                    Description is required.
+                                                </mat-error>
+                                                <mat-error *ngIf="addEditFormGroup?.get('descriptionFormControl')?.hasError('maxlength')">
+                                                    Description max length exceeded.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                            <mat-checkbox formControlName="isActiveFormControl" name="isActive" [(ngModel)]="module.isActive">
+                                                Is Active
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-group" id="accordion3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading gray-panel-header">
+                                <h4 class="panel-title dark-text">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse3">Assign Sub-Module </a>
+                                </h4>
+                            </div>
+                            <div id="collapse3" class="panel-collapse collapse in dark-text">
+
+
+                                <div class="panel-body table-responsive">
+                                    <table class="table table-hover table-striped table-sm table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="th-center-align"></th>
+                                                <th class="th-center-align">{{ "Sub-Module" | localize }}</th>
+                                                <th class="th-center-align">{{ "IsMandatory" | localize }}</th>
+                                                <th class="th-center-align">{{ "Display Name" | localize }}</th>
+                                                <th class="th-center-align">{{ "Description" | localize }}</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let subModule of this.module.subModules">
+                                                <td  class="td-center-align add-wrap">
+                                                    <mat-checkbox [checked]="subModule.isSelected" name="subModule_name" value="subModule_name" (change)="someSelected($event,subModule)" [disabled]="isOnlyView==true || subModule.isMandatory==true">
+                                                    </mat-checkbox>
+                                                </td>
+                                                <td  class="td-center-align add-wrap">
+                                                    <a [routerLink]="['../../../edit-subModule','edit', subModule.id]" routerLinkActive="router-link-active" *ngIf="isOnlyView==false">{{subModule.name}}</a>
+                                                    <span *ngIf="isOnlyView==true">{{subModule.name}}</span>
+                                                </td>
+                                                <td  class="td-center-align add-wrap">
+                                                    {{ subModule.isMandatory==true ? 'Yes':'No'}}
+                                                </td>
+                                                <td  class="td-center-align add-wrap">
+                                                    {{subModule.displayName}}
+                                                </td>
+                                                <td  class="td-center-align add-wrap">
+                                                    {{subModule.description}}
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <mat-error *ngIf="!isSubModuleAssigned() && !isOnlyView">
+                                        At least one submodule assignment is required.
+                                    </mat-error>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn filter-back-button pull-right" *ngIf="!moduleId" (click)="GoToModuleListFromAdd()">Cancel</button>
+                        <button class="btn filter-back-button pull-right" *ngIf="!isOnlyView && moduleId" (click)="GoToModuleListFromEdit()">Cancel</button>
+                        <button class="btn filter-back-button pull-right" *ngIf="isOnlyView" (click)="GoToModuleListFromView()">Back</button>
+                        <button class="btn btn-primary pull-right" *ngIf="!moduleId" (click)="markDirty() && addEditFormGroup.valid && AddModule()">Add</button>
+                        <button class="btn btn-primary pull-right" *ngIf="!isOnlyView && moduleId" (click)="markDirty() && isSubModuleAssigned()  && addEditFormGroup.valid  && UpdateModule()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>

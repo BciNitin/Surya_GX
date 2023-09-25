@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Zone\**" />
+    <EmbeddedResource Remove="Zone\**" />
+    <None Remove="Zone\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetZip" Version="1.16.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0-preview.2.21154.6" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.7" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MobiVueEVO.BO\MobiVueEVO.BO.csproj" />
+    <ProjectReference Include="..\MobiVueEVO.CommonUtility\MobiVueEVO.CommonUtility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BcilLib">
+      <HintPath>..\Common\DLL\BcilLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Common">
+      <HintPath>..\Common\DLL\Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

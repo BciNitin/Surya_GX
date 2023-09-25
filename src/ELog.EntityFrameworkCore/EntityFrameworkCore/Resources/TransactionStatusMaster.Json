@@ -1,0 +1,18 @@
+[
+  {
+    "TransactionStatus": "OnHold",
+    "IsDeleted": 0
+  },
+  {
+    "TransactionStatus": "Accepted",
+    "IsDeleted": 0
+  },
+  {
+    "TransactionStatus": "Rejected",
+    "IsDeleted": 0
+  },
+  {
+    "TransactionStatus": "Saved",
+    "IsDeleted": 0
+  }
+]

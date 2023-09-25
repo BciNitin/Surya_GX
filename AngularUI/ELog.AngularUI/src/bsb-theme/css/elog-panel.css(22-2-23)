@@ -1,0 +1,504 @@
+
+/***********************************************************
+globle css
+************************************************************************************/
+.creator [type="radio"], .creator [type="checkbox"] {
+    appearance: none;
+}
+
+    .creator [type="radio"]:not(:checked), .creator [type="radio"]:checked,
+    .creator [type="checkbox"]:not(:checked), .creator [type="checkbox"]:checked {
+        position: inherit;
+        left: inherit;
+        opacity: inherit;
+    }
+
+.creator label {
+    display: flex !important;
+    color: #606060;
+    font-family: "Bahnschrift", sans-serif;
+    font-weight: 400;
+}
+
+.creator .form-control::-webkit-input-placeholder { /* Edge */
+    color: #bfbfbd;
+    font-size: 12px;
+    font-family: "Bahnschrift", sans-serif;
+}
+
+.siteWrap label {
+    margin: 0;
+}
+
+.creator .form-control {
+    padding: 9px 5px;
+    min-height: 40px;
+    box-sizing: border-box;
+    border: solid 1px #E5E5E5;
+    border-radius: 3px;
+}
+
+.creator input {
+    padding: .375rem .45rem;
+    font-size: 14px;
+    color: #000;
+}
+
+[class^="fommsg"] {
+    font-size: 11px;
+    font-weight: 400;
+    display: block;
+    padding-top: 2px !important;
+    word-break: break-all;
+    display: none;
+}
+
+.fommsg-succes {
+    color: green;
+}
+
+.fommsg-errow {
+    color: #ff2323 !important;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    padding: 14px 20px;
+    color: #fff;
+}
+
+.siteWrap {
+    background: #fff
+}
+
+input:hover, input:focus, input:visited {
+    outline: none;
+    border-color: #ced4da !important;
+    box-shadow: none !important;
+}
+
+.trans {
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.creator .form-group {
+    position: relative;
+    z-index: 55;
+    padding: 10px;
+    cursor: move;
+}
+
+    .creator .form-group:after {
+        position: absolute;
+        content: '';
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        border-radius: 2px;
+        z-index: -19;
+    }
+
+    .creator .form-group:hover:after,
+    .creator .form-group.active:after {
+        opacity: 1;
+    }
+
+    /* edit delete start */
+    .creator .form-group:hover .editdelete,
+    .creator .form-group.active .editdelete {
+        opacity: 1;
+    }
+
+.editdelete {
+    position: absolute;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    right: -28px;
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+    .editdelete .edit,
+    .editdelete .delete {
+        width: 25px;
+        background: #4a4a4a4d;
+        border-radius: 50%;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        font-size: 13px;
+        color: #000;
+    }
+
+        .editdelete .edit:hover,
+        .editdelete .delete:hover {
+            color: #fff;
+            background: #f15b26;
+        }
+
+    .editdelete .delete {
+        margin-top: 4px;
+    }
+/* edit delete end */
+
+.creator label .lbtx {
+    font-family: "Bahnschrift", sans-serif;
+    font-size: 14px;
+    color: #0c0c0c;
+    font-weight: 400;
+    padding: 0 0 6px;
+    margin-bottom: 0px;
+}
+
+.creator h1.lbtx {
+    font-size: 24px;
+    margin: 0 !important;
+    padding: 0;
+    font-weight: 600;
+}
+
+.creator .draggable > div {
+    background: none;
+    border: 1px solid #fff;
+    margin-bottom: 0px !important;
+}
+
+    .creator .draggable > div:hover, .creator .draggable .active {
+        border: 1px solid #f15b26
+    }
+
+.creator input[type="button"] {
+    color: #fff;
+    max-width: 30%;
+}
+
+.number-block .ui-widget.ui-widget-content {
+    max-width: 70px;
+    outline: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    max-height: 40px;
+}
+
+.number-block a .ui-icon-triangle-1-n {
+    background-position: 0 0
+}
+
+.number-block a .ui-icon-triangle-1-s {
+    background-position: -65px 0px
+}
+
+.number-block .ui-spinner > a {
+    background: none;
+    border: none
+}
+
+.number-block .ui-spinner-button {
+    height: 60%
+}
+
+.number-block a.ui-button:active, .number-block .ui-button:active {
+    background: #ee5b369e;
+    border: none
+}
+
+/*Radio list start*/
+#itemradio {
+}
+
+    #itemradio .fieldLabel {
+        font-family: "Bahnschrift", sans-serif;
+        font-size: 14px;
+        color: #0c0c0c;
+        font-weight: 400;
+        padding: 0 0 6px;
+        margin-bottom: 0px;
+    }
+
+    #itemradio ul {
+        margin: 0px;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        #itemradio ul li {
+            display: flex;
+            align-items: center;
+            flex-direction: row-reverse;
+            margin-right: 20px;
+        }
+
+            #itemradio ul li:nth-last-child(1) {
+                margin-right: 0px;
+            }
+
+    #itemradio label {
+        padding-left: 10px;
+    }
+
+    #itemradio input {
+        max-height: 20px;
+        min-height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        position: relative;
+    }
+
+        #itemradio input:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            background-color: #f15b26;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        #itemradio input[type="radio"]:checked:after {
+            opacity: 1
+        }
+
+        #itemradio input[type="radio"]:checked {
+            border: solid 1px #f15b26;
+        }
+
+.width50 #itemradio ul {
+}
+
+    .width50 #itemradio ul li {
+        flex: 0 0 50%;
+        justify-content: start;
+    }
+/*Radio list end*/
+
+/*check list start*/
+#itemchecklist {
+}
+
+    #itemchecklist .fieldLabel {
+        font-family: "Bahnschrift", sans-serif;
+        font-size: 14px;
+        color: #0c0c0c;
+        font-weight: 400;
+        padding: 0 0 6px;
+        margin-bottom: 0px;
+    }
+
+    #itemchecklist ul {
+        margin: 0px;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        #itemchecklist ul li {
+            display: flex;
+            align-items: center;
+            flex-direction: row-reverse;
+            margin-right: 20px;
+        }
+
+            #itemchecklist ul li:nth-last-child(1) {
+                margin-right: 0px;
+            }
+
+    #itemchecklist label {
+        padding-left: 10px;
+    }
+
+    #itemchecklist input {
+        max-height: 20px;
+        min-height: 20px;
+        width: 20px;
+        border-radius: 2px;
+        position: relative;
+        position: relative;
+    }
+
+        #itemchecklist input:after {
+            content: "\2713";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            color: #f15b26;
+        }
+
+        #itemchecklist input[type="checkbox"]:checked:after {
+            opacity: 1
+        }
+
+        #itemchecklist input[type="checkbox"]:checked {
+            border: solid 1px #f15b26;
+        }
+
+.width50 #itemradio ul li {
+    flex: 0 0 50%;
+    justify-content: start;
+}
+
+.matreset {
+    font-size: 12px;
+    font-weight: 300;
+    color: #7c7c7c;
+}
+
+    .matreset .mat-form-field-wrapper {
+    }
+
+    .matreset:not(.mat-select-empty) {
+        padding-top: 2px;
+    }
+
+    .matreset.mat-form-field-appearance-fill .mat-form-field-flex {
+        padding: 1em .75em 0 .75em;
+    }
+
+    .matreset .mat-select-arrow-wrapper {
+        display: flex;
+    }
+
+    .matreset .mat-form-field-underline {
+        display: none;
+    }
+
+    .matreset .mat-form-field-subscript-wrapper {
+    }
+/*check list end*/
+
+/* divder list start*/
+.creator .divder {
+    width: 100%;
+    height: 1px;
+    background: #bfbfbf;
+    margin: 1rem 0;
+}
+
+.draggable#divder_field {
+    min-height: auto;
+    max-height: inherit;
+}
+/* divder list end*/
+
+/*21-12-22*/
+.sortable.ui-sortable {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+    /* .sortable.ui-sortable > div{width: 100%;min-height: 90px;max-height: 108px;} */
+    .sortable.ui-sortable > div {
+        width: 100%;
+        min-height: 90px
+    }
+/*  */
+#containment-wrapper {
+    width: 95%;
+    height: 95vh;
+    border: 2px solid #ccc;
+    padding: 10px;
+    margin: 0 auto;
+    overflow: hidden !important
+}
+
+.ui-sortable-placeholder {
+    background: #eee;
+    visibility: visible !important;
+    border: 2px dotted #f15b26 !important;
+}
+
+.ui-resizablec {
+    border: 2px dotted #f15b26 !important;
+}
+
+#sortable, #sortable2 {
+    border: 1px solid #eee;
+    width: 142px;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+}
+
+    #sortable li, #sortable2 li {
+        margin: 0 5px 5px 5px;
+        padding: 5px;
+        font-size: 1.2em;
+        width: 120px;
+    }
+
+.draggable {
+    max-width: 98%; /*max-height:108px;*/
+    min-height: 90px;
+    padding: 0.5em;
+    float: left;
+    margin: 0 10px 10px 0 !important;
+}
+
+.width30 {
+    width: 33% !important
+}
+
+.width50 {
+    width: 48% !important
+}
+
+    .width50.ui-sortable-placeholder {
+        visibility: visible !important;
+    }
+
+    .width50 .draggable {
+        max-width: 315.5px
+    }
+
+.width100 {
+    width: 100% !important
+}
+
+
+/* drop able */
+.creator .droppable {
+    max-width: 98%;
+    padding: 0.5em;
+    float: left;
+    margin: 0 10px 10px 0;
+    width: 100%;
+    border: 2px solid #00F;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #dad55e;
+    background: #fffa90;
+    color: #777620;
+}
+
+.draggable2 {
+    max-width: 98%;
+    min-height: 90px;
+    padding: 0.5em;
+    float: left;
+    margin: 0 10px 10px 0;
+    width: 100%;
+    border: 2px solid #00F;
+}

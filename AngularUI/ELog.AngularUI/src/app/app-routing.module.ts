@@ -1,0 +1,92 @@
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
+import { AppRouteGuard } from '@shared/auth/auth-route-guard';
+import { HomeComponent } from './home/home.component';
+import { UsersComponent } from './users/users.component';
+import { TenantsComponent } from './tenants/tenants.component';
+import { RolesComponent } from 'app/roles/roles.component';
+import { AddEditUserComponent } from './users/add-edit-user/add-edit-user.component';
+import { AddEditRoleComponent } from './roles/add-edit-role/add-edit-role.component';
+import { ModulesComponent } from './modules/modules.component';
+import { AddEditModuleComponent } from './modules/add-edit-module/add-edit-module.component';
+import { SubModulesComponent } from './subModules/subModules.component';
+import { AddEditSubModuleComponent } from './subModules/add-edit-subModule/add-edit-subModule.component';
+import { ResetPasswordComponent } from './password/reset-password/reset-password.component';
+
+import { CreateformsComponent } from './log-forms-list/createforms/createforms.component';
+import { ApproveformsComponent } from './log-forms-list/approveforms/approveforms.component';
+import { LogFormsListComponent } from './log-forms-list/log-forms-list.component';
+import { ElogPanelComponent } from './elog-panel/elog-panel.component';
+import { NewPanelComponent } from './elog-panel/new-panel/new-panel.component';
+import { ApproveFormlistComponent } from './approve-forms-list/approve-forms-list.component'
+import { LogdataapprovalComponent } from './log-forms-list/log-data-approval/log-data-approval.component';
+import { NotificationsCenterComponent } from './notifications-center/notifications-center.component';
+
+@NgModule({
+    imports: [
+        RouterModule.forChild([
+            {
+                path: '',
+                component: AppComponent,
+                children: [
+                    { path: 'home', component: HomeComponent, canActivate: [AppRouteGuard] },
+
+                    { path: 'Creator', component: NewPanelComponent, canActivate: [AppRouteGuard] }, 
+                    { path: 'Creator/:id', component: NewPanelComponent, canActivate: [AppRouteGuard] },
+                    
+                    { path: 'tenants', component: TenantsComponent, data: { permission: 'Pages.Tenants' }, canActivate: [AppRouteGuard] },
+
+                    { path: 'users', component: UsersComponent, canActivate: [AppRouteGuard] },
+                    { path: 'add-user', component: AddEditUserComponent, canActivate: [AppRouteGuard] },
+                    { path: 'user/:action/:userId', component: AddEditUserComponent, data: { permission: 'User.View' }, canActivate: [AppRouteGuard] },
+                    { path: 'edit-user/:userId', component: AddEditUserComponent, data: { permission: 'User.Edit' }, canActivate: [AppRouteGuard] },
+                    { path: 'profile/:action/:profileId', component: AddEditUserComponent, data: { permission: '' }, canActivate: [AppRouteGuard] },
+                    { path: 'edit-profile/:profileId', component: AddEditUserComponent, data: { permission: '' }, canActivate: [AppRouteGuard] },
+
+                    { path: 'log-forms-list', component: LogFormsListComponent, canActivate: [AppRouteGuard] },
+
+                    // { path: 'add-edit-forms', component: AddEditFormsComponent, canActivate: [AppRouteGuard] },                   
+                  
+                    { path: 'createforms', component: CreateformsComponent, canActivate: [AppRouteGuard] },
+                    { path: 'createforms/:formId', component: CreateformsComponent, canActivate: [AppRouteGuard] }, 
+                    { path: 'createforms/edit/:formId/:dataId', component: CreateformsComponent, canActivate: [AppRouteGuard] }, 
+                   
+                    { path: 'notifications', component: NotificationsCenterComponent},
+                    
+                    { path: 'logDataList', component: LogdataapprovalComponent, canActivate: [AppRouteGuard] },
+                    { path: 'logDataList/:formId', component: LogdataapprovalComponent, canActivate: [AppRouteGuard] }, 
+                    
+
+                    { path: 'approveforms', component: ApproveformsComponent, canActivate: [AppRouteGuard] },
+                    { path: 'approveforms/:formId', component: ApproveformsComponent, canActivate: [AppRouteGuard] },
+                   
+
+                    { path: 'roles', component: RolesComponent, data: { permission: 'Role.View' }, canActivate: [AppRouteGuard] },
+                    { path: 'add-role', component: AddEditRoleComponent, data: { permission: 'Role.Add' }, canActivate: [AppRouteGuard] },
+                    { path: 'role/:action/:roleId', component: AddEditRoleComponent, data: { permission: 'Role.View' }, canActivate: [AppRouteGuard] },
+                    { path: 'edit-role/:roleId', component: AddEditRoleComponent, data: { permission: 'Role.Edit' }, canActivate: [AppRouteGuard] },
+
+
+                    { path: 'modules', component: ModulesComponent, canActivate: [AppRouteGuard] },
+                    { path: 'module/:action/:moduleId', component: AddEditModuleComponent, canActivate: [AppRouteGuard] },
+                    { path: 'edit-module/:action/:moduleId', component: AddEditModuleComponent, canActivate: [AppRouteGuard] },
+
+                    { path: 'subModules', component: SubModulesComponent, canActivate: [AppRouteGuard] },
+                    { path: 'subModule/:action/:subModuleId', component: AddEditSubModuleComponent , canActivate: [AppRouteGuard]},
+                    { path: 'edit-subModule/:action/:subModuleId', component: AddEditSubModuleComponent, canActivate: [AppRouteGuard] },
+
+
+                    { path: 'reset-password/:userId', component: ResetPasswordComponent, data: { permission: 'Password.Edit' } },
+                     { path: 'reset-password/:userId/:action', component: ResetPasswordComponent, data: { permission: 'Password.Edit' } },
+                    { path: 'logData/createforms/edit/:formId/:dataId', component: CreateformsComponent, data: { permission: '' }, canActivate: [AppRouteGuard] },
+                    { path: 'approve-forms-list', component: ApproveFormlistComponent, canActivate: [AppRouteGuard] },
+                 
+                ]
+            }
+        ])
+
+    ],
+    exports: [RouterModule]
+})
+export class AppRoutingModule { }

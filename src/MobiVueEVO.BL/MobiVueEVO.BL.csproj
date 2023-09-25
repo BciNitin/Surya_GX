@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="PalletItems.cs" />
+    <Compile Remove="PalletTypes.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MobiVueEVO.BO\MobiVueEVO.BO.csproj" />
+    <ProjectReference Include="..\MobiVueEVO.DAL\MobiVueEVO.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BcilLib">
+      <HintPath>..\Common\bin\Debug\BcilLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Common">
+      <HintPath>..\Common\bin\Debug\Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

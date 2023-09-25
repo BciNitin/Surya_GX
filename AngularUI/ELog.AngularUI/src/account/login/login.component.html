@@ -1,0 +1,103 @@
+﻿<div class="card login-size" [@routerTransition]>
+  <div class="body">
+    <!-- <h1 *ngIf="!claims">
+      </h1>
+      <br /> -->
+    <div class="body" *ngIf="LoginWithAzureAd">
+      <!-- <div class="logo">
+          <a href="javascript:void(0);">
+              <img src="" class="account-logo">
+          </a>
+        </div> -->
+      <!-- <h4 class="text-center">{{ "ExternalLoginProviders" | localize }}</h4> -->
+      <div class="row m-t-15 m-b--20">
+        <div class="col-xs-12" *ngFor="let loginProviders of externalLoginProviders">
+          <!-- <a (click)="externalLogin(loginProviders.name)">{{
+              loginProviders.name | localize
+            }}</a> -->
+          <input type="button" class="btn btn-lg btn-success btn-block signin-button" value="Sign In With Azure AD"
+            (click)="externalLogin(loginProviders.name)">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 text-center" style="color: #d40000">
+          <small>&copy; {{currentYear}} BKV. <b>{{ "Version" | localize }} </b> {{versionText}}</small>
+        </div>
+      </div>
+    </div>
+
+    <form novalidate autocomplete="off" #loginForm="ngForm" (keyup.enter)="loginForm.form.valid && login()"
+      *ngIf="!LoginWithAzureAd">
+      <div class="logo logo_mody">
+        <a href="javascript:void(0);"><img alt="logo" class="logo" height="66"  src='../../assets/images/elog/gx-logo.png'></a>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xs-12 login-margin">
+          <div class="input-group">
+            <span class="input-group-addon remove-login-icon-padding">
+              <i class="material-icons position">person</i>
+            </span>
+            <div>
+              <mat-form-field hideRequiredMarker class="add-leftpadding ">
+                <input matInput name="userNameOrEmailAddress" [(ngModel)]="
+                    authenticateModel.userNameOrEmailAddress
+                  " [placeholder]="'User Name' | localize" autocomplete="off" required maxlength="255"
+                  [readonly]="isReadOnly" (focus)="isReadOnly=false"  />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon remove-login-icon-padding">
+              <i class="material-icons position">lock</i>
+            </span>
+            <div>
+              <mat-form-field hideRequiredMarker class="add-leftpadding">
+                <input matInput type="password" name="password" [(ngModel)]="authenticateModel.password"
+                  [placeholder]="'Password' | localize" required maxlength="32" [readonly]="isReadOnly"
+                  (focus)="isReadOnly=false" />
+
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-class">
+
+        <div class="" *ngIf="!isAdLogin">
+            <button (click)="loginForm.form.valid && login()" type="button" class="btn btn-primary "
+                    [disabled]="!loginForm.form.valid || submitting">
+                {{ "Login" | localize }}
+            </button>
+
+        </div>
+        <div class="pull-right button-width">
+            <a (click)="ForgotPassword()" class=" btn-forgotpassword-mody">
+                {{ "Forgot Password?" | localize }}
+            </a>
+        </div>
+        <div class="pull-right button-width" *ngIf="isAdLogin">
+            <button (click)="loginForm.form.valid && loginWithActiveDirectory()" type="button"
+                    class="btn btn-lg btn-primary mr-2" [disabled]="!loginForm.form.valid || submitting">
+                {{ "Login" | localize }}
+            </button>
+        </div>
+       
+      </div>
+      <div class="row">
+        <div class="div-center">
+        <br>  <!-- <a href="javascript:void(0);" class="mobi-img"><img alt="logo" class="branding-logo" src="./assets/images/pharmision.jpg"></a> -->
+        </div>
+      </div>
+      <div class="build-version">
+        Version : {{buildVersion}}
+      </div>
+
+      <div class="row m-t-15 m-b--20" *ngIf="isSelfRegistrationAllowed">
+        <div class="col-xs-12">
+          <a [routerLink]="['../register']">{{ "Register" | localize }}</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
