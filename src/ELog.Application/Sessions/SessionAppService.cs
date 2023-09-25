@@ -37,7 +37,7 @@ namespace ELog.Application.Sessions
                 output.User.PlantCode = await userManager.GetPlantName();
                 output.User.ModeId = await userManager.GetUserAssingedMode(currentUser.Id);
                 output.User.IsControllerMode = await userManager.IsControllerMode(currentUser.Id);
-               // output.User.IsGateEntrySubModuleActive = await userManager.IsGateEntrySubModuleActiveAsync(currentUser.Id, PMMSConsts.InwardSubModule, PMMSConsts.GateEntrySubModule);
+                // output.User.IsGateEntrySubModuleActive = await userManager.IsGateEntrySubModuleActiveAsync(currentUser.Id, PMMSConsts.InwardSubModule, PMMSConsts.GateEntrySubModule);
                 output.User.TransactionActiveSubModules = await userManager.GetTransactionActiveSubModules(currentUser.Id);
                 output.User.ApprovalLevelId = await userManager.GetUserAssingedApprovalLevelId(currentUser.Id);
                 output.User.IsMaterialInspectionModuleSelected = await userManager.IsMaterialInspectionModuleSelected();

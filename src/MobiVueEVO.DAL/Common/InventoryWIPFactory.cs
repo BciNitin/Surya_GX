@@ -158,6 +158,42 @@ namespace MobiVueEVO.DAL
 
 
 
+        public List<InventoryWIP> FetchInventorysForQualityStatus(QCReportEntriesSearchCriteria criteria)
+        {
+            List<InventoryWIP> Inventerys = new List<InventoryWIP>();
+            using (SqlConnection cn = new SqlConnection(DBConfig.SQLConnectionString))
+            {
+                cn.Open();
+                using (var cm = cn.CreateCommand())
+                {
+                    cm.CommandType = System.Data.CommandType.StoredProcedure;
+                    cm.CommandText = "USP_InventoryWIP";
+                    cm.Parameters.Add(new SqlParameter("@Type", "GetInventoriesForQualityStatus"));
+                    cm.Parameters.Add(new SqlParameter("@BarcodeNumber", criteria.Barcode.IsNotNullOrWhiteSpace() ? criteria.Barcode : ""));
+                    cm.Parameters.Add(new SqlParameter("@MaterialCode", criteria.MaterialCode.IsNotNullOrWhiteSpace() ? criteria.MaterialCode : ""));
+                    cm.Parameters.Add(new SqlParameter("@MaterialId", criteria.MaterialId));
+                    cm.Parameters.Add(new SqlParameter("@PalletId", criteria.PalletId));
+                    cm.Parameters.Add(new SqlParameter("@SiteId", criteria.SiteId));
+                    cm.Parameters.Add(new SqlParameter("@OrderId", criteria.GRNId));
+                    cm.Parameters.Add(new SqlParameter("@Status", criteria.Status));
+                    cm.Parameters.Add(new SqlParameter("@LocationId", criteria.LocationId));
+                    cm.Parameters.Add(new SqlParameter("@documentNo", criteria.documentNo));
+                    cm.Parameters.Add(new SqlParameter("@FromDate", criteria.FromDate));
+                    cm.Parameters.Add(new SqlParameter("@ToDate", criteria.ToDate));
+
+                    using (SafeDataReader dr = new SafeDataReader(cm.ExecuteReader()))
+                    {
+                        while (dr.Read())
+                        {
+                            InventoryWIP zone = GetInventery(dr);
+                            Inventerys.Add(zone);
+                        }
+                    }
+                }
+            }
+            return Inventerys;
+        }
+
         public InventoryWIP Insert(InventoryWIP entity)
         {
             CodeContract.Required<ArgumentException>(entity != null, "Inventery should not be null");

@@ -2,6 +2,7 @@
 using Abp.Domain.Repositories;
 using Abp.Linq;
 using ELog.Application.CommonDto;
+using ELog.Application.SAP.PurchaseOrder.Dto;
 using ELog.Application.SelectLists.Dto;
 using ELog.Application.Settings;
 using ELog.ConnectorFactory;
@@ -806,7 +807,47 @@ namespace ELog.Application.SelectLists
             return result;
         }
 
+        public async Task<List<PurchaseOrderInternalDto>> GetPurchaseOrdersAsync()
+        {
+            var plantId = GetLogInUserSelectedPlant();
+            var purchaseOrderQuery = _purchaseOrderRepository.GetAll().Select(x =>
+                                    new PurchaseOrderInternalDto
+                                    {
+                                        PlantId = x.PlantId,
+                                        Id = x.Id,
+                                        PurchaseOrderNo = x.PurchaseOrderNo
+                                    });
+            if (plantId != null)
+            {
+                purchaseOrderQuery = purchaseOrderQuery.Where(x => x.PlantId == plantId);
+            }
 
+            return await purchaseOrderQuery?.ToListAsync() ?? default;
+        }
+
+        public async Task<List<PurchaseOrderInternalDto>> GetPurchaseOrdersAutoCompleteAsync(string input)
+        {
+            var plantId = GetLogInUserSelectedPlant();
+            var purchaseOrderQuery = _purchaseOrderRepository.GetAll().Select(x =>
+                                    new PurchaseOrderInternalDto
+                                    {
+                                        PlantId = x.PlantId,
+                                        Id = x.Id,
+                                        PurchaseOrderNo = x.PurchaseOrderNo
+                                    });
+            if (plantId != null)
+            {
+                purchaseOrderQuery = purchaseOrderQuery.Where(x => x.PlantId == plantId);
+            }
+            if (!(string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input)))
+            {
+                input = input.Trim();
+                purchaseOrderQuery = purchaseOrderQuery.Where(x => x.PurchaseOrderNo.Contains(input));
+                return await purchaseOrderQuery?.ToListAsync() ?? default;
+            }
+
+            return default;
+        }
 
         public async Task<List<SelectListDto>> GetTransactionStatusAsync()
         {
@@ -1080,8 +1121,82 @@ namespace ELog.Application.SelectLists
             var materialSelectList = await materialQuery.Select(a => new SelectListDtoWithPlantId { Id = a.Id, Value = a.Value, PlantId = a.plantId }).ToListAsync();
             return materialSelectList.GroupBy(x => new { x.Value, x.PlantId }).Select(x => x.First()).ToList() ?? default;
         }
-        
-       
+        public async Task<List<PurchaseOrderInternalDto>> GetPurchaseOrdersByPlantIdAsync(int? plantId)
+        {
+            var purchaseOrderQuery = _purchaseOrderRepository.GetAll().Select(x =>
+                                    new PurchaseOrderInternalDto
+                                    {
+                                        PlantId = x.PlantId,
+                                        Id = x.Id,
+                                        PurchaseOrderNo = x.PurchaseOrderNo
+                                    });
+            if (plantId != null)
+            {
+                purchaseOrderQuery = purchaseOrderQuery.Where(x => x.PlantId == plantId);
+            }
+            var result = await purchaseOrderQuery.ToListAsync() ?? default;
+            return result.GroupBy(x => new { x.Id, x.PlantId }).Select(x => new PurchaseOrderInternalDto { Id = x.First().Id, PurchaseOrderNo = x.First().PurchaseOrderNo, PlantId = x.First().PlantId }).OrderBy(x => x.PurchaseOrderNo).ToList();
+        }
+        /// <summary>
+        /// This method will get the Weight by weighing machine code.
+        /// </summary>
+        /// <param name="weighingMachineId">input.</param>
+        public async Task<double> GetWeightByWeighingMachineIdAsync(int weighingMachineId, bool isWeightUOMType)
+        {
+            var ipAddressPort = await _weighingMachineRepository.GetAll().Where(x => x.Id == weighingMachineId).Select(x => new { x.IPAddress, x.PortNumber }).FirstOrDefaultAsync();
+            if (ipAddressPort != null && isWeightUOMType)
+            {
+                if (_configuration.GetValue<bool>(PMMSConsts.IsWeighigMachineEnabled))
+                {
+                    return await GetWeightFromWeighingMachine(ipAddressPort.IPAddress, ipAddressPort.PortNumber);// Get value from Weighing Machine
+                }
+                return 0.2787878676;
+            }
+            return default;
+        }
+        /// <summary>
+        /// This method will get the Weight by weighing machine code.
+        /// </summary>
+        /// <param name="weighingMachineId">input.</param>
+        public async Task<string> GetStampingDueOnInfoByIdAsync(int weighingMachineId)
+        {
+            var wmDetails = await _weighingMachineRepository.GetAll().Where(x => x.Id == weighingMachineId).Select(x => new { x.StampingDueOn, x.WeighingMachineCode }).FirstOrDefaultAsync();
+            if (wmDetails.StampingDueOn.HasValue)
+            {
+                var dueDays = (wmDetails.StampingDueOn.Value - DateTime.Now).Days;
+                if (dueDays <= PMMSConsts.TotalStampingDays)
+                {
+                    return $"Remaining Days Left-{dueDays}";
+                }
+                return string.Empty;
+            }
+            return default;
+        }
+        public async Task<List<SelectListDtoWithPlantId>> GetAllWeighingMachineByPlantIdAsync(int? plantId)
+        {
+            var weighingMachineQuery = from wmMaster in _weighingMachineRepository.GetAll()
+                                       select new SelectListDtoWithPlantId
+                                       {
+                                           Id = wmMaster.Id,
+                                           Value = wmMaster.WeighingMachineCode,
+                                           PlantId = wmMaster.SubPlantId,
+                                       };
+            if (plantId != null)
+            {
+                weighingMachineQuery = weighingMachineQuery.Where(x => x.PlantId == Convert.ToInt32(plantId));
+            }
+            return await weighingMachineQuery.Distinct().OrderBy(x => x.Value).ToListAsync() ?? default;
+        }
+        private async Task<double> GetWeightFromWeighingMachine(string ipAddress, int? portNumber)
+        {
+            var weighingMachineType = _weighingScaleFactory.GetPrintConnector(WeighingScaleType.Normal);
+            var weighingMachineInput = new WeighingMachineInput
+            {
+                IPAddress = ipAddress,
+                Port = Convert.ToInt32(portNumber),
+            };
+            return await weighingMachineType.GetWeight(weighingMachineInput);
+        }
 
         public async Task<List<SelectListDto>> GetAllUsers()
         {
