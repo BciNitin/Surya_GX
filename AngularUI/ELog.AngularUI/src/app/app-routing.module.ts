@@ -22,6 +22,7 @@ import { NewPanelComponent } from './elog-panel/new-panel/new-panel.component';
 import { ApproveFormlistComponent } from './approve-forms-list/approve-forms-list.component'
 import { LogdataapprovalComponent } from './log-forms-list/log-data-approval/log-data-approval.component';
 import { NotificationsCenterComponent } from './notifications-center/notifications-center.component';
+import { PasswordComponent } from './password/password.component';
 
 @NgModule({
     imports: [
@@ -76,7 +77,7 @@ import { NotificationsCenterComponent } from './notifications-center/notificatio
                     { path: 'subModule/:action/:subModuleId', component: AddEditSubModuleComponent , canActivate: [AppRouteGuard]},
                     { path: 'edit-subModule/:action/:subModuleId', component: AddEditSubModuleComponent, canActivate: [AppRouteGuard] },
 
-
+                    { path: 'password', component: PasswordComponent, canActivate: [AppRouteGuard] },
                     { path: 'reset-password/:userId', component: ResetPasswordComponent, data: { permission: 'Password.Edit' } },
                      { path: 'reset-password/:userId/:action', component: ResetPasswordComponent, data: { permission: 'Password.Edit' } },
                     { path: 'logData/createforms/edit/:formId/:dataId', component: CreateformsComponent, data: { permission: '' }, canActivate: [AppRouteGuard] },

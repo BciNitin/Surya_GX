@@ -58,6 +58,7 @@ export class RolesComponent extends PagedListingComponentBase<RoleDto> {
         super(injector);
     }
     ngOnInit(): void {
+        debugger;
         this.setTitle('Roles Management');
         fromEvent(this.searchTextBox.nativeElement, 'keyup').pipe(
 
@@ -171,6 +172,7 @@ export class RolesComponent extends PagedListingComponentBase<RoleDto> {
 
     }
     GetRoles() {
+        debugger;
         this._selectListService.getRoles().subscribe((modeSelectList: SelectListDto[]) => {
             this.roleNames = modeSelectList;
         });
@@ -196,6 +198,7 @@ export class RolesComponent extends PagedListingComponentBase<RoleDto> {
         pageNumber: number,
         finishedCallback: Function
     ): void {
+        debugger;
         request.keyword = this.keyword;
         let roleSortBy = this.GetSortBy(this.sortBy, this.sortByOrder);
         

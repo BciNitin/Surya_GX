@@ -54,6 +54,12 @@ export class SideBarNavComponent extends AppComponentBase {
       "/app/roles"
     ),
     new MenuItem(
+      this.l("Password Management"),
+      "",
+      "password",
+      "/app/password"
+    ),
+    new MenuItem(
       this.l("Creator"),
       "ElogCreator.Add",
       "summarize",

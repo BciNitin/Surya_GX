@@ -141,10 +141,10 @@
                             <td class="td-center-align remove-td-padding">
 
                                 <i matTooltip="View Role" class="material-icons material-icon-action"
-                                    (click)="GoToViewRole(role)" *ngIf="isPermissionGranted('Role.View')">visibility</i>
+                                    (click)="GoToViewRole(role)" >visibility</i>
                                 <i matTooltip="Delete Role" class="material-icons material-icon-action deleteRole"
                                     (tap)="delete(role)" (click)="delete(role)"
-                                    *ngIf="isPermissionGranted('Role.Delete')">delete</i>
+                                    >delete</i>
                             </td>
                         </tr>
                         <tr *ngIf="roles?.length == 0">
