@@ -38,7 +38,7 @@ import { NotificationsCenterComponent } from './notifications-center/notificatio
                     { path: 'tenants', component: TenantsComponent, data: { permission: 'Pages.Tenants' }, canActivate: [AppRouteGuard] },
 
                     { path: 'users', component: UsersComponent, canActivate: [AppRouteGuard] },
-                    { path: 'add-user', component: AddEditUserComponent, canActivate: [AppRouteGuard] },
+                    { path: 'add-user', component: AddEditUserComponent,data: { permission: 'User.Add' }, canActivate: [AppRouteGuard] },
                     { path: 'user/:action/:userId', component: AddEditUserComponent, data: { permission: 'User.View' }, canActivate: [AppRouteGuard] },
                     { path: 'edit-user/:userId', component: AddEditUserComponent, data: { permission: 'User.Edit' }, canActivate: [AppRouteGuard] },
                     { path: 'profile/:action/:profileId', component: AddEditUserComponent, data: { permission: '' }, canActivate: [AppRouteGuard] },
@@ -62,7 +62,7 @@ import { NotificationsCenterComponent } from './notifications-center/notificatio
                     { path: 'approveforms/:formId', component: ApproveformsComponent, canActivate: [AppRouteGuard] },
                    
 
-                    { path: 'roles', component: RolesComponent, data: { permission: 'Role.View' }, canActivate: [AppRouteGuard] },
+                    { path: 'roles', component: RolesComponent, canActivate: [AppRouteGuard] },
                     { path: 'add-role', component: AddEditRoleComponent, data: { permission: 'Role.Add' }, canActivate: [AppRouteGuard] },
                     { path: 'role/:action/:roleId', component: AddEditRoleComponent, data: { permission: 'Role.View' }, canActivate: [AppRouteGuard] },
                     { path: 'edit-role/:roleId', component: AddEditRoleComponent, data: { permission: 'Role.Edit' }, canActivate: [AppRouteGuard] },

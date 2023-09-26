@@ -209,10 +209,10 @@
 
                                 <i matTooltip="View User" (click)="GoToViewUser(user)"
                                     class="material-icons material-icon-action"
-                                    *ngIf="isPermissionGranted('User.View')">visibility</i>
+                                   >visibility</i>
                                 <i matTooltip="Delete User" class="material-icons material-icon-action deleteUser"
                                     (tap)="delete(user)" (click)="delete(user)"
-                                    *ngIf="isPermissionGranted('User.Delete')">delete</i>
+                                    >delete</i>
                             </td>
                         </tr>
                         <tr *ngIf="users?.length == 0">

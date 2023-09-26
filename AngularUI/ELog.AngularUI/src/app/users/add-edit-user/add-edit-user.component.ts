@@ -83,11 +83,11 @@ export class AddEditUserComponent extends AppComponentBase {
 
         this.user = new UserDto();
         this.user.isActive = true;
-        // this.GetRoles();
+        this.GetRoles();
         this.GetModes();
 
         // this.GetUserDesignations();
-        // this.GetUserStatus();
+        this.GetUserStatus();
         // this.GetReportingManager();
         // this.GetPlantMaster();
 
@@ -159,6 +159,7 @@ export class AddEditUserComponent extends AppComponentBase {
     }
 
     GetRoles() {
+        debugger;
         this._userService.getAllRoles().subscribe((roleData: RoleCheckboxDto) => {
             this.UserRoles = roleData;
         });

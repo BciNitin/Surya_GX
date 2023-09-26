@@ -74,6 +74,11 @@ namespace ELog.Core.Authorization
                 const int approvalStatusValue = (int)(PMMSEnums.ApprovalStatus.Approved);
                 var approvedApprovalStatus = Enum.GetName(typeof(PMMSEnums.ApprovalStatus), approvalStatusValue);
 
+               var _user = _userRolesRepository.GetAll().ToList();
+               var _user_roles = _roleRepository.GetAll().ToList();
+               var _user_a = _approvalStatusRepository.GetAll().ToList();
+                var r_pr = _rolePermissionsRepository.GetAll().ToList();
+
                 var currentUserPermissions = (from _userRoles in _userRolesRepository.GetAll()
                                               join role in _roleRepository.GetAll() on _userRoles.RoleId equals role.Id
                                               join approvalStatus in _approvalStatusRepository.GetAll() on role.ApprovalStatusId equals approvalStatus.Id

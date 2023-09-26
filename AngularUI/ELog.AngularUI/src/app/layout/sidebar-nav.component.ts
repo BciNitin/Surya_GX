@@ -42,14 +42,14 @@ export class SideBarNavComponent extends AppComponentBase {
   menuItems: MenuItem[] = [
     new MenuItem(this.l("Home"), "", "home", "/app/home"),
     new MenuItem(
-      this.l("User Management"),
+      this.l("Users Management"),
       "",
       "manage_accounts",
       "/app/users"
-    ),
+    ), 
     new MenuItem(
       this.l("Role Management"),
-      "Role.View",
+      "",
       "people",
       "/app/roles"
     ),

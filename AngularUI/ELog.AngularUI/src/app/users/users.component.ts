@@ -259,22 +259,22 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
             userActiveInactive = this.activeStatus
         }
 
-        // this._userService
-        //     .getAll(this.keyword,this.plantId, this.mode, this.designation, this.approvalStatusId, userActiveInactive, this.creationFromDate,this.creationToDate,userSortBy, request.skipCount, request.maxResultCount)
-        //     .pipe(
-        //         finalize(() => {
-        //             finishedCallback();
-        //             abp.ui.clearBusy();
-        //         })
-        //     )
-        //     .subscribe((result: UsersListDtoPagedResultDto) => {
-        //         if(result.items.length >0)
-        //         {
-        //             this.users = this.users.concat(result.items);
-        //             this.showPaging(result, pageNumber);
-        //         }
+        this._userService
+            .getAll(this.keyword,this.plantId, this.mode, this.designation, this.approvalStatusId, userActiveInactive, this.creationFromDate,this.creationToDate,userSortBy, request.skipCount, request.maxResultCount)
+            .pipe(
+                finalize(() => {
+                    finishedCallback();
+                    abp.ui.clearBusy();
+                })
+            )
+            .subscribe((result: UsersListDtoPagedResultDto) => {
+                if(result.items.length >0)
+                {
+                    this.users = this.users.concat(result.items);
+                    this.showPaging(result, pageNumber);
+                }
                 
-        //     });
+            });
 
             
     }
