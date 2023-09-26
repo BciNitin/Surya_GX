@@ -22,6 +22,7 @@ import { NewPanelComponent } from './elog-panel/new-panel/new-panel.component';
 import { ApproveFormlistComponent } from './approve-forms-list/approve-forms-list.component'
 import { LogdataapprovalComponent } from './log-forms-list/log-data-approval/log-data-approval.component';
 import { NotificationsCenterComponent } from './notifications-center/notifications-center.component';
+import { PlantComponent } from './Masters/plant/plant.component';
 
 @NgModule({
     imports: [
@@ -81,7 +82,8 @@ import { NotificationsCenterComponent } from './notifications-center/notificatio
                      { path: 'reset-password/:userId/:action', component: ResetPasswordComponent, data: { permission: 'Password.Edit' } },
                     { path: 'logData/createforms/edit/:formId/:dataId', component: CreateformsComponent, data: { permission: '' }, canActivate: [AppRouteGuard] },
                     { path: 'approve-forms-list', component: ApproveFormlistComponent, canActivate: [AppRouteGuard] },
-                 
+                    
+                    { path: 'plant', component: PlantComponent, canActivate: [AppRouteGuard],data: { permission: 'Plant.View' } },
                 ]
             }
         ])

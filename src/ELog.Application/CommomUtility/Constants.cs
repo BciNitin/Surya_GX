@@ -15,7 +15,7 @@ namespace ELog.Application.CommomUtility
         public const string StorageLocationMaster = "GETSTORAGELOCATTION";
         public const string BinMaster = "GETBIN";
         public const string ShiftMaster = "GETSHIFT";
-        //public const string CustomerMaster = "";
+        public const string CustomerMaster = "CustomerMaster";
         //public const string CustomerMaster = "";
         //public const string CustomerMaster = "";
         //public const string CustomerMaster = "";
