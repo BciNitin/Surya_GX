@@ -3,7 +3,7 @@
         <div class="card main-content">
             <div class="row user-component-content row-filter-container">
                 <div class="col-12">
-                    <h2 class="title">{{ "User Management" | localize }}</h2>
+                    <h2 class="title">{{ "Customer Master" | localize }}</h2>
                 </div>
             </div>
             <form class="row clearfix row-filter-container">
@@ -161,7 +161,6 @@
                             *ngIf="isPermissionGranted('User.Add')">add_circle</i>
                         <button type="button" (click)="addUser()" class="btn add-circle-button"
                           >
-                          <i class="material-icons-outlined">add_circle_outline</i>
                             Add
                         </button>
                     </div>
@@ -177,46 +176,39 @@
                 <table class="table table-hover table-striped table-sm table-bordered">
                     <thead>
                         <tr>
-                            <th class="th-center-align">{{ "User First Name" | localize }}</th>
-                            <th class="th-center-align">{{ "User Last Name" | localize }}</th>
-                            <th class="th-center-align">{{ "User Name" | localize }}</th>
-                            <th class="th-center-align">{{ "Creation Date" | localize }}</th>
-                            <th class="th-center-align">{{ "PW Reset Date" | localize }}</th>
-                            <!-- <th class="th-center-align">{{ "Approval Status" | localize }}</th> -->
-                            <th class="th-center-align">{{ "Status" | localize }}</th>
-
+                            <th class="th-center-align">{{ "Customer Code" | localize }}</th>
+                            <th class="th-center-align">{{ "Name" | localize }}</th>
+                            <th class="th-center-align">{{ "Description" | localize }}</th>
+                            <th class="th-center-align">{{ "Address" | localize }}</th>
+                            <th class="th-center-align">{{ "IsActive" | localize }}</th>
                             <th class="th-center-align">{{ "Action" | localize }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of users" (tap)="onSelect($event,user)">
-                            <td class="td-center-align add-wrap">{{user.firstName}}</td>
-                            <td class="td-center-align add-wrap">{{user.lastName}}</td>
-                            <td class="td-center-align add-wrap">{{user.userName}}</td>
+                        <tr *ngFor="let customer of customers" (tap)="onSelect($event,customer)">
+                            <td class="td-center-align add-wrap">{{customer.Code}}</td>
+                            <td class="td-center-align add-wrap">{{customer.name}}</td>
+                            <td class="td-center-align add-wrap">{{customer.Address}}</td>
                             <td class="td-center-align add-wrap">
-                                {{user.creationTime | date:'dd/MM/yyyy'}}
+                                {{customer.City}}
                             </td>
-                            <td class="td-center-align add-wrap">
-                                {{user.pswdResetDate | date:'dd/MM/yyyy '}}
-                            </td>
-                            <!-- <td class="td-center-align add-wrap">{{user.userEnteredApprovalStatus}}</td> -->
                             <td class="td-center-align">
                                 <span class="material-icons-outlined active-icon-green"
-                                    *ngIf="user.isActive">check_circle_outline</span>
+                                    *ngIf="customer.isActive">check_circle_outline</span>
                                 <span class="material-icons-outlined inactive-icon-red"
-                                    *ngIf="!user.isActive">do_disturb_on</span>
+                                    *ngIf="!customer.isActive">do_disturb_on</span>
                             </td>
                             <td class="td-center-align remove-td-padding">
 
-                                <i matTooltip="View User" (click)="GoToViewUser(user)"
+                                <i matTooltip="View Customer" (click)="GoToViewUser(customer)"
                                     class="material-icons material-icon-action"
                                    >visibility</i>
-                                <i matTooltip="Delete User" class="material-icons material-icon-action deleteUser"
-                                    (tap)="delete(user)" (click)="delete(user)"
+                                <i matTooltip="Delete Customer" class="material-icons material-icon-action deleteUser"
+                                    (tap)="delete(customer)" (click)="delete(customer)"
                                     >delete</i>
                             </td>
                         </tr>
-                        <tr *ngIf="users?.length == 0">
+                        <tr *ngIf="customers?.length == 0">
                             <td colspan="8" class="no-data-available">No data to display.</td>
                         </tr>
                     </tbody>

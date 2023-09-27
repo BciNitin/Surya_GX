@@ -1,0 +1,47 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="row user-component-content row-filter-container">
+                <div class="col-12">
+                    <h2 class="title">{{ "Line/Work Center and Bin Mapping " | localize }}</h2>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div id="collapse1" class="panel-collapse collapse in dark-text">
+                        <div class="panel-body">
+                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-4 col-sm-8 col-xs-8">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Scan Bin barcode label</mat-label>
+                                            <input matInput required name="fromPalletFormControl"
+                                                   [(ngModel)]='fromPallet' formControlName="fromPalletFormControl" maxlength="16" (change)="ValidateBarcode()">
+                                            <mat-error *ngIf="addEditFormGroup?.get('fromPalletFormControl')?.hasError('required') || addEditFormGroup?.get('fromPalletFormControl')?.hasError('whitespace')">
+                                                Bin barcode label is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-4 col-sm-8 col-xs-8">
+                                        <mat-form-field>
+                                            <mat-label>Scan Line barcode Lable</mat-label>
+                                            <input matInput name="toPallet"
+                                                   [(ngModel)]='toPallet' formControlName="toPalletFormControl" (change)="validateNewPallet()">
+                                            <mat-error *ngIf="addEditFormGroup?.get('toPalletFormControl')?.hasError('required') || addEditFormGroup?.get('toPalletFormControl')?.hasError('whitespace')">
+                                                Line barcode Lable is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

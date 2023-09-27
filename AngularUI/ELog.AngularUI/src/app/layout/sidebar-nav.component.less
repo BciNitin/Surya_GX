@@ -1,18 +1,19 @@
 ﻿ul.list li.active a span.pm-selected { color: #ee5b36 !important;}
 
 .scrolldiv {
-    overflow-y: scroll;
+    overflow-y: auto;
     width: auto;
     height: 80%;
 }
 ::-webkit-scrollbar {
-    width: 15px;
-    height: 15px;
-    background-color: #aaa;
+    width: 8px;
+    height: 8px;
+    background-color: transparent;
+
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #808080;
+    background: var(--theme-btn);
 }
 /* fallback */
 @font-face {

@@ -1,4 +1,15 @@
-﻿/* Show Fieldset and Legend ==================== */
+﻿/*Color Theme*/
+:root {
+    --theme-btn: #D92126;
+    --theme-btn-hover: #A40509;
+    --top-header:#fff;
+    --sidebar:#34495e;
+}
+html{
+    font-size:62.5%;
+}
+
+/* Show Fieldset and Legend ==================== */
 .show-fieldset {
   margin: 10px;
   padding: 10px;
@@ -10397,7 +10408,7 @@ fieldset[disabled] .form-control {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   font-family: "Roboto", sans-serif;
-  background: #575a65;
+  background: var(--sidebar);
   width: 250px;
   overflow: hidden;
   display: inline-block;
@@ -10586,7 +10597,7 @@ fieldset[disabled] .form-control {
 }
 
 .sidebar .menu .list a {
-  color: #ffffff;
+  color: #a5aeb7;
   position: relative;
   display: inline-flex;
   vertical-align: middle;
@@ -10598,6 +10609,7 @@ fieldset[disabled] .form-control {
 .sidebar .menu .list a:active,
 .sidebar .menu .list a:focus {
   text-decoration: none !important;
+  color: var(--top-header);
 }
 
 .sidebar .menu .list a small {
@@ -10608,7 +10620,7 @@ fieldset[disabled] .form-control {
 
 .sidebar .menu .list a span {
   margin: 7px 0 7px 12px;
-  color: #ffffff;
+  color:#a5aeb7;
   font-weight: bold;
   font-size: 14px;
   overflow: hidden;
@@ -10730,13 +10742,13 @@ fieldset[disabled] .form-control {
 }
 
 /* Login Page ================================== */
-.login-page {
+/*.login-page {*/
   /* background-color: #00BCD4; */
-  padding-left: 0;
+  /*padding-left: 0;
   max-width: 360px;
   margin: 5% auto;
   overflow-x: hidden;
-}
+}*/
 
 .login-page .login-box .msg {
   color: #555;
@@ -11198,7 +11210,7 @@ html.ie11 .bs-searchbox .form-control {
 
 .user-info-wrapper label {
   margin-bottom: 0;
-  color: #ee5b36;
+  color: var(--theme-btn);
 }
 
 .plant {
@@ -11208,7 +11220,7 @@ html.ie11 .bs-searchbox .form-control {
 .title {
   font-size: 20px;
   padding: 0 5px 5px 5px;
-  color: #ee5b36;
+  color: var(--theme-btn);
 }
 
 .btn {
@@ -11216,12 +11228,12 @@ html.ie11 .bs-searchbox .form-control {
 }
 
 .btn-primary {
-  background-color: #ee5b36 !important;
+  background-color: var(--theme-btn) !important;
   margin-right: 1px;
 }
 .btn-forgotpassword {
-    background-color: #ee5b36 !important;
-    color:white;
+    background-color: var(--theme-btn) !important;
+    color: white;
     margin-right: 8px;
 }
 
@@ -11379,7 +11391,7 @@ html.ie11 .bs-searchbox .form-control {
 }
 
 .material-icon-action:hover {
-  color: #f05b26;
+  color: var(--theme-btn);
 }
 
 .table tbody tr td,
@@ -11578,11 +11590,11 @@ mat-form-field {
 .navbar-header {
   padding: 0 5px;
 }
-.logo-wrapper .logo {
+/*.logo-wrapper .logo {
   height: 40px;
   margin-left: 5px;
 }
-
+*/
 .user-info-wrapper {
   margin: 1px 0;
   padding-right: 5px;
@@ -11739,5 +11751,42 @@ i.material-icons.span-filter-icon {
   width: 30px;
 }
 
-
-
+/*updated by mukesh (27 sept )*/
+.login-page {
+   display: grid;
+    place-items: center;
+    min-height:100vh;
+}
+.login-size {
+    min-width: 360px;
+    border-radius:6px;
+}
+img.logo {
+    width: 40%;
+    height: auto;
+}
+.login-field{ margin-bottom:14px;}
+.logo-wrapper .logo {
+    height: auto;
+    margin: 5px;
+    width: 53%;
+}
+.login-btn{
+    border-radius:6px !important;
+    font-size:1.6rem !important;
+    margin-top:10px !important;
+}
+.theme-red .navbar {
+    background-color: var(--top-header) !important;
+}
+.theme-red .sidebar .legal {
+  background-color: var(--sidebar) !important;
+  
+}
+.theme-red .sidebar .menu .list .toggled ,.theme-red .sidebar .menu .list .toggled  >  span.pm-selected{
+  background-color: transparent;
+  color: var(--top-header) ;
+}
+.sidebar .menu .list a:hover > span.pm-selected,.sidebar .menu .list a:hover span {
+  color: var(--top-header) !important; 
+}

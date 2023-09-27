@@ -22,8 +22,10 @@ import { NewPanelComponent } from './elog-panel/new-panel/new-panel.component';
 import { ApproveFormlistComponent } from './approve-forms-list/approve-forms-list.component'
 import { LogdataapprovalComponent } from './log-forms-list/log-data-approval/log-data-approval.component';
 import { NotificationsCenterComponent } from './notifications-center/notifications-center.component';
-import { PlantComponent } from './Masters/plant/plant.component';
 import { PasswordComponent } from './password/password.component';
+import { LineWorkCenterComponent } from './PlantOperation/line-work-center/line-work-center.component';
+import { PlantComponent } from './masters/plant/plant.component';
+import { CustomerComponent } from './masters/customer/customer.component';
 
 
 @NgModule({
@@ -84,7 +86,9 @@ import { PasswordComponent } from './password/password.component';
                      { path: 'reset-password/:userId/:action', component: ResetPasswordComponent, data: { permission: 'Password.Edit' } },
                     { path: 'logData/createforms/edit/:formId/:dataId', component: CreateformsComponent, data: { permission: '' }, canActivate: [AppRouteGuard] },
                     { path: 'approve-forms-list', component: ApproveFormlistComponent, canActivate: [AppRouteGuard] },
-                    
+                    { path: 'line-work-center', component: LineWorkCenterComponent, canActivate: [AppRouteGuard] },
+                    { path: 'customer', component: CustomerComponent, canActivate: [AppRouteGuard] }
+,
                     { path: 'plant', component: PlantComponent, canActivate: [AppRouteGuard],data: { permission: 'Plant.View' } },
                 ]
             }

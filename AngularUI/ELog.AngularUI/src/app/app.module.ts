@@ -73,8 +73,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { NotificationsCenterComponent } from './notifications-center/notifications-center.component';
-import { PlantComponent } from './Masters/plant/plant.component';
-import { MaterialComponent } from './Masters/material/material.component';
+import { PlantComponent } from './masters/plant/plant.component';
+
+import { MaterialComponent } from './masters/material/material.component';
+
+import { LineWorkCenterComponent } from './PlantOperation/line-work-center/line-work-center.component';
+import { CustomerComponent } from './masters/customer/customer.component';
+
 export function momentAdapterFactory() {
     return adapterFactory(moment);
 };
@@ -140,7 +145,13 @@ export const PMMS_FORMATS = {
         LogdataapprovalComponent,
         NotificationsCenterComponent,
         PlantComponent,
+
         MaterialComponent,
+
+        LineWorkCenterComponent,
+
+        CustomerComponent,
+
     ],
     imports: [
         CommonModule,

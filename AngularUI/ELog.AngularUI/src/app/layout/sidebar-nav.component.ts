@@ -41,24 +41,24 @@ export class SideBarNavComponent extends AppComponentBase {
   DBName: any;
   menuItems: MenuItem[] = [
     new MenuItem(this.l("Home"), "", "home", "/app/home"),
-    new MenuItem(
-      this.l("Users Management"),
-      "",
-      "manage_accounts",
-      "/app/users"
-    ), 
-    new MenuItem(
-      this.l("Role Management"),
-      "",
-      "people",
-      "/app/roles"
-    ),
-    new MenuItem(
-      this.l("Password Management"),
-      "",
-      "password",
-      "/app/password"
-    ),
+    // new MenuItem(
+    //   this.l("Users Management"),
+    //   "",
+    //   "manage_accounts",
+    //   "/app/users"
+    // ), 
+    // new MenuItem(
+    //   this.l("Role Management"),
+    //   "",
+    //   "people",
+    //   "/app/roles"
+    // ),
+    // new MenuItem(
+    //   this.l("Password Management"),
+    //   "",
+    //   "password",
+    //   "/app/password"
+    // ),
     new MenuItem(
       this.l("Creator"),
       "ElogCreator.Add",
@@ -95,7 +95,7 @@ export class SideBarNavComponent extends AppComponentBase {
   ngOnInit() {
     this.MenuList = [];
     this.MenuType = [];
-    //this.getMenuType();
+    this.getMenuType();
     this.getAllMenu();
   }
 
@@ -107,21 +107,20 @@ export class SideBarNavComponent extends AppComponentBase {
     return true;
   }
 
-// getMenuType(){
-//   debugger;
-//   this._elogservice.fetchTableWiseData("Menu","Name",10,null,null).pipe(
-//     finalize(() => {
-//       abp.ui.clearBusy();
-//     })
-//   ).subscribe({
-//     next: data => {
-//       const newD = JSON.parse(data);
-//       this.valuesOnly = Object.values(newD); 
-//       this.getMenu.push(this.valuesOnly);
-// console.log(this.getMenu);
-//     }
-// });
-// }
+getMenuType(){
+  this._elogservice.fetchTableWiseData("Menu","Name",10,null,null).pipe(
+    finalize(() => {
+      abp.ui.clearBusy();
+    })
+  ).subscribe({
+    next: data => {
+      const newD = JSON.parse(data);
+      this.valuesOnly = Object.values(newD); 
+      this.getMenu.push(this.valuesOnly);
+console.log(this.getMenu);
+    }
+});
+}
   getAllMenu() {
     this._clientFormsService
       .getAll(null, null, null, true, null, null, null,null,null, 0, 200)
