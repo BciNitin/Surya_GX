@@ -139,13 +139,13 @@ namespace ELog.Application.ElogApi
 
         public async Task<Object> GetCustomerMaster()
         {
-
+            DataTable dt = new DataTable();
             try
             {
                 MySqlConnection conn = null;
                 conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
-                DataTable dt = new DataTable();
+               
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
@@ -165,7 +165,7 @@ namespace ELog.Application.ElogApi
             {
                 Console.WriteLine(e.ToString());
             }
-            return null;
+            return dt;
 
         }
 
