@@ -62,17 +62,18 @@
                 <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">Masters</span>
             </a>
             <ul class="ml-menu ng-star-inserted">
-                <li routerlinkactive="active" class="ng-star-inserted" *ngIf="isPermissionGranted('Plant.View')">
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/master/plant']">
+                <li routerlinkactive="active" class="ng-star-inserted" >
+                <!-- <li routerlinkactive="active" class="ng-star-inserted" *ngIf="isPermissionGranted('Plant.View')"> -->
+                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/plant']">
                     <span>
                         Plant
                      </span></a>
                 </li>
-                <li routerlinkactive="active" class="ng-star-inserted" *ngIf="isPermissionGranted('Role.View')">
+                <li routerlinkactive="active" class="ng-star-inserted" *ngIf="isPermissionGranted('Plant.View')">
                     <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/roles/']"><span>Role
                             Management</span></a>
                 </li>
-                <li routerlinkactive="active" class="ng-star-inserted" *ngIf="isPermissionGranted('Password.View')">
+                <li routerlinkactive="active" class="ng-star-inserted" *ngIf="isPermissionGranted('Plant.View')">
                     <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/password']"><span>Password
                             Management</span></a>
                 </li>

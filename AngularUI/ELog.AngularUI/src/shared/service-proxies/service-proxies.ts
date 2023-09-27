@@ -3081,7 +3081,7 @@ export class ElogSuryaApiServiceServiceProxy {
     /**
      * @return Success
      */
-    getPlantMaster(): Observable<void> {
+    getPlantMaster(): Observable<Plant[]> {
         let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/GetPlantMaster";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3089,6 +3089,7 @@ export class ElogSuryaApiServiceServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Accept": "text/plain"
             })
         };
 
@@ -3099,14 +3100,14 @@ export class ElogSuryaApiServiceServiceProxy {
                 try {
                     return this.processGetPlantMaster(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
+                    return _observableThrow(e) as any as Observable<Plant[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<void>;
+                return _observableThrow(response_) as any as Observable<Plant[]>;
         }));
     }
 
-    protected processGetPlantMaster(response: HttpResponseBase): Observable<void> {
+    protected processGetPlantMaster(response: HttpResponseBase): Observable<Plant[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3115,14 +3116,24 @@ export class ElogSuryaApiServiceServiceProxy {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(null as any);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(Plant.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(null as any);
+        return _observableOf<Plant[]>(null as any);
     }
 
     /**
@@ -20822,6 +20833,61 @@ export class ElogControlsDtoPagedResultDto implements IElogControlsDtoPagedResul
 export interface IElogControlsDtoPagedResultDto {
     totalCount: number;
     items: ElogControlsDto[] | undefined;
+}
+
+export class Plant implements IPlant {
+    code: string | undefined;
+    type: string | undefined;
+    description: string | undefined;
+    address: string | undefined;
+
+    constructor(data?: IPlant) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.code = _data["code"];
+            this.type = _data["type"];
+            this.description = _data["description"];
+            this.address = _data["address"];
+        }
+    }
+
+    static fromJS(data: any): Plant {
+        data = typeof data === 'object' ? data : {};
+        let result = new Plant();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["code"] = this.code;
+        data["type"] = this.type;
+        data["description"] = this.description;
+        data["address"] = this.address;
+        return data;
+    }
+
+    clone(): Plant {
+        const json = this.toJSON();
+        let result = new Plant();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPlant {
+    code: string | undefined;
+    type: string | undefined;
+    description: string | undefined;
+    address: string | undefined;
 }
 
 export class FormApprovalDataDto implements IFormApprovalDataDto {

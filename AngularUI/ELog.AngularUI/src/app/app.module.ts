@@ -74,6 +74,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { NotificationsCenterComponent } from './notifications-center/notifications-center.component';
 import { PlantComponent } from './Masters/plant/plant.component';
+import { MaterialComponent } from './Masters/material/material.component';
 export function momentAdapterFactory() {
     return adapterFactory(moment);
 };
@@ -139,6 +140,7 @@ export const PMMS_FORMATS = {
         LogdataapprovalComponent,
         NotificationsCenterComponent,
         PlantComponent,
+        MaterialComponent,
     ],
     imports: [
         CommonModule,
