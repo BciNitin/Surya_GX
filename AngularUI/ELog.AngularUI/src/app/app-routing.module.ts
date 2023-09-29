@@ -24,9 +24,11 @@ import { LogdataapprovalComponent } from './log-forms-list/log-data-approval/log
 import { NotificationsCenterComponent } from './notifications-center/notifications-center.component';
 import { PasswordComponent } from './password/password.component';
 import { LineWorkCenterComponent } from './PlantOperation/line-work-center/line-work-center.component';
-import { PlantComponent } from './masters/plant/plant.component';
-import { CustomerComponent } from './masters/customer/customer.component';
+import { PlantComponent } from './Masters/plant/plant.component';
+import { CustomerComponent } from './Masters/customer/customer.component';
 import { ManualPackingComponent } from './PlantOperation/manual-packing/manual-packing.component';
+import { MaterialComponent } from './Masters/material/material.component';
+import { LineMasterComponent } from './Masters/line-master/line-master.component';
 
 
 @NgModule({
@@ -92,6 +94,8 @@ import { ManualPackingComponent } from './PlantOperation/manual-packing/manual-p
                     { path: 'manual-packing', component: ManualPackingComponent, canActivate: [AppRouteGuard] },
 
                     { path: 'plant', component: PlantComponent, canActivate: [AppRouteGuard],data: { permission: 'Plant.View' } },
+                    { path: 'material', component: MaterialComponent, canActivate: [AppRouteGuard],data: { permission: 'Plant.View' } },
+                    { path: 'line-master', component: LineMasterComponent, canActivate: [AppRouteGuard],data: { permission: 'Plant.View' } },
                 ]
             }
         ])

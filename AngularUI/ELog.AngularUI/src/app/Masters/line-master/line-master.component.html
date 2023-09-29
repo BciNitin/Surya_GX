@@ -3,7 +3,7 @@
         <div class="card main-content">
             <div class="row user-component-content row-filter-container">
                 <div class="col-12">
-                    <h2 class="title">{{ "Customer Master" | localize }}</h2>
+                    <h2 class="title">{{ "Work Center/Line Master" | localize }}</h2>
                 </div>
             </div>
             <form class="row clearfix row-filter-container">
@@ -149,23 +149,12 @@
                 <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
                     <mat-form-field class="search-container">
                         <mat-icon matPrefix>search</mat-icon>
-
                         <mat-label>Search</mat-label>
-                        <input matInput #searchTextBox name="keyword" [(ngModel)]="keyword" value=""
-                            placeholder="Search" (focus)="onFocusOfSearchBox($event)">
+                        <!-- <input matInput #searchTextBox name="keyword" [(ngModel)]="keyword" value=""
+                            placeholder="Search" (focus)="onFocusOfSearchBox($event)"> -->
+                            <input name="first" matInput [(ngModel)]="searchTerm" placeholder="Search" (keyup)="filterCountries(searchTerm)"/>
                     </mat-form-field>
                 </div>
-                <!-- <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <div class="add-button-container">
-                        <i class="material-icons add-circle-icon" (click)="addUser()"
-                            *ngIf="isPermissionGranted('User.Add')">add_circle</i>
-                        <button type="button" (click)="addUser()" class="btn add-circle-button"
-                          >
-                          <i class="material-icons-outlined">add_circle_outline</i>
-                            Add
-                        </button>
-                    </div>
-                </div> -->
             </form>
             <div class="row clearfix row-filter-container">
                 <div class="col-12 filter-by-string filter-font" *ngIf="filterBy && !isFilterOpen">Filter By :
@@ -173,49 +162,55 @@
             </div>
             <div class="body mh500 tabelScroll table-responsive" infiniteScroll [infiniteScrollDistance]="2"
                 [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false"
-                [ngClass]="{'table-scroll':users?.length != 0}">
-                <table class="table table-hover table-striped table-sm table-bordered">
-                    <thead>
-                        <tr>
-                            <th class="th-center-align">{{ "Customer Code" | localize }}</th>
-                            <th class="th-center-align">{{ "Name" | localize }}</th>
-                            <th class="th-center-align">{{ "Address" | localize }}</th>
-                            <th class="th-center-align">{{ "City" | localize }}</th>
-                            <th class="th-center-align">{{ "District" | localize }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let customer of customers" (tap)="onSelect($event,customer)">
-                            <td class="td-center-align add-wrap">{{customer.code}}</td>
-                            <td class="td-center-align add-wrap">{{customer.name}}</td>
-                            <td class="td-center-align add-wrap">{{customer.address}}</td>
-                            <td class="td-center-align add-wrap">
-                                {{customer.city}}
-                            </td>
-                            <td class="td-center-align add-wrap">
-                                {{customer.district}}
-                            </td>
-                            <!-- <td class="td-center-align">
-                                <span class="material-icons-outlined active-icon-green"
-                                    *ngIf="customer.isActive">check_circle_outline</span>
-                                <span class="material-icons-outlined inactive-icon-red"
-                                    *ngIf="!customer.isActive">do_disturb_on</span>
-                            </td> -->
-                            <!-- <td class="td-center-align remove-td-padding">
+                [ngClass]="{'table-scroll':lines?.length != 0}">
+                <table class="table table-hover table-striped table-sm table-bordered" *ngIf="dataSource" mat-table
+                    [dataSource]="dataSource" matSort (matSortChange)="onMatSortChange()" matSortDirection="asc"
+                    multiTemplateDataRows>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="PlantCode">
+                        <th class="th-center-align" *matHeaderCellDef mat-sort-header="plantCode">
+                            Plant Code
+                        </th>
+                        <td mat-cell *matCellDef="let element">{{ element.plantCode }}</td>
+                    </ng-container>
 
-                                <i matTooltip="View Customer" (click)="GoToViewUser(customer)"
-                                    class="material-icons material-icon-action"
-                                   >visibility</i>
-                                <i matTooltip="Delete Customer" class="material-icons material-icon-action deleteUser"
-                                    (tap)="delete(customer)" (click)="delete(customer)"
-                                    >delete</i>
-                            </td> -->
-                        </tr>
-                        <tr *ngIf="customers?.length == 0">
-                            <td colspan="8" class="no-data-available">No data to display.</td>
-                        </tr>
-                    </tbody>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="WorkCenterCode">
+                        <th class="th-center-align" *matHeaderCellDef mat-sort-header="workCenterCode">WorkCenter Code
+                        </th>
+                        <td mat-cell *matCellDef="let element">{{ element.workCenterCode }}</td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="WorkCenterDiscription">
+                        <th class="th-center-align" *matHeaderCellDef mat-sort-header="workCenterDiscription">
+                            WorkCenter Discription
+                        </th>
+                        <td class="td-center-align add-wrap" *matCellDef="let element">{{ element.workCenterDiscription
+                            }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="Active">
+                        <th class="th-center-align" *matHeaderCellDef mat-sort-header="active">
+                            Active
+                        </th>
+                        <td class="td-center-align add-wrap" *matCellDef="let element">
+                            <span class="material-icons-outlined active-icon-green"
+                                *ngIf="element.active">check_circle_outline</span>
+                            <span class="material-icons-outlined inactive-icon-red"
+                                *ngIf="!element.active">do_disturb_on</span>
+                        </td>
+                        <!-- <td class="td-center-align add-wrap"  *matCellDef="let element"> -->
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="example-detail-row"></tr>
                 </table>
+                <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+</mat-paginator>
+
             </div>
         </div>
     </div>

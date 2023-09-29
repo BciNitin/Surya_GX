@@ -1,0 +1,13 @@
+diff a/AngularUI/ELog.AngularUI/ELog.AngularUI.csproj b/AngularUI/ELog.AngularUI/ELog.AngularUI.csproj	(rejected hunks)
+@@ -5,8 +5,11 @@
+     <PackageId>angular</PackageId>
+   </PropertyGroup>
+   <ItemGroup>
++    <Compile Remove="node_modules01\**" />
+     <Compile Remove="node_modules\**" />
++    <EmbeddedResource Remove="node_modules01\**" />
+     <EmbeddedResource Remove="node_modules\**" />
++    <None Remove="node_modules01\**" />
+     <None Remove="node_modules\**" />
+   </ItemGroup>
+   <ItemGroup>

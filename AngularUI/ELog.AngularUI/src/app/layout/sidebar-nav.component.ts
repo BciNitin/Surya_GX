@@ -95,8 +95,8 @@ export class SideBarNavComponent extends AppComponentBase {
   ngOnInit() {
     this.MenuList = [];
     this.MenuType = [];
-    this.getMenuType();
-    this.getAllMenu();
+    // this.getMenuType();
+    // this.getAllMenu();
   }
 
   showMenuItem(menuItem): boolean {
@@ -107,43 +107,43 @@ export class SideBarNavComponent extends AppComponentBase {
     return true;
   }
 
-getMenuType(){
-  this._elogservice.fetchTableWiseData("Menu","Name",10,null,null).pipe(
-    finalize(() => {
-      abp.ui.clearBusy();
-    })
-  ).subscribe({
-    next: data => {
-      const newD = JSON.parse(data);
-      this.valuesOnly = Object.values(newD); 
-      this.getMenu.push(this.valuesOnly);
-console.log(this.getMenu);
-    }
-});
-}
-  getAllMenu() {
-    this._clientFormsService
-      .getAll(null, null, null, true, null, null, null,null,null, 0, 200)
-      .pipe(
-        finalize(() => {
-          abp.ui.clearBusy();
-        })
-      )
-      .subscribe((result: ClientFormsDtoPagedResultDto) => {
-        if (result.items.length > 0) {
-          this.MenuList.push(result.items);
-          for (var i = 0; i < result.items.length; i++) {
-            this.clientFormJson = JSON.parse(result.items[i].formJson);
-            var FormNamewithString = this.clientFormJson.form_name.replaceAll("_"," ");
-            this.FormNames.push(FormNamewithString);
+// getMenuType(){
+//   this._elogservice.fetchTableWiseData("Menu","Name",10,null,null).pipe(
+//     finalize(() => {
+//       abp.ui.clearBusy();
+//     })
+//   ).subscribe({
+//     next: data => {
+//       const newD = JSON.parse(data);
+//       this.valuesOnly = Object.values(newD); 
+//       this.getMenu.push(this.valuesOnly);
+// console.log(this.getMenu);
+//     }
+// });
+// }
+  // getAllMenu() {
+  //   this._clientFormsService
+  //     .getAll(null, null, null, true, null, null, null,null,null, 0, 200)
+  //     .pipe(
+  //       finalize(() => {
+  //         abp.ui.clearBusy();
+  //       })
+  //     )
+  //     .subscribe((result: ClientFormsDtoPagedResultDto) => {
+  //       if (result.items.length > 0) {
+  //         this.MenuList.push(result.items);
+  //         for (var i = 0; i < result.items.length; i++) {
+  //           this.clientFormJson = JSON.parse(result.items[i].formJson);
+  //           var FormNamewithString = this.clientFormJson.form_name.replaceAll("_"," ");
+  //           this.FormNames.push(FormNamewithString);
             
-          }
-        }
+  //         }
+  //       }
 
        
 
-      });
-  }
+  //     });
+  // }
   toggle(id) {
     $("#" + id);
     if ($("#" + id).css("display") == "none") {

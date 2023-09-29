@@ -9,6 +9,7 @@ import { relative } from 'path';
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { fromEvent } from 'rxjs';
+import { ApiServiceService } from '@shared/APIServices/ApiServiceService';
 
 class PagedPlantsRequestDto extends PagedRequestDto {
     keyword: string;
@@ -33,7 +34,7 @@ export class PlantComponent extends PagedListingComponentBase<PlantDto> {
 
     constructor(
         injector: Injector,
-        private _changePwdService: ChangePswdServiceProxy,private _plantService: ElogSuryaApiServiceServiceProxy,
+        private _changePwdService: ChangePswdServiceProxy,private _plantService: ApiServiceService,
         private _selectListService: SelectListServiceProxy,
         private _dialog: MatDialog,
         private _router: Router,
@@ -101,31 +102,40 @@ export class PlantComponent extends PagedListingComponentBase<PlantDto> {
     addUser() {
         this._router.navigate(['../add-user'], { relativeTo: this._route });
     }
-    protected list(
+    // protected list(
+
+    //  ): void {
+    //   debugger;
+    //  abp.ui.setBusy();
+     
+    //  this._plantService.getPlantMaster().pipe(
+    //  finalize(() => {
+    //  abp.ui.clearBusy();
+    //  })
+    //  ).subscribe({
+    //   next: dt => {
+    //  debugger;
+    //  if (dt == null) {
+    //   return;
+    //   }
+    //  this.plants = dt;
+      
+    //   },
+    //   error: error => {
+    //  console.error('There was an error!', error);
+    //  }
+    //  });
+     
+    //  }
+ protected list(
 
      ): void {
-      debugger;
-     abp.ui.setBusy();
-     
-     this._plantService.getPlantMaster().pipe(
-     finalize(() => {
-     abp.ui.clearBusy();
-     })
-     ).subscribe({
-      next: dt => {
-     debugger;
-     if (dt == null) {
-      return;
-      }
-     this.plants = dt;
-      
-      },
-      error: error => {
-     console.error('There was an error!', error);
+
+        this._plantService.getPlantMaster().subscribe(data => {
+            console.log("Plant",data["result"])  
+             this.plants = data["result"];})
      }
-     });
-     
-     }
+
     
     public onScroll() {  
         this.pageNumber = this.pageNumber + 1;

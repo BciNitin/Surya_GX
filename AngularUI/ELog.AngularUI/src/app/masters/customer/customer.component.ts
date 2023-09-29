@@ -2,7 +2,7 @@ import { Component, ElementRef, Injector, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { debounceTime, distinctUntilChanged, filter, finalize, map } from 'rxjs/operators';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { PagedListingComponentBase, PagedRequestDto } from 'shared/paged-listing-component-base';
+import { EntityDto, PagedListingComponentBase, PagedRequestDto } from 'shared/paged-listing-component-base';
 import { PlantDto, SelectListServiceProxy, ChangePswdServiceProxy,ElogSuryaApiServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { relative } from 'path';
@@ -11,8 +11,9 @@ import * as moment from 'moment';
 import { fromEvent } from 'rxjs';
 import { AppConsts } from '@shared/AppConsts';
 import { HttpClient } from '@angular/common/http';
+import { ApiServiceService } from '@shared/APIServices/ApiServiceService';
 
-class PagedPlantsRequestDto extends PagedRequestDto {
+class PagedCustomerRequestDto extends PagedRequestDto {
     keyword: string;
     isActive: boolean | null;
 }
@@ -23,19 +24,18 @@ class PagedPlantsRequestDto extends PagedRequestDto {
     providers: [ElogSuryaApiServiceServiceProxy]
     //styleUrls: ['./plant.component.less']
 })
-export class CustomerComponent extends PagedListingComponentBase<PlantDto> {
+export class CustomerComponent extends PagedListingComponentBase<EntityDto> {
   customers : any=[];
   code ='';
   type ='';
   description = '';
   address = '';
 
-
     @ViewChild('searchTextBox', { static: true }) searchTextBox: ElementRef;
 
     constructor(
         injector: Injector,
-        private _changePwdService: ChangePswdServiceProxy,private _customerService: ElogSuryaApiServiceServiceProxy,
+        private _changePwdService: ChangePswdServiceProxy,private _customerService: ApiServiceService,
         private _selectListService: SelectListServiceProxy,
         private _dialog: MatDialog,
         private _router: Router,
@@ -45,26 +45,17 @@ export class CustomerComponent extends PagedListingComponentBase<PlantDto> {
         super(injector);
     }
 
-    ngOnInit(): void {
-        this.setTitle('Plant Master');
-        fromEvent(this.searchTextBox.nativeElement, 'keyup').pipe(
-
-            // get value
-            map((event: any) => {
-                return event.target.value;
-            })
-            // Time in milliseconds between key events
-            , debounceTime(1000)
-
-            // If previous query is diffent from current
-            , distinctUntilChanged()
-
-            // subscription for response
-        ).subscribe((text: string) => {
-            this.refresh();
-        });
-        super.ngOnInit();
-    }
+    ngOnInit() {
+        // this._apiservice.getLineMaster().subscribe(data=>{
+        //   this.lines = data["result"];
+        //   console.log("lineMaster",data)
+        // })
+    
+        this._customerService.getCustomerMaster().subscribe((data: any) => {
+            console.log("data['result']",data['result'])
+            this.customers = data['result']
+          });
+      }
 
   
     GetSortBy(sortBy: number, orderBy: number) {
@@ -105,7 +96,6 @@ export class CustomerComponent extends PagedListingComponentBase<PlantDto> {
         this._router.navigate(['../add-user'], { relativeTo: this._route });
     }
     protected list(): void {
-      debugger;
      abp.ui.setBusy();
     //  this._customerService.getCustomerMaster().pipe(finalize(() => {
     //  abp.ui.clearBusy();})).subscribe({
@@ -122,17 +112,10 @@ export class CustomerComponent extends PagedListingComponentBase<PlantDto> {
     //  }
     //  });
 
-
-
-     this.http.get<any>(AppConsts.remoteServiceBaseUrl + '/api/services/app/ElogSuryaApiService/GetCustomerMaster',)
-
-.subscribe((res: any) => {
-    debugger;
-    this.customers = res.result;
-// console.log(this.modules);
-//  localStorage.setItem('All_Table', JSON.stringify(res));
- });
-     
+    this._customerService.getCustomerMaster().subscribe((data: any) => {
+        console.log("data['result']",data['result'])
+        this.customers = data['result']
+      });
      }
     
     public onScroll() {  

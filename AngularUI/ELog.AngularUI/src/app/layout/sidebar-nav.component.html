@@ -114,10 +114,14 @@
                 <li routerlinkactive="active" class="ng-star-inserted" *ngIf="isPermissionGranted('Plant.View')">
                     <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/roles/']"><span>Role
                             Management</span></a>
+                <!-- *ngIf="isPermissionGranted('Plant.View')" -->
+                <li routerlinkactive="active" class="ng-star-inserted" >
+                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/material/']"><span>Material
+                            </span></a>
                 </li>
-                <li routerlinkactive="active" class="ng-star-inserted" *ngIf="isPermissionGranted('Plant.View')">
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/password']"><span>Password
-                            Management</span></a>
+                <li routerlinkactive="active" class="ng-star-inserted">
+                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/line-master']"><span>
+                            Line</span></a>
                 
                 <ng-container *ngFor="let menu of MenuList[0]; let i = index">
         

@@ -9,7 +9,6 @@ using ELog.Application.Modules;
 using ELog.Application.Sessions;
 using ELog.Core.Authorization;
 using ELog.Core.Authorization.Users;
-using ELog.Core.Entities;
 using ELog.EntityFrameworkCore.EntityFrameworkCore.Repositories;
 
 using System;
@@ -27,6 +26,9 @@ using System.Data.Common;
 using BarcodeLib;
 using Common;
 using ELog.Application.CommomUtility;
+using System.Linq;
+using System.Reflection;
+using MobiVueEVO.BO.Models;
 
 namespace ELog.Application.ElogApi
 {
@@ -36,41 +38,16 @@ namespace ELog.Application.ElogApi
     [PMMSAuthorize]*/
     public class ElogSuryaApiService : ApplicationService, IElogApiService
     {
+       
         private readonly IConfiguration _configuration;
-        private readonly PMMSDbContext _context;
-        private readonly IRepository<PlantMaster> _plantRepository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IRepository<GateEntry> _gateEntryRepository;
-        private readonly ISessionAppService _sessionAppService;
-        public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
-        private readonly IRepository<User, long> _userRepository;
-        private readonly IRepository<Loading> _loadingRepository;
-        private readonly IModuleAppService _moduleAppService;
         private string connection;
-        public  ElogSuryaApiService(IRepository<PurchaseOrder> purchaseOrderRepository,
-        IRepository<GateEntry> gateEntryRepository, IConfiguration configuration,
-        IHttpContextAccessor httpContextAccessor,
-        ISessionAppService sessionAppService,
-        IRepository<User, long> userRepository, IRepository<PlantMaster> plantRepository,
-        IRepository<Loading> loadingRepository,
-        IRepository<LineClearanceCheckpoint> lineClearanceCheckPointRepository, IModuleAppService moduleAppService
 
-          )
-        {
-            AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
-            _gateEntryRepository = gateEntryRepository;
-            _configuration = configuration;
-            _httpContextAccessor = httpContextAccessor;
-            _sessionAppService = sessionAppService;
-            _userRepository = userRepository;
-            _plantRepository = plantRepository;
-            _httpContextAccessor = httpContextAccessor;
-            _loadingRepository = loadingRepository;
-            _moduleAppService = moduleAppService;
-            connection= _configuration["ConnectionStrings:Default"];
+
+       public ElogSuryaApiService(IConfiguration configuration) 
+        { 
+          _configuration = configuration;
+          connection = _configuration["ConnectionStrings:Default"];
         }
-
-
 
         public async Task<Object> GetPlantMaster()
         {
@@ -105,7 +82,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> GetMaterialMaster()
+        public async Task<object> GetMaterialMaster()
         {
             MySqlConnection conn = null;
             conn = new MySqlConnection(connection);
@@ -126,8 +103,9 @@ namespace ELog.Application.ElogApi
                     dt.Load(myReader);
                     Command.Connection.Close();
                 }
-
-                return dt;
+                var result = Utility.DataTableToList<Material>(dt);
+                //var result = Utility.ToListof<Material>(dt);
+                return result;
             }
             catch (Exception e)
             {
