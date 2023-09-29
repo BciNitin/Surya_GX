@@ -242,6 +242,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
     }
    
     addUser() {
+        debugger;
         this._router.navigate(['../add-user'], { relativeTo: this._route });
     }
 

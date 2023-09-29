@@ -155,17 +155,17 @@
                             placeholder="Search" (focus)="onFocusOfSearchBox($event)">
                     </mat-form-field>
                 </div>
-                <!-- <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <div class="add-button-container">
-                        <i class="material-icons add-circle-icon" (click)="addUser()"
-                            *ngIf="isPermissionGranted('User.Add')">add_circle</i>
-                        <button type="button" (click)="addUser()" class="btn add-circle-button"
+                        <!-- <i class="material-icons add-circle-icon" (click)="addCustomer()"
+                            >add_circle</i> -->
+                        <button type="button" (click)="addCustomer()" class="btn add-circle-button"
                           >
                           <i class="material-icons-outlined">add_circle_outline</i>
                             Add
                         </button>
                     </div>
-                </div> -->
+                </div>
             </form>
             <div class="row clearfix row-filter-container">
                 <div class="col-12 filter-by-string filter-font" *ngIf="filterBy && !isFilterOpen">Filter By :

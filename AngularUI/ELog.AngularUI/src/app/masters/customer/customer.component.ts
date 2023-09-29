@@ -92,8 +92,9 @@ export class CustomerComponent extends PagedListingComponentBase<EntityDto> {
         // this._router.navigate(['../user', 'view', user.id], { relativeTo: this._route });
     }
    
-    addUser() {
-        this._router.navigate(['../add-user'], { relativeTo: this._route });
+    addCustomer() {
+        debugger;
+        this._router.navigate(['../add-customer'], { relativeTo: this._route });
     }
     protected list(): void {
      abp.ui.setBusy();

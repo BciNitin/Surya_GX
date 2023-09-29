@@ -73,17 +73,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { NotificationsCenterComponent } from './notifications-center/notifications-center.component';
-import { PlantComponent } from './Masters/plant/plant.component';
+import { PlantComponent } from './masters/plant/plant.component';
 
-import { MaterialComponent } from './Masters/material/material.component';
+import { MaterialComponent } from './masters/material/material.component';
 
 import { LineWorkCenterComponent } from './PlantOperation/line-work-center/line-work-center.component';
 
-import { CustomerComponent } from './Masters/customer/customer.component';
+import { CustomerComponent } from './masters/customer/customer.component';
 import { ManualPackingComponent } from './PlantOperation/manual-packing/manual-packing.component';
 
-import { LineMasterComponent } from './Masters/line-master/line-master.component';
+import { LineMasterComponent } from './masters/line-master/line-master.component';
 import { SearchFilterPipe } from '@shared/SearchFilter/search-filter.pipe';
+import { AddEditCustomerComponent } from './masters/customer/add-edit-customer/add-edit-customer.component';
 
 export function momentAdapterFactory() {
     return adapterFactory(moment);
@@ -156,7 +157,8 @@ export const PMMS_FORMATS = {
         CustomerComponent,
         ManualPackingComponent,
         LineMasterComponent,
-        SearchFilterPipe
+        SearchFilterPipe,
+        AddEditCustomerComponent
     ],
     imports: [
         CommonModule,
