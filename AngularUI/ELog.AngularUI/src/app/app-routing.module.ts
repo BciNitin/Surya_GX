@@ -26,6 +26,7 @@ import { PasswordComponent } from './password/password.component';
 import { LineWorkCenterComponent } from './PlantOperation/line-work-center/line-work-center.component';
 import { PlantComponent } from './masters/plant/plant.component';
 import { CustomerComponent } from './masters/customer/customer.component';
+import { ManualPackingComponent } from './PlantOperation/manual-packing/manual-packing.component';
 
 
 @NgModule({
@@ -87,8 +88,9 @@ import { CustomerComponent } from './masters/customer/customer.component';
                     { path: 'logData/createforms/edit/:formId/:dataId', component: CreateformsComponent, data: { permission: '' }, canActivate: [AppRouteGuard] },
                     { path: 'approve-forms-list', component: ApproveFormlistComponent, canActivate: [AppRouteGuard] },
                     { path: 'line-work-center', component: LineWorkCenterComponent, canActivate: [AppRouteGuard] },
-                    { path: 'customer', component: CustomerComponent, canActivate: [AppRouteGuard] }
-,
+                    { path: 'customer', component: CustomerComponent, canActivate: [AppRouteGuard] },
+                    { path: 'manual-packing', component: ManualPackingComponent, canActivate: [AppRouteGuard] },
+
                     { path: 'plant', component: PlantComponent, canActivate: [AppRouteGuard],data: { permission: 'Plant.View' } },
                 ]
             }

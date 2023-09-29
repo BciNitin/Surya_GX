@@ -9,6 +9,8 @@ import { relative } from 'path';
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { fromEvent } from 'rxjs';
+import { AppConsts } from '@shared/AppConsts';
+import { HttpClient } from '@angular/common/http';
 
 class PagedPlantsRequestDto extends PagedRequestDto {
     keyword: string;
@@ -37,7 +39,8 @@ export class CustomerComponent extends PagedListingComponentBase<PlantDto> {
         private _selectListService: SelectListServiceProxy,
         private _dialog: MatDialog,
         private _router: Router,
-        private _route: ActivatedRoute
+        private _route: ActivatedRoute,
+        private http : HttpClient
     ) {
         super(injector);
     }
@@ -104,20 +107,31 @@ export class CustomerComponent extends PagedListingComponentBase<PlantDto> {
     protected list(): void {
       debugger;
      abp.ui.setBusy();
-     this._customerService.getCustomerMaster().pipe(finalize(() => {
-     abp.ui.clearBusy();})).subscribe({
-      next: dt => {
-     debugger;
-     if (dt == null) {
-      return;
-      }
-     this.customers = dt;
+    //  this._customerService.getCustomerMaster().pipe(finalize(() => {
+    //  abp.ui.clearBusy();})).subscribe({
+    //   next: data => {
+    //  debugger;
+    //  if (data == null) {
+    //   return;
+    //   }
+    //  this.customers = data;
       
-      },
-      error: error => {
-     console.error('There was an error!', error);
-     }
-     });
+    //   },
+    //   error: error => {
+    //  console.error('There was an error!', error);
+    //  }
+    //  });
+
+
+
+     this.http.get<any>(AppConsts.remoteServiceBaseUrl + '/api/services/app/ElogSuryaApiService/GetCustomerMaster',)
+
+.subscribe((res: any) => {
+    debugger;
+    this.customers = res.result;
+// console.log(this.modules);
+//  localStorage.setItem('All_Table', JSON.stringify(res));
+ });
      
      }
     

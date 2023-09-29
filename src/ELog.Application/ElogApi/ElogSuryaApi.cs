@@ -140,8 +140,7 @@ namespace ELog.Application.ElogApi
         public async Task<Object> GetCustomerMaster()
         {
             DataTable dt = new DataTable();
-            try
-            {
+          
                 MySqlConnection conn = null;
                 conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
@@ -160,13 +159,7 @@ namespace ELog.Application.ElogApi
                 }
 
                 return dt;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            return dt;
-
+           
         }
 
         public async Task<Object> GetLineMaster()

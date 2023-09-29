@@ -79,6 +79,7 @@ import { MaterialComponent } from './masters/material/material.component';
 
 import { LineWorkCenterComponent } from './PlantOperation/line-work-center/line-work-center.component';
 import { CustomerComponent } from './masters/customer/customer.component';
+import { ManualPackingComponent } from './PlantOperation/manual-packing/manual-packing.component';
 
 export function momentAdapterFactory() {
     return adapterFactory(moment);
@@ -151,6 +152,8 @@ export const PMMS_FORMATS = {
         LineWorkCenterComponent,
 
         CustomerComponent,
+
+        ManualPackingComponent,
 
     ],
     imports: [
