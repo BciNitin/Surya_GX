@@ -159,7 +159,6 @@ export class AddEditCustomerComponent extends AppComponentBase {
     }
 
     GetRoles() {
-        debugger;
         this._userService.getAllRoles().subscribe((roleData: RoleCheckboxDto) => {
             this.UserRoles = roleData;
         });

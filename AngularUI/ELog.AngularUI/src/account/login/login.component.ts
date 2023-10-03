@@ -164,7 +164,7 @@ export class LoginComponent extends AppComponentBase {
       });
   }
     authenticate(finallyCallback?: () => void): void {
-        debugger;
+      
     finallyCallback = finallyCallback || (() => { });
 
     this._tokenAuthService

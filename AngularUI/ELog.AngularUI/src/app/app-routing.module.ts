@@ -24,12 +24,12 @@ import { LogdataapprovalComponent } from './log-forms-list/log-data-approval/log
 import { NotificationsCenterComponent } from './notifications-center/notifications-center.component';
 import { PasswordComponent } from './password/password.component';
 import { LineWorkCenterComponent } from './PlantOperation/line-work-center/line-work-center.component';
-import { PlantComponent } from './masters/plant/plant.component';
-import { CustomerComponent } from './masters/customer/customer.component';
+import { PlantComponent } from './Masters/plant/plant.component';
+import { CustomerComponent } from './Masters/customer/customer.component';
 import { ManualPackingComponent } from './PlantOperation/manual-packing/manual-packing.component';
-import { MaterialComponent } from './masters/material/material.component';
-import { LineMasterComponent } from './masters/line-master/line-master.component';
-import { AddEditCustomerComponent } from './masters/customer/add-edit-customer/add-edit-customer.component';
+import { MaterialComponent } from './Masters/material/material.component';
+import { LineMasterComponent } from './Masters/line-master/line-master.component';
+import { AddEditCustomerComponent } from './Masters/customer/add-edit-customer/add-edit-customer.component';
 
 
 

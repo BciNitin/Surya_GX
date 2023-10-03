@@ -93,7 +93,6 @@ export class CustomerComponent extends PagedListingComponentBase<EntityDto> {
     }
    
     addCustomer() {
-        debugger;
         this._router.navigate(['../add-customer'], { relativeTo: this._route });
     }
     protected list(): void {
