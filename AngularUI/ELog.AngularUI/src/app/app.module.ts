@@ -75,29 +75,27 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NotificationsCenterComponent } from './notifications-center/notifications-center.component';
 import { PlantComponent } from './masters/plant/plant.component';
 
-import { MaterialComponent } from './masters/material/material.component';
 
 import { LineWorkCenterComponent } from './PlantOperation/line-work-center/line-work-center.component';
 
 import { CustomerComponent } from './masters/customer/customer.component';
 import { ManualPackingComponent } from './PlantOperation/manual-packing/manual-packing.component';
 
-import { LineMasterComponent } from './masters/line-master/line-master.component';
+
 import { SearchFilterPipe } from '@shared/SearchFilter/search-filter.pipe';
 
-import { AddEditCustomerComponent } from './Masters/customer/add-edit-customer/add-edit-customer.component';
-import { StorageLocationComponent } from './Masters/storage-location/storage-location.component';
-import { ShiftMasterComponent } from './Masters/shift-master/shift-master.component';
-import { AddEditShiftComponent } from './Masters/shift-master/add-edit-shift/add-edit-shift.component';
 
-import { AddEditCustomerComponent } from './masters/customer/add-edit-customer/add-edit-customer.component';
-import { StorageLocationComponent } from './masters/storage-location/storage-location.component';
-import { ShiftMasterComponent } from './masters/shift-master/shift-master.component';
+
+
 import { QualitySamplingComponent } from './PlantOperation/quality-sampling/quality-sampling.component';
 import { SerialbarcodegenerationComponent } from './PlantOperation/serialbarcodegeneration/serialbarcodegeneration.component';
 import { PackingOrderConfirmationComponent } from './PlantOperation/packing-order-confirmation/packing-order-confirmation.component';
 import { PackingOrderComponent } from './masters/packing-order/packing-order.component';
-
+import { MaterialComponent } from './masters/material/material.component';
+import { LineMasterComponent } from './masters/line-master/line-master.component';
+import { AddEditCustomerComponent } from './masters/customer/add-edit-customer/add-edit-customer.component';
+import { StorageLocationComponent } from './masters/storage-location/storage-location.component';
+import { ShiftMasterComponent } from './masters/shift-master/shift-master.component';
 
 
 export function momentAdapterFactory() {
@@ -176,12 +174,10 @@ export const PMMS_FORMATS = {
         StorageLocationComponent,
         ShiftMasterComponent,
 
-        AddEditShiftComponent
-
         QualitySamplingComponent,
         SerialbarcodegenerationComponent,
         PackingOrderConfirmationComponent,
-        PackingOrderComponent
+       PackingOrderComponent
 
     ],
     imports: [
