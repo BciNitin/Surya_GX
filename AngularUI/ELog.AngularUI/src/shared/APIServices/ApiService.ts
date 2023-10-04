@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { bininput } from '@app/Masters/bin/bin.component';
+import { bininput } from '@app/masters/bin/bin.component';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { Observable } from 'rxjs';
 

@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, NgModule, ViewChild, AfterViewInit } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
-import { ApiServiceService } from '@shared/APIServices/ApiServiceService';
+import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -14,14 +14,14 @@ interface LineMaster {
   active: boolean
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    NgxPaginationModule,
-  ],
-})
+// @NgModule({
+//   declarations: [
+//     AppComponent,
+//   ],
+//   imports: [
+//     NgxPaginationModule,
+//   ],
+// })
 
 @Component({
   selector: 'app-line-master',

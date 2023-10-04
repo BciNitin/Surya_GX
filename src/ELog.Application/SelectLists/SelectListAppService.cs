@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using Abp.Linq;
+using ELog.Application.CommomUtility;
 using ELog.Application.CommonDto;
 using ELog.Application.SelectLists.Dto;
 using ELog.Application.Settings;
@@ -14,9 +15,11 @@ using ELog.Core.Hardware.WeighingMachine;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using static ELog.Core.PMMSEnums;
@@ -1231,6 +1234,54 @@ namespace ELog.Application.SelectLists
             return processOrders;
 
         }
+        public async Task<List<SelectListDto>> GetPlantCode()
+        {
+            List<SelectListDto> value = new List<SelectListDto>();
 
+            try
+            {
+                string connection = _configuration["ConnectionStrings:Default"];
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = Constants.Schema + Constants.SP_SelectList;
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetPlantCode;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                foreach (DataRow dtRow in dt.Rows)
+                {
+                    //// On all tables' columns
+                    //foreach (DataColumn dc in dt.Columns)
+                    //{
+                    //    var field1 = dtRow[dc].ToString();
+
+                    //}
+
+                    SelectListDto selectListDto = new SelectListDto();
+                    selectListDto.Id = Convert.ToString(dtRow["code"]);
+                    selectListDto.Value = Convert.ToString(dtRow["code"]);
+
+                    value.Add(selectListDto);
+                    //var result = Utility.ToListof<SelectListDto>(dt);
+
+                }
+                return value;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
     }
 }

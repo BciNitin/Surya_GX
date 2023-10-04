@@ -9,7 +9,7 @@ import { relative } from 'path';
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { fromEvent } from 'rxjs';
-import { ApiServiceService } from '@shared/APIServices/ApiServiceService';
+import { ApiServiceService } from '@shared/APIServices/ApiService';
 
 class PagedPlantsRequestDto extends PagedRequestDto {
     keyword: string;

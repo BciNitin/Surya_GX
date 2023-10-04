@@ -11,7 +11,7 @@ import * as moment from 'moment';
 import { fromEvent } from 'rxjs';
 import { AppConsts } from '@shared/AppConsts';
 import { HttpClient } from '@angular/common/http';
-import { ApiServiceService } from '@shared/APIServices/ApiServiceService';
+import { ApiServiceService } from '@shared/APIServices/ApiService';
 
 class PagedCustomerRequestDto extends PagedRequestDto {
     keyword: string;

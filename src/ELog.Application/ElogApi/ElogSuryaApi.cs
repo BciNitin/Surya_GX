@@ -230,6 +230,70 @@ namespace ELog.Application.ElogApi
 
         }
 
+        public async Task<Object> GetBinCode()
+<<<<<<< Updated upstream
+=======
+        {
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetBinCode;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+        public async Task<Object> GetSiftMaster()
+>>>>>>> Stashed changes
+        {
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetBinCode;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+<<<<<<< Updated upstream
         public async Task<Object> GetSiftMaster()
         {
             try
@@ -261,6 +325,9 @@ namespace ELog.Application.ElogApi
 
         }
         public async Task<Object> UpdateSiftMaster(string ShiftCode, string ShiftDescription, DateTime sShiftStartTime, DateTime sShiftEndTime)
+=======
+        public async Task<Object> CreateBinMaster(Bin bin)
+>>>>>>> Stashed changes
         {
             string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
@@ -273,6 +340,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
+<<<<<<< Updated upstream
                     Command.CommandText = "surya_db.sp_mshift";
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "SHIFTUPDATE";
                     Command.Parameters.Add("@sShiftCode", MySqlDbType.VarChar).Value = ShiftCode;
@@ -321,7 +389,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        public async Task<Object> CreateBinMaster(string PlantCode, string BinCode, string Description, bool Active)
+        public async Task<Object> CreateBinMaster(Bin bin)
         {
             string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
@@ -334,12 +402,14 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = "surya_db.Masters";
-                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "BININSERT";
-                    Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-                    Command.Parameters.Add("@sBinCode", MySqlDbType.VarChar).Value = BinCode;
-                    Command.Parameters.Add("@sDescription", MySqlDbType.VarChar).Value = Description;
-                    Command.Parameters.Add("@sActive", MySqlDbType.Bit).Value = Active;
+=======
+>>>>>>> Stashed changes
+                    Command.CommandText = "sp_masters_bin";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "InsertBin";
+                    Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = bin.PlantCode;
+                    Command.Parameters.Add("@sBinCode", MySqlDbType.VarChar).Value = bin.BinCode;
+                    Command.Parameters.Add("@sDescription", MySqlDbType.VarChar).Value = bin.Description;
+                    Command.Parameters.Add("@sActive", MySqlDbType.Bit).Value = bin.Active;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     ressult = await Command.ExecuteNonQueryAsync();

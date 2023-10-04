@@ -85,8 +85,6 @@ import { ManualPackingComponent } from './PlantOperation/manual-packing/manual-p
 import { SearchFilterPipe } from '@shared/SearchFilter/search-filter.pipe';
 
 
-
-
 import { QualitySamplingComponent } from './PlantOperation/quality-sampling/quality-sampling.component';
 import { SerialbarcodegenerationComponent } from './PlantOperation/serialbarcodegeneration/serialbarcodegeneration.component';
 import { PackingOrderConfirmationComponent } from './PlantOperation/packing-order-confirmation/packing-order-confirmation.component';
@@ -96,7 +94,8 @@ import { LineMasterComponent } from './masters/line-master/line-master.component
 import { AddEditCustomerComponent } from './masters/customer/add-edit-customer/add-edit-customer.component';
 import { StorageLocationComponent } from './masters/storage-location/storage-location.component';
 import { ShiftMasterComponent } from './masters/shift-master/shift-master.component';
-
+import { BinComponent } from './Masters/bin/bin.component';
+import { AddeditbinComponent } from './masters/bin/addeditbin/addeditbin.component';
 
 export function momentAdapterFactory() {
     return adapterFactory(moment);
@@ -173,12 +172,12 @@ export const PMMS_FORMATS = {
         AddEditCustomerComponent,
         StorageLocationComponent,
         ShiftMasterComponent,
-
         QualitySamplingComponent,
         SerialbarcodegenerationComponent,
         PackingOrderConfirmationComponent,
-       PackingOrderComponent
-
+        PackingOrderComponent,
+        BinComponent,
+        AddeditbinComponent,
     ],
     imports: [
         CommonModule,
@@ -201,7 +200,8 @@ export const PMMS_FORMATS = {
         TabsModule.forRoot(),
         DataTablesModule, MatSelectFilterModule,  MatFormFieldModule,
         MatSelectModule,
-        MatButtonModule
+        MatButtonModule,
+        
     ],
     providers: [DatePipe,
         { provide: MAT_DATE_LOCALE, useValue: 'en-IN' },
