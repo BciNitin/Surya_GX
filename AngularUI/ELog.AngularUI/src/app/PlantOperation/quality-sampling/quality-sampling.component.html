@@ -3,7 +3,7 @@
         <div class="card main-content">
             <div class="row user-component-content row-filter-container">
                 <div class="col-12">
-                    <h2 class="title">{{ "Manual Packing" | localize }}</h2>
+                    <h2 class="title">{{ "Quality Sampling" | localize }}</h2>
                 </div>
             </div>
             <div class="panel-group" id="accordion">
@@ -14,27 +14,40 @@
                                 <div class="row">
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <mat-label>Select Order</mat-label>
+                                            <mat-label>Plant Code</mat-label>
                                             <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
-                                                        formControlName="ddlOrder" name="ddlOrder"
+                                                        formControlName="ddlPicklist" name="ddlPicklist"
                                                         (selectionChange)="GetPicklist($event.value)">
-                                                <mat-option [value]=0>Select Order</mat-option>
-                                                <mat-option>
+                                                <mat-option [value]=0>Select Plant Code</mat-option>
+                                                <mat-option *ngFor="let picklist of picklistNos" [value]="picklist.key">
                                                    
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
-                                            <mat-label>Scan Item</mat-label>
-                                            <input matInput required name="scannedItemFormControl"
-                                                    formControlName="scannedItemFormControl" maxlength="16" >
-                                            <mat-error *ngIf="addEditFormGroup?.get('scannedItemFormControl')?.hasError('required') || addEditFormGroup?.get('scannedItemFormControl')?.hasError('whitespace')">
-                                                Scanned Item is required.
-                                            </mat-error>
+                                        <mat-form-field>
+                                            <mat-label>Line Code</mat-label>
+                                            <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
+                                                        formControlName="ddlPicklist" name="ddlPicklist"
+                                                        (selectionChange)="GetPicklist($event.value)">
+                                                <mat-option [value]=0>Select Line Code</mat-option>
+                                                <mat-option *ngFor="let picklist of picklistNos" [value]="picklist.key">
+                                                   
+                                                </mat-option>
+                                            </mat-select>
                                         </mat-form-field>
                                     </div>
+                                    <!-- <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Scan Carton Barcode</mat-label>
+                                            <input matInput required name="fromPalletFormControl"
+                                                   [(ngModel)]='fromPallet' formControlName="fromPalletFormControl" maxlength="16" (change)="ValidateBarcode()">
+                                            <mat-error *ngIf="addEditFormGroup?.get('fromPalletFormControl')?.hasError('required') || addEditFormGroup?.get('fromPalletFormControl')?.hasError('whitespace')">
+                                                Carton Barcode is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div> -->
                                 </div>
                                 <div class="row">
                                     
@@ -50,9 +63,8 @@
                                     <thead>
                                         <tr>
                                             
-                                            <th class="th-center-align">{{ "Material Name" | localize }}</th>
-                                            <th class="th-center-align">{{ "Material Description" | localize }}</th>
-                                            <th class="th-center-align">{{ "Barcode" | localize }}</th>
+                                            <th class="th-center-align">{{ "Order No" | localize }}</th>
+                                            <th class="th-center-align">{{ "Carton No" | localize }}</th>
                                             <th class="th-center-align">{{ "Quantity" | localize }}</th>
                                            
                                         </tr>
@@ -62,7 +74,6 @@
                                             
                                             <td class="td-center-align">{{obj.id}}</td>
                                             <td class="td-center-align">{{obj.plantId}}</td>
-                                            <td class="td-center-align">{{obj.barcode}}</td>
                                             <td class="td-center-align">{{obj.qty}}</td>
                                             
                                         </tr>
@@ -70,11 +81,23 @@
                                             <td colspan="6" class="no-data-available">No data to display.</td>
                                         </tr>
                                     </tbody>
+                                    
                                 </table>
-                                <mat-paginator [length]="totalData" [pageSizeOptions]=[10,25,50,100] (page)="onPageChange($event)"
-                                               showFirstLastButtons></mat-paginator>
+                                <!-- <mat-paginator [length]="totalData" [pageSizeOptions]=[10,25,50,100] (page)="onPageChange($event)"
+                                               showFirstLastButtons></mat-paginator> -->
                             </div>
-                            
+                            <div class="row">
+                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                    <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                        <mat-label>Scan Item Barcode</mat-label>
+                                        <input matInput required name="fromPalletFormControl"
+                                               [(ngModel)]='fromPallet' formControlName="fromPalletFormControl" maxlength="16" (change)="ValidateBarcode()">
+                                        <mat-error *ngIf="addEditFormGroup?.get('fromPalletFormControl')?.hasError('required') || addEditFormGroup?.get('fromPalletFormControl')?.hasError('whitespace')">
+                                            Item Barcode is required.
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
                            
                             <div class="row">
                                 <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
@@ -85,7 +108,7 @@
                                         Clear
                                     </button>
                                     <button class="btn btn-primary pull-right" (click)="Save()">
-                                        Confirm
+                                        Save
                                     </button>
                                     
                                 </div>

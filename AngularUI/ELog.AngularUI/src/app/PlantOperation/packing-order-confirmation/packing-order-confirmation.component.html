@@ -3,7 +3,7 @@
         <div class="card main-content">
             <div class="row user-component-content row-filter-container">
                 <div class="col-12">
-                    <h2 class="title">{{ "Manual Packing" | localize }}</h2>
+                    <h2 class="title">{{ "Packing Order Confirmation" | localize }}</h2>
                 </div>
             </div>
             <div class="panel-group" id="accordion">
@@ -14,65 +14,70 @@
                                 <div class="row">
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <mat-label>Select Order</mat-label>
-                                            <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
-                                                        formControlName="ddlOrder" name="ddlOrder"
-                                                        (selectionChange)="GetPicklist($event.value)">
-                                                <mat-option [value]=0>Select Order</mat-option>
+                                            <mat-label>Plant Code</mat-label>
+                                            <mat-select  [errorStateMatcher]="matcher"
+                                                        formControlName="ddlPlantCode" name="ddlPicklist"
+                                                       >
+                                                <mat-option [value]=0>Select Plant Code</mat-option>
                                                 <mat-option>
                                                    
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
+                                    
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
-                                            <mat-label>Scan Item</mat-label>
-                                            <input matInput required name="scannedItemFormControl"
-                                                    formControlName="scannedItemFormControl" maxlength="16" >
-                                            <mat-error *ngIf="addEditFormGroup?.get('scannedItemFormControl')?.hasError('required') || addEditFormGroup?.get('scannedItemFormControl')?.hasError('whitespace')">
-                                                Scanned Item is required.
-                                            </mat-error>
+                                        <mat-form-field>
+                                            <mat-label>Packing Order No.</mat-label>
+                                            <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
+                                                        formControlName="packingOrderFormControl" name="ddlPicklist"
+                                                        >
+                                                <mat-option [value]=0>Select Packing Order No.</mat-option>
+                                                <mat-option>
+                                                   
+                                                </mat-option>
+                                            </mat-select>
                                         </mat-form-field>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    
-                                </div>
-                                <div class="row">
-                                    
-                                    
-                                </div>
+                                
                             </form>
                             <br>
                             <div class="body table-responsive">
                                 <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
-                                            
-                                            <th class="th-center-align">{{ "Material Name" | localize }}</th>
-                                            <th class="th-center-align">{{ "Material Description" | localize }}</th>
-                                            <th class="th-center-align">{{ "Barcode" | localize }}</th>
+                                            <th class="th-center-align">
+                                                <mat-checkbox #checkBoxAll (change)="selectAll($event)" class="whiteMatSelct"> Select All
+                                                </mat-checkbox>
+                                            </th>
+                                            <th class="th-center-align">{{ "Plant Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Item Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Quantity" | localize }}</th>
-                                           
+                                            <th class="th-center-align">{{ "Packing Date" | localize }}</th>
+                                            <th class="th-center-align">{{ "Line Code" | localize }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let  picklistItem of picklistItems" (tap)="onSelect($event,wireDraw)">
-                                            
+                                            <td class="td-center-align">
+                                                <mat-checkbox  #checkBox (change)="getCheckbox(checkBox)" [value]="order.outwardOrder.key">
+                                                </mat-checkbox>
+                                            </td>
                                             <td class="td-center-align">{{obj.id}}</td>
                                             <td class="td-center-align">{{obj.plantId}}</td>
-                                            <td class="td-center-align">{{obj.barcode}}</td>
                                             <td class="td-center-align">{{obj.qty}}</td>
-                                            
+                                            <td class="td-center-align">{{obj.qty}}</td>
+                                            <td class="td-center-align">{{obj.qty}}</td>
                                         </tr>
                                         <tr *ngIf="obj?.length == 0">
                                             <td colspan="6" class="no-data-available">No data to display.</td>
                                         </tr>
                                     </tbody>
+                                    
                                 </table>
-                                <mat-paginator [length]="totalData" [pageSizeOptions]=[10,25,50,100] (page)="onPageChange($event)"
-                                               showFirstLastButtons></mat-paginator>
+                                <!-- <mat-paginator [length]="totalData" [pageSizeOptions]=[10,25,50,100] (page)="onPageChange($event)"
+                                               showFirstLastButtons></mat-paginator> -->
                             </div>
                             
                            
