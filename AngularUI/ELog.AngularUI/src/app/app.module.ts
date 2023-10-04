@@ -87,6 +87,7 @@ import { SearchFilterPipe } from '@shared/SearchFilter/search-filter.pipe';
 import { AddEditCustomerComponent } from './Masters/customer/add-edit-customer/add-edit-customer.component';
 import { StorageLocationComponent } from './Masters/storage-location/storage-location.component';
 import { ShiftMasterComponent } from './Masters/shift-master/shift-master.component';
+import { AddEditShiftComponent } from './Masters/shift-master/add-edit-shift/add-edit-shift.component';
 
 
 export function momentAdapterFactory() {
@@ -163,7 +164,8 @@ export const PMMS_FORMATS = {
         SearchFilterPipe,
         AddEditCustomerComponent,
         StorageLocationComponent,
-        ShiftMasterComponent
+        ShiftMasterComponent,
+        AddEditShiftComponent
     ],
     imports: [
         CommonModule,

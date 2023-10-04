@@ -9,9 +9,19 @@ import { Observable } from 'rxjs';
 export class ApiServiceService {
    BasUrl = 'http://localhost:21021/api/services/app/';
  apiUrlGetMaterialMaster = 'ElogSuryaApiService/GetMaterialMaster';
+
+  // options = new RequestOptions({
+  // headers: this.getAuthorizedHeaders(),
+  // responseType: ResponseContentType.Json,
+  // params: params,
+  // withCredentials: false
+  // });
+
    constructor(private http: HttpClient ) {
 
      }
+
+
 
  getMaterialMaster(): Observable<any[]> {
   return this.http.get<any[]>(this.BasUrl+'ElogSuryaApiService/GetMaterialMaster');
@@ -32,5 +42,8 @@ export class ApiServiceService {
    }
    getShiftMaster(): Observable<any[]> {
     return this.http.get<any[]>(this.BasUrl+'/ElogSuryaApiService/GetSiftMaster');
+   }
+   DeleteSiftMasterbyid(ShiftCode:string){
+    return this.http.delete(this.BasUrl+'ElogSuryaApiService/DeleteSiftMaster?ShiftCode='+ShiftCode);
    }
 }

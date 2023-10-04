@@ -243,6 +243,7 @@ namespace ELog.Application.ElogApi
 
                     Command.CommandText = "sp_Masters_ShiftMaster";
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.ShiftMaster;
+                    Command.Parameters.Add("@sid", MySqlDbType.VarChar).Value = "";
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -297,20 +298,15 @@ namespace ELog.Application.ElogApi
             string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
             conn = new MySqlConnection(connection);
-
             try
             {
                 int ressult = 0;
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-
-                    Command.CommandText = "surya_db.sp_mshift";
-                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "SHIFTDELETE";
-                    Command.Parameters.Add("@sShiftCode", MySqlDbType.VarChar).Value = ShiftCode;
-                    Command.Parameters.Add("@sShiftDescription", MySqlDbType.VarChar).Value = "";
-                    Command.Parameters.Add("@sShiftStartTime", MySqlDbType.DateTime).Value = "";
-                    Command.Parameters.Add("@sShiftEndTime", MySqlDbType.DateTime).Value = "";
+                    Command.CommandText = "sp_Masters_ShiftMaster";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "DeleteSiftMasterbyid";
+                    Command.Parameters.Add("@sid", MySqlDbType.VarChar).Value = ShiftCode;                   
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     ressult = await Command.ExecuteNonQueryAsync();
@@ -325,7 +321,6 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-
         public async Task<Object> CreateBinMaster(string PlantCode, string BinCode, string Description, bool Active)
         {
             string connection = _configuration["ConnectionStrings:Default"];

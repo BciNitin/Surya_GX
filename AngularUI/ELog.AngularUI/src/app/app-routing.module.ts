@@ -32,6 +32,7 @@ import { LineMasterComponent } from './Masters/line-master/line-master.component
 import { AddEditCustomerComponent } from './Masters/customer/add-edit-customer/add-edit-customer.component';
 import { StorageLocationComponent } from './Masters/storage-location/storage-location.component';
 import { ShiftMasterComponent } from './Masters/shift-master/shift-master.component';
+import { AddEditShiftComponent } from './Masters/shift-master/add-edit-shift/add-edit-shift.component';
 
 
 
@@ -107,7 +108,9 @@ import { ShiftMasterComponent } from './Masters/shift-master/shift-master.compon
                     { path: 'edit-customer/:transporterId', component: AddEditCustomerComponent, canActivate: [AppRouteGuard] },
                     { path: 'storage-location', component: StorageLocationComponent, canActivate: [AppRouteGuard] },
                     { path: 'shift-master', component: ShiftMasterComponent, canActivate: [AppRouteGuard] },
-
+                    //{ path: 'add-edit-shift', component: AddEditShiftComponent, canActivate: [AppRouteGuard] },
+                    { path: 'add-shift', component: AddEditShiftComponent, canActivate: [AppRouteGuard] },
+                   
                 ]
             }
         ])
