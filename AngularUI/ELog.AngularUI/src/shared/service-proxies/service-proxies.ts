@@ -3408,6 +3408,119 @@ export class ElogSuryaApiServiceServiceProxy {
     }
 
     /**
+     * @param shiftCode (optional) 
+     * @param shiftDescription (optional) 
+     * @param sShiftStartTime (optional) 
+     * @param sShiftEndTime (optional) 
+     * @return Success
+     */
+    updateSiftMaster(shiftCode: string | null | undefined, shiftDescription: string | null | undefined, sShiftStartTime: moment.Moment | undefined, sShiftEndTime: moment.Moment | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/UpdateSiftMaster?";
+        if (shiftCode !== undefined && shiftCode !== null)
+            url_ += "ShiftCode=" + encodeURIComponent("" + shiftCode) + "&";
+        if (shiftDescription !== undefined && shiftDescription !== null)
+            url_ += "ShiftDescription=" + encodeURIComponent("" + shiftDescription) + "&";
+        if (sShiftStartTime === null)
+            throw new Error("The parameter 'sShiftStartTime' cannot be null.");
+        else if (sShiftStartTime !== undefined)
+            url_ += "sShiftStartTime=" + encodeURIComponent(sShiftStartTime ? "" + sShiftStartTime.toISOString() : "") + "&";
+        if (sShiftEndTime === null)
+            throw new Error("The parameter 'sShiftEndTime' cannot be null.");
+        else if (sShiftEndTime !== undefined)
+            url_ += "sShiftEndTime=" + encodeURIComponent(sShiftEndTime ? "" + sShiftEndTime.toISOString() : "") + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateSiftMaster(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateSiftMaster(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateSiftMaster(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @param shiftCode (optional) 
+     * @return Success
+     */
+    deleteSiftMaster(shiftCode: string | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/DeleteSiftMaster?";
+        if (shiftCode !== undefined && shiftCode !== null)
+            url_ += "ShiftCode=" + encodeURIComponent("" + shiftCode) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteSiftMaster(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteSiftMaster(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDeleteSiftMaster(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
      * @param plantCode (optional) 
      * @param binCode (optional) 
      * @param description (optional) 
@@ -3561,119 +3674,6 @@ export class ElogSuryaApiServiceServiceProxy {
     }
 
     protected processDeleteBinMaster(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(null as any);
-    }
-
-    /**
-     * @param shiftCode (optional) 
-     * @param shiftDescription (optional) 
-     * @param sShiftStartTime (optional) 
-     * @param sShiftEndTime (optional) 
-     * @return Success
-     */
-    updateSiftMaster(shiftCode: string | null | undefined, shiftDescription: string | null | undefined, sShiftStartTime: moment.Moment | undefined, sShiftEndTime: moment.Moment | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/UpdateSiftMaster?";
-        if (shiftCode !== undefined && shiftCode !== null)
-            url_ += "ShiftCode=" + encodeURIComponent("" + shiftCode) + "&";
-        if (shiftDescription !== undefined && shiftDescription !== null)
-            url_ += "ShiftDescription=" + encodeURIComponent("" + shiftDescription) + "&";
-        if (sShiftStartTime === null)
-            throw new Error("The parameter 'sShiftStartTime' cannot be null.");
-        else if (sShiftStartTime !== undefined)
-            url_ += "sShiftStartTime=" + encodeURIComponent(sShiftStartTime ? "" + sShiftStartTime.toISOString() : "") + "&";
-        if (sShiftEndTime === null)
-            throw new Error("The parameter 'sShiftEndTime' cannot be null.");
-        else if (sShiftEndTime !== undefined)
-            url_ += "sShiftEndTime=" + encodeURIComponent(sShiftEndTime ? "" + sShiftEndTime.toISOString() : "") + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateSiftMaster(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdateSiftMaster(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processUpdateSiftMaster(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(null as any);
-    }
-
-    /**
-     * @param shiftCode (optional) 
-     * @return Success
-     */
-    deleteSiftMaster(shiftCode: string | null | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/DeleteSiftMaster?";
-        if (shiftCode !== undefined && shiftCode !== null)
-            url_ += "ShiftCode=" + encodeURIComponent("" + shiftCode) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeleteSiftMaster(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDeleteSiftMaster(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processDeleteSiftMaster(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :

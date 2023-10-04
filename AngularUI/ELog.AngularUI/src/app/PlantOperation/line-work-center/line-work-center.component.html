@@ -15,9 +15,9 @@
                                     <div class="col-md-4 col-lg-4 col-sm-8 col-xs-8">
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                             <mat-label>Scan Bin barcode label</mat-label>
-                                            <input matInput required name="fromPalletFormControl"
-                                                   [(ngModel)]='fromPallet' formControlName="fromPalletFormControl" maxlength="16" (change)="ValidateBarcode()">
-                                            <mat-error *ngIf="addEditFormGroup?.get('fromPalletFormControl')?.hasError('required') || addEditFormGroup?.get('fromPalletFormControl')?.hasError('whitespace')">
+                                            <input matInput required name="scanBinBarcodeFormControl"
+                                                   [(ngModel)]='fromPallet' formControlName="scanBinBarcodeFormControl" maxlength="16" (change)="ValidateBarcode()">
+                                            <mat-error *ngIf="addEditFormGroup?.get('scanBinBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('scanBinBarcodeFormControl')?.hasError('whitespace')">
                                                 Bin barcode label is required.
                                             </mat-error>
                                         </mat-form-field>
@@ -28,9 +28,9 @@
                                     <div class="col-md-4 col-lg-4 col-sm-8 col-xs-8">
                                         <mat-form-field>
                                             <mat-label>Scan Line barcode Lable</mat-label>
-                                            <input matInput name="toPallet"
-                                                   [(ngModel)]='toPallet' formControlName="toPalletFormControl" (change)="validateNewPallet()">
-                                            <mat-error *ngIf="addEditFormGroup?.get('toPalletFormControl')?.hasError('required') || addEditFormGroup?.get('toPalletFormControl')?.hasError('whitespace')">
+                                            <input matInput 
+                                                    formControlName="scanLineBarcodeFormControl" (change)="validateNewPallet()">
+                                            <mat-error *ngIf="addEditFormGroup?.get('scanLineBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('scanLineBarcodeFormControl')?.hasError('whitespace')">
                                                 Line barcode Lable is required.
                                             </mat-error>
                                         </mat-form-field>
