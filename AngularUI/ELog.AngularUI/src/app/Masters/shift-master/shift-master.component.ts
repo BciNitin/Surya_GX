@@ -2,26 +2,20 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ApiServiceService } from '@shared/APIServices/ApiServiceService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-
-
-
-
-
-interface StorageMaster {
-  code: string,
-  strLocCode: string,
-  description: string,
+interface ShiftMaster {
+  ID:string,
+  Shift_Code: string,
+  Shift_Description: string,
+  Shift_StartTime: string,
+  Shift_EndTime: string,
 }
-
 @Component({
-  selector: 'app-storage-location',
-  templateUrl: './storage-location.component.html',
-  styleUrls: ['./storage-location.component.css'],
+  selector: 'app-shift-master',
+  templateUrl: './shift-master.component.html',
+  styleUrls: ['./shift-master.component.css'],
   animations: [appModuleAnimation()],
-  
 })
-
-export class StorageLocationComponent implements OnInit, AfterViewInit {
+export class ShiftMasterComponent implements OnInit {
   lines: any;
   searchText;
   searchTerm = '';
@@ -34,29 +28,20 @@ export class StorageLocationComponent implements OnInit, AfterViewInit {
 
   // displayedColumns: string[] = ['PlantCode', 'WorkCenterCode', 'WorkCenterDiscription','Active'];
 
-  public dataSource: MatTableDataSource<any> = new MatTableDataSource<StorageMaster>();
-  public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<StorageMaster>();
+  public dataSource: MatTableDataSource<any> = new MatTableDataSource<ShiftMaster>();
+  public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<ShiftMaster>();
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-
-  constructor(
-    private _apiservice: ApiServiceService
-  ) { }
+  constructor( private _apiservice: ApiServiceService) { }
 
   ngOnInit() {
-    //  this._apiservice.getLineMaster().subscribe((data: any) => {
-    //   this.dataSource = new MatTableDataSource<LineMaster>(data['result'])
-    //   // console.log("data['result']",this.dataSource.filteredData)
-    // });
     this.getArray();
   }
-
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     // this.dataSource = new MatTableDataSource(this.dataSource.filteredData);
     // this.dataSource.paginator = this.paginator;
   }
-
   filterCountries(searchTerm: string) {
     this.dataSourcePagination.filter = searchTerm.trim().toLocaleLowerCase();
     const filterValue = searchTerm;
@@ -64,7 +49,6 @@ export class StorageLocationComponent implements OnInit, AfterViewInit {
     this.dataSource.filteredData = this.dataSourcePagination.filteredData;
     this.iterator();
   }
-
   onMatSortChange() {
     this.dataSource.sort = this.sort;
   }
@@ -77,7 +61,7 @@ export class StorageLocationComponent implements OnInit, AfterViewInit {
   }
 
   private getArray() {
-    this._apiservice.getStorageMaster()
+    this._apiservice.getShiftMaster()
     
       .subscribe((response) => {
         console.log("res", response['result'])
@@ -97,6 +81,4 @@ export class StorageLocationComponent implements OnInit, AfterViewInit {
     // this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
     this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
   }
-
-
 }

@@ -30,6 +30,8 @@ import { ManualPackingComponent } from './PlantOperation/manual-packing/manual-p
 import { MaterialComponent } from './Masters/material/material.component';
 import { LineMasterComponent } from './Masters/line-master/line-master.component';
 import { AddEditCustomerComponent } from './Masters/customer/add-edit-customer/add-edit-customer.component';
+import { StorageLocationComponent } from './Masters/storage-location/storage-location.component';
+import { ShiftMasterComponent } from './Masters/shift-master/shift-master.component';
 
 
 
@@ -103,6 +105,8 @@ import { AddEditCustomerComponent } from './Masters/customer/add-edit-customer/a
                     { path: 'add-customer', component: AddEditCustomerComponent, canActivate: [AppRouteGuard] },
                     { path: 'customer/:action/:transporterId', component: AddEditCustomerComponent, canActivate: [AppRouteGuard] },
                     { path: 'edit-customer/:transporterId', component: AddEditCustomerComponent, canActivate: [AppRouteGuard] },
+                    { path: 'storage-location', component: StorageLocationComponent, canActivate: [AppRouteGuard] },
+                    { path: 'shift-master', component: ShiftMasterComponent, canActivate: [AppRouteGuard] },
 
                 ]
             }

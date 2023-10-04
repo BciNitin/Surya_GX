@@ -200,7 +200,6 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-
         public async Task<Object> GetBinMaster()
         {
             try
@@ -242,7 +241,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.CommandText = "sp_Masters_ShiftMaster";
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.ShiftMaster;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -252,6 +251,72 @@ namespace ELog.Application.ElogApi
                 }
 
                 return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+        public async Task<Object> UpdateSiftMaster(string ShiftCode, string ShiftDescription, DateTime sShiftStartTime, DateTime sShiftEndTime)
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+
+            try
+            {
+                int ressult = 0;
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = "surya_db.sp_mshift";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "SHIFTUPDATE";
+                    Command.Parameters.Add("@sShiftCode", MySqlDbType.VarChar).Value = ShiftCode;
+                    Command.Parameters.Add("@sShiftDescription", MySqlDbType.VarChar).Value = ShiftDescription;
+                    Command.Parameters.Add("@sShiftStartTime", MySqlDbType.DateTime).Value = sShiftStartTime;
+                    Command.Parameters.Add("@sShiftEndTime", MySqlDbType.DateTime).Value = sShiftEndTime;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    ressult = await Command.ExecuteNonQueryAsync();
+                    Command.Connection.Close();
+                }
+                return ressult;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+        public async Task<Object> DeleteSiftMaster(string ShiftCode)
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+
+            try
+            {
+                int ressult = 0;
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = "surya_db.sp_mshift";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "SHIFTDELETE";
+                    Command.Parameters.Add("@sShiftCode", MySqlDbType.VarChar).Value = ShiftCode;
+                    Command.Parameters.Add("@sShiftDescription", MySqlDbType.VarChar).Value = "";
+                    Command.Parameters.Add("@sShiftStartTime", MySqlDbType.DateTime).Value = "";
+                    Command.Parameters.Add("@sShiftEndTime", MySqlDbType.DateTime).Value = "";
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    ressult = await Command.ExecuteNonQueryAsync();
+                    Command.Connection.Close();
+                }
+                return ressult;
             }
             catch (Exception e)
             {
@@ -360,72 +425,6 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> UpdateSiftMaster(string ShiftCode, string ShiftDescription, DateTime sShiftStartTime, DateTime sShiftEndTime)
-        {
-            string connection = _configuration["ConnectionStrings:Default"];
-            MySqlConnection conn = null;
-            conn = new MySqlConnection(connection);
-
-            try
-            {
-                int ressult = 0;
-                using (MySqlCommand Command = new MySqlCommand())
-                {
-                    Command.Connection = conn;
-
-                    Command.CommandText = "surya_db.sp_mshift";
-                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "SHIFTUPDATE";
-                    Command.Parameters.Add("@sShiftCode", MySqlDbType.VarChar).Value = ShiftCode;
-                    Command.Parameters.Add("@sShiftDescription", MySqlDbType.VarChar).Value = ShiftDescription;
-                    Command.Parameters.Add("@sShiftStartTime", MySqlDbType.DateTime).Value = sShiftStartTime;
-                    Command.Parameters.Add("@sShiftEndTime", MySqlDbType.DateTime).Value = sShiftEndTime;
-                    Command.CommandType = CommandType.StoredProcedure;
-                    Command.Connection.Open();
-                    ressult = await Command.ExecuteNonQueryAsync();
-                    Command.Connection.Close();
-                }
-                return ressult;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            return null;
-
-        }
-        public async Task<Object> DeleteSiftMaster(string ShiftCode)
-        {
-            string connection = _configuration["ConnectionStrings:Default"];
-            MySqlConnection conn = null;
-            conn = new MySqlConnection(connection);
-
-            try
-            {
-                int ressult = 0;
-                using (MySqlCommand Command = new MySqlCommand())
-                {
-                    Command.Connection = conn;
-
-                    Command.CommandText = "surya_db.sp_mshift";
-                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "SHIFTDELETE";
-                    Command.Parameters.Add("@sShiftCode", MySqlDbType.VarChar).Value = ShiftCode;
-                    Command.Parameters.Add("@sShiftDescription", MySqlDbType.VarChar).Value = "";
-                    Command.Parameters.Add("@sShiftStartTime", MySqlDbType.DateTime).Value = "";
-                    Command.Parameters.Add("@sShiftEndTime", MySqlDbType.DateTime).Value = "";
-                    Command.CommandType = CommandType.StoredProcedure;
-                    Command.Connection.Open();
-                    ressult = await Command.ExecuteNonQueryAsync();
-                    Command.Connection.Close();
-                }
-                return ressult;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            return null;
-
-        }
 
         public async Task<Object> CreateSiftMaster(string ShiftCode, string ShiftDescription, DateTime sShiftStartTime, DateTime sShiftEndTime)
         {

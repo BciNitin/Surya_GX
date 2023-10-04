@@ -27,4 +27,10 @@ export class ApiServiceService {
    getLineMaster(): Observable<any[]> {
     return this.http.get<any[]>(this.BasUrl+'/ElogSuryaApiService/GetLineMaster');
    }
+   getStorageMaster(): Observable<any[]> {
+    return this.http.get<any[]>(this.BasUrl+'/ElogSuryaApiService/GetStorageLocationMaster');
+   }
+   getShiftMaster(): Observable<any[]> {
+    return this.http.get<any[]>(this.BasUrl+'/ElogSuryaApiService/GetSiftMaster');
+   }
 }
