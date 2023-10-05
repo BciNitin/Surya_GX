@@ -231,8 +231,6 @@ namespace ELog.Application.ElogApi
         }
 
         public async Task<Object> GetBinCode()
-<<<<<<< Updated upstream
-=======
         {
             try
             {
@@ -263,7 +261,6 @@ namespace ELog.Application.ElogApi
         }
 
         public async Task<Object> GetSiftMaster()
->>>>>>> Stashed changes
         {
             try
             {
@@ -292,35 +289,35 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        public async Task<Object> GetSiftMaster()
-        {
-            try
-            {
-                MySqlConnection conn = new MySqlConnection(connection);
-                MySqlDataReader myReader = null;
-                DataTable dt = new DataTable();
-                using (MySqlCommand Command = new MySqlCommand())
-                {
-                    Command.Connection = conn;
+        //public async Task<Object> GetSiftMaster()
+        //{
+        //    try
+        //    {
+        //        MySqlConnection conn = new MySqlConnection(connection);
+        //        MySqlDataReader myReader = null;
+        //        DataTable dt = new DataTable();
+        //        using (MySqlCommand Command = new MySqlCommand())
+        //        {
+        //            Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
-                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetBinCode;
-                    Command.CommandType = CommandType.StoredProcedure;
-                    Command.Connection.Open();
-                    myReader = await Command.ExecuteReaderAsync();
-                    dt.Load(myReader);
-                    Command.Connection.Close();
-                }
+        //            Command.CommandText = Constants.Schema + Constants.SP_Master;
+        //            Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetBinCode;
+        //            Command.CommandType = CommandType.StoredProcedure;
+        //            Command.Connection.Open();
+        //            myReader = await Command.ExecuteReaderAsync();
+        //            dt.Load(myReader);
+        //            Command.Connection.Close();
+        //        }
 
-                return dt;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            return null;
+        //        return dt;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e.ToString());
+        //    }
+        //    return null;
 
-        }
+        //}
         public async Task<Object> UpdateSiftMaster(string ShiftCode, string ShiftDescription, DateTime sShiftStartTime, DateTime sShiftEndTime)
         {      string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
