@@ -231,8 +231,6 @@ namespace ELog.Application.ElogApi
         }
 
         public async Task<Object> GetBinCode()
-<<<<<<< Updated upstream
-=======
         {
             try
             {
@@ -263,7 +261,6 @@ namespace ELog.Application.ElogApi
         }
 
         public async Task<Object> GetSiftMaster()
->>>>>>> Stashed changes
         {
             try
             {
@@ -276,38 +273,6 @@ namespace ELog.Application.ElogApi
 
                     Command.CommandText = Constants.Schema + Constants.SP_Master;
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetBinCode;
-                    Command.CommandType = CommandType.StoredProcedure;
-                    Command.Connection.Open();
-                    myReader = await Command.ExecuteReaderAsync();
-                    dt.Load(myReader);
-                    Command.Connection.Close();
-                }
-
-                return dt;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            return null;
-
-        }
-
-<<<<<<< Updated upstream
-        public async Task<Object> GetSiftMaster()
-        {
-            try
-            {
-                MySqlConnection conn = new MySqlConnection(connection);
-                MySqlDataReader myReader = null;
-                DataTable dt = new DataTable();
-                using (MySqlCommand Command = new MySqlCommand())
-                {
-                    Command.Connection = conn;
-
-                    Command.CommandText = "sp_Masters_ShiftMaster";
-                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.ShiftMaster;
-                    Command.Parameters.Add("@sid", MySqlDbType.VarChar).Value = "";
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -325,11 +290,7 @@ namespace ELog.Application.ElogApi
 
         }
         public async Task<Object> UpdateSiftMaster(string ShiftCode, string ShiftDescription, DateTime sShiftStartTime, DateTime sShiftEndTime)
-=======
-        public async Task<Object> CreateBinMaster(Bin bin)
->>>>>>> Stashed changes
-        {
-            string connection = _configuration["ConnectionStrings:Default"];
+        {      string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
             conn = new MySqlConnection(connection);
 
@@ -340,7 +301,6 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-<<<<<<< Updated upstream
                     Command.CommandText = "surya_db.sp_mshift";
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "SHIFTUPDATE";
                     Command.Parameters.Add("@sShiftCode", MySqlDbType.VarChar).Value = ShiftCode;
@@ -401,9 +361,6 @@ namespace ELog.Application.ElogApi
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-
-=======
->>>>>>> Stashed changes
                     Command.CommandText = "sp_masters_bin";
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "InsertBin";
                     Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = bin.PlantCode;
