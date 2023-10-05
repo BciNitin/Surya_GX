@@ -29,6 +29,8 @@ using ELog.Application.CommomUtility;
 using System.Linq;
 using System.Reflection;
 using MobiVueEVO.BO.Models;
+using System.Reflection.PortableExecutable;
+using System.Xml;
 
 namespace ELog.Application.ElogApi
 {
@@ -521,6 +523,151 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
+        //-------------------Packing order Master(Start) by Abhishek------------------------------------------------
+        public async Task<Object> GetPackingOrderDetails()
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            MySqlDataReader myReader = null;
+            DataTable dt = new DataTable();
+            conn = new MySqlConnection(connection);
+
+            try
+            {
+                int ressult = 0;
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = Constants.Schema + "sp_PackingOrderMaster";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "GETPackingOrder";                  
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+        //-------------------Packing order Master(END)--------------------------------------------------------------
+        //-------------------Line Work Center and Bin Mapping order Master(Start) by Abhishek------------------------------------------------
+        public async Task<Object> LineBinMapping_ScanLine(string PlantCode, string Userid, string LineBarCode)
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            MySqlDataReader myReader = null;
+            DataTable dt = new DataTable();
+            conn = new MySqlConnection(connection);
+
+            try
+            {
+                int ressult = 0;
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = Constants.Schema + "sp_LineBinMapping";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "CheckLineBarCode";
+                    Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = Userid;
+                    Command.Parameters.Add("@sLineCode", MySqlDbType.VarChar).Value = LineBarCode;
+                    Command.Parameters.Add("@sBarCode", MySqlDbType.VarChar).Value = "";
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+        public async Task<Object> LineBinMapping_ScanBarcode(string PlantCode,string Userid,string Barcode)
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            MySqlDataReader myReader = null;
+            DataTable dt = new DataTable();
+            conn = new MySqlConnection(connection);
+
+            try
+            {
+                int ressult = 0;
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = Constants.Schema + "sp_LineBinMapping";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "CheckBarcode";
+                    Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("@sBarCode", MySqlDbType.VarChar).Value = Barcode;
+                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = Userid;
+                    Command.Parameters.Add("@sLineCode", MySqlDbType.VarChar).Value = "";
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+        
+        public async Task<Object> LineBinMapping_Mapping(string PlantCode, string Userid, string Barcode,string LineBarCode)
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            MySqlDataReader myReader = null;
+            DataTable dt = new DataTable();
+            conn = new MySqlConnection(connection);
+
+            try
+            {
+                int ressult = 0;
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = Constants.Schema + "sp_LineBinMapping";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "MappingLineBin";
+                    Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = Userid;
+                    Command.Parameters.Add("@sBarCode", MySqlDbType.VarChar).Value = Barcode;
+                    Command.Parameters.Add("@sLineCode", MySqlDbType.VarChar).Value = LineBarCode;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+        //-------------------Line Work Center and Bin Mapping order (End)------------------------------------------------------------------------------------
 
     }
-    }
+}
