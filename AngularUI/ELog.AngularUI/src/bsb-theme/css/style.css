@@ -11447,10 +11447,16 @@ html.ie11 .bs-searchbox .form-control {
   cursor: pointer;
 }
 
-.edit-icon {
+/* .edit-icon {
   color: #f15a22;
   position: absolute;
   font-size: 1em;
+  cursor: pointer;
+} */
+.edit-icon {
+  color: #f15a22;
+  position: relative;
+  font-size: 1.5em;
   cursor: pointer;
 }
 .add-circle-outlined-icon {
@@ -11790,3 +11796,8 @@ img.logo {
 .sidebar .menu .list a:hover > span.pm-selected,.sidebar .menu .list a:hover span {
   color: var(--top-header) !important; 
 }
+.mat-paginator-page-size-select.mat-form-field-appearance-outline {
+  width: 84px !important;
+}
+.mat-paginator-container{display: flex;
+    justify-content: space-between !important; }

@@ -16,10 +16,12 @@ namespace ELog.Application.CommomUtility
         public const string BinMaster = "GETBIN";
         public const string ShiftMaster = "GETShiftMaster";
         public const string CustomerMaster = "CustomerMaster";
-        //public const string CustomerMaster = "";
+        public const string GetPlantCode = "GetPlantCode";
+        public const string GetBinCode = "GetBinCode";
         //public const string CustomerMaster = "";
         //public const string CustomerMaster = "";
         public const string SP_Master = "sp_masters";
+        public const string SP_SelectList = "sp_get_selectList";
         public const string Type = "@sType";
     }
 }

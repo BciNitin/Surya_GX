@@ -27,24 +27,17 @@ import { LineWorkCenterComponent } from './PlantOperation/line-work-center/line-
 import { PlantComponent } from './masters/plant/plant.component';
 import { CustomerComponent } from './masters/customer/customer.component';
 import { ManualPackingComponent } from './PlantOperation/manual-packing/manual-packing.component';
-
-import { MaterialComponent } from './Masters/material/material.component';
-import { LineMasterComponent } from './Masters/line-master/line-master.component';
-import { AddEditCustomerComponent } from './Masters/customer/add-edit-customer/add-edit-customer.component';
-import { StorageLocationComponent } from './Masters/storage-location/storage-location.component';
-import { ShiftMasterComponent } from './Masters/shift-master/shift-master.component';
-import { AddEditShiftComponent } from './Masters/shift-master/add-edit-shift/add-edit-shift.component';
-
+import { QualitySamplingComponent } from './PlantOperation/quality-sampling/quality-sampling.component';
+import { SerialbarcodegenerationComponent } from './PlantOperation/serialbarcodegeneration/serialbarcodegeneration.component';
+import { PackingOrderConfirmationComponent } from './PlantOperation/packing-order-confirmation/packing-order-confirmation.component';
+import { PackingOrderComponent } from './masters/packing-order/packing-order.component';
 import { MaterialComponent } from './masters/material/material.component';
 import { LineMasterComponent } from './masters/line-master/line-master.component';
 import { AddEditCustomerComponent } from './masters/customer/add-edit-customer/add-edit-customer.component';
 import { StorageLocationComponent } from './masters/storage-location/storage-location.component';
 import { ShiftMasterComponent } from './masters/shift-master/shift-master.component';
-import { QualitySamplingComponent } from './PlantOperation/quality-sampling/quality-sampling.component';
-import { SerialbarcodegenerationComponent } from './PlantOperation/serialbarcodegeneration/serialbarcodegeneration.component';
-import { PackingOrderConfirmationComponent } from './PlantOperation/packing-order-confirmation/packing-order-confirmation.component';
-import { PackingOrderComponent } from './masters/packing-order/packing-order.component';
-
+import { BinComponent } from './masters/bin/bin.component';
+import { AddeditbinComponent } from './masters/bin/addeditbin/addeditbin.component';
 
 
 
@@ -122,16 +115,16 @@ import { PackingOrderComponent } from './masters/packing-order/packing-order.com
                     { path: 'shift-master', component: ShiftMasterComponent, canActivate: [AppRouteGuard] },
 
                     //{ path: 'add-edit-shift', component: AddEditShiftComponent, canActivate: [AppRouteGuard] },
-                    { path: 'add-shift', component: AddEditShiftComponent, canActivate: [AppRouteGuard] },
+                    // { path: 'add-shift', component: AddEditShiftComponent, canActivate: [AppRouteGuard] },
                    
 
                     { path: 'quality-sampling', component: QualitySamplingComponent, canActivate: [AppRouteGuard] },
                     { path: 'serialbarcodegeneration', component: SerialbarcodegenerationComponent, canActivate: [AppRouteGuard] },
                     { path: 'packing-order-confirmation', component: PackingOrderConfirmationComponent, canActivate: [AppRouteGuard] },
                     { path: 'packing-order', component: PackingOrderComponent, canActivate: [AppRouteGuard] },
-                    
-
-
+                
+                    { path: 'bin', component: BinComponent, canActivate: [AppRouteGuard] },
+                    { path: 'add-bin', component: AddeditbinComponent, canActivate: [AppRouteGuard] },
                 ]
             }
         ])
