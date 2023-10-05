@@ -292,8 +292,6 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-
-<<<<<<< Updated upstream
         public async Task<Object> GetSiftMaster()
         {
             try
@@ -355,36 +353,6 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        public async Task<Object> DeleteSiftMaster(string ShiftCode)
-        {
-            string connection = _configuration["ConnectionStrings:Default"];
-            MySqlConnection conn = null;
-            conn = new MySqlConnection(connection);
-            try
-            {
-                int ressult = 0;
-                using (MySqlCommand Command = new MySqlCommand())
-                {
-                    Command.Connection = conn;
-                    Command.CommandText = "sp_Masters_ShiftMaster";
-                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "DeleteSiftMasterbyid";
-                    Command.Parameters.Add("@sid", MySqlDbType.VarChar).Value = ShiftCode;                   
-                    Command.CommandType = CommandType.StoredProcedure;
-                    Command.Connection.Open();
-                    ressult = await Command.ExecuteNonQueryAsync();
-                    Command.Connection.Close();
-                }
-                return ressult;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            return null;
-
-        }
-=======
->>>>>>> Stashed changes
         public async Task<Object> CreateBinMaster(Bin bin)
         {
             string connection = _configuration["ConnectionStrings:Default"];
