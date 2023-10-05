@@ -40,6 +40,7 @@ import { BinComponent } from './masters/bin/bin.component';
 import { AddeditbinComponent } from './masters/bin/addeditbin/addeditbin.component';
 
 
+
 @NgModule({
     imports: [
         RouterModule.forChild([

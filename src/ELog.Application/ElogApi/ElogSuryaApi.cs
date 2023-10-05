@@ -231,6 +231,8 @@ namespace ELog.Application.ElogApi
         }
 
         public async Task<Object> GetBinCode()
+<<<<<<< Updated upstream
+=======
         {
             try
             {
@@ -260,6 +262,38 @@ namespace ELog.Application.ElogApi
 
         }
 
+        public async Task<Object> GetSiftMaster()
+>>>>>>> Stashed changes
+        {
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetBinCode;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+<<<<<<< Updated upstream
         public async Task<Object> GetSiftMaster()
         {
             try
@@ -349,6 +383,8 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
+=======
+>>>>>>> Stashed changes
         public async Task<Object> CreateBinMaster(Bin bin)
         {
             string connection = _configuration["ConnectionStrings:Default"];
@@ -361,6 +397,10 @@ namespace ELog.Application.ElogApi
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
                     Command.CommandText = "sp_masters_bin";
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "InsertBin";
                     Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = bin.PlantCode;
