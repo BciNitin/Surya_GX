@@ -362,10 +362,6 @@ namespace ELog.Application.ElogApi
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                     Command.CommandText = "sp_masters_bin";
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "InsertBin";
                     Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = bin.PlantCode;
