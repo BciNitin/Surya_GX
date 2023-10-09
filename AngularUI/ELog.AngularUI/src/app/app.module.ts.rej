@@ -1,0 +1,17 @@
+diff a/AngularUI/ELog.AngularUI/src/app/app.module.ts b/AngularUI/ELog.AngularUI/src/app/app.module.ts	(rejected hunks)
+@@ -97,6 +97,7 @@
+ import { ShiftMasterComponent } from './masters/shift-master/shift-master.component';
+ import { BinComponent } from './masters/bin/bin.component';
+ import { AddeditbinComponent } from './masters/bin/addeditbin/addeditbin.component';
++import { EditbinComponent } from './masters/bin/editbin/editbin/editbin.component';
+ 
+ 
+ export function momentAdapterFactory() {
+@@ -180,6 +181,7 @@
+         PackingOrderComponent,
+         BinComponent,
+         AddeditbinComponent,
++        EditbinComponent,
+     ],
+     imports: [
+         CommonModule,
