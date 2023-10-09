@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -66,6 +67,58 @@ namespace ELog.Application.CommomUtility
 
             return targetList;
         }
+
+        public static Boolean DataTableToCSV(DataTable dtDataTable, string FilePath, string FileName)
+        {
+            try
+            {
+                string path = Path.Combine(FilePath, FileName + ".csv");
+                StreamWriter sw = new StreamWriter(FilePath, false);
+                //headers    
+                for (int i = 0; i < dtDataTable.Columns.Count; i++)
+                {
+                    sw.Write(dtDataTable.Columns[i]);
+                    if (i < dtDataTable.Columns.Count - 1)
+                    {
+                        sw.Write(",");
+                    }
+                }
+                sw.Write(sw.NewLine);
+                foreach (DataRow dr in dtDataTable.Rows)
+                {
+                    for (int i = 0; i < dtDataTable.Columns.Count; i++)
+                    {
+                        if (!Convert.IsDBNull(dr[i]))
+                        {
+                            string value = dr[i].ToString();
+                            if (value.Contains(','))
+                            {
+                                value = String.Format("\"{0}\"", value);
+                                sw.Write(value);
+                            }
+                            else
+                            {
+                                sw.Write(dr[i].ToString());
+                            }
+                        }
+                        if (i < dtDataTable.Columns.Count - 1)
+                        {
+                            sw.Write(",");
+                        }
+                    }
+                    sw.Write(sw.NewLine);
+                }
+                sw.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+           
+        }
+
     }
 
 }

@@ -1,211 +1,225 @@
 <div class="menu">
     <div class="scrolldiv">
-    <ul class="list">
-        <ng-template ngFor let-menuItem [ngForOf]="menuItems" let-mainMenuItemIndex="index">
-            <li *ngIf="showMenuItem(menuItem)" routerLinkActive="active">
-                <!-- route name -->
-                <a [routerLink]="[menuItem.route]" (click)="hideMenuBar()" *ngIf="!menuItem.items.length && menuItem.route.indexOf('http') != 0">
-                    <i *ngIf="menuItem.icon" class="material-icons">{{menuItem.icon}}</i>
-                    <span class="pm-selected">{{menuItem.name}}</span>
+        <ul class="list">
+            <ng-template ngFor let-menuItem [ngForOf]="menuItems" let-mainMenuItemIndex="index">
+                <li *ngIf="showMenuItem(menuItem)" routerLinkActive="active">
+                    <!-- route name -->
+                    <a [routerLink]="[menuItem.route]" (click)="hideMenuBar()"
+                        *ngIf="!menuItem.items.length && menuItem.route.indexOf('http') != 0">
+                        <i *ngIf="menuItem.icon" class="material-icons">{{menuItem.icon}}</i>
+                        <span class="pm-selected">{{menuItem.name}}</span>
+                    </a>
+                    <!-- Static link (starts with 'http') -->
+                    <a href="{{menuItem.route}}" target="_blank"
+                        *ngIf="!menuItem.items.length && menuItem.route.indexOf('http') == 0">
+                        <i *ngIf="menuItem.icon" class="material-icons">{{menuItem.icon}}</i>
+                        <span class="pm-selected">{{menuItem.name}}</span>
+                    </a>
+                    <!-- Has child menu items (so, this is a parent menu) -->
+                    <a href="javascript:void(0);" [ngClass]="{'menu-toggle': menuItem.items.length}"
+                        *ngIf="menuItem.items.length">
+                        <i *ngIf="menuItem.icon" class="material-icons">{{menuItem.icon}}</i>
+                        <span class="pm-selected">{{menuItem.name}}</span>
+                    </a>
+                    <ul class="ml-menu" *ngIf="menuItem.items.length">
+                        <ng-template ngFor let-subMenuItem [ngForOf]="menuItem.items" let-mainMenuItemIndex="index">
+                            <li *ngIf="showMenuItem(subMenuItem)" routerLinkActive="active">
+                                <!-- route name -->
+                                <a [routerLink]="[subMenuItem.route]" (click)="hideMenuBar()" class="toggled"
+                                    *ngIf="!subMenuItem.items.length && subMenuItem.route.indexOf('http') != 0">
+                                    <i *ngIf="subMenuItem.icon" class="material-icons">{{subMenuItem.icon}}</i>
+                                    <span>{{subMenuItem.name}}</span>
+                                </a>
+                                <!-- Static link (starts with 'http') -->
+                                <a href="{{subMenuItem.route}}" class="toggled" target="_blank"
+                                    *ngIf="!subMenuItem.items.length && subMenuItem.route.indexOf('http') == 0">
+                                    <i *ngIf="subMenuItem.icon" class="material-icons">{{subMenuItem.icon}}</i>
+                                    <span>{{subMenuItem.name}}</span>
+                                </a>
+                                <!-- Has child menu items (so, this is a parent menu) -->
+                                <a href="javascript:void(0);" [ngClass]="{'menu-toggle': subMenuItem.items.length}"
+                                    *ngIf="subMenuItem.items.length">
+                                    <i *ngIf="subMenuItem.icon" class="material-icons">{{subMenuItem.icon}}</i>
+                                    <span>{{subMenuItem.name}}</span>
+                                </a>
+                                <ul class="ml-menu" *ngIf="subMenuItem.items.length">
+                                    <ng-template ngFor let-subSubMenuItem [ngForOf]="subMenuItem.items"
+                                        let-mainMenuItemIndex="index">
+                                        <li *ngIf="showMenuItem(subSubMenuItem)" routerLinkActive="active">
+                                            <!-- route name -->
+                                            <a [routerLink]="[subSubMenuItem.route]"
+                                                *ngIf="subSubMenuItem.route.indexOf('http') != 0">
+                                                <i *ngIf="subSubMenuItem.icon"
+                                                    class="material-icons">{{subSubMenuItem.icon}}</i>
+                                                <span>{{subSubMenuItem.name}}</span>
+                                            </a>
+                                            <!-- Static link (starts with 'http') -->
+                                            <a href="{{subSubMenuItem.route}}" target="_blank"
+                                                *ngIf="subSubMenuItem.route.indexOf('http') == 0">
+                                                <i *ngIf="subSubMenuItem.icon"
+                                                    class="material-icons">{{subSubMenuItem.icon}}</i>
+                                                <span>{{subSubMenuItem.name}}</span>
+                                            </a>
+                                        </li>
+                                    </ng-template>
+                                </ul>
+                            </li>
+                        </ng-template>
+                    </ul>
+                </li>
+            </ng-template>
+            <li routerlinkactive="active" class="ng-star-inserted">
+
+                <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block ng-star-inserted">
+                    <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">Users</span>
                 </a>
-                <!-- Static link (starts with 'http') -->
-                <a href="{{menuItem.route}}" target="_blank" *ngIf="!menuItem.items.length && menuItem.route.indexOf('http') == 0">
-                    <i *ngIf="menuItem.icon" class="material-icons">{{menuItem.icon}}</i>
-                    <span class="pm-selected">{{menuItem.name}}</span>
-                </a>
-                <!-- Has child menu items (so, this is a parent menu) -->
-                <a href="javascript:void(0);" [ngClass]="{'menu-toggle': menuItem.items.length}" *ngIf="menuItem.items.length">
-                    <i *ngIf="menuItem.icon" class="material-icons">{{menuItem.icon}}</i>
-                    <span class="pm-selected">{{menuItem.name}}</span>
-                </a>
-                <ul class="ml-menu" *ngIf="menuItem.items.length">
-                    <ng-template ngFor let-subMenuItem [ngForOf]="menuItem.items" let-mainMenuItemIndex="index">
-                        <li *ngIf="showMenuItem(subMenuItem)" routerLinkActive="active">
-                            <!-- route name -->
-                            <a [routerLink]="[subMenuItem.route]" (click)="hideMenuBar()" class="toggled" *ngIf="!subMenuItem.items.length && subMenuItem.route.indexOf('http') != 0">
-                                <i *ngIf="subMenuItem.icon" class="material-icons">{{subMenuItem.icon}}</i>
-                                <span>{{subMenuItem.name}}</span>
-                            </a>
-                            <!-- Static link (starts with 'http') -->
-                            <a href="{{subMenuItem.route}}" class="toggled" target="_blank" *ngIf="!subMenuItem.items.length && subMenuItem.route.indexOf('http') == 0">
-                                <i *ngIf="subMenuItem.icon" class="material-icons">{{subMenuItem.icon}}</i>
-                                <span>{{subMenuItem.name}}</span>
-                            </a>
-                            <!-- Has child menu items (so, this is a parent menu) -->
-                            <a href="javascript:void(0);" [ngClass]="{'menu-toggle': subMenuItem.items.length}" *ngIf="subMenuItem.items.length">
-                                <i *ngIf="subMenuItem.icon" class="material-icons">{{subMenuItem.icon}}</i>
-                                <span>{{subMenuItem.name}}</span>
-                            </a>
-                            <ul class="ml-menu" *ngIf="subMenuItem.items.length">
-                                <ng-template ngFor let-subSubMenuItem [ngForOf]="subMenuItem.items" let-mainMenuItemIndex="index">
-                                    <li *ngIf="showMenuItem(subSubMenuItem)" routerLinkActive="active">
-                                        <!-- route name -->
-                                        <a [routerLink]="[subSubMenuItem.route]" *ngIf="subSubMenuItem.route.indexOf('http') != 0">
-                                            <i *ngIf="subSubMenuItem.icon" class="material-icons">{{subSubMenuItem.icon}}</i>
-                                            <span>{{subSubMenuItem.name}}</span>
-                                        </a>
-                                        <!-- Static link (starts with 'http') -->
-                                        <a href="{{subSubMenuItem.route}}" target="_blank" *ngIf="subSubMenuItem.route.indexOf('http') == 0">
-                                            <i *ngIf="subSubMenuItem.icon" class="material-icons">{{subSubMenuItem.icon}}</i>
-                                            <span>{{subSubMenuItem.name}}</span>
-                                        </a>
-                                    </li>
-                                </ng-template>
-                            </ul>
+                <ul class="ml-menu ng-star-inserted">
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/users']">
+                            <span>
+                                User Managment
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/roles']">
+                            <span>
+                                Roles Managment
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/password']">
+                            <span>
+                                Password Managment
+                            </span></a>
+                    </li>
+
+                    <ng-container *ngFor="let menu of MenuList[0]; let i = index">
+
+                        <li routerlinkactive="active" class="ng-star-inserted"
+                            *ngIf="menu.menuId ==1 && isPermissionGranted(menu.permissions)">
+                            <a class="toggled waves-effect waves-block ng-star-inserted"
+                                [routerLink]="['/app/logData/'+menu.formName]"><span>{{FormNames[i]}}</span></a>
                         </li>
-                    </ng-template>
+                    </ng-container>
+
                 </ul>
             </li>
-        </ng-template>
-        <li routerlinkactive="active" class="ng-star-inserted">
-            
-            <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block ng-star-inserted">
-                <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">Users</span>
-            </a>
-            <ul class="ml-menu ng-star-inserted">
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/users']">
-                    <span>
-                        User Managment
-                     </span></a>
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/roles']">
-                    <span>
-                        Roles Managment
-                     </span></a>
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/password']">
-                    <span>
-                        Password Managment
-                     </span></a>
-                </li>
-                
-                <ng-container *ngFor="let menu of MenuList[0]; let i = index">
-        
-                    <li routerlinkactive="active" class="ng-star-inserted"
-                        *ngIf="menu.menuId ==1 && isPermissionGranted(menu.permissions)">
-                        <a class="toggled waves-effect waves-block ng-star-inserted"
-                            [routerLink]="['/app/logData/'+menu.formName]"><span>{{FormNames[i]}}</span></a>
-                    </li>
-                </ng-container>
-        
-            </ul>
-        </li>
-        <li routerlinkactive="active" class="ng-star-inserted">
-            
-            <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block ng-star-inserted">
-                <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">Masters</span>
-            </a>
-            <ul class="ml-menu ng-star-inserted">
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                   <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/plant']">
-                    <span>
-                        Plant
-                     </span></a>
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/customer']">
-                     <span>
-                         Customer
-                      </span></a>
-                 </li>
-                <li routerlinkactive="active" class="ng-star-inserted" *ngIf="isPermissionGranted('Plant.View')">
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/roles/']"><span>Role
-                            Management</span></a>
-                <!-- *ngIf="isPermissionGranted('Plant.View')" -->
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/material/']"><span>Material
+            <li routerlinkactive="active" class="ng-star-inserted">
+
+                <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block ng-star-inserted">
+                    <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">Masters</span>
+                </a>
+                <ul class="ml-menu ng-star-inserted">
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/plant']">
+                            <span>
+                                Plant
                             </span></a>
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted">
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/line-master']"><span>
-                            Line</span></a>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted">
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/storage-location']"><span>
-                            Storage Location</span></a>
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted">
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/shift-master']"><span>
-                            Shift Master</span></a>
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted">
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/packing-order']"><span>
-                            Packing Order</span></a>
-                </li>
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-                            <li routerlinkactive="active" class="ng-star-inserted">
-                                <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/bin']"><span>
-                                        Bin</span></a>
-                
->>>>>>> Stashed changes
-                <ng-container *ngFor="let menu of MenuList[0]; let i = index">
-        
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/customer']">
+                            <span>
+                                Customer
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted" *ngIf="isPermissionGranted('Plant.View')">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/roles/']"><span>Role
+                                Management</span></a>
+                        <!-- *ngIf="isPermissionGranted('Plant.View')" -->
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/material/']"><span>Material
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/line-master']"><span>
+                                Line</span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/storage-location']"><span>
+                                Storage Location</span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/shift-master']"><span>
+                                Shift Master</span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/packing-order']"><span>
+                                Packing Order</span></a>
+                    </li>
+
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/bin']"><span>
+                                Bin</span></a>
+                        <ng-container *ngFor="let menu of MenuList[0]; let i = index">
+
                     <li routerlinkactive="active" class="ng-star-inserted"
                         *ngIf="menu.menuId ==1 && isPermissionGranted(menu.permissions)">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/logData/'+menu.formName]"><span>{{FormNames[i]}}</span></a>
                     </li>
-                </ng-container>
-        
-            </ul>
-        </li>
-        <li routerlinkactive="active" class="ng-star-inserted">
-            
-            <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block ng-star-inserted">
-                <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">Plant Operation</span>
-            </a>
-            <ul class="ml-menu ng-star-inserted">
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/line-work-center']">
-                    <span>
-                        Line/Work Center & Bin Mapping
-                     </span></a>
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/manual-packing']">
-                    <span>
-                        Manual Packing
-                     </span></a>
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/quality-sampling']">
-                    <span>
-                        Quality Sampling
-                     </span></a>
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/serialbarcodegeneration']">
-                    <span>
-                        Serial Barcode Generation
-                     </span></a>
-                </li>
-                <li routerlinkactive="active" class="ng-star-inserted" >
-                    <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/packing-order-confirmation']">
-                    <span>
-                        Packing Order Confirmation
-                     </span></a>
-                </li>
-                <ng-container *ngFor="let menu of MenuList[0]; let i = index">
-        
-                    <li routerlinkactive="active" class="ng-star-inserted"
-                        *ngIf="menu.menuId ==1 && isPermissionGranted(menu.permissions)">
+                    </ng-container>
+
+                </ul>
+            </li>
+            <li routerlinkactive="active" class="ng-star-inserted">
+
+                <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block ng-star-inserted">
+                    <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">Plant
+                        Operation</span>
+                </a>
+                <ul class="ml-menu ng-star-inserted">
+                    <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
-                            [routerLink]="['/app/logData/'+menu.formName]"><span>{{FormNames[i]}}</span></a>
+                            [routerLink]="['/app/line-work-center']">
+                            <span>
+                                Line/Work Center & Bin Mapping
+                            </span></a>
                     </li>
-                </ng-container>
-        
-            </ul>
-        </li>
-    </ul>
-</div>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/manual-packing']">
+                            <span>
+                                Manual Packing
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/quality-sampling']">
+                            <span>
+                                Quality Sampling
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/serialbarcodegeneration']">
+                            <span>
+                                Serial Barcode Generation
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/packing-order-confirmation']">
+                            <span>
+                                Packing Order Confirmation
+                            </span></a>
+                    </li>
+                    <ng-container *ngFor="let menu of MenuList[0]; let i = index">
+
+                        <li routerlinkactive="active" class="ng-star-inserted"
+                            *ngIf="menu.menuId ==1 && isPermissionGranted(menu.permissions)">
+                            <a class="toggled waves-effect waves-block ng-star-inserted"
+                                [routerLink]="['/app/logData/'+menu.formName]"><span>{{FormNames[i]}}</span></a>
+                        </li>
+                    </ng-container>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>

@@ -58,5 +58,24 @@ export class ApiServiceService {
      const content_ = JSON.stringify(input);
       return this.http.post<any[]>(this.BasUrl+'ElogSuryaApiService/CreateBinMaster', content_,this.options_);
    }
+   getBinById(Id:Int32Array): Observable<any[]> {
+      debugger;
+      console.log("Id",Id);
+      return this.http.get<any[]>(this.BasUrl+'ElogSuryaApiService/GetBinCGetBinById?id='+Id);
+     }
 
+     getLineWorkCenterNo(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl+'/SelectList/GetLineWorkNo');
+     }
+
+     getPackingOrderNo(plancode:string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl+'SelectList/GetPackingOrderNo?plantCode='+plancode);
+     }
+
+     GenerateSerialNumber(plancode:string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl+'SelectList/GetPackingOrderNo?plantCode='+plancode);
+     }
+     GetSerialNumberDetails(packingOrderNo:string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl+'ElogSuryaApiService/GetSerialNumberDetails?packingOrder='+packingOrderNo);
+     }
 }
