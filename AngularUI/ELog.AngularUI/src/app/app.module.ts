@@ -97,6 +97,7 @@ import { StorageLocationComponent } from './masters/storage-location/storage-loc
 import { ShiftMasterComponent } from './masters/shift-master/shift-master.component';
 import { BinComponent } from './masters/bin/bin.component';
 import { AddeditbinComponent } from './masters/bin/addeditbin/addeditbin.component';
+import { EditbinComponent } from './masters/bin/editbin/editbin/editbin.component';
 
 
 export function momentAdapterFactory() {
@@ -180,6 +181,7 @@ export const PMMS_FORMATS = {
         PackingOrderComponent,
         BinComponent,
         AddeditbinComponent,
+        EditbinComponent,
     ],
     imports: [
         CommonModule,
