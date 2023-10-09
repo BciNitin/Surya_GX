@@ -6,167 +6,31 @@
                     <h2 class="title">{{ "Packing Order Master" | localize }}</h2>
                 </div>
             </div>
-            <form class="row clearfix row-filter-container">
-                <div class="col-lg-6 col-md-5 col-sm-5 col-xs-5">
-                    <div class="nav-item dropdown">
-                        <span class="nav-link dropdown-toggle span-filter" (click)="isFilterOpen=!isFilterOpen">
-                            <i class="material-icons span-filter-icon">
-                                filter_alt
-                            </i>
-                            <h5 class="span-filter-text">Filter</h5>
-                        </span>
-                        <div class="dropdown-menu user-filter-container remove-filter-padding"
-                            [ngClass]="{'display-nav-block':isFilterOpen}">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <mat-form-field>
-                                        <mat-label>Select Plant</mat-label>
-                                        <mat-select [(ngModel)]="plantId" name="plantId">
-                                            <mat-option>Select Plant</mat-option>
-                                            <mat-option *ngFor="let plant of plants" [value]="plant.id">
-                                                {{plant.value}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <mat-form-field>
-                                        <mat-label>Select Mode</mat-label>
-                                        <mat-select [(ngModel)]="mode" name="mode">
-                                            <mat-option>Select Mode</mat-option>
-                                            <mat-option *ngFor="let userMode of userModes" [value]="userMode.id">
-                                                {{userMode.value}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <mat-form-field>
-                                        <mat-label>Creation From Date</mat-label>
-                                        <input matInput [matDatepicker]="picker" name="creationFromDate"
-                                            [max]="creationToDate?creationToDate:maxDate"
-                                            [(ngModel)]="creationFromDate">
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <mat-form-field>
-                                        <mat-label>Creation To Date</mat-label>
-                                        <input matInput [matDatepicker]="picker1" name="creationToDate"
-                                            [min]="creationFromDate" [(ngModel)]="creationToDate">
-                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker1></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <mat-form-field>
-                                        <mat-label>Select Status</mat-label>
-                                        <mat-select [(ngModel)]="activeStatus" name="activeStatus">
-                                            <mat-option>Select Status</mat-option>
-                                            <mat-option *ngFor="let userstatus of activeStatuses"
-                                                [value]="userstatus.id">
-                                                {{userstatus.value}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-
-                                </div>
-                                <!-- <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-
-                                    <mat-form-field>
-                                        <mat-label>Select Approval Status</mat-label>
-                                        <mat-select [(ngModel)]="approvalStatusId" name="approvalStatus">
-                                            <mat-option>Select Approval Status</mat-option>
-                                            <mat-option *ngFor="let userstatus of approvalStatuses"
-                                                [value]="userstatus.id">
-                                                {{userstatus.value}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div> -->
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-
-                                    <mat-form-field>
-                                        <mat-label>Select Designation</mat-label>
-                                        <mat-select [(ngModel)]="designation" name="designation">
-                                            <mat-option>Select Designation</mat-option>
-                                            <mat-option *ngFor="let userDesignation of userDesignations"
-                                                [value]="userDesignation.id">
-                                                {{userDesignation.value}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-
-                                    <mat-form-field>
-                                        <mat-label>Select Sort By</mat-label>
-                                        <mat-select [(ngModel)]="sortBy" name="sortBy">
-                                            <mat-option>Select Sort By</mat-option>
-                                            <mat-option *ngFor="let userSort of userSortBy" [value]="userSort.id">
-                                                {{userSort.value}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-
-                                    <mat-form-field>
-                                        <mat-label>Asc</mat-label>
-                                        <mat-select [(ngModel)]="sortByOrder" name="sortByOrder"
-                                            [disabled]="sortBy==null">
-                                            <mat-option>Asc</mat-option>
-                                            <mat-option [value]=2>Desc</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 apply-margin">
-                                    <div class="form-group">
-                                        <button type="button" (click)="ApplySearch()" class="btn btn-primary">
-                                            Apply
-                                        </button>
-                                        <button type="button" (click)="ClearSearch()" class="btn filter-clear-button">
-                                            Clear
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
-                    <mat-form-field class="search-container">
-                        <mat-icon matPrefix>search</mat-icon>
-
-                        <mat-label>Search</mat-label>
-                        <input matInput #searchTextBox name="keyword" [(ngModel)]="keyword" value=""
-                            placeholder="Search" (focus)="onFocusOfSearchBox($event)">
-                    </mat-form-field>
-                </div>
-                <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <div class="add-button-container">
-                        <!-- <i class="material-icons add-circle-icon" (click)="addCustomer()"
-                            >add_circle</i> -->
-                        <button type="button" (click)="addCustomer()" class="btn add-circle-button"
-                          >
-                          <i class="material-icons-outlined">add_circle_outline</i>
-                            Add
-                        </button>
-                    </div>
-                </div>
-            </form>
+            <div class="pull-right1">
+                <form class="row">
+                    <div class="col-md-3">
+                      <mat-form-field class="search-container">
+                          <mat-icon matPrefix>search</mat-icon>
+  
+                          <mat-label>Search</mat-label>
+                          <input matInput #searchTextBox name="keyword" [(ngModel)]="keyword" value=""
+                              placeholder="Search" (focus)="onFocusOfSearchBox($event)">
+                      </mat-form-field>
+                  </div>
+                  <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                      <div class="add-button-container">
+                          <!-- <i class="material-icons add-circle-icon" (click)="addCustomer()"
+                              >add_circle</i> -->
+                          <button type="button" (click)="addCustomer()" class="btn add-circle-button"
+                            >
+                            <i class="material-icons-outlined">add_circle_outline</i>
+                              Add
+                          </button>
+                      </div>
+                  </div>
+              </form>
+            </div>
+          
             <div class="row clearfix row-filter-container">
                 <div class="col-12 filter-by-string filter-font" *ngIf="filterBy && !isFilterOpen">Filter By :
                     {{filterBy}}</div>
