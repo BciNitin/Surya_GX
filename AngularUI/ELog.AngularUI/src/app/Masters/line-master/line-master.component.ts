@@ -14,15 +14,6 @@ interface LineMaster {
   active: boolean
 }
 
-// @NgModule({
-//   declarations: [
-//     AppComponent,
-//   ],
-//   imports: [
-//     NgxPaginationModule,
-//   ],
-// })
-
 @Component({
   selector: 'app-line-master',
   templateUrl: './line-master.component.html',

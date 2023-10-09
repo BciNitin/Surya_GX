@@ -38,6 +38,7 @@ import { StorageLocationComponent } from './masters/storage-location/storage-loc
 import { ShiftMasterComponent } from './masters/shift-master/shift-master.component';
 import { BinComponent } from './masters/bin/bin.component';
 import { AddeditbinComponent } from './masters/bin/addeditbin/addeditbin.component';
+import { EditbinComponent } from './masters/bin/editbin/editbin/editbin.component';
 
 
 
@@ -125,6 +126,8 @@ import { AddeditbinComponent } from './masters/bin/addeditbin/addeditbin.compone
                 
                     { path: 'bin', component: BinComponent, canActivate: [AppRouteGuard] },
                     { path: 'add-bin', component: AddeditbinComponent, canActivate: [AppRouteGuard] },
+                    { path: 'edit-bin', component: EditbinComponent, canActivate: [AppRouteGuard] },
+
                 ]
             }
         ])
