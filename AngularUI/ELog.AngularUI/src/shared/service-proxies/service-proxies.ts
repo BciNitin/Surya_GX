@@ -3269,6 +3269,53 @@ export class ElogSuryaApiServiceServiceProxy {
     /**
      * @return Success
      */
+    getLineNumber(): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/GetLineNumber";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLineNumber(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLineNumber(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGetLineNumber(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @return Success
+     */
     getStorageLocationMaster(): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/GetStorageLocationMaster";
         url_ = url_.replace(/[?&]$/, "");
@@ -3342,6 +3389,157 @@ export class ElogSuryaApiServiceServiceProxy {
     }
 
     protected processGetBinMaster(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getBinById(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/GetBinById?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBinById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBinById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGetBinById(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateBin(body: Bin | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/UpdateBin";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateBin(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateBin(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateBin(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getBinCode(): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/GetBinCode";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBinCode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBinCode(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGetBinCode(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3471,80 +3669,21 @@ export class ElogSuryaApiServiceServiceProxy {
     }
 
     /**
-     * @param shiftCode (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    deleteSiftMaster(shiftCode: string | null | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/DeleteSiftMaster?";
-        if (shiftCode !== undefined && shiftCode !== null)
-            url_ += "ShiftCode=" + encodeURIComponent("" + shiftCode) + "&";
+    createBinMaster(body: Bin | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/CreateBinMaster";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeleteSiftMaster(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDeleteSiftMaster(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processDeleteSiftMaster(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(null as any);
-    }
-
-    /**
-     * @param plantCode (optional) 
-     * @param binCode (optional) 
-     * @param description (optional) 
-     * @param active (optional) 
-     * @return Success
-     */
-    createBinMaster(plantCode: string | null | undefined, binCode: string | null | undefined, description: string | null | undefined, active: boolean | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/CreateBinMaster?";
-        if (plantCode !== undefined && plantCode !== null)
-            url_ += "PlantCode=" + encodeURIComponent("" + plantCode) + "&";
-        if (binCode !== undefined && binCode !== null)
-            url_ += "BinCode=" + encodeURIComponent("" + binCode) + "&";
-        if (description !== undefined && description !== null)
-            url_ += "Description=" + encodeURIComponent("" + description) + "&";
-        if (active === null)
-            throw new Error("The parameter 'active' cannot be null.");
-        else if (active !== undefined)
-            url_ += "Active=" + encodeURIComponent("" + active) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
             })
         };
 
@@ -3563,67 +3702,6 @@ export class ElogSuryaApiServiceServiceProxy {
     }
 
     protected processCreateBinMaster(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(null as any);
-    }
-
-    /**
-     * @param plantCode (optional) 
-     * @param binCode (optional) 
-     * @param description (optional) 
-     * @param active (optional) 
-     * @return Success
-     */
-    updateBinMaster(plantCode: string | null | undefined, binCode: string | null | undefined, description: string | null | undefined, active: boolean | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/UpdateBinMaster?";
-        if (plantCode !== undefined && plantCode !== null)
-            url_ += "PlantCode=" + encodeURIComponent("" + plantCode) + "&";
-        if (binCode !== undefined && binCode !== null)
-            url_ += "BinCode=" + encodeURIComponent("" + binCode) + "&";
-        if (description !== undefined && description !== null)
-            url_ += "Description=" + encodeURIComponent("" + description) + "&";
-        if (active === null)
-            throw new Error("The parameter 'active' cannot be null.");
-        else if (active !== undefined)
-            url_ += "Active=" + encodeURIComponent("" + active) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateBinMaster(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdateBinMaster(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processUpdateBinMaster(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3862,6 +3940,319 @@ export class ElogSuryaApiServiceServiceProxy {
     }
 
     protected processPostBinMaster(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getPackingOrderDetails(): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/GetPackingOrderDetails";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPackingOrderDetails(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPackingOrderDetails(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGetPackingOrderDetails(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @param plantCode (optional) 
+     * @param userid (optional) 
+     * @param lineBarCode (optional) 
+     * @return Success
+     */
+    lineBinMapping_ScanLine(plantCode: string | null | undefined, userid: string | null | undefined, lineBarCode: string | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/LineBinMapping_ScanLine?";
+        if (plantCode !== undefined && plantCode !== null)
+            url_ += "PlantCode=" + encodeURIComponent("" + plantCode) + "&";
+        if (userid !== undefined && userid !== null)
+            url_ += "Userid=" + encodeURIComponent("" + userid) + "&";
+        if (lineBarCode !== undefined && lineBarCode !== null)
+            url_ += "LineBarCode=" + encodeURIComponent("" + lineBarCode) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processLineBinMapping_ScanLine(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processLineBinMapping_ScanLine(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processLineBinMapping_ScanLine(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @param plantCode (optional) 
+     * @param userid (optional) 
+     * @param barcode (optional) 
+     * @return Success
+     */
+    lineBinMapping_ScanBarcode(plantCode: string | null | undefined, userid: string | null | undefined, barcode: string | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/LineBinMapping_ScanBarcode?";
+        if (plantCode !== undefined && plantCode !== null)
+            url_ += "PlantCode=" + encodeURIComponent("" + plantCode) + "&";
+        if (userid !== undefined && userid !== null)
+            url_ += "Userid=" + encodeURIComponent("" + userid) + "&";
+        if (barcode !== undefined && barcode !== null)
+            url_ += "Barcode=" + encodeURIComponent("" + barcode) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processLineBinMapping_ScanBarcode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processLineBinMapping_ScanBarcode(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processLineBinMapping_ScanBarcode(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    lineBinMapping_Mapping(body: LineWorkBinMapping | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/LineBinMapping_Mapping";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processLineBinMapping_Mapping(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processLineBinMapping_Mapping(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processLineBinMapping_Mapping(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    generateSerialNo(body: GenerateSerialNumber | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/GenerateSerialNo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGenerateSerialNo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGenerateSerialNo(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGenerateSerialNo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @param packingOrder (optional) 
+     * @return Success
+     */
+    getSerialNumberDetails(packingOrder: string | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ElogSuryaApiService/GetSerialNumberDetails?";
+        if (packingOrder !== undefined && packingOrder !== null)
+            url_ += "packingOrder=" + encodeURIComponent("" + packingOrder) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSerialNumberDetails(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSerialNumberDetails(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGetSerialNumberDetails(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -12182,6 +12573,161 @@ export class SelectListServiceProxy {
             }));
         }
         return _observableOf<SelectListDto[]>(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getPlantCode(): Observable<SelectListDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SelectList/GetPlantCode";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPlantCode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPlantCode(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SelectListDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SelectListDto[]>;
+        }));
+    }
+
+    protected processGetPlantCode(response: HttpResponseBase): Observable<SelectListDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(SelectListDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SelectListDto[]>(null as any);
+    }
+
+    /**
+     * @param plantCode (optional) 
+     * @return Success
+     */
+    getPackingOrderNo(plantCode: string | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SelectList/GetPackingOrderNo?";
+        if (plantCode !== undefined && plantCode !== null)
+            url_ += "plantCode=" + encodeURIComponent("" + plantCode) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPackingOrderNo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPackingOrderNo(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGetPackingOrderNo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getLineWorkNo(): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SelectList/GetLineWorkNo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLineWorkNo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLineWorkNo(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGetLineWorkNo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
     }
 }
 
@@ -20822,6 +21368,207 @@ export class ElogControlsDtoPagedResultDto implements IElogControlsDtoPagedResul
 export interface IElogControlsDtoPagedResultDto {
     totalCount: number;
     items: ElogControlsDto[] | undefined;
+}
+
+export class Bin implements IBin {
+    id: number;
+    plantCode: string | undefined;
+    binCode: string | undefined;
+    description: string | undefined;
+    active: boolean;
+
+    constructor(data?: IBin) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.plantCode = _data["plantCode"];
+            this.binCode = _data["binCode"];
+            this.description = _data["description"];
+            this.active = _data["active"];
+        }
+    }
+
+    static fromJS(data: any): Bin {
+        data = typeof data === 'object' ? data : {};
+        let result = new Bin();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["plantCode"] = this.plantCode;
+        data["binCode"] = this.binCode;
+        data["description"] = this.description;
+        data["active"] = this.active;
+        return data;
+    }
+
+    clone(): Bin {
+        const json = this.toJSON();
+        let result = new Bin();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBin {
+    id: number;
+    plantCode: string | undefined;
+    binCode: string | undefined;
+    description: string | undefined;
+    active: boolean;
+}
+
+export class LineWorkBinMapping implements ILineWorkBinMapping {
+    plantCode: string | undefined;
+    userid: string | undefined;
+    barcode: string | undefined;
+    lineBarCode: string | undefined;
+
+    constructor(data?: ILineWorkBinMapping) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.plantCode = _data["plantCode"];
+            this.userid = _data["userid"];
+            this.barcode = _data["barcode"];
+            this.lineBarCode = _data["lineBarCode"];
+        }
+    }
+
+    static fromJS(data: any): LineWorkBinMapping {
+        data = typeof data === 'object' ? data : {};
+        let result = new LineWorkBinMapping();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["plantCode"] = this.plantCode;
+        data["userid"] = this.userid;
+        data["barcode"] = this.barcode;
+        data["lineBarCode"] = this.lineBarCode;
+        return data;
+    }
+
+    clone(): LineWorkBinMapping {
+        const json = this.toJSON();
+        let result = new LineWorkBinMapping();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ILineWorkBinMapping {
+    plantCode: string | undefined;
+    userid: string | undefined;
+    barcode: string | undefined;
+    lineBarCode: string | undefined;
+}
+
+export class GenerateSerialNumber implements IGenerateSerialNumber {
+    id: number;
+    plantCode: string | undefined;
+    lineCode: string | undefined;
+    packingOrderNo: string | undefined;
+    supplierCode: string | undefined;
+    driverCode: string | undefined;
+    userId: string | undefined;
+    quantity: number;
+    printedQty: number;
+    pendingQtyToPrint: number;
+    packingDate: moment.Moment;
+    itemCode: string | undefined;
+
+    constructor(data?: IGenerateSerialNumber) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.plantCode = _data["plantCode"];
+            this.lineCode = _data["lineCode"];
+            this.packingOrderNo = _data["packingOrderNo"];
+            this.supplierCode = _data["supplierCode"];
+            this.driverCode = _data["driverCode"];
+            this.userId = _data["userId"];
+            this.quantity = _data["quantity"];
+            this.printedQty = _data["printedQty"];
+            this.pendingQtyToPrint = _data["pendingQtyToPrint"];
+            this.packingDate = _data["packingDate"] ? moment(_data["packingDate"].toString()) : <any>undefined;
+            this.itemCode = _data["itemCode"];
+        }
+    }
+
+    static fromJS(data: any): GenerateSerialNumber {
+        data = typeof data === 'object' ? data : {};
+        let result = new GenerateSerialNumber();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["plantCode"] = this.plantCode;
+        data["lineCode"] = this.lineCode;
+        data["packingOrderNo"] = this.packingOrderNo;
+        data["supplierCode"] = this.supplierCode;
+        data["driverCode"] = this.driverCode;
+        data["userId"] = this.userId;
+        data["quantity"] = this.quantity;
+        data["printedQty"] = this.printedQty;
+        data["pendingQtyToPrint"] = this.pendingQtyToPrint;
+        data["packingDate"] = this.packingDate ? this.packingDate.toISOString() : <any>undefined;
+        data["itemCode"] = this.itemCode;
+        return data;
+    }
+
+    clone(): GenerateSerialNumber {
+        const json = this.toJSON();
+        let result = new GenerateSerialNumber();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IGenerateSerialNumber {
+    id: number;
+    plantCode: string | undefined;
+    lineCode: string | undefined;
+    packingOrderNo: string | undefined;
+    supplierCode: string | undefined;
+    driverCode: string | undefined;
+    userId: string | undefined;
+    quantity: number;
+    printedQty: number;
+    pendingQtyToPrint: number;
+    packingDate: moment.Moment;
+    itemCode: string | undefined;
 }
 
 export class FormApprovalDataDto implements IFormApprovalDataDto {

@@ -97,7 +97,10 @@ import { StorageLocationComponent } from './masters/storage-location/storage-loc
 import { ShiftMasterComponent } from './masters/shift-master/shift-master.component';
 import { BinComponent } from './masters/bin/bin.component';
 import { AddeditbinComponent } from './masters/bin/addeditbin/addeditbin.component';
-import { EditbinComponent } from './masters/bin/editbin/editbin/editbin.component';
+//import { EditbinComponent } from './masters/bin/editbin/editbin/editbin.component';
+import { QualityCheckingComponent } from './PlantOperation/quality-checking/quality-checking.component';
+import { QualityConfirmationComponent } from './PlantOperation/quality-confirmation/quality-confirmation.component';
+import { StorageLocationTransferComponent } from './PlantOperation/storage-location-transfer/storage-location-transfer.component';
 
 
 export function momentAdapterFactory() {
@@ -181,7 +184,10 @@ export const PMMS_FORMATS = {
         PackingOrderComponent,
         BinComponent,
         AddeditbinComponent,
-        EditbinComponent,
+        //EditbinComponent,
+        QualityCheckingComponent,
+        QualityConfirmationComponent,
+        StorageLocationTransferComponent,
     ],
     imports: [
         CommonModule,

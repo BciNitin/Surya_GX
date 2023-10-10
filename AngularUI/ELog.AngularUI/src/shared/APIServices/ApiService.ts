@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { bininput } from '@app/masters/bin/bin.component';
+import { linework } from '@app/PlantOperation/line-work-center/line-work-center.component';
+import { GenerateSerialNumber } from '@app/PlantOperation/serialbarcodegeneration/serialbarcodegeneration.component';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { Observable } from 'rxjs';
 
@@ -14,13 +16,13 @@ export class ApiServiceService {
  
     //content_ = JSON.stringify(body);
 
-    options_ : any = {
+   options_ : any = {
    //body: this.content_,
    observe: "response",
    responseType: "blob",
    headers: new HttpHeaders({
    "Content-Type": "application/json-patch+json",
-   })
+   }),
    };
 
    constructor(private http: HttpClient ) {
@@ -78,4 +80,20 @@ export class ApiServiceService {
      GetSerialNumberDetails(packingOrderNo:string): Observable<any[]> {
       return this.http.get<any[]>(this.BasUrl+'ElogSuryaApiService/GetSerialNumberDetails?packingOrder='+packingOrderNo);
      }
+    SaveLineWork(input:linework) {
+      const content_ = JSON.stringify(input);
+      const options_ : any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+         "Content-Type": "application/json-patch+json",
+         }),
+         };
+       return  this.http.post<any>(this.BasUrl+'ElogSuryaApiService/LineBinMapping_Mapping', {content_,responseType: 'text' ,options_});
+    }
+   SaveSerialBarcodeGen(input:GenerateSerialNumber) {
+      const content_ = JSON.stringify(input);
+       return this.http.post<any[]>(this.BasUrl+'ElogSuryaApiService/GenerateSerialNo', content_,this.options_);
+    }
 }

@@ -705,7 +705,7 @@ namespace ELog.Application.ElogApi
 
         }
         
-        public async Task<Object> LineBinMapping_Mapping(string PlantCode, string Userid, string Barcode,string LineBarCode)
+        public async Task<Object> LineBinMapping_Mapping(LineWorkBinMapping linework)
         {
             string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
@@ -722,10 +722,11 @@ namespace ELog.Application.ElogApi
 
                     Command.CommandText = Constants.Schema + "sp_LineBinMapping";
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "MappingLineBin";
-                    Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = AbpSession.UserId;
-                    Command.Parameters.Add("@sBarCode", MySqlDbType.VarChar).Value = Barcode;
-                    Command.Parameters.Add("@sLineCode", MySqlDbType.VarChar).Value = LineBarCode;
+                    Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = linework.PlantCode;
+                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value =AbpSession.UserId;
+                    Command.Parameters.Add("@sBarCode", MySqlDbType.VarChar).Value = linework.Barcode;
+                    Command.Parameters.Add("@sLineCode", MySqlDbType.VarChar).Value = linework.LineBarCode;
+                   
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();

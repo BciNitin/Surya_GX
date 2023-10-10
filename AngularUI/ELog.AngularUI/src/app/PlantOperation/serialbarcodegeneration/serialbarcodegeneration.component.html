@@ -81,31 +81,32 @@
                                 </div>
                             </form>
                             <br>
-                            <div class="body table-responsive">
-                                <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
+                            <div class="body table-responsive" >
+                                <table   class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="th-center-align">
-                                                <mat-checkbox #checkBoxAll (change)="selectAll($event)" [(ngModel)]='isSelected' class="whiteMatSelect"> Select All
-                                                </mat-checkbox>
-                                            </th>
+                                            <th class="th-center-align">{{ "Select" | localize }}</th>
+                                            
                                             <th class="th-center-align">{{ "Plant Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Item Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Quantity" | localize }}</th>
-                                            <th class="th-center-align">{{ "Packing Date" | localize }}</th>
+                                            <th class="th-center-align">{{ "Pending Quantity" | localize }}</th>
+                                             <th class="th-center-align">{{ "Packing Date" | localize }}</th>
                                             <th class="th-center-align">{{ "Line Code" | localize }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let  picklistItem of picklistItems">
 
-                                            <td class="td-center-align">
-                                                <mat-checkbox  #checkBox (change)="getCheckbox($event)"  class="whiteMatSelect">
-                                                </mat-checkbox>
+                                            <td class="td-center-align" *ngIf="packingOrderList.length>0">
+                                                <mat-radio-button [disabled]="disabletradio" 
+                                                 (change)="GetCheckBoxValue(picklistItem.plantCode,picklistItem.materialCode,picklistItem.quantity,picklistItem.pendingQtyToPrint,picklistItem.printingQty,picklistItem.packing_Date,picklistItem.work_Center)"   class="whiteMatSelect" [checked]="false"></mat-radio-button>
+                                                
                                             </td>
                                             <td class="td-center-align">{{picklistItem.plantCode}}</td>
                                             <td class="td-center-align">{{picklistItem.materialCode}}</td>
                                             <td class="td-center-align">{{picklistItem.quantity}}</td>
+                                            <td class="td-center-align">{{picklistItem.pendingQtyToPrint}}</td>
                                             <td class="td-center-align">{{picklistItem.packing_Date}}</td>
                                             <td class="td-center-align">{{picklistItem.work_Center}}</td>
                                         </tr>
@@ -115,25 +116,34 @@
                                     </tbody>
                                     
                                 </table>
-                                <!-- <mat-paginator [length]="totalData" [pageSizeOptions]=[10,25,50,100] (page)="onPageChange($event)"
-                                               showFirstLastButtons></mat-paginator> -->
+                                
+                            
                             </div>
                             
-                           
-                            <div class="row">
-                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                </div>
-                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <button class="btn filter-back-button pull-right"
-                                            (click)="Clear()">
-                                        Clear
-                                    </button>
-                                    <button class="btn btn-primary pull-right" (click)="Save()">
-                                        Gen
-                                    </button>
-                                    
-                                </div>
+                           <div class="row">
+                            <div class="col-md-4 col-lg-4 col-sm-8 col-xs-8">
+                                <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                    <mat-label>Printing Quantity</mat-label>
+                                    <input matInput required name="printingQty"
+                                                   [(ngModel)]='printingQty' formControlName="printingQty" [errorStateMatcher]="matcher"  maxlength="16"  [errorStateMatcher]="matcher">
+                                 <mat-error *ngIf="addEditFormGroup?.get('printingQty')?.hasError('required') || addEditFormGroup?.get('printingQty')?.hasError('whitespace')">
+                                        Printing Quantity  is required.
+                                    </mat-error>
+                                </mat-form-field>
                             </div>
+                            <div class="col-md-8  col-lg-8 col-sm-12 col-xs-12">
+                                <button class="btn filter-back-button pull-right"
+                                        (click)="Clear()">
+                                    Clear
+                                </button>
+                                <button type="button" class="btn btn-primary pull-right"
+                                 (click)="markDirty() && addEditFormGroup.valid && Save()" >
+                                    Save
+                                </button>
+                                
+                            </div>
+                           </div>
+                            
 
                         </div>
                     </div>

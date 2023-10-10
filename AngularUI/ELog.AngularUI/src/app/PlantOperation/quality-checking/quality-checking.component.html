@@ -1,0 +1,126 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="row user-component-content row-filter-container">
+                <div class="col-12">
+                    <h2 class="title">{{ "Quality Checking" | localize }}</h2>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div id="collapse1" class="panel-collapse collapse in dark-text">
+                        <div class="panel-body">
+                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                <div class="row">
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field>
+                                            <mat-label>Plant Code</mat-label>
+                                            <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
+                                                        formControlName="ddlOrder" name="ddlOrder"
+                                                        (selectionChange)="GetPicklist($event.value)">
+                                                <mat-option [value]=0>Select Plant Code</mat-option>
+                                                <mat-option>
+                                                   
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field>
+                                            <mat-label>Line No</mat-label>
+                                            <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
+                                                        formControlName="ddlOrder" name="ddlOrder"
+                                                        (selectionChange)="GetPicklist($event.value)">
+                                                <mat-option [value]=0>Select Line No</mat-option>
+                                                <mat-option>
+                                                   
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field>
+                                            <mat-label>Packing Order No.</mat-label>
+                                            <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
+                                                        formControlName="ddlOrder" name="ddlOrder"
+                                                        (selectionChange)="GetPicklist($event.value)">
+                                                <mat-option [value]=0>Select Packing Order No</mat-option>
+                                                <mat-option>
+                                                   
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    
+                                </div>
+                                <div class="row">
+                                    
+                                    
+                                </div>
+                            </form>
+                            <br>
+                            <div class="body table-responsive">
+                                <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th class="th-center-align">{{ "Carton Barcode" | localize }}</th>
+                                            <th class="th-center-align">{{ "Item Barcode" | localize }}</th>
+                                            <th class="th-center-align">{{ "OK/NG" | localize }}</th>
+                                            
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let  picklistItem of picklistItems" (tap)="onSelect($event,wireDraw)">
+                                            
+                                            <td class="td-center-align">{{obj.id}}</td>
+                                            <td class="td-center-align">{{obj.plantId}}</td>
+                                            <td class="td-center-align">{{obj.barcode}}</td>
+                                            
+                                            
+                                        </tr>
+                                        <tr *ngIf="obj?.length == 0">
+                                            <td colspan="6" class="no-data-available">No data to display.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                    <mat-form-field>
+                                        <mat-label>Pass</mat-label>
+                                        <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
+                                                    formControlName="ddlOrder" name="ddlOrder"
+                                                    (selectionChange)="GetPicklist($event.value)">
+                                            <mat-option [value]=0>OK</mat-option>
+                                            <mat-option [value]=1>NOT OK</mat-option>
+                                            <mat-option>
+                                               
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                </div>
+                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <button class="btn filter-back-button pull-right"
+                                            (click)="clearallfields()">
+                                        Clear
+                                    </button>
+                                    <button class="btn btn-primary pull-right" (click)="Save()">
+                                        Save
+                                    </button>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -38,7 +38,10 @@ import { StorageLocationComponent } from './masters/storage-location/storage-loc
 import { ShiftMasterComponent } from './masters/shift-master/shift-master.component';
 import { BinComponent } from './masters/bin/bin.component';
 import { AddeditbinComponent } from './masters/bin/addeditbin/addeditbin.component';
-import { EditbinComponent } from './masters/bin/editbin/editbin/editbin.component';
+//import { EditbinComponent } from './masters/bin/editbin/editbin/editbin.component';
+import { QualityCheckingComponent } from './PlantOperation/quality-checking/quality-checking.component';
+import { QualityConfirmationComponent } from './PlantOperation/quality-confirmation/quality-confirmation.component';
+import { StorageLocationTransferComponent } from './PlantOperation/storage-location-transfer/storage-location-transfer.component';
 
 
 
@@ -114,20 +117,19 @@ import { EditbinComponent } from './masters/bin/editbin/editbin/editbin.componen
                     { path: 'edit-customer/:transporterId', component: AddEditCustomerComponent, canActivate: [AppRouteGuard] },
                     { path: 'storage-location', component: StorageLocationComponent, canActivate: [AppRouteGuard] },
                     { path: 'shift-master', component: ShiftMasterComponent, canActivate: [AppRouteGuard] },
-
                     //{ path: 'add-edit-shift', component: AddEditShiftComponent, canActivate: [AppRouteGuard] },
                     // { path: 'add-shift', component: AddEditShiftComponent, canActivate: [AppRouteGuard] },
-                   
-
                     { path: 'quality-sampling', component: QualitySamplingComponent, canActivate: [AppRouteGuard] },
                     { path: 'serialbarcodegeneration', component: SerialbarcodegenerationComponent, canActivate: [AppRouteGuard] },
                     { path: 'packing-order-confirmation', component: PackingOrderConfirmationComponent, canActivate: [AppRouteGuard] },
                     { path: 'packing-order', component: PackingOrderComponent, canActivate: [AppRouteGuard] },
-                
                     { path: 'bin', component: BinComponent, canActivate: [AppRouteGuard] },
                     { path: 'add-bin', component: AddeditbinComponent, canActivate: [AppRouteGuard] },
-                    { path: 'edit-bin', component: EditbinComponent, canActivate: [AppRouteGuard] },
-
+                    //{ path: 'edit-bin', component: EditbinComponent, canActivate: [AppRouteGuard] },
+                    { path: 'quality-checking', component: QualityCheckingComponent, canActivate: [AppRouteGuard] },
+                    { path: 'quality-confirmation', component: QualityConfirmationComponent, canActivate: [AppRouteGuard] },
+                    { path: 'storage-location-transfer', component: StorageLocationTransferComponent, canActivate: [AppRouteGuard] },
+                    
                 ]
             }
         ])

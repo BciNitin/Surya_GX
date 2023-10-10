@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, NgModule, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChildren, OnInit, NgModule, ViewChild,QueryList, AfterViewInit } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
@@ -10,7 +10,7 @@ import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@shared/ValidationService';
 import { NoWhitespaceValidator } from '@shared/app-component-base';
-
+import { MatRadioChange } from '@angular/material';
 interface SerialNo {
   plantCode: string,
   line: string,
@@ -18,7 +18,22 @@ interface SerialNo {
   supplierCode: string
   driverCode: string
 }
-
+export class GenerateSerialNumber
+{
+    
+     lineCode       : string="";
+     PackingOrderNo : string="";
+     plantCode      : string="";
+     supplierCode   : string="";
+     driverCode     : string="";
+     packing_Date    : string="";
+     ItemCode       : string="";
+     printingQty     : string="";
+     pendingQtyToPrint: string="";
+     quantity:string="";
+     work_Center:string="";
+    
+}
 @Component({
   selector: 'app-serialbarcodegeneration',
   templateUrl: './serialbarcodegeneration.component.html',
@@ -28,9 +43,22 @@ interface SerialNo {
 })
 
 export class SerialbarcodegenerationComponent implements OnInit {
-
+  @ViewChildren('checkBox') checkBox: QueryList<any>;
   lines: any;
+  SrBarcode: any;
   searchText;
+  work_Center:string="";
+  quantity:string="";
+  lineCode: string="";
+  packingOrder: string="";
+  plantCode: string="";
+  SupplierCode: string="";
+  driverCode: string="";
+  packing_Date: string="";
+  materialCode: string="";
+  ItemCode :string="";
+  printingQty: string="";
+  pendingQtyToPrint: string="";
   searchTerm = '';
   p: Number = 1;
   public array: any;
@@ -38,12 +66,10 @@ export class SerialbarcodegenerationComponent implements OnInit {
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
-
-  plantCode: string;
-  line: string;
-  packingOrder: string;
+   line: string;
+  
   supplierCode: string;
-  driverCode: string;
+  
   plnaCodeList: any;
   lineList: any;
   packingOrderList: any;
@@ -64,9 +90,11 @@ export class SerialbarcodegenerationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.getArray();
     this.GetPlantCode();
     this.GetLineCode();
+    
   }
 
   ngAfterViewInit(): void {
@@ -95,7 +123,6 @@ export class SerialbarcodegenerationComponent implements OnInit {
   private getArray() {
     this._apiservice.getLineMaster()
       .subscribe((response) => {
-        console.log("res", response['result'])
         // this.dataSourcePagination  = new MatTableDataSource<Element>(response['result']);
         this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
         this.dataSourcePagination.paginator = this.paginator;
@@ -118,7 +145,8 @@ export class SerialbarcodegenerationComponent implements OnInit {
     plantCodeFormCControl: [null, [Validators.required, NoWhitespaceValidator]],
     packingOrderFormControl: ['',[Validators.required,NoWhitespaceValidator]],
     supplierCodeFormControl:[null,[Validators.required,NoWhitespaceValidator]],
-    driverCodeFormControl:[null,[Validators.required,NoWhitespaceValidator]]
+    driverCodeFormControl:[null,[Validators.required,NoWhitespaceValidator]],
+   printingQty:[null,[Validators.required,NoWhitespaceValidator]]
 });
 
 GetPlantCode() {
@@ -128,10 +156,8 @@ GetPlantCode() {
 };
 
 GetLineCode() {
-  console.log("line",this.line);
   this._apiservice.getLineWorkCenterNo().subscribe((response) => {
       this.lineList = response["result"];
-      console.log("line2",this.lineList)
   });
 };
 
@@ -141,7 +167,6 @@ onChangePlantCode(value)
  
  this._apiservice.getPackingOrderNo(value).subscribe((response) => {
   this.packingOrderList = response["result"];
-  console.log("value",response["result"])
 });
 }
 
@@ -152,14 +177,54 @@ GrtTableGrid(value)
 })
 }
 
-getCheckbox(value)
-{
-  console.log(value);
+
+GetCheckBoxValue(plantCode:any,materialCode:any,quantity:any,pendingQtyToPrint:any,printedQty:any,packing_Date:any,work_Center:any,packingOrderNo:any) {
+  debugger;
+     this.plantCode=plantCode;
+     this.materialCode=materialCode;
+     this.quantity=quantity;
+     this.pendingQtyToPrint=pendingQtyToPrint;
+     this.packing_Date=packing_Date;
+     this.work_Center=work_Center;
+     
 }
 
-selectAll(value)
-{
-  console.log(value);
+
+
+
+Save() {
+  debugger;
+  var _GenSerial =  new GenerateSerialNumber();
+  _GenSerial.plantCode=this.plantCode;
+  _GenSerial.ItemCode=this.materialCode;
+  _GenSerial.printingQty=this.printingQty;
+  _GenSerial.quantity=this.quantity;
+  _GenSerial.pendingQtyToPrint=this.pendingQtyToPrint;
+  _GenSerial.packing_Date=this.packing_Date;
+  _GenSerial.lineCode=this.lineCode;
+  _GenSerial.supplierCode=this.supplierCode;
+  _GenSerial.driverCode=this.driverCode;
+  _GenSerial.work_Center=this.work_Center;
+  _GenSerial.PackingOrderNo=this.packingOrder;
+  if(this.pendingQtyToPrint<=this.printingQty)
+  {
+    abp.notify.error("Printing quantity  should be less than of Pending Quantity!");
+  }
+  else
+  {
+    try {
+      this._apiservice.SaveSerialBarcodeGen(_GenSerial).subscribe(result => {
+        this.SrBarcode = result["result"];
+        
+        console.log("response",result);
+        abp.notify.success("Serial Number Generated Successully");
+        
+    });
+    } catch (error) {
+      abp.notify.error("There is error");
+    }
+  }
+ 
   
 }
 
