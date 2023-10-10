@@ -902,7 +902,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> PackingOrderConfirmation(string packingOrder)
+        public async Task<Object> PackingOrderConfirmation(string packingOrder,string PlantCode)
         {
 
             try
@@ -916,7 +916,7 @@ namespace ELog.Application.ElogApi
                     Command.Connection = conn;
                     Command.CommandText = Constants.SP_PackingOrderConfirmation;
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.PackingOrderConfirmation;
-                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = packingOrder;
 
