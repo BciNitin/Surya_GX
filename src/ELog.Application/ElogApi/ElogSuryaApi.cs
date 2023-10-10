@@ -569,7 +569,7 @@ namespace ELog.Application.ElogApi
             string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
             conn = new MySqlConnection(connection);
-
+            
             try
             {
                 int ressult = 0;
