@@ -23,11 +23,13 @@ namespace ELog.Application.CommomUtility
         public const string SP_Master = "sp_masters";
         public const string SP_SelectList = "sp_get_selectList";
         public const string SP_GenerateSerialNumber = "sp_Generate_BarCode";
+        public const string SP_PackingOrderConfirmation = "sp_PackingOrderConfirmation";
         public const string Type = "@sType";
         public const string sType_GenerateBarCode = "GenerateBarCode";
         public const string GetLineCode = "GetLineCode";
         public const string GetPackingOrder = "GetPackingOrderNo";
         public const string GetSerialNumberDetails = "GetSerialNumberDetails";
+        public const string GetPackingOrderConfirmation = "GetPackingOrderConfirmation";
 
     }
 }
