@@ -882,7 +882,7 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetPackingOrderConfirmation;
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = packingOrder;
 
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
