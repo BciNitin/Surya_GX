@@ -30,6 +30,7 @@ namespace ELog.Application.CommomUtility
         public const string GetPackingOrder = "GetPackingOrderNo";
         public const string GetSerialNumberDetails = "GetSerialNumberDetails";
         public const string GetPackingOrderConfirmation = "GetPackingOrderConfirmation";
+        public const string PackingOrderConfirmation = "ConfirmPackingOrder";
 
     }
 }
