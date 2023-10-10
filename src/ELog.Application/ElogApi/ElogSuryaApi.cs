@@ -865,6 +865,42 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
+
+        public async Task<Object> GetPackingOrderConfirmation(string packingOrder)
+        {
+
+            try
+            {
+
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = Constants.SP_PackingOrderConfirmation;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetPackingOrderConfirmation;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
+
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
     }
 }
 
