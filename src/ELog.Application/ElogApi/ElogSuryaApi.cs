@@ -902,9 +902,8 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> PackingOrderConfirmation(string packingOrder,string PlantCode)
+        public async Task<Object> PackingOrderConfirmation(string packingOrder, string PlantCode)
         {
-
             try
             {
 

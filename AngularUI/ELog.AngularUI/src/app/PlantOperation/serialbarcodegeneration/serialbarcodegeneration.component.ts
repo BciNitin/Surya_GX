@@ -9,8 +9,8 @@ import { AppComponent } from '@app/app.component';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@shared/ValidationService';
-import { NoWhitespaceValidator } from '@shared/app-component-base';
 import { MatRadioChange } from '@angular/material';
+import { NoWhitespaceValidator, MyErrorStateMatcher } from '@shared/app-component-base';
 interface SerialNo {
   plantCode: string,
   line: string,
@@ -43,7 +43,7 @@ export class GenerateSerialNumber
 })
 
 export class SerialbarcodegenerationComponent implements OnInit {
-  @ViewChildren('checkBox') checkBox: QueryList<any>;
+  
   lines: any;
   SrBarcode: any;
   searchText;
@@ -62,7 +62,7 @@ export class SerialbarcodegenerationComponent implements OnInit {
   searchTerm = '';
   p: Number = 1;
   public array: any;
-
+  updateUIselectedOrderType:any;
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
@@ -94,6 +94,7 @@ export class SerialbarcodegenerationComponent implements OnInit {
     this.getArray();
     this.GetPlantCode();
     this.GetLineCode();
+
     
   }
 
@@ -148,7 +149,7 @@ export class SerialbarcodegenerationComponent implements OnInit {
     driverCodeFormControl:[null,[Validators.required,NoWhitespaceValidator]],
    printingQty:[null,[Validators.required,NoWhitespaceValidator]]
 });
-
+matcher = new MyErrorStateMatcher();
 GetPlantCode() {
   this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
       this.plnaCodeList = modeSelectList["result"];
@@ -167,11 +168,13 @@ onChangePlantCode(value)
  
  this._apiservice.getPackingOrderNo(value).subscribe((response) => {
   this.packingOrderList = response["result"];
+  this.updateUIselectedOrderType = this.packingOrder;
 });
 }
 
 GrtTableGrid(value)
 {
+  debugger;
   this._apiservice.GetSerialNumberDetails(value).subscribe((response) => {
     this.picklistItems = response["result"];
 })
@@ -188,10 +191,6 @@ GetCheckBoxValue(plantCode:any,materialCode:any,quantity:any,pendingQtyToPrint:a
      this.work_Center=work_Center;
      
 }
-
-
-
-
 Save() {
   debugger;
   var _GenSerial =  new GenerateSerialNumber();
@@ -206,6 +205,7 @@ Save() {
   _GenSerial.driverCode=this.driverCode;
   _GenSerial.work_Center=this.work_Center;
   _GenSerial.PackingOrderNo=this.packingOrder;
+  
   if(this.pendingQtyToPrint<=this.printingQty)
   {
     abp.notify.error("Printing quantity  should be less than of Pending Quantity!");
@@ -227,6 +227,39 @@ Save() {
  
   
 }
+
+
+
+// Save() {
+//   debugger;
+//   var _GenSerial =  new GenerateSerialNumber();
+// _GenSerial.plantCode=this.plantCode;
+// _GenSerial.ItemCode=this.materialCode;
+// _GenSerial.printingQty=this.printingQty;
+// _GenSerial.quantity=this.quantity;
+// _GenSerial.pendingQtyToPrint=this.pendingQtyToPrint;
+// _GenSerial.packing_Date=this.packing_Date;
+// _GenSerial.lineCode=this.lineCode;
+// _GenSerial.supplierCode=this.supplierCode;
+// _GenSerial.driverCode=this.driverCode;
+// _GenSerial.work_Center=this.work_Center;
+// _GenSerial.PackingOrderNo=this.packingOrder;
+  
+//   this._apiservice.SaveSerialBarcodeGen(_GenSerial).subscribe(result => {
+//     debugger;
+//            if(result["result"][0]['response'])
+//            {
+//              abp.notify.success(result["result"][0]['response']);
+//            }
+//            else
+//            {
+//             abp.notify.error(result["result"][0]['error']);
+//            }
+//            this.Clear();
+//       });
+//  }
+
+
 
 markDirty() {
   this._appComponent.markGroupDirty(this.addEditFormGroup);

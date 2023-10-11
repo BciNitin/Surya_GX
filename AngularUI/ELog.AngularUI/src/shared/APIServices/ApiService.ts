@@ -3,6 +3,8 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { bininput } from '@app/masters/bin/bin.component';
 import { linework } from '@app/PlantOperation/line-work-center/line-work-center.component';
 import { GenerateSerialNumber } from '@app/PlantOperation/serialbarcodegeneration/serialbarcodegeneration.component';
+import { PackingOrder } from '@app/PlantOperation/packing-order-confirmation/packing-order-confirmation.component';
+
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { Observable } from 'rxjs';
 
@@ -96,4 +98,23 @@ export class ApiServiceService {
       const content_ = JSON.stringify(input);
        return this.http.post<any[]>(this.BasUrl+'ElogSuryaApiService/GenerateSerialNo', content_,this.options_);
     }
+   
+    GetPackingOrderConfirmation(packingOrderNo:string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl+'ElogSuryaApiService/GetPackingOrderConfirmation?packingOrder='+packingOrderNo);
+     }
+     
+     PackingOrderConfirmation(plantcode,packingorderNo) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_ : any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+         "Content-Type": "application/json-patch+json",
+         }),
+         };
+         return this.http.post<any[]>(this.BasUrl+`ElogSuryaApiService/PackingOrderConfirmation?packingOrder=${plantcode}&PlantCode=${packingorderNo}`,{responseType: 'text' ,options_});  }
+
+   
 }
