@@ -377,8 +377,8 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
-                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetBinCode;
+                    Command.CommandText = Constants.SP_Master;
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.ShiftMaster;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -395,6 +395,68 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
+
+        public async Task<Object> DeleteSiftMasterById(int id)
+        {
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = "sp_Masters_ShiftMaster";
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = "DeleteSiftMasterbyid";
+                    Command.Parameters.Add("sid", MySqlDbType.Int32).Value = id;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+        public async Task<Object> GetPackingMaster()
+        {
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetPackingMasters;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
 
         public async Task<Object> UpdateSiftMaster(string ShiftCode, string ShiftDescription, DateTime sShiftStartTime, DateTime sShiftEndTime)
         {      string connection = _configuration["ConnectionStrings:Default"];
@@ -918,6 +980,82 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = packingOrder;
+
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+        public async Task<Object> QualityCheckingSave(string PackingOrderNo, string PlantCode,string CartonBarCode,string ItemBarCode,string LineCode)
+        {
+            try
+            {
+
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = Constants.sp_QualitySampling;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.SaveQualitySampling;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = PackingOrderNo;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = CartonBarCode;
+                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = ItemBarCode;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineCode;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+        public async Task<Object> GetQualityCheckingQty(string PackingOrderNo, string PlantCode, string CartonBarCode,string LineCode)
+        {
+            try
+            {
+
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = Constants.sp_QualitySampling;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetQualitySamplingQty;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = PackingOrderNo;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = CartonBarCode;
+                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineCode;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
 
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();

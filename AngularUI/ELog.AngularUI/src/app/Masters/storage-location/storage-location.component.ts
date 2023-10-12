@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { ApiServiceService } from '@shared/APIServices/ApiServiceService';
+import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 
 
@@ -44,10 +44,6 @@ export class StorageLocationComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    //  this._apiservice.getLineMaster().subscribe((data: any) => {
-    //   this.dataSource = new MatTableDataSource<LineMaster>(data['result'])
-    //   // console.log("data['result']",this.dataSource.filteredData)
-    // });
     this.getArray();
   }
 

@@ -1349,7 +1349,7 @@ namespace ELog.Application.SelectLists
                     {
                         Command.Connection = conn;
 
-                        Command.CommandText = Constants.Schema + Constants.SP_SelectList;
+                        Command.CommandText =  Constants.SP_SelectList;
                         Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetLineCode;
                         Command.CommandType = CommandType.StoredProcedure;
                         Command.Connection.Open();
@@ -1377,6 +1377,62 @@ namespace ELog.Application.SelectLists
                     }
                     return value;
                 }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+        public async Task<Object> GetPackingOrderByPlantAndLine(string PlantCode,string LineNo)
+        {
+            List<SelectListDto> value = new List<SelectListDto>();
+
+            try
+            {
+                string connection = _configuration["ConnectionStrings:Default"];
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText =  Constants.sp_QualitySampling;
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetPackingOrder;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineNo;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                foreach (DataRow dtRow in dt.Rows)
+                {
+                    //// On all tables' columns
+                    //foreach (DataColumn dc in dt.Columns)
+                    //{
+                    //    var field1 = dtRow[dc].ToString();
+
+                    //}
+
+                    SelectListDto selectListDto = new SelectListDto();
+                    selectListDto.Id = Convert.ToString(dtRow["PackingOrderNo"]);
+                    selectListDto.Value = Convert.ToString(dtRow["PackingOrderNo"]);
+
+                    value.Add(selectListDto);
+                    //var result = Utility.ToListof<SelectListDto>(dt);
+
+                }
+                return value;
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());

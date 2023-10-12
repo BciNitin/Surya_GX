@@ -35,7 +35,7 @@
                 <table class="table table-hover table-striped table-sm table-bordered">
                     <thead>
                         <tr style="font-size: medium;font-family: Arial, Helvetica, sans-serif;">
-                            <th  class="th-center-align" style="visibility: hidden;width: 0px;">{{ "ID" | localize }}</th>
+                            <!-- <th  class="th-center-align" style="visibility: hidden;width: 0px;">{{ "ID" | localize }}</th> -->
                             <th class="th-center-align">{{ "Shift Code" | localize }}</th>
                             <th class="th-center-align">{{ "Description" | localize }}</th>
                             <th class="th-center-align">{{ "Start Time" | localize }}</th>
@@ -45,14 +45,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let ShiftMaster of dataSource.filteredData" (tap)="onSelect($event,ShiftMaster)">
-                            <td class="td-center-align add-wrap" style="visibility: hidden;">{{ShiftMaster.id}}</td>
+                        <tr *ngFor="let ShiftMaster of dataSource.filteredData">
+                            <!-- <td class="td-center-align add-wrap" style="visibility: hidden;">{{ShiftMaster.id}}</td> -->
                             <td class="td-center-align add-wrap">{{ShiftMaster.shift_Code}}</td>
                             <td class="td-center-align add-wrap">{{ShiftMaster.shift_Description}}</td>
                             <td class="td-center-align add-wrap">{{ShiftMaster.shift_StartTime}}</td>
                             <td class="td-center-align add-wrap">{{ShiftMaster.shift_EndTime}}</td>
                             <td>
-                            <button class="btn btn-primary" (click)="deleteItem(ShiftMaster)">Delete</button>
+                             <i matTooltip="Delete User" class="material-icons material-icon-action deleteUser"
+                                    (tap)="delete(user)" (click)="delete(ShiftMaster.id)"
+                                    >delete</i>
                             </td>
                             <!-- <td class="td-center-align">
                                 <span class="material-icons-outlined active-icon-green"

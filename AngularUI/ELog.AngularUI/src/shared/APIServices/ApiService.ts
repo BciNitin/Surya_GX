@@ -9,112 +9,123 @@ import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { Observable } from 'rxjs';
 
 @Injectable({
- providedIn: 'root'
+   providedIn: 'root'
 })
 
 export class ApiServiceService {
    BasUrl = 'http://localhost:21021/api/services/app/';
    apiUrlGetMaterialMaster = 'ElogSuryaApiService/GetMaterialMaster';
- 
-    //content_ = JSON.stringify(body);
 
-   options_ : any = {
-   //body: this.content_,
-   observe: "response",
-   responseType: "blob",
-   headers: new HttpHeaders({
-   "Content-Type": "application/json-patch+json",
-   }),
+   //content_ = JSON.stringify(body);
+
+   options_: any = {
+      //body: this.content_,
+      observe: "response",
+      responseType: "blob",
+      headers: new HttpHeaders({
+         "Content-Type": "application/json-patch+json",
+      }),
    };
 
-   constructor(private http: HttpClient ) {
+   constructor(private http: HttpClient) {
 
-     }
+   }
 
- getMaterialMaster(): Observable<any[]> {
-  return this.http.get<any[]>(this.BasUrl+'ElogSuryaApiService/GetMaterialMaster');
- }
+   getMaterialMaster(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetMaterialMaster');
+   }
 
- getPlantMaster(): Observable<any[]> {
-    return this.http.get<any[]>(this.BasUrl+'/ElogSuryaApiService/GetPlantMaster');
+   getPlantMaster(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetPlantMaster');
    }
    getCustomerMaster(): Observable<any[]> {
-    return this.http.get<any[]>(this.BasUrl+'/ElogSuryaApiService/GetCustomerMaster');
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetCustomerMaster');
    }
+   getPackingMasters(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetPackingMaster');
 
+   }
    getLineMaster(): Observable<any[]> {
-    return this.http.get<any[]>(this.BasUrl+'/ElogSuryaApiService/GetLineMaster');
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetLineMaster');
    }
 
    getBinMaster(): Observable<any[]> {
-    return this.http.get<any[]>(this.BasUrl+'/ElogSuryaApiService/GetBinMaster');
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetBinMaster');
    }
 
    getPlantCode(): Observable<SelectListDto[]> {
-    return this.http.get<any[]>(this.BasUrl+'selectList/GetPlantCode');
+      return this.http.get<any[]>(this.BasUrl + 'selectList/GetPlantCode');
    }
 
    getBinCode(): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl+'ElogSuryaApiService/GetBinCode');
-     }
-
-   SaveBinMaster(input:bininput) {
-     const content_ = JSON.stringify(input);
-      return this.http.post<any[]>(this.BasUrl+'ElogSuryaApiService/CreateBinMaster', content_,this.options_);
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetBinCode');
    }
-   getBinById(Id:Int32Array): Observable<any[]> {
-      debugger;
-      console.log("Id",Id);
-      return this.http.get<any[]>(this.BasUrl+'ElogSuryaApiService/GetBinCGetBinById?id='+Id);
-     }
 
-     getLineWorkCenterNo(): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl+'/SelectList/GetLineWorkNo');
-     }
-
-     getPackingOrderNo(plancode:string): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl+'SelectList/GetPackingOrderNo?plantCode='+plancode);
-     }
-
-     GenerateSerialNumber(plancode:string): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl+'SelectList/GetPackingOrderNo?plantCode='+plancode);
-     }
-     GetSerialNumberDetails(packingOrderNo:string): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl+'ElogSuryaApiService/GetSerialNumberDetails?packingOrder='+packingOrderNo);
-     }
-    SaveLineWork(input:linework) {
+   SaveBinMaster(input: bininput) {
       const content_ = JSON.stringify(input);
-      const options_ : any = {
+      return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/CreateBinMaster', content_, this.options_);
+   }
+   getBinById(Id: Int32Array): Observable<any[]> {
+      debugger;
+      console.log("Id", Id);
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetBinCGetBinById?id=' + Id);
+   }
+
+   getLineWorkCenterNo(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'SelectList/GetLineWorkNo');
+   }
+
+   getPackingOrderNo(plancode: string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'SelectList/GetPackingOrderNo?plantCode=' + plancode);
+   }
+
+   GenerateSerialNumber(plancode: string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'SelectList/GetPackingOrderNo?plantCode=' + plancode);
+   }
+   GetSerialNumberDetails(packingOrderNo: string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetSerialNumberDetails?packingOrder=' + packingOrderNo);
+   }
+   SaveLineWork(input: linework) {
+      const content_ = JSON.stringify(input);
+      const options_: any = {
          //body: this.content_,
          observe: "response",
          responseType: "blob",
          headers: new HttpHeaders({
-         "Content-Type": "application/json-patch+json",
+            "Content-Type": "application/json-patch+json",
          }),
-         };
-       return  this.http.post<any>(this.BasUrl+'ElogSuryaApiService/LineBinMapping_Mapping', {content_,responseType: 'text' ,options_});
-    }
-   SaveSerialBarcodeGen(input:GenerateSerialNumber) {
+      };
+      return this.http.post<any>(this.BasUrl + 'ElogSuryaApiService/LineBinMapping_Mapping', { content_, responseType: 'text', options_ });
+   }
+   SaveSerialBarcodeGen(input: GenerateSerialNumber) {
       const content_ = JSON.stringify(input);
-       return this.http.post<any[]>(this.BasUrl+'ElogSuryaApiService/GenerateSerialNo', content_,this.options_);
-    }
-   
-    GetPackingOrderConfirmation(packingOrderNo:string): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl+'ElogSuryaApiService/GetPackingOrderConfirmation?packingOrder='+packingOrderNo);
-     }
-     
-     PackingOrderConfirmation(plantcode,packingorderNo) {
+      return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/GenerateSerialNo', content_, this.options_);
+   }
+
+   GetPackingOrderConfirmation(packingOrderNo: string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetPackingOrderConfirmation?packingOrder=' + packingOrderNo);
+   }
+
+   PackingOrderConfirmation(plantcode, packingorderNo) {
       debugger;
       //const content_ = JSON.stringify(input);
-      const options_ : any = {
+      const options_: any = {
          //body: this.content_,
          observe: "response",
          responseType: "blob",
          headers: new HttpHeaders({
-         "Content-Type": "application/json-patch+json",
+            "Content-Type": "application/json-patch+json",
          }),
-         };
-         return this.http.post<any[]>(this.BasUrl+`ElogSuryaApiService/PackingOrderConfirmation?packingOrder=${plantcode}&PlantCode=${packingorderNo}`,{responseType: 'text' ,options_});  }
-
-   
+      };
+      return this.http.post<any[]>(this.BasUrl + `ElogSuryaApiService/PackingOrderConfirmation?packingOrder=${plantcode}&PlantCode=${packingorderNo}`, { responseType: 'text', options_ });
+   }
+   getStorageMaster(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetStorageLocationMaster');
+   }
+   getShiftMaster(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetSiftMaster');
+   }
+   DeleteSiftMasterbyid(ShiftCode: string) {
+      return this.http.delete(this.BasUrl + 'ElogSuryaApiService/DeleteSiftMasterById?id=' + ShiftCode);
+   }
 }

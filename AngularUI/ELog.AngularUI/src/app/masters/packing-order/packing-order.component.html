@@ -9,24 +9,21 @@
             <div class="pull-right1">
                 <form class="row">
                     <div class="col-md-3">
-                      <mat-form-field class="search-container">
-                          <mat-icon matPrefix>search</mat-icon>
-  
-                          <mat-label>Search</mat-label>
-                          <input matInput #searchTextBox name="keyword" [(ngModel)]="keyword" value=""
-                              placeholder="Search" (focus)="onFocusOfSearchBox($event)">
-                      </mat-form-field>
+                        <mat-form-field class="search-container">
+                            <mat-icon matPrefix>search</mat-icon>
+                            <mat-label>Search</mat-label>
+                            <input name="first" matInput [(ngModel)]="searchTerm" placeholder="Search"
+                                (keyup)="filterCountries(searchTerm)" />
+                        </mat-form-field>
                   </div>
                   <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                      <div class="add-button-container">
-                          <!-- <i class="material-icons add-circle-icon" (click)="addCustomer()"
-                              >add_circle</i> -->
+                      <!-- <div class="add-button-container">
                           <button type="button" (click)="addCustomer()" class="btn add-circle-button"
                             >
                             <i class="material-icons-outlined">add_circle_outline</i>
                               Add
                           </button>
-                      </div>
+                      </div> -->
                   </div>
               </form>
             </div>
@@ -37,14 +34,14 @@
             </div>
             <div class="body mh500 tabelScroll table-responsive" infiniteScroll [infiniteScrollDistance]="2"
                 [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false"
-                [ngClass]="{'table-scroll':users?.length != 0}">
+                [ngClass]="{'table-scroll':dataSource.filteredData?.length != 0}">
                 <table class="table table-hover table-striped table-sm table-bordered">
                     <thead>
                         <tr>
                             <th class="th-center-align">{{ "Plant Code" | localize }}</th>
                             <th class="th-center-align">{{ "Packing Order No" | localize }}</th>
                             <th class="th-center-align">{{ "Finish Item Code" | localize }}</th>
-                            <th class="th-center-align">{{ "Quality" | localize }}</th>
+                            <th class="th-center-align">{{ "Quantity" | localize }}</th>
                             <th class="th-center-align">{{ "Storage Location" | localize }}</th>
                             <th class="th-center-align">{{ "Packing date" | localize }}</th>
                             <th class="th-center-align">{{ "Work Center" | localize }}</th>
@@ -52,15 +49,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let customer of customers" (tap)="onSelect($event,customer)">
-                            <td class="td-center-align add-wrap">{{customer.code}}</td>
-                            <td class="td-center-align add-wrap">{{customer.name}}</td>
-                            <td class="td-center-align add-wrap">{{customer.address}}</td>
-                            <td class="td-center-align add-wrap"> {{customer.city}}</td>
-                            <td class="td-center-align add-wrap">{{customer.district}}</td>\
-                            <td class="td-center-align add-wrap">{{customer.address}}</td>
-                            <td class="td-center-align add-wrap"> {{customer.city}}</td>
-                            <td class="td-center-align add-wrap">{{customer.district}}</td>
+                        <tr *ngFor="let customer of dataSource.filteredData">
+                            <td class="td-center-align add-wrap">{{customer.plantCode}}</td>
+                            <td class="td-center-align add-wrap">{{customer.packingOrderNo}}</td>
+                            <td class="td-center-align add-wrap">{{customer.materialCode}}</td>
+                            <td class="td-center-align add-wrap"> {{customer.quantity}}</td>
+                            <td class="td-center-align add-wrap">{{customer.strLocCode}}</td>
+                            <td class="td-center-align add-wrap">{{customer.createdOn}}</td>
+                            <td class="td-center-align add-wrap"> {{customer.work_Center}}</td>
+                            <td class="td-center-align add-wrap">{{customer.bom}}</td>
                             <!-- <td class="td-center-align">
                                 <span class="material-icons-outlined active-icon-green"
                                     *ngIf="customer.isActive">check_circle_outline</span>
@@ -77,11 +74,14 @@
                                     >delete</i>
                             </td> -->
                         </tr>
-                        <tr *ngIf="customers?.length == 0">
+                        <tr *ngIf="dataSource.filteredData?.length == 0">
                             <td colspan="8" class="no-data-available">No data to display.</td>
                         </tr>
                     </tbody>
                 </table>
+                <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 40]"
+                    aria-label="Select page" (page)="pageEvent = handlePage($event)">
+                </mat-paginator>
             </div>
         </div>
     </div>

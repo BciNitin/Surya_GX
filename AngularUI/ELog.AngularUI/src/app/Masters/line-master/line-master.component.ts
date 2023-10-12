@@ -27,7 +27,7 @@ export class LineMasterComponent implements OnInit, AfterViewInit {
   p: Number = 1;
   public array: any;
 
-  public pageSize = 1;
+  public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
 
