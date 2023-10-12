@@ -72,7 +72,6 @@ export class ShiftMasterComponent implements OnInit {
   private getArray() {
     this._apiservice.getShiftMaster()
       .subscribe((response) => {
-        console.log("res_shift", response['result'])
         this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
         this.dataSourcePagination.paginator = this.paginator;
         this.array = response['result'];
@@ -91,54 +90,24 @@ export class ShiftMasterComponent implements OnInit {
     this._router.navigate(['../add-shift'], { relativeTo: this._route });
   };
     
-    //this.navigate(['../add-user'], { relativeTo: this._route });
-
   delete(id){  
       this._apiservice.DeleteSiftMasterbyid(id).pipe(
       finalize(()=>{abp.ui.clearBusy})
     )
     .subscribe((response) => {
       console.log("res", response['result'])
-      debugger;
-      if(response['result']==0)
-      {
-        abp.notify.error('Error:Data Not Deleted.Please Try Again..');
-      }else{
-        abp.notify.success('Data Deleted Successfully.');
-        this.iterator();
-
-      }
-      debugger;   
+      if(response['result'][0].valid)
+       {
+         abp.notify.success(response['result'][0].valid);
+         this.getArray();
+       }
+       else{
+         abp.notify.error(response['result'][0].error);
+       }  
      
     });
   
    
-  }
-
-
-  deleteItem(ShiftMaster:any) {
-    debugger;
-     abp.message.confirm(
-     'Are you sure you want to delete this record?','Confirmation',
-     (result: boolean) => {
-     if (result) {
-      this._apiservice.DeleteSiftMasterbyid(ShiftMaster.id).pipe(
-             finalize(()=>{abp.ui.clearBusy
-    })
-    ).subscribe((response) => {
-    if(response['result']==0)
-       {
-         abp.notify.error('Error:Data Not Deleted.Please Try Again..');
-       }else{
-         abp.notify.success('Data Deleted Successfully.');
-         this.getArray();
-
-       }
-   });
-    }
-  }
-  
-    );
   }
   
   

@@ -6,36 +6,23 @@
                     <h2 class="title">{{ "Packing Order Master" | localize }}</h2>
                 </div>
             </div>
-            <div class="pull-right1">
-                <form class="row">
-                    <div class="col-md-3">
-                        <mat-form-field class="search-container">
-                            <mat-icon matPrefix>search</mat-icon>
-                            <mat-label>Search</mat-label>
-                            <input name="first" matInput [(ngModel)]="searchTerm" placeholder="Search"
-                                (keyup)="filterCountries(searchTerm)" />
-                        </mat-form-field>
-                  </div>
-                  <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                      <!-- <div class="add-button-container">
-                          <button type="button" (click)="addCustomer()" class="btn add-circle-button"
-                            >
-                            <i class="material-icons-outlined">add_circle_outline</i>
-                              Add
-                          </button>
-                      </div> -->
-                  </div>
-              </form>
-            </div>
+            <form class="row clearfix row-filter-container">               
+                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
+                    <mat-form-field class="search-container">
+                        <mat-icon matPrefix>search</mat-icon>
+                        <mat-label>Search</mat-label>
+                        <input name="first" matInput [(ngModel)]="searchTerm" placeholder="Search"
+                            (keyup)="filterCountries(searchTerm)" />
+                    </mat-form-field>
+                </div>
+            </form>
           
             <div class="row clearfix row-filter-container">
                 <div class="col-12 filter-by-string filter-font" *ngIf="filterBy && !isFilterOpen">Filter By :
                     {{filterBy}}</div>
             </div>
-            <div class="body mh500 tabelScroll table-responsive" infiniteScroll [infiniteScrollDistance]="2"
-                [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false"
-                [ngClass]="{'table-scroll':dataSource.filteredData?.length != 0}">
-                <table class="table table-hover table-striped table-sm table-bordered">
+            <div class="body table-responsive" >
+                <table   class="table table-hover table-striped table-sm table-bordered">
                     <thead>
                         <tr>
                             <th class="th-center-align">{{ "Plant Code" | localize }}</th>

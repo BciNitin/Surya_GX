@@ -3,51 +3,26 @@
         <div class="card main-content">
             <div class="row user-component-content row-filter-container">
                 <div class="col-12">
-                    <h2 class="title">{{ "Material/Item Master" | localize }}</h2>
+                    <h2 class="title">{{ "Material Master" | localize }}</h2>
                 </div>
             </div>
-            <form class="row clearfix row-filter-container">
-                <div class="col-lg-6 col-md-5 col-sm-5 col-xs-5">
-                    <div class="nav-item dropdown">
-                        <span class="nav-link dropdown-toggle span-filter" (click)="isFilterOpen=!isFilterOpen">
-                            <i class="material-icons span-filter-icon">
-                                filter_alt
-                            </i>
-                            <h5 class="span-filter-text">Filter</h5>
-                        </span>
-                        <div class="dropdown-menu user-filter-container remove-filter-padding"
-                            [ngClass]="{'display-nav-block':isFilterOpen}">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <mat-form-field>
-                                        <mat-label>Select Plant</mat-label>
-                                        <mat-select [(ngModel)]="plantId" name="plantId">
-                                            <mat-option>Select Plant</mat-option>
-                                            <mat-option *ngFor="let plant of plants" [value]="plant.id">
-                                                {{plant.value}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <form class="row clearfix row-filter-container">               
                 <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
                     <mat-form-field class="search-container">
                         <mat-icon matPrefix>search</mat-icon>
                         <mat-label>Search</mat-label>
-                        <!-- <input matInput #searchTextBox name="keyword" [(ngModel)]="keyword" value=""
-                            placeholder="Search" (focus)="onFocusOfSearchBox($event)"> -->
                         <input name="first" matInput [(ngModel)]="searchTerm" placeholder="Search"
                             (keyup)="filterCountries(searchTerm)" />
                     </mat-form-field>
                 </div>
             </form>
-            <div class="body mh500 tabelScroll table-responsive" infiniteScroll [infiniteScrollDistance]="2"
-                [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false"
-                [ngClass]="{'table-scroll':dataSource.filteredData?.length != 0}">
-                <table class="table table-hover table-striped table-sm table-bordered">
+          
+            <div class="row clearfix row-filter-container">
+                <div class="col-12 filter-by-string filter-font" *ngIf="filterBy && !isFilterOpen">Filter By :
+                    {{filterBy}}</div>
+            </div>
+            <div class="body table-responsive" >
+                <table   class="table table-hover table-striped table-sm table-bordered">
                     <thead>
                         <tr>
                             <th class="th-center-align">{{ "Material Code" | localize }}</th>
@@ -80,21 +55,15 @@
                                 <span class="material-icons-outlined inactive-icon-red"
                                     *ngIf="!material.active">do_disturb_on</span>
                             </td>
-                            <!-- <td class="td-center-align">
-                                <span class="material-icons-outlined active-icon-green"
-                                    *ngIf="material.isActive">check_circle_outline</span>
-                                <span class="material-icons-outlined inactive-icon-red"
-                                    *ngIf="!material.isActive">do_disturb_on</span>
-                            </td> -->
-                        </tr>
+                            </tr>
                         <tr *ngIf="dataSource.filteredData?.length == 0">
                             <td colspan="8" class="no-data-available">No data to display.</td>
                         </tr>
                     </tbody>
                 </table>
-                <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[1, 2, 3, 4]"
-                aria-label="Select page" (page)="pageEvent = handlePage($event)">
-            </mat-paginator>
+                <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 40]"
+                    aria-label="Select page" (page)="pageEvent = handlePage($event)">
+                </mat-paginator>
             </div>
         </div>
     </div>

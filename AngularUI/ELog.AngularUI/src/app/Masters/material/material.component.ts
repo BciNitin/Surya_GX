@@ -90,8 +90,6 @@ export class MaterialComponent implements OnInit, AfterViewInit {
     private getArray() {
         this._apiservice.getMaterialMaster()
             .subscribe((response) => {
-                console.log("res", response['result'])
-                // this.dataSourcePagination  = new MatTableDataSource<Element>(response['result']);
                 this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
                 this.dataSourcePagination.paginator = this.paginator;
                 this.array = response['result'];
