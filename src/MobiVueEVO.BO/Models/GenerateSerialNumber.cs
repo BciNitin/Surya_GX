@@ -16,6 +16,7 @@ namespace MobiVueEVO.BO.Models
         public double Quantity { get; set; }
         public double PrintedQty { get; set; }
         public double PendingQtyToPrint { get; set; }
+        public double PrintingQty { get; set; }
         public DateTime PackingDate { get; set; }
         public string ItemCode { get; set; }    
 

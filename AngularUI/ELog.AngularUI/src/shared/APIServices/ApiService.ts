@@ -98,8 +98,13 @@ export class ApiServiceService {
       return this.http.post<any>(this.BasUrl + 'ElogSuryaApiService/LineBinMapping_Mapping', { content_, responseType: 'text', options_ });
    }
    SaveSerialBarcodeGen(input: GenerateSerialNumber) {
+      const httpOptions = {
+         headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+       };
       const content_ = JSON.stringify(input);
-      return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/GenerateSerialNo', content_, this.options_);
+      return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/GenerateSerialNo', content_, httpOptions);
    }
 
    GetPackingOrderConfirmation(packingOrderNo: string): Observable<any[]> {

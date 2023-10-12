@@ -875,7 +875,7 @@ namespace ELog.Application.ElogApi
                     Utility.DataTableToCSV(dt, path, FileName);
 
                 }
-                return dt.Rows[0]["Response"];
+                return dt.Rows[0];
             }
             catch (Exception e)
             {

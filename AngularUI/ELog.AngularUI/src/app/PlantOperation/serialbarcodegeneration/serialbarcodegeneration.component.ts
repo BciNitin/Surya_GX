@@ -28,9 +28,9 @@ export class GenerateSerialNumber
      driverCode     : string="";
      packing_Date    : string="";
      ItemCode       : string="";
-     printingQty     : string="";
-     pendingQtyToPrint: string="";
-     quantity:string="";
+     printingQty     : Number;
+     pendingQtyToPrint: Number;
+     quantity:Number;
      work_Center:string="";
     
 }
@@ -48,7 +48,7 @@ export class SerialbarcodegenerationComponent implements OnInit {
   SrBarcode: any;
   searchText;
   work_Center:string="";
-  quantity:string="";
+  quantity:Number;
   lineCode: string="";
   packingOrder: string="";
   plantCode: string="";
@@ -57,8 +57,8 @@ export class SerialbarcodegenerationComponent implements OnInit {
   packing_Date: string="";
   materialCode: string="";
   ItemCode :string="";
-  printingQty: string="";
-  pendingQtyToPrint: string="";
+  printingQty: Number;
+  pendingQtyToPrint: Number;
   searchTerm = '';
   p: Number = 1;
   public array: any;
@@ -174,7 +174,6 @@ onChangePlantCode(value)
 
 GrtTableGrid(value)
 {
-  debugger;
   this._apiservice.GetSerialNumberDetails(value).subscribe((response) => {
     this.picklistItems = response["result"];
 })
@@ -182,7 +181,6 @@ GrtTableGrid(value)
 
 
 GetCheckBoxValue(plantCode:any,materialCode:any,quantity:any,pendingQtyToPrint:any,printedQty:any,packing_Date:any,work_Center:any,packingOrderNo:any) {
-  debugger;
      this.plantCode=plantCode;
      this.materialCode=materialCode;
      this.quantity=quantity;
@@ -206,18 +204,24 @@ Save() {
   _GenSerial.work_Center=this.work_Center;
   _GenSerial.PackingOrderNo=this.packingOrder;
   
-  if(this.pendingQtyToPrint<=this.printingQty)
+  if(this.pendingQtyToPrint <= this.printingQty)
   {
-    abp.notify.error("Printing quantity  should be less than of Pending Quantity!");
+    abp.notify.error("Printing quantity should be less than from Pending Quantity!");
   }
   else
   {
     try {
       this._apiservice.SaveSerialBarcodeGen(_GenSerial).subscribe(result => {
         this.SrBarcode = result["result"];
-        
+       
         console.log("response",result);
-        abp.notify.success("Serial Number Generated Successully");
+        if(result["result"][0].valid)
+        {
+         abp.notify.success(result["result"][0].valid);
+        }
+        else{
+          abp.notify.error(result["result"][0].error);
+        }
         
     });
     } catch (error) {
