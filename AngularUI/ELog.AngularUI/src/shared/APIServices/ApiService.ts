@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { bininput } from '@app/masters/bin/bin.component';
 import { linework } from '@app/PlantOperation/line-work-center/line-work-center.component';
+import { shiftinput } from '@app/masters/shift-master/shift-master.component';
 import { GenerateSerialNumber } from '@app/PlantOperation/serialbarcodegeneration/serialbarcodegeneration.component';
 import { PackingOrder } from '@app/PlantOperation/packing-order-confirmation/packing-order-confirmation.component';
 
@@ -65,6 +66,7 @@ export class ApiServiceService {
       const content_ = JSON.stringify(input);
       return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/CreateBinMaster', content_, this.options_);
    }
+   
    getBinById(Id: Int32Array): Observable<any[]> {
       debugger;
       console.log("Id", Id);
@@ -133,4 +135,18 @@ export class ApiServiceService {
    DeleteSiftMasterbyid(ShiftCode: string) {
       return this.http.delete(this.BasUrl + 'ElogSuryaApiService/DeleteSiftMasterById?id=' + ShiftCode);
    }
+   CreateSiftMaster(ShiftCode,ShiftDescription,sShiftStartTime,sShiftEndTime) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.post<any[]>(this.BasUrl + `ElogSuryaApiService/CreateSiftMaster?ShiftCode=${ShiftCode}&ShiftDescription=${ShiftDescription}&sShiftStartTime=${sShiftStartTime}&sShiftEndTime=${sShiftEndTime}`, { responseType: 'text', options_ });
+   }
+   
 }
