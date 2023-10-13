@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { bininput } from '@app/masters/bin/bin.component';
 import { linework } from '@app/PlantOperation/line-work-center/line-work-center.component';
-import { shiftinput } from '@app/masters/shift-master/shift-master.component';
 import { GenerateSerialNumber } from '@app/PlantOperation/serialbarcodegeneration/serialbarcodegeneration.component';
 import { PackingOrder } from '@app/PlantOperation/packing-order-confirmation/packing-order-confirmation.component';
 
