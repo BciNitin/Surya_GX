@@ -557,7 +557,7 @@ namespace ELog.Application.ElogApi
 
         }
         
-        public async Task<Object> CreateSiftMaster(string ShiftCode, string ShiftDescription, DateTime sShiftStartTime, DateTime sShiftEndTime)
+        public async Task<Object> CreateSiftMaster(string ShiftCode, string ShiftDescription, string sShiftStartTime, string sShiftEndTime)
         {
             string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
@@ -570,12 +570,13 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = "surya_db.sp_mshift";
-                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "SHIFTINSERT";
+                    Command.CommandText = "sp_Masters_ShiftMaster";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "InsertShift";
                     Command.Parameters.Add("@sShiftCode", MySqlDbType.VarChar).Value = ShiftCode;
                     Command.Parameters.Add("@sShiftDescription", MySqlDbType.VarChar).Value = ShiftDescription;
-                    Command.Parameters.Add("@sShiftStartTime", MySqlDbType.DateTime).Value = sShiftStartTime;
-                    Command.Parameters.Add("@sShiftEndTime", MySqlDbType.DateTime).Value = sShiftEndTime;
+                    Command.Parameters.Add("@sShiftStartTime", MySqlDbType.VarChar).Value = sShiftStartTime;
+                    Command.Parameters.Add("@sShiftEndTime", MySqlDbType.VarChar).Value = sShiftEndTime;
+                    Command.Parameters.Add("@sId", MySqlDbType.Int32).Value = 0;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     ressult = await Command.ExecuteNonQueryAsync();
