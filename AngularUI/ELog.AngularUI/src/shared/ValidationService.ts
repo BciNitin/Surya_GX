@@ -133,6 +133,10 @@ import { Router } from '@angular/router';
       markControlDisabled(formControl: AbstractControl) {
            formControl.disable();
     }
+
+    markControlEnable(formControl: AbstractControl) {
+      formControl.enable();
+}
       isPermissionGranted(permissionName?: string) {
         if (permissionName != null && this.isGranted(permissionName)) {
             return true;

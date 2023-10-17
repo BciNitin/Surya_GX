@@ -26,7 +26,7 @@ namespace ELog.Application.CommomUtility
         public const string SP_GenerateSerialNumber = "sp_Generate_BarCode";
         public const string SP_PackingOrderConfirmation = "sp_PackingOrderConfirmation";
         public const string sp_QualitySampling = "sp_QualitySampling";
-        public const string Type = "@sType";
+        public const string Type = "sType";
         public const string sType_GenerateBarCode = "GenerateBarCode";
         public const string GetLineCode = "GetLineCode";
         public const string GetPackingOrder = "GetPackingOrderNo";

@@ -190,7 +190,6 @@ GetCheckBoxValue(plantCode:any,materialCode:any,quantity:any,pendingQtyToPrint:a
      
 }
 Save() {
-  debugger;
   var _GenSerial =  new GenerateSerialNumber();
   _GenSerial.plantCode=this.plantCode;
   _GenSerial.ItemCode=this.materialCode;
@@ -207,17 +206,17 @@ Save() {
   if(this.pendingQtyToPrint <= this.printingQty)
   {
     abp.notify.error("Printing quantity should be less than from Pending Quantity!");
+    return false;
   }
   else
   {
     try {
       this._apiservice.SaveSerialBarcodeGen(_GenSerial).subscribe(result => {
         this.SrBarcode = result["result"];
-       
-        console.log("response",result);
         if(result["result"][0].valid)
         {
          abp.notify.success(result["result"][0].valid);
+         this.getArray();
         }
         else{
           abp.notify.error(result["result"][0].error);

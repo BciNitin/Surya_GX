@@ -1312,6 +1312,7 @@ namespace ELog.Application.SelectLists
                     Command.Parameters.Add("sItemCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sPrintedQty", MySqlDbType.Double).Value = 0;
                     Command.Parameters.Add("sPendingQtyToPrint", MySqlDbType.Double).Value = 0;
+                    Command.Parameters.Add("sPrintingQty", MySqlDbType.Double).Value = 0;
                     Command.CommandType = CommandType.StoredProcedure;
                     await Command.Connection.OpenAsync();
                     myReader = await Command.ExecuteReaderAsync();
@@ -1400,12 +1401,12 @@ namespace ELog.Application.SelectLists
                     Command.Connection = conn;
 
                     Command.CommandText =  Constants.sp_QualitySampling;
-                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetPackingOrder;
-                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetPackingOrder;
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-                    Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineNo;
+                    Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sChildBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();

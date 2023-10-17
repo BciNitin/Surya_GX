@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 })
 
 export class ApiServiceService {
+   //BasUrl = 'http://180.151.246.51:8089/api/services/app/';
    BasUrl = 'http://localhost:21021/api/services/app/';
    apiUrlGetMaterialMaster = 'ElogSuryaApiService/GetMaterialMaster';
 
@@ -26,6 +27,13 @@ export class ApiServiceService {
          "Content-Type": "application/json-patch+json",
       }),
    };
+
+    httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Access-Control-Allow-Origin':'*'
+      })
+    };
 
    constructor(private http: HttpClient) {
 
@@ -54,7 +62,13 @@ export class ApiServiceService {
    }
 
    getPlantCode(): Observable<SelectListDto[]> {
-      return this.http.get<any[]>(this.BasUrl + 'selectList/GetPlantCode');
+      const httpOptions = {
+         headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+           'Access-Control-Allow-Origin':'*'
+         })
+       };
+      return this.http.get<any[]>(this.BasUrl + 'selectList/GetPlantCode', httpOptions);
    }
 
    getBinCode(): Observable<any[]> {
@@ -102,6 +116,7 @@ export class ApiServiceService {
       const httpOptions = {
          headers: new HttpHeaders({
            'Content-Type':  'application/json',
+           'Access-Control-Allow-Origin':'*'
          })
        };
       const content_ = JSON.stringify(input);
@@ -134,6 +149,7 @@ export class ApiServiceService {
    DeleteSiftMasterbyid(ShiftCode: string) {
       return this.http.delete(this.BasUrl + 'ElogSuryaApiService/DeleteSiftMasterById?id=' + ShiftCode);
    }
+
    CreateSiftMaster(ShiftCode,ShiftDescription,sShiftStartTime,sShiftEndTime) {
       debugger;
       //const content_ = JSON.stringify(input);
@@ -148,4 +164,23 @@ export class ApiServiceService {
       return this.http.post<any[]>(this.BasUrl + `ElogSuryaApiService/CreateSiftMaster?ShiftCode=${ShiftCode}&ShiftDescription=${ShiftDescription}&sShiftStartTime=${sShiftStartTime}&sShiftEndTime=${sShiftEndTime}`, { responseType: 'text', options_ });
    }
    
+
+   QualitySaplingPackingOrderNo(planCode,lineCode) {
+      return this.http.get<any[]>(this.BasUrl + `QualitySampling/GetPackingOrderByPlantAndLine?PlantCode=${planCode}&LineNo=${lineCode}`,this.httpOptions);
+   }
+   ScanCartonBarCode(planCode,lineCode,cartonBarCode,packingOrderNo) {
+      return this.http.post<any[]>(this.BasUrl + `QualitySampling/ScanCartonBarCode?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&CartonBarCode=${cartonBarCode}&LineCode=${lineCode}`,this.httpOptions);
+   }
+
+   ScanItemBarCode(planCode,lineCode,cartonBarCode,childBarCode,packingOrderNo) {
+      return this.http.post<any[]>(this.BasUrl + `QualitySampling/ScanItemBarCode?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&CartonBarCode=${cartonBarCode}&ItemBarCode=${childBarCode}&LineCode=${lineCode}`,this.httpOptions);
+   }
+   
+   GetQuantity(planCode,lineCode,packingOrderNo) {
+      return this.http.get<any[]>(this.BasUrl + `QualitySampling/GetQualityCheckingQty?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&LineCode=${lineCode}`,this.httpOptions);
+   }
+
+   SaveQualitySampling(planCode,lineCode,packingOrderNo,CartonBarCode) {
+      return this.http.post<any[]>(this.BasUrl + `QualitySampling/QualityCheckingSave?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&CartonBarCode=${CartonBarCode}&LineCode=${lineCode}`,this.httpOptions);
+   }
 }
