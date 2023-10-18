@@ -175,6 +175,7 @@ onChangePlantCode(value)
 GrtTableGrid(value)
 {
   this._apiservice.GetSerialNumberDetails(value).subscribe((response) => {
+    console.log(this.picklistItems);
     this.picklistItems = response["result"];
 })
 }

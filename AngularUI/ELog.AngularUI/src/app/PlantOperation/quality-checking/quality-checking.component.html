@@ -10,113 +10,141 @@
                 <div class="panel panel-default">
                     <div id="collapse1" class="panel-collapse collapse in dark-text">
                         <div class="panel-body">
-                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
-                                <div class="row">
+                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup"
+                                #addEditUserForm="ngForm">
+                                <div class="row fieldes">
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <mat-label>Plant Code</mat-label>
-                                            <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
-                                                        formControlName="ddlOrder" name="ddlOrder"
-                                                        (selectionChange)="GetPicklist($event.value)">
-                                                <mat-option [value]=0>Select Plant Code</mat-option>
-                                                <mat-option>
-                                                   
+                                            <mat-select [(ngModel)]="plantCode" name="plantId"
+                                                [errorStateMatcher]="matcher"
+                                                formControlName="plantCodeFormCControl">
+                                                <mat-option>Select Plant</mat-option>
+                                                <mat-option *ngFor="let plant of plnaCodeList" [value]="plant.id">
+                                                    {{plant.value}}
                                                 </mat-option>
                                             </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                                Plant Code is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <mat-label>Line No</mat-label>
-                                            <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
-                                                        formControlName="ddlOrder" name="ddlOrder"
-                                                        (selectionChange)="GetPicklist($event.value)">
-                                                <mat-option [value]=0>Select Line No</mat-option>
-                                                <mat-option>
-                                                   
+                                            <mat-label>Line Work Center No.</mat-label>
+                                            <mat-select [(ngModel)]="lineCode" name="lineCode"
+                                                [errorStateMatcher]="matcher"
+                                                formControlName="LineCodeFormControl"
+                                                (ngModelChange)="onChangeLineCode($event)">
+                                                <mat-option>Select Plant</mat-option>
+                                                <mat-option *ngFor="let line of lineList" [value]="line.id">
+                                                    {{line.value}}
                                                 </mat-option>
                                             </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('LineCodeFormControl')?.hasError('required') || addEditFormGroup?.get('LineCodeFormControl')?.hasError('whitespace')">
+                                                Line Work Center Number is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <mat-label>Packing Order No.</mat-label>
-                                            <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
-                                                        formControlName="ddlOrder" name="ddlOrder"
-                                                        (selectionChange)="GetPicklist($event.value)">
-                                                <mat-option [value]=0>Select Packing Order No</mat-option>
-                                                <mat-option>
-                                                   
+                                            <mat-select [(ngModel)]="packingOrder" [errorStateMatcher]="matcher"
+                                                 name="packingOrder"
+                                                formControlName="packingOrderFormControl"
+                                                (ngModelChange)="getDetails($event)"
+                                                >
+                                                <mat-option [value]="0">Select Packing Order</mat-option>
+                                                <mat-option *ngFor="let packing of packingOrderList"
+                                                    [value]="packing.id">
+                                                    {{packing.value}}
                                                 </mat-option>
                                             </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('packingOrderFormControl')?.hasError('required') || addEditFormGroup?.get('packingOrderFormControl')?.hasError('whitespace')">
+                                                Packing Order Number is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    
-                                </div>
-                                <div class="row">
-                                    
-                                    
-                                </div>
+                            </div>
                             </form>
                             <br>
-                            <div class="body table-responsive">
-                                <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
+                            <div class="" >
+                                <table   class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
-                                            
-                                            <th class="th-center-align">{{ "Carton Barcode" | localize }}</th>
-                                            <th class="th-center-align">{{ "Item Barcode" | localize }}</th>
+                                            <th class="th-center-align">{{ "Carton BarCode" | localize }}</th>
+                                            <th class="th-center-align">{{ "Item BarCode" | localize }}</th>
                                             <th class="th-center-align">{{ "OK/NG" | localize }}</th>
-                                            
-                                           
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let  picklistItem of picklistItems" (tap)="onSelect($event,wireDraw)">
+                                        <tr *ngFor="let checking of dataSource.filteredData; let i = index">
+                                            <!-- <td class="td-center-align add-wrap" [(ngModel)]="parentBarcode[i]">{{checking.parentBarcode}}</td>
+                                            <td class="td-center-align add-wrap" [(ngModel)]="parentBarcode[i]">{{checking.itemBarCode}}</td> -->
                                             
-                                            <td class="td-center-align">{{obj.id}}</td>
-                                            <td class="td-center-align">{{obj.plantId}}</td>
-                                            <td class="td-center-align">{{obj.barcode}}</td>
-                                            
-                                            
+                                             <td class="td-center-align add-wrap">
+                                                {{dataSource.filteredData[i].parentBarcode}}
+                                                <input type="hidden" [(ngModel)]="dataSource.filteredData[i].parentBarcode" name="parentBarcode_{{i}}" [value]="dataSource.filteredData[i].parentBarcode" />
+                                              </td>
+                                              <td class="td-center-align add-wrap">
+                                                {{dataSource.filteredData[i].childBarcode}}
+                                                <input type="hidden" [(ngModel)]="dataSource.filteredData[i].childBarcode" name="itemBarcode_{{i}}" [value]="dataSource.filteredData[i].childBarcode" />
+                                              </td>
+                                             <td class="td-center-align add-wrap">
+                                                <mat-form-field>
+                                                    <mat-label>Status</mat-label>
+                                                    <mat-select [(ngModel)]="dataSource.filteredData[i].status">
+                                                    <mat-option value="OK">OK </mat-option>
+                                                     <mat-option value="NG">NG </mat-option>
+                                                    </mat-select>
+                                                  </mat-form-field>
+                                            </td>
                                         </tr>
-                                        <tr *ngIf="obj?.length == 0">
-                                            <td colspan="6" class="no-data-available">No data to display.</td>
+                                        <tr *ngIf="dataSource.filteredData?.length == 0">
+                                            <td colspan="8" class="no-data-available">No data to display.</td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <form novalidate autocomplete="off" [formGroup]="addEditFormGroup"
+                                #addEditUserForm="ngForm">
+                                <div class="row fieldes">
                                 <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-                                    <mat-form-field>
-                                        <mat-label>Pass</mat-label>
-                                        <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
-                                                    formControlName="ddlOrder" name="ddlOrder"
-                                                    (selectionChange)="GetPicklist($event.value)">
-                                            <mat-option [value]=0>OK</mat-option>
-                                            <mat-option [value]=1>NOT OK</mat-option>
-                                            <mat-option>
-                                               
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
+                                        <mat-form-field>
+                                            <mat-label>Pass</mat-label>
+                                            <mat-select  name="Pass" [(ngModel)]="Pass" [errorStateMatcher]="matcher"
+                                            formControlName="passFormControl"
+                                            (ngModelChange)="getDetails1($event)"
+                                            >
+                                            <mat-option value="OK">OK </mat-option>
+                                             <mat-option value="NG">NG </mat-option>
+                                            </mat-select>
+                                            <mat-error
+                                            *ngIf="addEditFormGroup?.get('passFormControl')?.hasError('required') || addEditFormGroup?.get('passFormControl')?.hasError('whitespace')">
+                                            Pass field is required
+                                        </mat-error>
+                                      </mat-form-field>
+                               </div>
                             </div>
-                             <div class="row">
-                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                </div>
-                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <button class="btn filter-back-button pull-right"
-                                            (click)="clearallfields()">
-                                        Clear
-                                    </button>
-                                    <button class="btn btn-primary pull-right" (click)="Save()">
+                            </form>
+                                <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 40]"
+                                    aria-label="Select page" (page)="pageEvent = handlePage($event)">
+                                </mat-paginator>
+                            </div>
+                            <div class="row pull-right">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary  margin-right-2px"
+                                        (click)="markDirty() && addEditFormGroup.valid && Save()">
                                         Save
+                                    </button>
+                                    <button class="btn filter-back-button" (click)="Clear()">
+                                        Clear
                                     </button>
                                     
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

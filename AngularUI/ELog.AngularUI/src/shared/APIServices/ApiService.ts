@@ -19,21 +19,28 @@ export class ApiServiceService {
 
    //content_ = JSON.stringify(body);
 
-   options_: any = {
-      //body: this.content_,
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-         "Content-Type": "application/json-patch+json",
-      }),
-   };
+   // options_: any = {
+   //    //body: this.content_,
+   //    observe: "response",
+   //    responseType: "blob",
+   //    headers: new HttpHeaders({
+   //       "Content-Type": "application/json-patch+json",
+   //    }),
+   // };
 
-    httpOptions = {
+   //  httpOptions = {
+   //    headers: new HttpHeaders({
+   //      'Content-Type':  'application/json',
+   //      'Access-Control-Allow-Origin':'*'
+   //    })
+   //  };
+
+   httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Access-Control-Allow-Origin':'*'
-      })
-    };
+     'Content-Type':  'application/json',
+     'Access-Control-Allow-Origin':'*'
+   })
+ };
 
    constructor(private http: HttpClient) {
 
@@ -77,7 +84,7 @@ export class ApiServiceService {
 
    SaveBinMaster(input: bininput) {
       const content_ = JSON.stringify(input);
-      return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/CreateBinMaster', content_, this.options_);
+      return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/CreateBinMaster', content_, this.httpOptions);
    }
    
    getBinById(Id: Int32Array): Observable<any[]> {
@@ -183,4 +190,12 @@ export class ApiServiceService {
    SaveQualitySampling(planCode,lineCode,packingOrderNo,CartonBarCode) {
       return this.http.post<any[]>(this.BasUrl + `QualitySampling/QualityCheckingSave?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&CartonBarCode=${CartonBarCode}&LineCode=${lineCode}`,this.httpOptions);
    }
+
+   GetQualityChecking(planCode,lineCode,packingOrderNo) {
+      return this.http.get<any[]>(this.BasUrl + `QualityChecking/GetQualityCheckingDetails?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&LineCode=${lineCode}`,this.httpOptions);
+   }
+
+   saveQualityChecking(data: any[]): Observable<any> {
+      return this.http.post(this.BasUrl + 'QualityChecking/SaveQualityChecking', data);
+    }
 }
