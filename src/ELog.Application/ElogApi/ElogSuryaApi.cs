@@ -887,49 +887,49 @@ namespace ELog.Application.ElogApi
 
         }
 
-        //public async Task<Object> GetSerialNumberDetails(string packingOrder)
-        //{
+        public async Task<Object> GetSerialNumberDetails(string packingOrder)
+        {
 
-        //    try
-        //    {
+            try
+            {
 
-        //        MySqlConnection conn = new MySqlConnection(connection);
-        //        MySqlDataReader myReader = null;
-        //        DataTable dt = new DataTable();
-        //            using (MySqlCommand Command = new MySqlCommand())
-        //            {
-        //                Command.Connection = conn;
-        //                Command.CommandText = Constants.SP_GenerateSerialNumber;
-        //                Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetSerialNumberDetails;
-        //                Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = String.Empty;
-        //                Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
-        //                Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = packingOrder;
-        //                Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-        //                Command.Parameters.Add("sSupplierCode", MySqlDbType.VarChar).Value = String.Empty;
-        //                Command.Parameters.Add("sDriverCode", MySqlDbType.VarChar).Value = String.Empty;
-        //                Command.Parameters.Add("sQuantity", MySqlDbType.Double).Value = 0;
-        //                Command.Parameters.Add("sPackingDate", MySqlDbType.Date).Value = default;
-        //                Command.Parameters.Add("sItemCode", MySqlDbType.VarChar).Value = String.Empty;
-        //                Command.Parameters.Add("sPrintedQty", MySqlDbType.Double).Value = 1;
-        //                Command.Parameters.Add("sPendingQtyToPrint", MySqlDbType.Double).Value = 1;
-        //                Command.Parameters.Add("sPrintingQty", MySqlDbType.Double).Value = 0;
-        //                Command.CommandType = CommandType.StoredProcedure;
-        //                Command.Connection.Open();
-        //                myReader = await Command.ExecuteReaderAsync();
-        //                dt.Load(myReader);
-        //                Command.Connection.Close();
-        //            }
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = Constants.SP_GenerateSerialNumber;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetSerialNumberDetails;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = packingOrder;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sSupplierCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sDriverCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sQuantity", MySqlDbType.Double).Value = 0;
+                    Command.Parameters.Add("sPackingDate", MySqlDbType.Date).Value = default;
+                    Command.Parameters.Add("sItemCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPrintedQty", MySqlDbType.Double).Value = 1;
+                    Command.Parameters.Add("sPendingQtyToPrint", MySqlDbType.Double).Value = 1;
+                    Command.Parameters.Add("sPrintingQty", MySqlDbType.Double).Value = 0;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
 
-               
-        //        return dt;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.ToString());
-        //    }
-        //    return null;
 
-        //}
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
 
         //public async Task<Object> GetPackingOrderConfirmation(string packingOrder)
         //{
@@ -1002,157 +1002,6 @@ namespace ELog.Application.ElogApi
 
         //}
 
-        //public async Task<Object> QualityCheckingSave(string PackingOrderNo, string PlantCode,string CartonBarCode,string ItemBarCode,string LineCode)
-        //{
-        //    try
-        //    {
-
-        //        MySqlConnection conn = new MySqlConnection(connection);
-        //        MySqlDataReader myReader = null;
-        //        DataTable dt = new DataTable();
-        //        using (MySqlCommand Command = new MySqlCommand())
-        //        {
-        //            Command.Connection = conn;
-        //            Command.CommandText = Constants.sp_QualitySampling;
-        //            Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.SaveQualitySampling;
-        //            Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = PackingOrderNo;
-        //            Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-        //            Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = CartonBarCode;
-        //            Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = ItemBarCode;
-        //            Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineCode;
-        //            Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-
-        //            Command.CommandType = CommandType.StoredProcedure;
-        //            Command.Connection.Open();
-        //            myReader = await Command.ExecuteReaderAsync();
-        //            dt.Load(myReader);
-        //            Command.Connection.Close();
-        //        }
-
-
-        //        return dt;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.ToString());
-        //    }
-        //    return null;
-
-        //}
-
-        //public async Task<Object> GetQualityCheckingQty(string PackingOrderNo, string PlantCode, string CartonBarCode,string LineCode)
-        //{
-        //    try
-        //    {
-
-        //        MySqlConnection conn = new MySqlConnection(connection);
-        //        MySqlDataReader myReader = null;
-        //        DataTable dt = new DataTable();
-        //        using (MySqlCommand Command = new MySqlCommand())
-        //        {
-        //            Command.Connection = conn;
-        //            Command.CommandText = Constants.sp_QualitySampling;
-        //            Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetQualitySamplingQty;
-        //            Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = PackingOrderNo;
-        //            Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-        //            Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = CartonBarCode;
-        //            Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
-        //            Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineCode;
-        //            Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-
-        //            Command.CommandType = CommandType.StoredProcedure;
-        //            Command.Connection.Open();
-        //            myReader = await Command.ExecuteReaderAsync();
-        //            dt.Load(myReader);
-        //            Command.Connection.Close();
-        //        }
-
-
-        //        return dt;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.ToString());
-        //    }
-        //    return null;
-
-        //}
-
-        //public async Task<Object> ScanCartonBarCode(string PackingOrderNo, string PlantCode, string CartonBarCode, string LineCode)
-        //{
-        //    try
-        //    {
-
-        //        MySqlConnection conn = new MySqlConnection(connection);
-        //        MySqlDataReader myReader = null;
-        //        DataTable dt = new DataTable();
-        //        using (MySqlCommand Command = new MySqlCommand())
-        //        {
-        //            Command.Connection = conn;
-        //            Command.CommandText = Constants.sp_QualitySampling;
-        //            Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ScanCartonBarCode";
-        //            Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = PackingOrderNo;
-        //            Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-        //            Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = CartonBarCode;
-        //            Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
-        //            Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineCode;
-        //            Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-
-        //            Command.CommandType = CommandType.StoredProcedure;
-        //            Command.Connection.Open();
-        //            myReader = await Command.ExecuteReaderAsync();
-        //            dt.Load(myReader);
-        //            Command.Connection.Close();
-        //        }
-
-
-        //        return dt;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.ToString());
-        //    }
-        //    return null;
-
-        //}
-
-        //public async Task<Object> ScanItemBarCode(string PackingOrderNo, string PlantCode, string CartonBarCode,string ItemBarCode, string LineCode)
-        //{
-        //    try
-        //    {
-
-        //        MySqlConnection conn = new MySqlConnection(connection);
-        //        MySqlDataReader myReader = null;
-        //        DataTable dt = new DataTable();
-        //        using (MySqlCommand Command = new MySqlCommand())
-        //        {
-        //            Command.Connection = conn;
-        //            Command.CommandText = Constants.sp_QualitySampling;
-        //            Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ScanCartonBarCode";
-        //            Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = PackingOrderNo;
-        //            Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-        //            Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = CartonBarCode;
-        //            Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = ItemBarCode;
-        //            Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineCode;
-        //            Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-
-        //            Command.CommandType = CommandType.StoredProcedure;
-        //            Command.Connection.Open();
-        //            myReader = await Command.ExecuteReaderAsync();
-        //            dt.Load(myReader);
-        //            Command.Connection.Close();
-        //        }
-
-
-        //        return dt;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.ToString());
-        //    }
-        //    return null;
-
-        //}
     }
 }
 
