@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@shared/ValidationService';
 import { MatRadioChange } from '@angular/material';
 import { NoWhitespaceValidator, MyErrorStateMatcher } from '@shared/app-component-base';
+
 interface SerialNo {
   plantCode: string,
   line: string,
@@ -162,7 +163,13 @@ GetLineCode() {
   });
 };
 
-
+validateForm(event: any) {
+  if ((event.target.selectionStart === 0 && event.code === "Space") || (event.keyCode >= 48 && event.keyCode <= 64) || (event.keyCode >= 91 && event.keyCode <= 255)) {
+      if (!parseInt(event.key) && event.key != '.' && event.key != '-') {
+          event.preventDefault();
+      }
+  }
+}
 onChangePlantCode(value)
 {
  

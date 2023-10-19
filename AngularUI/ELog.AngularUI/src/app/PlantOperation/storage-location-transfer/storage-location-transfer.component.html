@@ -1,1 +1,128 @@
-<p>storage-location-transfer works!</p>
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="row user-component-content row-filter-container">
+                <div class="col-12">
+                    <h2 class="title">{{ "Storage Location Transfer" | localize }}</h2>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div id="collapse1" class="panel-collapse collapse in dark-text">
+                        <div class="panel-body">
+                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                <div class="row fieldes">
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field>
+                                            <mat-label>Plant Code</mat-label>
+                                            <mat-select [(ngModel)]="plantCode" name="plantId" [errorStateMatcher]="matcher"
+                                                [errorStateMatcher]="matcher"
+                                                
+                                                
+                                                formControlName="plantCodeFormCControl">
+                                                <mat-option>Select Plant</mat-option>
+                                                <mat-option *ngFor="let plant of plnatCodeList" [value]="plant.id">
+                                                    {{plant.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                                Plant Code is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field>
+                                            <mat-label>To Storage Location</mat-label>
+                                            <mat-select [(ngModel)]="LocationID" [errorStateMatcher]="matcher" [errorStateMatcher]="matcher"
+                                                name="LocationID"
+                                                (ngModelChange)="GrtTableGrid()"
+                                                formControlName="toStoragelocationFormControl">
+                                                <mat-option [value]="0">Select Storage Location</mat-option>
+                                                <mat-option *ngFor="let storage of storageLocation" [value]="storage.id">
+                                                    {{storage.value}} 
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('toStoragelocationFormControl')?.hasError('required') || addEditFormGroup?.get('toStoragelocationFormControl')?.hasError('whitespace')">
+                                                To Storage Location is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                        
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Scan Carton Barcode</mat-label>
+                                            <input matInput required [(ngModel)]="ScanItem"  name="ScanItem"  [errorStateMatcher]="matcher"  (change)="GetBarcodeScannedDetails()"
+                                                    formControlName="scannedItemFormControl" maxlength="16" >
+                                            <mat-error *ngIf="addEditFormGroup?.get('scannedItemFormControl')?.hasError('required') || addEditFormGroup?.get('scannedItemFormControl')?.hasError('whitespace')">
+                                                Carton Barcode is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                          </div>
+                                </div>
+                                <div clas="row fieldes">
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        
+                                     </div>
+                                 </div>
+                                
+                            </form>
+                            <br>
+                            <div class="body table-responsive">
+                                <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th class="th-center-align">{{ "Material Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Material Description" | localize }}</th>
+                                            <th class="th-center-align">{{ "Quantity" | localize }}</th>
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let  picklistItem of storageLocationdtls" (tap)="onSelect($event,picklistItem)">
+                                            <td class="td-center-align">{{picklistItem.materialCode}}</td>
+                                            <td class="td-center-align">{{picklistItem.materialDescription}}</td>
+                                           
+                                            <td class="td-center-align">{{picklistItem.qty}}</td>
+                                             </tr>
+                                        <tr *ngIf="picklistItem?.length == 0">
+                                            <td colspan="6" class="no-data-available">No data to display.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                 <div clas="row">
+                                    
+                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12" >
+                                    <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                        <mat-label class="fieldes">Scanning Quantity</mat-label>
+                                        <input formControlName="scannedqtyFormControl" matInput [(ngModel)]="qty" required name="qty" readonly  
+                                                 maxlength="16" >
+                                        </mat-form-field>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                    
+                                </div>
+                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <button class="btn filter-back-button pull-right"
+                                            >
+                                        Clear
+                                    </button>
+                                    <button class="btn btn-primary pull-right"   (click)= "markDirty() && addEditFormGroup.valid && Save()">
+                                        Confirm
+                                    </button>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

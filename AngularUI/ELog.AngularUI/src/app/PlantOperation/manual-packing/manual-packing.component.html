@@ -11,24 +11,63 @@
                     <div id="collapse1" class="panel-collapse collapse in dark-text">
                         <div class="panel-body">
                             <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
-                                <div class="row">
+                                <div class="row fieldes">
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <mat-label>Select Order</mat-label>
-                                            <mat-select [(ngModel)]="selectedPicklist" [errorStateMatcher]="matcher"
-                                                        formControlName="ddlOrder" name="ddlOrder"
-                                                        (selectionChange)="GetPicklist($event.value)">
-                                                <mat-option [value]=0>Select Order</mat-option>
-                                                <mat-option>
-                                                   
+                                            <mat-label>Plant Code</mat-label>
+                                            <mat-select [(ngModel)]="plantCode" name="plantId" [errorStateMatcher]="matcher"
+                                                [errorStateMatcher]="matcher"
+                                                (ngModelChange)="onChangePlantCode($event)"
+                                                formControlName="plantCodeFormCControl">
+                                                <mat-option>Select Plant</mat-option>
+                                                <mat-option *ngFor="let plant of plnatCodeList" [value]="plant.id">
+                                                    {{plant.value}}
                                                 </mat-option>
                                             </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                                Plant Code is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field>
+                                            <mat-label>Line Work Center No.</mat-label>
+                                            <mat-select [(ngModel)]="linecode" name="linecode"
+                                                [errorStateMatcher]="matcher" formControlName="LineCodeFormControl">
+                                                <mat-option>Select Plant</mat-option>
+                                                <mat-option *ngFor="let line of lineList" [value]="line.id">
+                                                    {{line.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('LineCodeFormControl')?.hasError('required') || addEditFormGroup?.get('LineCodeFormControl')?.hasError('whitespace')">
+                                                Line Work Center Number is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field>
+                                            <mat-label>Packing Order No.</mat-label>
+                                            <mat-select [(ngModel)]="packingOrder" [errorStateMatcher]="matcher" [errorStateMatcher]="matcher"
+                                                (ngModelChange)="GrtTableGrid()" name="packingOrder"
+                                                formControlName="packingOrderFormControl">
+                                                <mat-option [value]="0">Select Packing Order</mat-option>
+                                                <mat-option *ngFor="let packing of packingOrderList"
+                                                    [value]="packing.id">
+                                                    {{packing.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('packingOrderFormControl')?.hasError('required') || addEditFormGroup?.get('packingOrderFormControl')?.hasError('whitespace')">
+                                                Packing Order Number is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                             <mat-label>Scan Item</mat-label>
-                                            <input matInput required name="scannedItemFormControl"
+                                            <input matInput required [(ngModel)]="BinBarCode" name="BinBarCode"  [errorStateMatcher]="matcher" (change)="Save()"
                                                     formControlName="scannedItemFormControl" maxlength="16" >
                                             <mat-error *ngIf="addEditFormGroup?.get('scannedItemFormControl')?.hasError('required') || addEditFormGroup?.get('scannedItemFormControl')?.hasError('whitespace')">
                                                 Scanned Item is required.
@@ -37,57 +76,79 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Material Code</mat-label>
+                                            <input matInput required [(ngModel)]="materialCode" name="materialCode" readonly   
+                                                    formControlName="materialCodeFormControl" maxlength="16" >
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Pack Size</mat-label>
+                                            <input matInput required [(ngModel)]="packSize" name="packSize" readonly   
+                                                    formControlName="packSizeFormControl" maxlength="16" >
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Count</mat-label>
+                                            <input matInput required [(ngModel)]="count" name="count" readonly  
+                                                    formControlName="CountFormControl" maxlength="16" >
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Total Count</mat-label>
+                                            <input matInput required [(ngModel)]="tCount" name="tCount" readonly  
+                                                    formControlName="TotalCountFormControl" maxlength="16" >
+                                            
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    
-                                    
-                                </div>
+                                 </div>
                             </form>
                             <br>
                             <div class="body table-responsive">
-                                <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
+                                <!-- <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
                                             
-                                            <th class="th-center-align">{{ "Material Name" | localize }}</th>
-                                            <th class="th-center-align">{{ "Material Description" | localize }}</th>
-                                            <th class="th-center-align">{{ "Barcode" | localize }}</th>
-                                            <th class="th-center-align">{{ "Quantity" | localize }}</th>
-                                           
-                                        </tr>
+                                            <th class="th-center-align">{{ "Material Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Pack Size" | localize }}</th>
+                                            <th class="th-center-align">{{ "Unit Weight" | localize }}</th>
+                                            </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let  picklistItem of picklistItems" (tap)="onSelect($event,wireDraw)">
+                                        <tr *ngFor="let  picklistItem of manualPackingdtls" (tap)="onSelect($event,picklistItem)">
                                             
-                                            <td class="td-center-align">{{obj.id}}</td>
-                                            <td class="td-center-align">{{obj.plantId}}</td>
-                                            <td class="td-center-align">{{obj.barcode}}</td>
-                                            <td class="td-center-align">{{obj.qty}}</td>
-                                            
-                                        </tr>
-                                        <tr *ngIf="obj?.length == 0">
+                                            <td class="td-center-align">{{picklistItem.materialCode}}</td>
+                                            <td class="td-center-align">{{picklistItem.packSize}}</td>
+                                            <td class="td-center-align">{{picklistItem.unitWeight}}</td>
+                                          </tr>
+                                        <tr *ngIf="picklistItem?.length == 0">
                                             <td colspan="6" class="no-data-available">No data to display.</td>
                                         </tr>
                                     </tbody>
-                                </table>
-                                <mat-paginator [length]="totalData" [pageSizeOptions]=[10,25,50,100] (page)="onPageChange($event)"
-                                               showFirstLastButtons></mat-paginator>
+                                </table> -->
+                                
                             </div>
-                            
-                           
                             <div class="row">
                                 <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                 </div>
                                 <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                     <button class="btn filter-back-button pull-right"
-                                            (click)="clearallfields()">
+                                            >
                                         Clear
                                     </button>
-                                    <button class="btn btn-primary pull-right" (click)="Save()">
+                                    <!-- <button class="btn btn-primary pull-right"  (click)="markDirty() && addEditFormGroup.valid && Save()">
                                         Confirm
                                     </button>
-                                    
+                                     -->
                                 </div>
                             </div>
 
