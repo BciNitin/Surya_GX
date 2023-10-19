@@ -8,7 +8,7 @@ import { ValidationService } from '@shared/ValidationService';
 import { NoWhitespaceValidator ,MyErrorStateMatcher} from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
  
-import { IpServiceService } from '@shared/APIServices/ip-service.service';  
+ 
   
 export class manualPack
 {
@@ -51,8 +51,8 @@ export class ManualPackingComponent implements OnInit {
   constructor(
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
-    public _appComponent : ValidationService,
-    private ip:IpServiceService
+    public _appComponent : ValidationService
+    
     
   ) { }
 
