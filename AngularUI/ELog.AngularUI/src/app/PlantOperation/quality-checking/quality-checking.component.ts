@@ -8,10 +8,9 @@ import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-componen
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
 
-interface grid
-{
-  parentBarcode:any,
-  childBarcode:any,
+interface grid {
+  parentBarcode: any,
+  childBarcode: any,
   status: 'OK',
   plantCode: any,
   lineCode: any,
@@ -27,7 +26,7 @@ interface grid
   animations: [appModuleAnimation()],
   providers: [ValidationService]
 })
-export class QualityCheckingComponent implements OnInit,AfterViewInit {
+export class QualityCheckingComponent implements OnInit, AfterViewInit {
 
   public pageSize = 10;
   public currentPage = 0;
@@ -47,7 +46,7 @@ export class QualityCheckingComponent implements OnInit,AfterViewInit {
   isSelected: boolean;
   Qty: number = 0;
   checked: boolean;
-  Pass:string;
+  Pass: string;
   Status = [];
 
 
@@ -78,7 +77,7 @@ export class QualityCheckingComponent implements OnInit,AfterViewInit {
 
   }
 
-    addEditFormGroup: FormGroup = this.formBuilder.group({
+  addEditFormGroup: FormGroup = this.formBuilder.group({
     LineCodeFormControl: [null, [Validators.required, NoWhitespaceValidator]],
     plantCodeFormCControl: [null, [Validators.required, NoWhitespaceValidator]],
     packingOrderFormControl: [null, [Validators.required, NoWhitespaceValidator]],
@@ -87,38 +86,48 @@ export class QualityCheckingComponent implements OnInit,AfterViewInit {
   matcher = new MyErrorStateMatcher();
 
   async GetPlantCode() {
-   await this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
+    abp.ui.setBusy();
+    await this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
       this.plnaCodeList = modeSelectList["result"];
+      abp.ui.clearBusy();
     });
+    
   };
 
   async GetLineCode() {
-    await this._apiservice.getLineWorkCenterNo().subscribe((response) => {
+    abp.ui.setBusy();
+      await this._apiservice.getLineWorkCenterNo().subscribe((response) => {
       this.lineList = response["result"];
+      abp.ui.clearBusy();
     });
+   
   };
 
 
   onChangeLineCode() {
-    this._apiservice.QualitySaplingPackingOrderNo(this.plantCode, this.lineCode).subscribe((response) => {
+    abp.ui.setBusy();
+    this._apiservice.QualityCheckingPackingOrderNo(this.plantCode, this.lineCode).subscribe((response) => {
       this.packingOrderList = response["result"];
       this.updateUIselectedOrderType = this.packingOrder;
+      abp.ui.clearBusy();
     });
   }
 
   Save() {
-    // this._apiservice.saveQualitySampling(this.dataSource.filteredData).subscribe(
-    //   (result) => {
-    //     if (result['result'][0].error) {
-    //       // Handle error
-    //     } else {
-    //       // Handle success
-    //     }
-    //   },
-    //   (error) => {
-    //     // Handle HTTP error
-    //   }
-    // );
+    abp.ui.setBusy();
+    this._apiservice.saveQualityChecking(this.dataSource.filteredData).subscribe(
+      (result) => {
+        abp.ui.clearBusy();
+        if (result['result'][0].error) {
+          abp.notify.error(result['result'][0].error);
+        } else {
+          abp.notify.error(result['result'][0].valid);
+        }
+      },
+      (error) => {
+        // Handle HTTP error
+      }
+    );
   }
 
 
@@ -141,34 +150,31 @@ export class QualityCheckingComponent implements OnInit,AfterViewInit {
   }
 
   getDetails() {
-
-    if(this.packingOrder != '0' && this.packingOrder != undefined)
-    {
-    this._apiservice.GetQualityChecking(this.plantCode, this.lineCode, this.packingOrder)
-      .subscribe((response) => {
-        if(!response['result'][0].error)
-        {
-        this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
-        this.dataSourcePagination.paginator = this.paginator;
-        this.array = response['result'];
-        this.totalSize = this.array.length;
-        this.iterator();
-        }
-        else
-        {
-          this.dataSource.filter = null;
-          abp.notify.error(response['result'][0].error);
-        }
-      })
+    abp.ui.setBusy();
+    if (this.packingOrder != '0' && this.packingOrder != undefined) {
+      this._apiservice.GetQualityChecking(this.plantCode, this.lineCode, this.packingOrder)
+        .subscribe((response) => {
+          if (!response['result'][0].error) {
+            this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
+            this.dataSourcePagination.paginator = this.paginator;
+            this.array = response['result'];
+            this.totalSize = this.array.length;
+            this.iterator();
+          }
+          else {
+            this.dataSource.filter = null;
+            abp.notify.error(response['result'][0].error);
+          }
+        })
     }
-    else
-    {
+    else {
       this.dataSource.filter = null;
     }
+    abp.ui.clearBusy();
   }
 
   private iterator() {
-
+    abp.ui.setBusy();
     const end = (this.currentPage + 1) * this.pageSize;
     const start = this.currentPage * this.pageSize;
     // this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
@@ -176,16 +182,16 @@ export class QualityCheckingComponent implements OnInit,AfterViewInit {
     //for dropdown default valu of status
 
     for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-     this.dataSource.filteredData[i].status ='OK';
-     this.dataSource.filteredData[i].qcStatus = this.Pass;
-     this.dataSource.filteredData[i].packingOrderNo = this.packingOrder;
-     this.dataSource.filteredData[i].plantCode = this.plantCode;
-     this.dataSource.filteredData[i].lineCode = this.lineCode;
+      this.dataSource.filteredData[i].status = 'Yes';
+      this.dataSource.filteredData[i].qcStatus = this.Pass;
+      this.dataSource.filteredData[i].packingOrderNo = this.packingOrder;
+      this.dataSource.filteredData[i].plantCode = this.plantCode;
+      this.dataSource.filteredData[i].lineCode = this.lineCode;
     }
+    abp.ui.clearBusy();
   }
 
-  getDetails1(v)
-  {
+  getDetails1(v) {
     this.iterator();
   }
 

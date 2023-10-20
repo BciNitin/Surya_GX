@@ -88,7 +88,7 @@ export class ApiServiceService {
    }
    
    getBinById(Id: Int32Array): Observable<any[]> {
-      debugger;
+     ;
       console.log("Id", Id);
       return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetBinCGetBinById?id=' + Id);
    }
@@ -130,12 +130,12 @@ export class ApiServiceService {
       return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/GenerateSerialNo', content_, httpOptions);
    }
 
-   GetPackingOrderConfirmation(packingOrderNo: string): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetPackingOrderConfirmation?packingOrder=' + packingOrderNo);
+   GetPackingOrderDetails(packingOrderNo: string,planCode:string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + `PackingOrderConfirmation/GetPackingOrderDetails?packingOrder=${packingOrderNo}&PlantCode=${planCode}`);
    }
 
    PackingOrderConfirmation(plantcode, packingorderNo) {
-      debugger;
+     ;
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -158,7 +158,7 @@ export class ApiServiceService {
    }
 
    CreateSiftMaster(ShiftCode,ShiftDescription,sShiftStartTime,sShiftEndTime) {
-      debugger;
+     
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -181,12 +181,12 @@ export class ApiServiceService {
       return this.http.post<any[]>(this.BasUrl + `QualitySampling/ScanItemBarCode?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&CartonBarCode=${cartonBarCode}&ItemBarCode=${childBarCode}&LineCode=${lineCode}`,this.httpOptions);
    }
    
-   GetQuantity(planCode,lineCode,packingOrderNo) {
-      return this.http.get<any[]>(this.BasUrl + `QualitySampling/GetQualityCheckingQty?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&LineCode=${lineCode}`,this.httpOptions);
+   GetQualitySamplingQuantity(planCode,lineCode,packingOrderNo) {
+      return this.http.get<any[]>(this.BasUrl + `QualitySampling/GetQualitySamplingQty?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&LineCode=${lineCode}`,this.httpOptions);
    }
 
    SaveQualitySampling(planCode,lineCode,packingOrderNo,CartonBarCode) {
-      return this.http.post<any[]>(this.BasUrl + `QualitySampling/QualityCheckingSave?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&CartonBarCode=${CartonBarCode}&LineCode=${lineCode}`,this.httpOptions);
+      return this.http.post<any[]>(this.BasUrl + `QualitySampling/QualitySamplingSave?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&CartonBarCode=${CartonBarCode}&LineCode=${lineCode}`,this.httpOptions);
    }
 
 
@@ -199,16 +199,7 @@ export class ApiServiceService {
     }
 
    GetManualPackingDetails(packingOrderNo,plantCode,ScanItem) {
-      debugger;
-      //const content_ = JSON.stringify(input);
-      const options_: any = {
-         //body: this.content_,
-         observe: "response",
-         responseType: "blob",
-         headers: new HttpHeaders({
-            "Content-Type": "application/json-patch+json",
-         }),
-      };
+     
       return this.http.get<any[]>(this.BasUrl + `ElogSuryaApiService/GetManualPackingDetails?packingOrderNo=${packingOrderNo}&plantCode=${plantCode}&ScanItem=${ScanItem}`);
    }
    GetStorageLocation(): Observable<any[]> {
@@ -218,7 +209,7 @@ export class ApiServiceService {
    //    return this.http.get<any[]>(this.BasUrl + 'StorageLocationApi/GetStorageLocationDetails?plancode=' + plancode);
    // }
    GetStrLocationDtls(plancode,LocationID) {
-      debugger;
+     
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -231,7 +222,7 @@ export class ApiServiceService {
       return this.http.get<any[]>(this.BasUrl + `StorageLocationApi/GetStorageLocationDetails?plancode=${plancode}&LocationID=${LocationID}`);
    }
    GetBarcodeScannedDetails(barcode,plantcode) {
-      debugger;
+     
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -245,7 +236,7 @@ export class ApiServiceService {
    }
 
    StorageLocationConfirmation(barcode, LocationID) {
-      debugger;
+     
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -260,7 +251,7 @@ export class ApiServiceService {
    }
 
    GetManualPackingDtls(plantcode,packingorder,linecode) {
-      debugger;
+     
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -274,7 +265,7 @@ export class ApiServiceService {
    }
 
    ValidateBarcode(BinBarCode,macAddresses,plantcode,packingorder,linecode) {
-      debugger;
+     
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -290,12 +281,12 @@ export class ApiServiceService {
 
    
    getIPAddress(): Observable<any[]> {
-      debugger;
+     
       return this.http.get<any[]>(this.BasUrl + 'ManualPackingApi/GetMacAddress');
    }
 
    GetQualityItemTestedDtls(itemBarcode,plantCode) {
-      debugger;
+     
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -309,17 +300,11 @@ export class ApiServiceService {
 
    }
    ValidateShiperBarcode(itemBarcode,plantCode,ShiperBarcode) {
-      debugger;
       //const content_ = JSON.stringify(input);
-      const options_: any = {
-         //body: this.content_,
-         observe: "response",
-         responseType: "blob",
-         headers: new HttpHeaders({
-            "Content-Type": "application/json-patch+json",
-         }),
-      };
       return this.http.get<any[]>(this.BasUrl + `QualityTested_ItemPlacementApi/GetValidateShiperBarcode?itemBarcode=${itemBarcode}&plantCode=${plantCode}&ShiperBarcode=${ShiperBarcode}`);
+   }
 
+    QualityCheckingPackingOrderNo(planCode,lineCode) {
+      return this.http.get<any[]>(this.BasUrl + `QualityChecking/GetPackingOrderByPlantAndLine?PlantCode=${planCode}&LineNo=${lineCode}`,this.httpOptions);
    }
 }

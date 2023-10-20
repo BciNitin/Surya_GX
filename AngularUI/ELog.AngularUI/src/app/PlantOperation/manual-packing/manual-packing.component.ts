@@ -84,7 +84,7 @@ GetPlantCode() {
 };
 onChangePlantCode(value)
 {
- debugger;
+
  this._apiservice.getPackingOrderNo(value).subscribe((response) => {
   this.packingOrderList = response["result"];
   
@@ -92,13 +92,13 @@ onChangePlantCode(value)
 }
 GrtTableGrid()
 {
-  debugger;
+ 
   var _Storage =  new manualPack();
   _Storage.plantcode=this.plantCode;
   _Storage.packingorder=this.packingOrder;
   _Storage.linecode=this.linecode;
   this._apiservice.GetManualPackingDtls(this.plantCode,this.packingOrder,this.linecode).subscribe((response) => {
-    debugger;
+   
     this.manualPackingdtls = response["result"];
     this.materialCode=response["result"][0]['materialCode'];
     this.packSize=response["result"][0]['packSize'];
@@ -127,7 +127,7 @@ markDirty() {
 }
 
 Save() {
-  debugger;
+ 
 
   var _Storage =  new manualPack();
   _Storage.BinBarCode = this.BinBarCode;
@@ -136,7 +136,7 @@ Save() {
   _Storage.packingorder=this.packingOrder;
   _Storage.linecode=this.linecode;
  this._apiservice.ValidateBarcode(this.BinBarCode,this.macAddresses,this.plantCode,this.packingOrder,this.linecode).subscribe(result => {
-    debugger;
+   
            if(result["result"][0]['valid'])
            {
              abp.notify.success(result["result"][0]['valid']);
@@ -158,9 +158,8 @@ Clear() {
 
 getIP()  
   {  
-    debugger;
+   
     this._apiservice.getIPAddress().subscribe(result => {
-      debugger;
              
              this.macAddresses=result["result"];
         });

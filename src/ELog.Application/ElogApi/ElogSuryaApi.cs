@@ -38,20 +38,20 @@ namespace ELog.Application.ElogApi
 {
 
 
-/*
-    [PMMSAuthorize]*/
+    /*
+        [PMMSAuthorize]*/
     public class ElogSuryaApiService : ApplicationService, IElogApiService
     {
-       
+
         private readonly IConfiguration _configuration;
         private string connection;
         private ISessionAppService _sessionAppService;
 
 
-       public ElogSuryaApiService(IConfiguration configuration, ISessionAppService sessionAppService) 
-        { 
-          _configuration = configuration;
-          connection = _configuration["ConnectionStrings:Default"];
+        public ElogSuryaApiService(IConfiguration configuration, ISessionAppService sessionAppService)
+        {
+            _configuration = configuration;
+            connection = _configuration["ConnectionStrings:Default"];
             _sessionAppService = sessionAppService;
         }
 
@@ -124,26 +124,26 @@ namespace ELog.Application.ElogApi
         public async Task<Object> GetCustomerMaster()
         {
             DataTable dt = new DataTable();
-          
-                MySqlConnection conn = null;
-                conn = new MySqlConnection(connection);
-                MySqlDataReader myReader = null;
-               
-                using (MySqlCommand Command = new MySqlCommand())
-                {
-                    Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
-                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.CustomerMaster;
-                    Command.CommandType = CommandType.StoredProcedure;
-                    Command.Connection.Open();
-                    myReader = await Command.ExecuteReaderAsync();
-                    dt.Load(myReader);
-                    Command.Connection.Close();
-                }
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+            MySqlDataReader myReader = null;
 
-                return dt;
-           
+            using (MySqlCommand Command = new MySqlCommand())
+            {
+                Command.Connection = conn;
+
+                Command.CommandText = Constants.Schema + Constants.SP_Master;
+                Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.CustomerMaster;
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Connection.Open();
+                myReader = await Command.ExecuteReaderAsync();
+                dt.Load(myReader);
+                Command.Connection.Close();
+            }
+
+            return dt;
+
         }
 
         public async Task<Object> GetLineMaster()
@@ -208,7 +208,7 @@ namespace ELog.Application.ElogApi
 
         public async Task<Object> GetStorageLocationMaster()
         {
-           
+
             try
             {
                 MySqlConnection conn = new MySqlConnection(connection);
@@ -274,24 +274,24 @@ namespace ELog.Application.ElogApi
                 MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();
-                    
-                    using (MySqlCommand Command = new MySqlCommand())
-                    {
-                        Command.Connection = conn;
-                        Command.CommandText = Constants.Schema + Constants.sp_masters_bin;
-                        Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = Constants.GetBinById;
-                        Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
-                        Command.Parameters.Add("@sBinCode", MySqlDbType.VarChar).Value = String.Empty;
-                        Command.Parameters.Add("@sDescription", MySqlDbType.VarChar).Value = String.Empty;
-                        Command.Parameters.Add("@sActive", MySqlDbType.Bit).Value = 0;
-                        Command.Parameters.Add("@sId", MySqlDbType.Int32).Value = id;
-                        Command.CommandType = CommandType.StoredProcedure;
-                        Command.Connection.Open();
-                        myReader = await Command.ExecuteReaderAsync();
-                        dt.Load(myReader);
-                        await Command.Connection.CloseAsync();
+
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = Constants.Schema + Constants.sp_masters_bin;
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = Constants.GetBinById;
+                    Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("@sBinCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("@sDescription", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("@sActive", MySqlDbType.Bit).Value = 0;
+                    Command.Parameters.Add("@sId", MySqlDbType.Int32).Value = id;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    await Command.Connection.CloseAsync();
                 }
-                    return dt;
+                return dt;
 
             }
             catch (Exception e)
@@ -459,7 +459,8 @@ namespace ELog.Application.ElogApi
 
 
         public async Task<Object> UpdateSiftMaster(string ShiftCode, string ShiftDescription, DateTime sShiftStartTime, DateTime sShiftEndTime)
-        {      string connection = _configuration["ConnectionStrings:Default"];
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
             conn = new MySqlConnection(connection);
 
@@ -490,7 +491,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-       
+
         public async Task<Object> CreateBinMaster(Bin bin)
         {
             string connection = _configuration["ConnectionStrings:Default"];
@@ -523,7 +524,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        
+
         public async Task<Object> DeleteBinMaster(string BinCode)
         {
             string connection = _configuration["ConnectionStrings:Default"];
@@ -556,7 +557,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        
+
         public async Task<Object> CreateSiftMaster(string ShiftCode, string ShiftDescription, string sShiftStartTime, string sShiftEndTime)
         {
             string connection = _configuration["ConnectionStrings:Default"];
@@ -591,7 +592,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        
+
         public async Task<Object> PostPlantMaster(string PlantCode, string PlantType, string Description, string Address, bool Active)
         {
             string connection = _configuration["ConnectionStrings:Default"];
@@ -626,13 +627,13 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        
+
         public async Task<Object> PostBinMaster(string sPlantCode, string BinCode, string Description, bool Active)
         {
             string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
             conn = new MySqlConnection(connection);
-            
+
             try
             {
                 int ressult = 0;
@@ -677,7 +678,7 @@ namespace ELog.Application.ElogApi
                     Command.Connection = conn;
 
                     Command.CommandText = Constants.Schema + "sp_PackingOrderMaster";
-                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "GETPackingOrder";                  
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "GETPackingOrder";
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -731,7 +732,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        public async Task<Object> LineBinMapping_ScanBarcode(string PlantCode,string Userid,string Barcode)
+        public async Task<Object> LineBinMapping_ScanBarcode(string PlantCode, string Userid, string Barcode)
         {
             string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
@@ -767,7 +768,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        
+
         public async Task<Object> LineBinMapping_Mapping(LineWorkBinMapping linework)
         {
             string connection = _configuration["ConnectionStrings:Default"];
@@ -786,10 +787,10 @@ namespace ELog.Application.ElogApi
                     Command.CommandText = Constants.Schema + "sp_LineBinMapping";
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "MappingLineBin";
                     Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = linework.PlantCode;
-                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value =AbpSession.UserId;
+                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.Parameters.Add("@sBarCode", MySqlDbType.VarChar).Value = linework.Barcode;
                     Command.Parameters.Add("@sLineCode", MySqlDbType.VarChar).Value = linework.LineBarCode;
-                   
+
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -812,7 +813,7 @@ namespace ELog.Application.ElogApi
             DataTable dt = null;
             try
             {
-               
+
                 MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dtList = new DataTable();
@@ -824,7 +825,7 @@ namespace ELog.Application.ElogApi
                 if (!exists)
                     System.IO.Directory.CreateDirectory(Directory);
 
-                for (int i = 0;i< generate.PrintingQty;i++)
+                for (int i = 0; i < generate.PrintingQty; i++)
                 {
                     using (MySqlCommand Command = new MySqlCommand())
                     {
@@ -846,7 +847,7 @@ namespace ELog.Application.ElogApi
                         Command.CommandType = CommandType.StoredProcedure;
                         Command.Connection.Open();
                         myReader = await Command.ExecuteReaderAsync();
-                        dt  = new DataTable();
+                        dt = new DataTable();
                         dt.Load(myReader);
                         Command.Connection.Close();
                         if (dt.Rows.Count > 0)
@@ -871,7 +872,7 @@ namespace ELog.Application.ElogApi
 
                     string FileName = generate.PackingOrderNo + generate.LineCode + DateTime.Now.ToString("ddMMyyyyHHmmss");
                     //string Directory = System.Environment.ExpandEnvironmentVariables("%userprofile%\\Downloads\\");
-                    
+
                     string path = Path.Combine("D:\\Share\\SerialNumber", FileName + ".csv");
                     Utility.DataTableToCSV(dtList, path, FileName);
 
@@ -967,40 +968,6 @@ namespace ELog.Application.ElogApi
 
         //}
 
-        //public async Task<Object> PackingOrderConfirmation(string packingOrder, string PlantCode)
-        //{
-        //    try
-        //    {
-
-        //        MySqlConnection conn = new MySqlConnection(connection);
-        //        MySqlDataReader myReader = null;
-        //        DataTable dt = new DataTable();
-        //        using (MySqlCommand Command = new MySqlCommand())
-        //        {
-        //            Command.Connection = conn;
-        //            Command.CommandText = Constants.SP_PackingOrderConfirmation;
-        //            Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.PackingOrderConfirmation;
-        //            Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-        //            Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-        //            Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = packingOrder;
-
-        //            Command.CommandType = CommandType.StoredProcedure;
-        //            Command.Connection.Open();
-        //            myReader = await Command.ExecuteReaderAsync();
-        //            dt.Load(myReader);
-        //            Command.Connection.Close();
-        //        }
-
-
-        //        return dt;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.ToString());
-        //    }
-        //    return null;
-
-        //}
 
     }
 }

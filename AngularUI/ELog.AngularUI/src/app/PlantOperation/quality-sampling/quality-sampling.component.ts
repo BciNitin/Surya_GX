@@ -73,13 +73,21 @@ export class QualitySamplingComponent implements OnInit {
   async GetPlantCode() {
    await this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
       this.plnaCodeList = modeSelectList["result"];
-    });
+    },
+    (error) => {
+      // Handle HTTP error
+    }
+    );
   };
 
   async GetLineCode() {
     await this._apiservice.getLineWorkCenterNo().subscribe((response) => {
       this.lineList = response["result"];
-    });
+    },
+    (error) => {
+      // Handle HTTP error
+    }
+    );
   };
 
 
@@ -87,12 +95,16 @@ export class QualitySamplingComponent implements OnInit {
     this._apiservice.QualitySaplingPackingOrderNo(this.plantCode, this.lineCode).subscribe((response) => {
       this.packingOrderList = response["result"];
       this.updateUIselectedOrderType = this.packingOrder;
-    });
+    },
+    (error) => {
+      // Handle HTTP error
+    }
+    );
   }
 
   onScaningCarton(value) {
     const valid = this.markDirty();
-    if (valid && this.addEditFormGroup.valid) {
+   // if (valid && this.addEditFormGroup.valid) {
       this._apiservice.ScanCartonBarCode(this.plantCode, this.lineCode, value.target.value, this.packingOrder)
         .subscribe((response) => {
           if (response["result"][0].error) {
@@ -101,14 +113,18 @@ export class QualitySamplingComponent implements OnInit {
           else {
             if(!this.checked)
             {
-            abp.notify.success(response["result"][0].valid);
+          //  abp.notify.success(response["result"][0].valid);
             }
           }
-        })
-    }
-    else {
-     // abp.notify.error('Please Enter the required value.');
-    }
+        },
+        (error) => {
+          // Handle HTTP error
+        }
+        )
+    // }
+    // else {
+    //  // abp.notify.error('Please Enter the required value.');
+    // }
   }
 
   onScaningItem(value) {
@@ -124,7 +140,11 @@ export class QualitySamplingComponent implements OnInit {
             this.Qty = response["result"][0].qty;
           }
 
-        })
+        },
+        (error) => {
+          // Handle HTTP error
+        }
+        )
     }
     else {
       //abp.notify.error('Please Enter the required value.');
@@ -133,7 +153,8 @@ export class QualitySamplingComponent implements OnInit {
 
   Save() 
   {
-    this._apiservice.SaveQualitySampling(this.plantCode,this.lineCode,this.packingOrder,this.cartonBarcode).subscribe(result => {
+    this._apiservice.SaveQualitySampling(this.plantCode,this.lineCode,this.packingOrder,this.cartonBarcode)
+    .subscribe(result => {
             if(result["result"][0].error) {
               abp.notify.error(result["result"][0].error);
             }
@@ -142,7 +163,11 @@ export class QualitySamplingComponent implements OnInit {
               this.Qty = 0;
               this.Clear();
             }
-        });
+        },
+        (error) => {
+          // Handle HTTP error
+        }
+        );
    }
 
 
@@ -174,11 +199,13 @@ export class QualitySamplingComponent implements OnInit {
   }
 
   getQuantity() {
-    this._apiservice.GetQuantity(this.plantCode, this.lineCode, this.packingOrder)
+    if(this.packingOrder != undefined)
+    {
+    this._apiservice.GetQualitySamplingQuantity(this.plantCode, this.lineCode, this.packingOrder)
       .subscribe((response) => {
         this.Qty = response["result"][0].qty;
 
       })
   }
-
+  }
 }
