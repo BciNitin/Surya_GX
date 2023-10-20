@@ -45,5 +45,8 @@ namespace ELog.Application.CommomUtility
         public const string sp_Manual_Packing = "sp_Manual_Packing";
         public const string GetManualPackingDetails = "GetPackingOrderDetails";
         public const string validateBarcode = "ProcessData";
+        public const string sp_QualityTested_ItemPlacement = "sp_QualityTested_ItemPlacement";
+        public const string GetQualityItemTestedDtls = "GetQualityItemTestedDtls";
+        public const string ValidateShiperBarcode = "ValidateShiperBarcode";
     }
 }

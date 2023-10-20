@@ -294,4 +294,32 @@ export class ApiServiceService {
       return this.http.get<any[]>(this.BasUrl + 'ManualPackingApi/GetMacAddress');
    }
 
+   GetQualityItemTestedDtls(itemBarcode,plantCode) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `QualityTested_ItemPlacementApi/GetQualityItemTestedDtls?itemBarcode=${itemBarcode}&plantCode=${plantCode}`);
+
+   }
+   ValidateShiperBarcode(itemBarcode,plantCode,ShiperBarcode) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `QualityTested_ItemPlacementApi/GetValidateShiperBarcode?itemBarcode=${itemBarcode}&plantCode=${plantCode}&ShiperBarcode=${ShiperBarcode}`);
+
+   }
 }
