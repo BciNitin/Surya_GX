@@ -103,6 +103,8 @@ import { QualityConfirmationComponent } from './PlantOperation/quality-confirmat
 import { StorageLocationTransferComponent } from './PlantOperation/storage-location-transfer/storage-location-transfer.component';
 import { AddEditShiftComponent } from './masters/shift-master/add-edit-shift/add-edit-shift.component';
 import { QualityTestedItemplacementComponent } from './PlantOperation/quality-tested-itemplacement/quality-tested-itemplacement.component';
+import { TransferToBranchFromPlantComponent } from './PlantOperation/transfer-to-branch-from-plant/transfer-to-branch-from-plant.component';
+import { TransferDealerCustomerfromBranchComponent } from './PlantOperation/transfer-dealer-customerfrom-branch/transfer-dealer-customerfrom-branch.component';
 
 
 export function momentAdapterFactory() {
@@ -192,6 +194,8 @@ export const PMMS_FORMATS = {
         StorageLocationTransferComponent,
         AddEditShiftComponent,
         QualityTestedItemplacementComponent,
+        TransferToBranchFromPlantComponent,
+        TransferDealerCustomerfromBranchComponent,
     ],
     imports: [
         HttpClientModule,

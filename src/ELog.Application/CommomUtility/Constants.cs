@@ -48,5 +48,14 @@ namespace ELog.Application.CommomUtility
         public const string sp_QualityTested_ItemPlacement = "sp_QualityTested_ItemPlacement";
         public const string GetQualityItemTestedDtls = "GetQualityItemTestedDtls";
         public const string ValidateShiperBarcode = "ValidateShiperBarcode";
+        public const string GetChallanNo = "GetChallanNo";
+        public const string sp_Transfer_To_BranchFrom_Plant = "sp_Transfer_To_BranchFrom_Plant";
+        public const string GetValidateScanCartonBarcode = "GetValidateScanCartonBarcode";
+        public const string GetChallanDetails = "GetChallanDetails";
+        public const string sp_TransferToDealer = "sp_TransferToDealerCustFromBranchLocation";
+        public const string GetSOchallanNo = "GetSOchallanNo";
+        public const string GetSOChallanDetails = "GetSOChallanDetails";
+        public const string GetValidateSOScanCartonBarcode = "GetValidateSOScanCartonBarcode";
+
     }
 }

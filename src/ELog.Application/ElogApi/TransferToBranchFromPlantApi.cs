@@ -9,9 +9,10 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using ELog.Application.CommomUtility;
 using ELog.Application.SelectLists.Dto;
+
 namespace ELog.Application.ElogApi
 {
-    public class StorageLocationApi : ApplicationService, IElogApiService
+   public class TransferToBranchFromPlantApi : ApplicationService, IElogApiService
     {
 
         private readonly IConfiguration _configuration;
@@ -19,17 +20,16 @@ namespace ELog.Application.ElogApi
         private ISessionAppService _sessionAppService;
 
 
-        public StorageLocationApi(IConfiguration configuration, ISessionAppService sessionAppService)
+        public TransferToBranchFromPlantApi(IConfiguration configuration, ISessionAppService sessionAppService)
         {
             _configuration = configuration;
             connection = _configuration["ConnectionStrings:Default"];
             _sessionAppService = sessionAppService;
         }
-        public async Task<Object> GetStorageLocation()
+        public async Task<Object> GetchallanNo()
         {
             List<SelectListDto> value = new List<SelectListDto>();
-
-            try
+             try
             {
                 string connection = _configuration["ConnectionStrings:Default"];
                 MySqlConnection conn = new MySqlConnection(connection);
@@ -39,8 +39,11 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.SP_SelectList;
-                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetStorageLocCode;
+                    Command.CommandText = Constants.sp_Transfer_To_BranchFrom_Plant;
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetChallanNo;
+                    Command.Parameters.Add("sDeliveryChallanNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sCartonBarcode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -51,11 +54,10 @@ namespace ELog.Application.ElogApi
                 foreach (DataRow dtRow in dt.Rows)
                 {
                     SelectListDto selectListDto = new SelectListDto();
-                    selectListDto.Id = Convert.ToString(dtRow["StrLocCode"]);
-                    selectListDto.Value = Convert.ToString(dtRow["StrLocCode"]);
-
+                    selectListDto.Id = Convert.ToString(dtRow["DeliveryChallanNo"]);
+                    selectListDto.Value = Convert.ToString(dtRow["DeliveryChallanNo"]);
                     value.Add(selectListDto);
-                 }
+                }
                 return value;
             }
             catch (Exception e)
@@ -63,9 +65,9 @@ namespace ELog.Application.ElogApi
                 Console.WriteLine(e.ToString());
             }
             return null;
+         }
 
-        }
-        public async Task<Object> GetStorageLocationDetails(string plancode,string LocationID)
+        public async Task<Object> GetChallanDetails(string DeliveryChallanNo)
         {
 
             try
@@ -77,44 +79,10 @@ namespace ELog.Application.ElogApi
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-                    Command.CommandText = Constants.SP_StorageLocation;
-                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetStorageLocationDetails;
-                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = plancode;
-                    Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sLocationID", MySqlDbType.VarChar).Value = LocationID;
-                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-                    Command.CommandType = CommandType.StoredProcedure;
-                    Command.Connection.Open();
-                    myReader = await Command.ExecuteReaderAsync();
-                    dt.Load(myReader);
-                    Command.Connection.Close();
-                }
-                return dt;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            return null;
-
-        }
-        public async Task<Object> GetBarcodeScannedDetails(string barcode,string plantcode)
-        {
-
-            try
-            {
-
-                MySqlConnection conn = new MySqlConnection(connection);
-                MySqlDataReader myReader = null;
-                DataTable dt = new DataTable();
-                using (MySqlCommand Command = new MySqlCommand())
-                {
-                    Command.Connection = conn;
-                    Command.CommandText = Constants.SP_StorageLocation;
-                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetbarcodeDetails;
-                    Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = barcode;
-                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = plantcode;
-                    Command.Parameters.Add("sLocationID", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.CommandText = Constants.sp_Transfer_To_BranchFrom_Plant;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetChallanDetails;
+                    Command.Parameters.Add("sDeliveryChallanNo", MySqlDbType.VarChar).Value = DeliveryChallanNo;
+                    Command.Parameters.Add("sCartonBarcode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -133,8 +101,10 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        public async Task<Object> StorageLocationConfirmation(string barcode,string LocationID)
+
+        public async Task<Object> GetValidateScanCartonBarcode(string DeliveryChallanNo, string CartonBarcode)
         {
+
             try
             {
 
@@ -144,21 +114,17 @@ namespace ELog.Application.ElogApi
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-                    Command.CommandText = Constants.SP_StorageLocation;
-                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.StorageLocationTransfer;
-                    Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = barcode;
-                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sLocationID", MySqlDbType.VarChar).Value = LocationID;
+                    Command.CommandText = Constants.sp_Transfer_To_BranchFrom_Plant;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetValidateScanCartonBarcode;
+                    Command.Parameters.Add("sDeliveryChallanNo", MySqlDbType.VarChar).Value = DeliveryChallanNo;
+                    Command.Parameters.Add("sCartonBarcode", MySqlDbType.VarChar).Value = CartonBarcode;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
                     dt.Load(myReader);
                     Command.Connection.Close();
                 }
-
-
                 return dt;
             }
             catch (Exception e)
@@ -168,5 +134,6 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
+
     }
 }

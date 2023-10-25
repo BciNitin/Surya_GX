@@ -1,36 +1,12 @@
 ﻿using Abp.Application.Services;
-using Abp.Domain.Repositories;
-using Abp.Linq;
-using Microsoft.AspNetCore.Http;
-using ELog.Application.Modules;
 using ELog.Application.Sessions;
-using ELog.Core.Authorization;
-using ELog.Core.Authorization.Users;
-using ELog.EntityFrameworkCore.EntityFrameworkCore.Repositories;
 using System;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 using System.Data;
-using ELog.EntityFrameworkCore.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ELog.Application.Masters.Areas;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using PMMS.Application.ElogApi.Dto;
 using MySql.Data.MySqlClient;
-using System.Data.Common;
-using BarcodeLib;
-using Common;
 using ELog.Application.CommomUtility;
-using System.Linq;
-using System.Reflection;
-using MobiVueEVO.BO.Models;
-using System.Reflection.PortableExecutable;
-using System.Xml;
-using Castle.Facilities.TypedFactory.Internal;
-using System.IO;
-using ELog.Application.SelectLists.Dto;
-using System.Net.NetworkInformation;
 
 namespace ELog.Application.ElogApi
 {
@@ -66,6 +42,7 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = plantCode;
                     Command.Parameters.Add("sChildBarcode", MySqlDbType.VarChar).Value = itemBarcode;
                     Command.Parameters.Add("sParentBarcode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -102,6 +79,7 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = plantCode;
                     Command.Parameters.Add("sChildBarcode", MySqlDbType.VarChar).Value = itemBarcode;
                     Command.Parameters.Add("sParentBarcode", MySqlDbType.VarChar).Value = ShiperBarcode;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();

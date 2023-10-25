@@ -100,7 +100,7 @@ this._apiservice.ValidateShiperBarcode(this.itemBarcode,this.plantCode,this.Ship
     {
      abp.notify.error(result["result"][0]['error']);
     }
-           
+        this.Validate();   
       });
 }
 }

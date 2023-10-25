@@ -3,7 +3,7 @@
         <div class="card main-content">
             <div class="row user-component-content row-filter-container">
                 <div class="col-12">
-                    <h2 class="title">{{ "Quality Tested Item Placement" | localize }}</h2>
+                    <h2 class="title">{{ "Transfer To Dealer/Customer From Branch Location" | localize }}</h2>
                 </div>
             </div>
             <div class="panel-group" id="accordion">
@@ -12,31 +12,31 @@
                         <div class="panel-body">
                             <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                 <div class="row fieldes">
+                                    
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <mat-label>Plant Code</mat-label>
-                                            <mat-select [(ngModel)]="plantCode" name="plantId" [errorStateMatcher]="matcher"
+                                            <mat-label>Delivery Challan No. </mat-label>
+                                            <mat-select [(ngModel)]="DeliveryChallanNo" (ngModelChange)="GrtTableGrid()" name="DeliveryChallanNo" [errorStateMatcher]="matcher"
                                                 [errorStateMatcher]="matcher"
-                                                
                                                 formControlName="plantCodeFormCControl">
-                                                <mat-option>Select Plant</mat-option>
-                                                <mat-option *ngFor="let plant of plnatCodeList" [value]="plant.id">
+                                                <mat-option>Select Challan No.</mat-option>
+                                                <mat-option *ngFor="let plant of challanNo" [value]="plant.id">
                                                     {{plant.value}}
                                                 </mat-option>
                                             </mat-select>
                                             <mat-error
                                                 *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
-                                                Plant Code is required.
+                                                Delivery Challan No is required.
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
-                                            <mat-label>Scan Item Barcode Label</mat-label>
-                                            <input matInput required name="itemBarcode"  (keyup.enter)="Validate()"
-                                                   [(ngModel)]='itemBarcode' formControlName="itemBarcodeFormControl" maxlength="16">
-                                            <mat-error *ngIf="addEditFormGroup?.get('itemBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('itemBarcodeFormControl')?.hasError('whitespace')">
-                                                Item barcode label is required.
+                                            <mat-label>Scan Carton Barcode</mat-label>
+                                            <input matInput required name="CartonBarcode" (change)="ValidateCartonBarcode()"
+                                                   [(ngModel)]='CartonBarcode' formControlName="ShiperBarcodeFormControl" maxlength="16" >
+                                            <mat-error *ngIf="addEditFormGroup?.get('ShiperBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('ShiperBarcodeFormControl')?.hasError('whitespace')">
+                                                Carton barcode is required.
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
@@ -47,40 +47,39 @@
                                 <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
-                                          <!-- <th class="th-center-align">{{ "Serial No" | localize }}</th> -->
-                                            <th class="th-center-align">{{ "Item Code" | localize }}</th>
-                                            <th class="th-center-align">{{ "Quantity" | localize }}</th>
-                                            <th class="th-center-align">{{ "Carton No" | localize }}</th>
-                                           </tr>
+                                            
+                                             <th class="th-center-align">{{ "Sales Order No." | localize }}</th>
+                                            <th class="th-center-align">{{ "SO date" | localize }}</th>
+                                            <th class="th-center-align">{{ "Material Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Qty." | localize }}</th>
+                                            <th class="th-center-align">{{ "Pending Qty." | localize }}</th>
+                                            <th class="th-center-align">{{ "Received Qty." | localize }}</th>
+                                            <th class="th-center-align">{{ "Plant Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Customer Code" | localize }}</th>
+                                             </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let  picklistItem of qualityItemDtls" (tap)="onSelect($event,wireDraw)">
-                                             <!-- <td class="td-center-align">{{picklistItem.id}}</td> -->
+                                        <tr *ngFor="let  picklistItem of challanDtls" (tap)="onSelect($event,wireDraw)">
+                                          
+                                            <td class="td-center-align">{{picklistItem.soNo}}</td>
+                                            <td class="td-center-align">{{picklistItem.soDate}}</td>
                                             <td class="td-center-align">{{picklistItem.materialCode}}</td>
                                             <td class="td-center-align">{{picklistItem.quantity}}</td>
-                                            <td class="td-center-align">{{picklistItem.parentBarcode}}</td>
-                                         </tr>
+                                            <td class="td-center-align">{{picklistItem.pendingQty}}</td>
+                                            <td class="td-center-align">{{picklistItem.dispatchQty}}</td>
+                                            <td class="td-center-align">{{picklistItem.plantBranchCode}}</td>
+                                            <td class="td-center-align">{{picklistItem.customerCode}}</td>
+                                                 </tr>
                                         <tr *ngIf="obj?.length == 0">
                                             <td colspan="6" class="no-data-available">No data to display.</td>
                                         </tr>
                                     </tbody>
                                   </table>
+                                 </div>
+                            <div class="row fieldes">
                                 
                             </div>
-                            <div class="row fieldes">
-                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-                                    <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
-                                        <mat-label>Scan Shipper Barcode</mat-label>
-                                        <input matInput required name="ShiperBarcode" (change)="ValidateShiperBarcode()"
-                                               [(ngModel)]='ShiperBarcode' formControlName="ShiperBarcodeFormControl" maxlength="16" >
-                                        <mat-error *ngIf="addEditFormGroup?.get('ShiperBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('ShiperBarcodeFormControl')?.hasError('whitespace')">
-                                            Shipper barcode is required.
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                           
-                            <div class="row">
+                           <div class="row">
                                 <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                 </div>
                                 <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
@@ -88,11 +87,7 @@
                                             (click)="Clear()">
                                         Clear
                                     </button>
-                                    <!-- <button class="btn btn-primary pull-right" (click)="Save()">
-                                        Save
-                                    </button> -->
-                                    
-                                </div>
+                                   </div>
                             </div>
 
                         </div>
