@@ -292,7 +292,228 @@ namespace ELog.Application.ElogApi
             return sReturn;
 
         }
+        public object SODelivery([FromBody] SAPMaster.SODelivery[] _objSODelivery)
+        {
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+            string sReturn = string.Empty;
+            try
+            {
+                foreach (SAPMaster.SODelivery objcls in _objSODelivery)
+                {
+                    String Query = String.Empty;
+                    Query = "SELECT * FROM tsodelivery where DeliveryChallanNo='" + objcls.DeliveryChallanNo + "' and SONo='"+ objcls.SONo + "' and MaterialCode='" + objcls.MaterialCode + "' ;";
+                    MySqlCommand MyCommand2 = new MySqlCommand(Query, conn);
+                    MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                    conn.Open();
+                    MyAdapter.SelectCommand = MyCommand2;
+                    DataTable dt = new DataTable();
+                    MyAdapter.Fill(dt);
+                    string insertquery = string.Empty;
+                    if (dt.Rows.Count == 0)
+                    {
+                        insertquery = "insert into tpackingorder(PackingOrderNo, PlantCode, MaterialCode, Quantity,  StrLocCode, Packing_Date, Bom, Work_Center,CreatedOn, CreatedBy ) values('" + objcls.PackingOrderNumber + "','" + objcls.PlantCode + "','" + objcls.MaterialCode + "','" + objcls.Quantity + "','" + objcls.StorageLocation + "','" + objcls.Packing_Date + "','" + objcls.BOM + "','" + objcls.WorkCenter + "',now(),'SAPAPI');";
+                        MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
+                        MySqlDataReader MyReader2;
+                        MyReader2 = MyCommandINSERT.ExecuteReader();
+                    }
+                    else
+                    {
+                        insertquery = "UPDATE tsodelivery SET  SODate='"+ objcls.SODate + "', PlantBranchCode='"+ objcls.PlantBranchCode + "', CustomerCode='"+ objcls.CustomerCode + "', FromStrLoc='"+ objcls.FromStrLoc + "', Quantity='"+ objcls.Quantity + "' WHERE DeliveryChallanNo='" + objcls.DeliveryChallanNo + "' and SONo='"+ objcls.SONo + "' and MaterialCode='" + objcls.MaterialCode + "';";
+                        MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
+                        MySqlDataReader MyReader2;
+                        MyReader2 = MyCommandINSERT.ExecuteReader();
+
+                    }
+                    conn.Close();
+                    sReturn = "Data Save Successfully.";
+                }
+
+            }
+            catch (Exception e)
+            {
+                sReturn = e.Message;
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return sReturn;
+
+        }
+
         //------------------------------Transaction Master End()--------------------
+
+
+
+        //--------------------Data send(BCI To SAP) By Abhishek---------------------------------------------
+        public async Task<Object> PostPackingOrderConfirmation()
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+            MySqlDataReader myReader = null;
+            DataTable dt = new DataTable();
+            try
+            {
+                int ressult = 0;
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_DataPostToSAP";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "GetPackingOrderConfirmationData";
+                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = "API";                    
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    // ressult = await Command.ExecuteNonQueryAsync();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+        public async Task<Object> PostQCOrderConfirmation()
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+            MySqlDataReader myReader = null;
+            DataTable dt = new DataTable();
+            try
+            {
+                
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_DataPostToSAP";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "GetQCConfirmationData";
+                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = "API";
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();                   
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+        public async Task<Object> PostStrLocTransferOrderConfirmation()
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+            MySqlDataReader myReader = null;
+            DataTable dt = new DataTable();
+            try
+            {
+
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_DataPostToSAP";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "GetStrLocTransferConfirmationData";
+                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = "API";
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+        public async Task<Object> PostSTODeliveryConfirmationAgainstDeliverychallan()
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+            MySqlDataReader myReader = null;
+            DataTable dt = new DataTable();
+            try
+            {
+
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_DataPostToSAP";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "GetSTOdeliveryconfirmationDataAgainstDeliverychallan";
+                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = "API";
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+        public async Task<Object> PostSODeliveryConfirmationAgainstDeliverychallan()
+        {
+            string connection = _configuration["ConnectionStrings:Default"];
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+            MySqlDataReader myReader = null;
+            DataTable dt = new DataTable();
+            try
+            {
+
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_DataPostToSAP";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "GetpsodeliveryconfirmationData";
+                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = "API";
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+
+        //--------------------END()-------------------------------------------------------------------------
+
+
 
     }
 }
