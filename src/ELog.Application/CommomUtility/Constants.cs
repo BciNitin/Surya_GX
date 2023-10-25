@@ -56,6 +56,11 @@ namespace ELog.Application.CommomUtility
         public const string GetSOchallanNo = "GetSOchallanNo";
         public const string GetSOChallanDetails = "GetSOChallanDetails";
         public const string GetValidateSOScanCartonBarcode = "GetValidateSOScanCartonBarcode";
-
+        public const string sp_Revalidation_Process_Branch = "sp_Revalidation_Process_BranchPlant";
+        public const string GetExpiredItemCode = "GetExpiredItemCode";
+        public const string GetExpiredItemDetails = "GetExpiredItemCodeDetails"; 
+        public const string GetValidateItem = "GetValidateItem";
+        public const string GetValidateGRNConfirm = "GetValidateGRNConfirmation";
+        public const string sp_GRN_Confirm = "sp_GRN_Confirmation";
     }
 }

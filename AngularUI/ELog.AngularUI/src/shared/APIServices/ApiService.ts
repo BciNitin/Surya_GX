@@ -310,9 +310,9 @@ export class ApiServiceService {
    GetchallanNo(): Observable<any[]> {
       return this.http.get<any[]>(this.BasUrl + 'TransferToBranchFromPlantApi/GetchallanNo');
    }
-   GetChallanDetails(DeliveryChallanNo: string): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl + 'TransferToBranchFromPlantApi/GetChallanDetails?DeliveryChallanNo=' + DeliveryChallanNo);
-   }
+   // GetChallanDetails(DeliveryChallanNo: string): Observable<any[]> {
+   //    return this.http.get<any[]>(this.BasUrl + 'TransferToBranchFromPlantApi/GetChallanDetails?DeliveryChallanNo=' + DeliveryChallanNo);
+   // }
 
    GetValidateScanCartonBarcode(DeliveryChallanNo,CartonBarcode) {
       debugger;
@@ -331,11 +331,8 @@ export class ApiServiceService {
    GetSOchallanNo(): Observable<any[]> {
       return this.http.get<any[]>(this.BasUrl + 'TransferToDealerCustFromBranchLocApi/GetSOchallanNo');
    }
-   // GetSOChallanDetails(DeliveryChallanNo: string): Observable<any[]> {
-   //    return this.http.get<any[]>(this.BasUrl + 'TransferToDealerCustFromBranchLocApi/GetSOChallanDetails?DeliveryChallanNo=' + DeliveryChallanNo);
-   // }
-
-   GetSOChallanDetails(DeliveryChallanNo) {
+   
+GetSOChallanDetails(DeliveryChallanNo) {
       debugger;
       //const content_ = JSON.stringify(input);
       const options_: any = {
@@ -363,4 +360,67 @@ export class ApiServiceService {
       return this.http.get<any[]>(this.BasUrl + `TransferToDealerCustFromBranchLocApi/GetValidateSOScanCartonBarcode?DeliveryChallanNo=${DeliveryChallanNo}&CartonBarcode=${CartonBarcode}`);
 
    }
+   GetItemCodes(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'RevalidationProcessBranchPlantApi/GetExpiredItemCode');
+   }
+   GetExpiredItemCodeDetails(MaterialCode) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `RevalidationProcessBranchPlantApi/GetExpiredItemCodeDetails?MaterialCode=${MaterialCode}`);
+
+   }
+   GetValidateItem(barcode,MaterialCode) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `RevalidationProcessBranchPlantApi/GetValidateItem?barcode=${barcode}&MaterialCode=${MaterialCode}`);
+
+   }
+
+   GetValidateGRNConfirmation(DeliveryChallanNo,CartonBarcode) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `GRN_ConfirmationApi/GetValidateGRNConfirmation?DeliveryChallanNo=${DeliveryChallanNo}&CartonBarcode=${CartonBarcode}`);
+
+   }
+
+   GetChallanDetails(DeliveryChallanNo) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `TransferToBranchFromPlantApi/GetChallanDetails?DeliveryChallanNo=${DeliveryChallanNo}`);
+
+   }
+
+   
 }

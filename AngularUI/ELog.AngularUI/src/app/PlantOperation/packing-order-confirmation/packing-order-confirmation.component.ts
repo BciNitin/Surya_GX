@@ -85,14 +85,14 @@ onChangePlantCode(value)
 });
 }
 
-GrtTableGrid(value)
-{
-  debugger;
-  this._apiservice.GetPackingOrderConfirmation(value).subscribe((response) => {
-    this.picklistItems = response["result"];
-    this.quantity=this.quantity;
-})
-}
+// GrtTableGrid(value)
+// {
+//   debugger;
+//   this._apiservice.GetPackingOrderConfirmation(value).subscribe((response) => {
+//     this.picklistItems = response["result"];
+//     this.quantity=this.quantity;
+// })
+// }
 
 
 Save() {

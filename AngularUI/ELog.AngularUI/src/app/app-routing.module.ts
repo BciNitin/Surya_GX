@@ -46,6 +46,8 @@ import { AddEditShiftComponent } from './masters/shift-master/add-edit-shift/add
 import { QualityTestedItemplacementComponent } from './PlantOperation/quality-tested-itemplacement/quality-tested-itemplacement.component';
 import { TransferToBranchFromPlantComponent } from './PlantOperation/transfer-to-branch-from-plant/transfer-to-branch-from-plant.component';
 import { TransferDealerCustomerfromBranchComponent } from './PlantOperation/transfer-dealer-customerfrom-branch/transfer-dealer-customerfrom-branch.component';
+import { RevalidationProcessBranchComponent } from './PlantOperation/revalidation-process-branch/revalidation-process-branch.component';
+import { GrnConfirmationComponent } from './PlantOperation/grn-confirmation/grn-confirmation.component';
 
 
 
@@ -137,6 +139,8 @@ import { TransferDealerCustomerfromBranchComponent } from './PlantOperation/tran
                     { path: 'quality-tested-itemplacement', component: QualityTestedItemplacementComponent, canActivate: [AppRouteGuard] },
                     { path: 'transfer-to-branch-from-plant', component: TransferToBranchFromPlantComponent, canActivate: [AppRouteGuard] },
                     { path: 'transfer-dealer-customerfrom-branch', component: TransferDealerCustomerfromBranchComponent, canActivate: [AppRouteGuard] },
+                    { path: 'revalidation-process-branch', component: RevalidationProcessBranchComponent, canActivate: [AppRouteGuard] },
+                    { path: 'grn-confirmation', component: GrnConfirmationComponent, canActivate: [AppRouteGuard] },
                    
                 ]
             }

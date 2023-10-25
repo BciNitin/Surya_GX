@@ -15,13 +15,13 @@ export class transferToBranch
      CartonBarcode:string="";
 }
 @Component({
-  selector: 'app-transfer-to-branch-from-plant',
-  templateUrl: './transfer-to-branch-from-plant.component.html',
-  styleUrls: ['./transfer-to-branch-from-plant.component.css'],
+  selector: 'app-grn-confirmation',
+  templateUrl: './grn-confirmation.component.html',
+  styleUrls: ['./grn-confirmation.component.css'],
   animations: [appModuleAnimation()],
   providers: [ValidationService]
 })
-export class TransferToBranchFromPlantComponent implements OnInit {
+export class GrnConfirmationComponent implements OnInit {
   challanNo:any;
   challanDtls:any;
   DeliveryChallanNo:string="";
@@ -38,7 +38,7 @@ export class TransferToBranchFromPlantComponent implements OnInit {
   addEditFormGroup: FormGroup = this.formBuilder.group({
     
     ShiperBarcodeFormControl: ['',[Validators.required,NoWhitespaceValidator]],
-    plantCodeFormCControl: ['',[Validators.required,NoWhitespaceValidator]]
+    challanFormCControl: ['',[Validators.required,NoWhitespaceValidator]]
 });
 
 GetChallanNo() {
@@ -46,7 +46,6 @@ GetChallanNo() {
       this.challanNo = modeSelectList["result"];
   });
 };
-
 
 GrtTableGrid()
 {
@@ -58,7 +57,8 @@ GrtTableGrid()
     
   })
 }
-ValidateCartonBarcode() {
+
+ValidateGRNConfirmation() {
   debugger;
 
   var _transferToBranch =  new transferToBranch();
@@ -73,7 +73,7 @@ ValidateCartonBarcode() {
   else
   {
     
-this._apiservice.GetValidateScanCartonBarcode(this.DeliveryChallanNo,this.CartonBarcode).subscribe(result => {
+this._apiservice.GetValidateGRNConfirmation(this.DeliveryChallanNo,this.CartonBarcode).subscribe(result => {
     debugger;
     if(result["result"][0]['valid'])
     {

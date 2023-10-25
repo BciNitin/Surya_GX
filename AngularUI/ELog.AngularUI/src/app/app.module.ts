@@ -105,6 +105,10 @@ import { AddEditShiftComponent } from './masters/shift-master/add-edit-shift/add
 import { QualityTestedItemplacementComponent } from './PlantOperation/quality-tested-itemplacement/quality-tested-itemplacement.component';
 import { TransferToBranchFromPlantComponent } from './PlantOperation/transfer-to-branch-from-plant/transfer-to-branch-from-plant.component';
 import { TransferDealerCustomerfromBranchComponent } from './PlantOperation/transfer-dealer-customerfrom-branch/transfer-dealer-customerfrom-branch.component';
+import { RevalidationProcessBranchComponent } from './PlantOperation/revalidation-process-branch/revalidation-process-branch.component';
+import { RevalidationDealerLocationComponent } from './PlantOperation/revalidation-dealer-location/revalidation-dealer-location.component';
+import { GrnConfirmationComponent } from './PlantOperation/grn-confirmation/grn-confirmation.component';
+import { ApprovalForZonalManagerComponent } from './PlantOperation/approval-for-zonal-manager/approval-for-zonal-manager.component';
 
 
 export function momentAdapterFactory() {
@@ -196,6 +200,10 @@ export const PMMS_FORMATS = {
         QualityTestedItemplacementComponent,
         TransferToBranchFromPlantComponent,
         TransferDealerCustomerfromBranchComponent,
+        RevalidationProcessBranchComponent,
+        RevalidationDealerLocationComponent,
+        GrnConfirmationComponent,
+        ApprovalForZonalManagerComponent,
     ],
     imports: [
         HttpClientModule,
