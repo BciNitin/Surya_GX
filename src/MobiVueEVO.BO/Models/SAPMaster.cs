@@ -72,6 +72,29 @@ namespace MobiVueEVO.BO.Models
             [Required]
             public string BOM { get; set; }
         }
+        public class SODelivery
+        {
+            [Required]
+            public string DeliveryChallanno { get; set; }
+            [Required]
+            public string PlantCode { get; set; }
+            [Required]
+            public string SONo { get; set; }
+            [Required]
+            public string SODate { get; set; }
+            [Required]
+            public int Customercode { get; set; }
+            [Required]
+            public string MaterialCode { get; set; }
+            [Required]
+            public string Fromstorage { get; set; }
+            [Required]
+            public string BatchCode { get; set; }
+            [Required]
+            public string QTY { get; set; }
+            [Required]
+            public string NoofBoxes { get; set; }
+        }
 
     }
 }
