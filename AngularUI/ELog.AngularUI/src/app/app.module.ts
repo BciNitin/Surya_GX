@@ -101,6 +101,10 @@ import { AddeditbinComponent } from './masters/bin/addeditbin/addeditbin.compone
 import { QualityCheckingComponent } from './PlantOperation/quality-checking/quality-checking.component';
 import { QualityConfirmationComponent } from './PlantOperation/quality-confirmation/quality-confirmation.component';
 import { StorageLocationTransferComponent } from './PlantOperation/storage-location-transfer/storage-location-transfer.component';
+import { AddEditShiftComponent } from './masters/shift-master/add-edit-shift/add-edit-shift.component';
+import { QualityTestedItemplacementComponent } from './PlantOperation/quality-tested-itemplacement/quality-tested-itemplacement.component';
+import { TransferToBranchFromPlantComponent } from './PlantOperation/transfer-to-branch-from-plant/transfer-to-branch-from-plant.component';
+import { TransferDealerCustomerfromBranchComponent } from './PlantOperation/transfer-dealer-customerfrom-branch/transfer-dealer-customerfrom-branch.component';
 
 
 export function momentAdapterFactory() {
@@ -188,8 +192,13 @@ export const PMMS_FORMATS = {
         QualityCheckingComponent,
         QualityConfirmationComponent,
         StorageLocationTransferComponent,
+        AddEditShiftComponent,
+        QualityTestedItemplacementComponent,
+        TransferToBranchFromPlantComponent,
+        TransferDealerCustomerfromBranchComponent,
     ],
     imports: [
+        HttpClientModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,

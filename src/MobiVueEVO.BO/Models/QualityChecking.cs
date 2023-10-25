@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MobiVueEVO.BO.Models
 {
-    public class QualityChecking
+    public class QualityCheckingModel
     {
         
         public string PlantCode { get; set; }
@@ -17,18 +17,21 @@ namespace MobiVueEVO.BO.Models
         public string PackingOrderNo { get; set; }
 
        
+        public string Status { get; set; }
+
+       
+        public string ParentBarcode { get; set; }
+
+       
+        public string ChildBarcode { get; set; }
+
         public string QCStatus { get; set; }
 
-       
-        public string CartonBarCode { get; set; }
 
-       
-        public string ItemBarCode { get; set; }
     }
 
-    public class QualityCheckingList
-    {
-      public QualityChecking[] QualityChecking { get; set; }
-    }
+    //public string parentBarcode { get; set; }
+    //public string itemBarCode { get; set; }
+    //public string status { get; set; }
 
 }

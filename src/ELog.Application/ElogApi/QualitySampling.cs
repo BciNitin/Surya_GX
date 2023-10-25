@@ -23,7 +23,7 @@ namespace ELog.Application.ElogApi
             connection = _configuration["ConnectionStrings:Default"];
         }
 
-        public async Task<Object> QualityCheckingSave([Required] string PackingOrderNo, [Required] string PlantCode, [Required] string CartonBarCode,[Required] string LineCode)
+        public async Task<Object> QualitySamplingSave([Required] string PackingOrderNo, [Required] string PlantCode, [Required] string CartonBarCode,[Required] string LineCode)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> GetQualityCheckingQty([Required] string PackingOrderNo, [Required] string PlantCode,[Required] string LineCode)
+        public async Task<Object> GetQualitySamplingQty([Required] string PackingOrderNo, [Required] string PlantCode,[Required] string LineCode)
         {
             try
             {

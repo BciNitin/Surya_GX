@@ -11,6 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@shared/ValidationService';
 import { MatRadioChange } from '@angular/material';
 import { NoWhitespaceValidator, MyErrorStateMatcher } from '@shared/app-component-base';
+
+import { error } from 'console';
 interface SerialNo {
   plantCode: string,
   line: string,
@@ -74,7 +76,7 @@ export class SerialbarcodegenerationComponent implements OnInit {
   lineList: any;
   packingOrderList: any;
   picklistItems:[];
-  isSelected: boolean;
+  isSelected: boolean = false;
 
   // displayedColumns: string[] = ['PlantCode', 'WorkCenterCode', 'WorkCenterDiscription','Active'];
 
@@ -162,7 +164,13 @@ GetLineCode() {
   });
 };
 
-
+validateForm(event: any) {
+  if ((event.target.selectionStart === 0 && event.code === "Space") || (event.keyCode >= 48 && event.keyCode <= 64) || (event.keyCode >= 91 && event.keyCode <= 255)) {
+      if (!parseInt(event.key) && event.key != '.' && event.key != '-') {
+          event.preventDefault();
+      }
+  }
+}
 onChangePlantCode(value)
 {
  
@@ -172,15 +180,18 @@ onChangePlantCode(value)
 });
 }
 
-GrtTableGrid(value)
-{
-  this._apiservice.GetSerialNumberDetails(value).subscribe((response) => {
-    this.picklistItems = response["result"];
-})
-}
+  GrtTableGrid(value) {
+    this.printingQty = 0;
+    if (value != '') {
+      this._apiservice.GetSerialNumberDetails(value).subscribe((response) => {
+        this.picklistItems = response["result"];
+      })
+    }
+  }
 
 
-GetCheckBoxValue(plantCode:any,materialCode:any,quantity:any,pendingQtyToPrint:any,printedQty:any,packing_Date:any,work_Center:any,packingOrderNo:any) {
+GetCheckBoxValue(event,plantCode:any,materialCode:any,quantity:any,pendingQtyToPrint:any,printedQty:any,packing_Date:any,work_Center:any,packingOrderNo:any) {
+     this.isSelected = event.source._checked;
      this.plantCode=plantCode;
      this.materialCode=materialCode;
      this.quantity=quantity;
@@ -189,7 +200,11 @@ GetCheckBoxValue(plantCode:any,materialCode:any,quantity:any,pendingQtyToPrint:a
      this.work_Center=work_Center;
      
 }
+
 Save() {
+
+   if(this.isSelected)
+   {
   var _GenSerial =  new GenerateSerialNumber();
   _GenSerial.plantCode=this.plantCode;
   _GenSerial.ItemCode=this.materialCode;
@@ -216,52 +231,27 @@ Save() {
         if(result["result"][0].valid)
         {
          abp.notify.success(result["result"][0].valid);
-         this.getArray();
+         this.GrtTableGrid(this.packingOrder);
         }
         else{
           abp.notify.error(result["result"][0].error);
         }
         
+    },
+    (error) => {
+      // Handle HTTP error
     });
     } catch (error) {
       abp.notify.error("There is error");
     }
   }
- 
+}
+else
+{
+  abp.notify.error("Please select the checkbox.");
+}
   
 }
-
-
-
-// Save() {
-//   debugger;
-//   var _GenSerial =  new GenerateSerialNumber();
-// _GenSerial.plantCode=this.plantCode;
-// _GenSerial.ItemCode=this.materialCode;
-// _GenSerial.printingQty=this.printingQty;
-// _GenSerial.quantity=this.quantity;
-// _GenSerial.pendingQtyToPrint=this.pendingQtyToPrint;
-// _GenSerial.packing_Date=this.packing_Date;
-// _GenSerial.lineCode=this.lineCode;
-// _GenSerial.supplierCode=this.supplierCode;
-// _GenSerial.driverCode=this.driverCode;
-// _GenSerial.work_Center=this.work_Center;
-// _GenSerial.PackingOrderNo=this.packingOrder;
-  
-//   this._apiservice.SaveSerialBarcodeGen(_GenSerial).subscribe(result => {
-//     debugger;
-//            if(result["result"][0]['response'])
-//            {
-//              abp.notify.success(result["result"][0]['response']);
-//            }
-//            else
-//            {
-//             abp.notify.error(result["result"][0]['error']);
-//            }
-//            this.Clear();
-//       });
-//  }
-
 
 
 markDirty() {

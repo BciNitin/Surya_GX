@@ -1,17 +1,22 @@
-﻿using ELog.Application.CommomUtility;
+﻿using Abp.Application.Services;
+using Abp.Runtime.Session;
+using ELog.Application.CommomUtility;
 using ELog.Application.Masters.Areas;
+using ELog.Application.SelectLists.Dto;
 using ELog.Application.Sessions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MobiVueEVO.BO.Models;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Threading.Tasks;
 
 namespace ELog.Application.ElogApi
 {
-    public class QualityChecking : IElogApiService
+    public class QualityChecking : ApplicationService
     {
         private readonly IConfiguration _configuration;
         private string connection;
@@ -48,6 +53,7 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sChildBarCode", MySqlDbType.VarChar).Value = "";
                     Command.Parameters.Add("sQCStatus", MySqlDbType.VarChar).Value = "";
                     Command.Parameters.Add("sStatus", MySqlDbType.VarChar).Value = "";
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -65,38 +71,124 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> GetQualityCheckingSave(QualityCheckingList qualityChecking)
+        public async Task<Object> SaveQualityChecking([FromBody] List<QualityCheckingModel> data)
         {
             MySqlConnection conn = null;
             conn = new MySqlConnection(connection);
 
             try
             {
+                MySqlDataReader myReader = null;
+                DataTable dt = null;
+                foreach (QualityCheckingModel item in data)
+                {
+                    if (item.Status != "No" && item.QCStatus != "NG")
+                    {
+                        dt = new DataTable();
+                        using (MySqlCommand Command = new MySqlCommand())
+                        {
+                            Command.Connection = conn;
+                            Command.CommandText = "sp_QualityChecking";
+                            Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = "Save";
+                            Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = item.PlantCode;
+                            Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = item.PackingOrderNo;
+                            Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = item.LineCode;
+                            Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = item.ParentBarcode;
+                            Command.Parameters.Add("sChildBarCode", MySqlDbType.VarChar).Value = item.ChildBarcode;
+                            Command.Parameters.Add("sQCStatus", MySqlDbType.VarChar).Value = item.QCStatus;
+                            Command.Parameters.Add("sStatus", MySqlDbType.VarChar).Value = item.Status;
+                            Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                            Command.CommandType = CommandType.StoredProcedure;
+                            Command.Connection.Open();
+                            myReader = await Command.ExecuteReaderAsync();
+                            dt.Load(myReader);
+                            Command.Connection.Close();
+                        }
+                    }
+                    else
+                    {
+                        dt = new DataTable();
+                        using (MySqlCommand Command = new MySqlCommand())
+                        {
+                            Command.Connection = conn;
+                            Command.CommandText = "sp_QualityChecking";
+                            Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = "Save";
+                            Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = item.PlantCode;
+                            Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = item.PackingOrderNo;
+                            Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = item.LineCode;
+                            Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = item.ParentBarcode;
+                            Command.Parameters.Add("sChildBarCode", MySqlDbType.VarChar).Value = item.ChildBarcode;
+                            Command.Parameters.Add("sQCStatus", MySqlDbType.VarChar).Value = item.QCStatus;
+                            Command.Parameters.Add("sStatus", MySqlDbType.VarChar).Value = item.Status;
+                            Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                            Command.CommandType = CommandType.StoredProcedure;
+                            Command.Connection.Open();
+                            myReader = await Command.ExecuteReaderAsync();
+                            dt.Load(myReader);
+                            Command.Connection.Close();
+                        }
+                    }
+                }
 
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+
+            }
+            return null;
+
+        }
+
+        public async Task<Object> GetPackingOrderByPlantAndLine([Required] string PlantCode, [Required] string LineNo)
+        {
+            List<SelectListDto> value = new List<SelectListDto>();
+
+            try
+            {
+                string connection = _configuration["ConnectionStrings:Default"];
+                MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();
-                foreach (var QualityChecking in qualityChecking.QualityChecking) { 
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
                     Command.CommandText = "sp_QualityChecking";
-                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = "Save";
-                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = QualityChecking.PlantCode;
-                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = QualityChecking.PackingOrderNo;
-                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = QualityChecking.LineCode;
-                    Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = QualityChecking.CartonBarCode;
-                    Command.Parameters.Add("sChildBarCode", MySqlDbType.VarChar).Value = QualityChecking.ItemBarCode;
-                    Command.Parameters.Add("sQCStatus", MySqlDbType.VarChar).Value = QualityChecking.QCStatus;
-                    Command.Parameters.Add("sStatus", MySqlDbType.VarChar).Value = "";
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetPackingOrder;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineNo;
+                    Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sChildBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sQCStatus", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sStatus", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
                     dt.Load(myReader);
                     Command.Connection.Close();
-                    }
                 }
 
-                return dt;
+                foreach (DataRow dtRow in dt.Rows)
+                {
+                    //// On all tables' columns
+                    //foreach (DataColumn dc in dt.Columns)
+                    //{
+                    //    var field1 = dtRow[dc].ToString();
+
+                    //}
+
+                    SelectListDto selectListDto = new SelectListDto();
+                    selectListDto.Id = Convert.ToString(dtRow["PackingOrderNo"]);
+                    selectListDto.Value = Convert.ToString(dtRow["PackingOrderNo"]);
+
+                    value.Add(selectListDto);
+                    //var result = Utility.ToListof<SelectListDto>(dt);
+
+                }
+                return value;
             }
             catch (Exception e)
             {

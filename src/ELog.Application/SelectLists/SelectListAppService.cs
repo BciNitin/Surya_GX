@@ -1326,6 +1326,7 @@ namespace ELog.Application.SelectLists
                     selectListDto.Value = Convert.ToString(dtRow["PackingOrderNo"]);
                     value.Add(selectListDto);
                 }
+                
                 return value;
             }
             catch (Exception e)
@@ -1335,6 +1336,7 @@ namespace ELog.Application.SelectLists
             return null;
 
         }
+
 
         public async Task<Object> GetLineWorkNo()
         {
@@ -1386,7 +1388,7 @@ namespace ELog.Application.SelectLists
 
         }
 
-        public async Task<Object> GetPackingOrderByPlantAndLine(string PlantCode,string LineNo)
+      public async Task<Object> GetPackingOrder()
         {
             List<SelectListDto> value = new List<SelectListDto>();
 
@@ -1399,15 +1401,18 @@ namespace ELog.Application.SelectLists
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-
                     Command.CommandText =  Constants.sp_QualitySampling;
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetPackingOrder;
-                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineNo;
+                    //Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    //Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = LineNo;
                     Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sChildBarCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+
+                    Command.CommandText = Constants.Schema + Constants.SP_SelectList;
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetPackingOrder;
+
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -1417,19 +1422,13 @@ namespace ELog.Application.SelectLists
 
                 foreach (DataRow dtRow in dt.Rows)
                 {
-                    //// On all tables' columns
-                    //foreach (DataColumn dc in dt.Columns)
-                    //{
-                    //    var field1 = dtRow[dc].ToString();
-
-                    //}
+                   
 
                     SelectListDto selectListDto = new SelectListDto();
-                    selectListDto.Id = Convert.ToString(dtRow["PackingOrderNo"]);
-                    selectListDto.Value = Convert.ToString(dtRow["PackingOrderNo"]);
-
+                    selectListDto.Id = Convert.ToString(dtRow["packingorderno"]);
+                    selectListDto.Value = Convert.ToString(dtRow["packingorderno"]);
                     value.Add(selectListDto);
-                    //var result = Utility.ToListof<SelectListDto>(dt);
+                   
 
                 }
                 return value;
@@ -1441,5 +1440,6 @@ namespace ELog.Application.SelectLists
             return null;
 
         }
+       
     }
 }

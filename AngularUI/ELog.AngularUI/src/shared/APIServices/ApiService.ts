@@ -19,21 +19,28 @@ export class ApiServiceService {
 
    //content_ = JSON.stringify(body);
 
-   options_: any = {
-      //body: this.content_,
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-         "Content-Type": "application/json-patch+json",
-      }),
-   };
+   // options_: any = {
+   //    //body: this.content_,
+   //    observe: "response",
+   //    responseType: "blob",
+   //    headers: new HttpHeaders({
+   //       "Content-Type": "application/json-patch+json",
+   //    }),
+   // };
 
-    httpOptions = {
+   //  httpOptions = {
+   //    headers: new HttpHeaders({
+   //      'Content-Type':  'application/json',
+   //      'Access-Control-Allow-Origin':'*'
+   //    })
+   //  };
+
+   httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Access-Control-Allow-Origin':'*'
-      })
-    };
+     'Content-Type':  'application/json',
+     'Access-Control-Allow-Origin':'*'
+   })
+ };
 
    constructor(private http: HttpClient) {
 
@@ -77,11 +84,11 @@ export class ApiServiceService {
 
    SaveBinMaster(input: bininput) {
       const content_ = JSON.stringify(input);
-      return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/CreateBinMaster', content_, this.options_);
+      return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/CreateBinMaster', content_, this.httpOptions);
    }
    
    getBinById(Id: Int32Array): Observable<any[]> {
-      debugger;
+     ;
       console.log("Id", Id);
       return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetBinCGetBinById?id=' + Id);
    }
@@ -123,12 +130,12 @@ export class ApiServiceService {
       return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/GenerateSerialNo', content_, httpOptions);
    }
 
-   GetPackingOrderConfirmation(packingOrderNo: string): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetPackingOrderConfirmation?packingOrder=' + packingOrderNo);
+   GetPackingOrderDetails(packingOrderNo: string,planCode:string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + `PackingOrderConfirmation/GetPackingOrderDetails?packingOrder=${packingOrderNo}&PlantCode=${planCode}`);
    }
 
    PackingOrderConfirmation(plantcode, packingorderNo) {
-      debugger;
+     ;
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -151,7 +158,7 @@ export class ApiServiceService {
    }
 
    CreateSiftMaster(ShiftCode,ShiftDescription,sShiftStartTime,sShiftEndTime) {
-      debugger;
+     
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -163,8 +170,6 @@ export class ApiServiceService {
       };
       return this.http.post<any[]>(this.BasUrl + `ElogSuryaApiService/CreateSiftMaster?ShiftCode=${ShiftCode}&ShiftDescription=${ShiftDescription}&sShiftStartTime=${sShiftStartTime}&sShiftEndTime=${sShiftEndTime}`, { responseType: 'text', options_ });
    }
-   
-
    QualitySaplingPackingOrderNo(planCode,lineCode) {
       return this.http.get<any[]>(this.BasUrl + `QualitySampling/GetPackingOrderByPlantAndLine?PlantCode=${planCode}&LineNo=${lineCode}`,this.httpOptions);
    }
@@ -176,11 +181,186 @@ export class ApiServiceService {
       return this.http.post<any[]>(this.BasUrl + `QualitySampling/ScanItemBarCode?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&CartonBarCode=${cartonBarCode}&ItemBarCode=${childBarCode}&LineCode=${lineCode}`,this.httpOptions);
    }
    
-   GetQuantity(planCode,lineCode,packingOrderNo) {
-      return this.http.get<any[]>(this.BasUrl + `QualitySampling/GetQualityCheckingQty?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&LineCode=${lineCode}`,this.httpOptions);
+   GetQualitySamplingQuantity(planCode,lineCode,packingOrderNo) {
+      return this.http.get<any[]>(this.BasUrl + `QualitySampling/GetQualitySamplingQty?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&LineCode=${lineCode}`,this.httpOptions);
    }
 
    SaveQualitySampling(planCode,lineCode,packingOrderNo,CartonBarCode) {
-      return this.http.post<any[]>(this.BasUrl + `QualitySampling/QualityCheckingSave?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&CartonBarCode=${CartonBarCode}&LineCode=${lineCode}`,this.httpOptions);
+      return this.http.post<any[]>(this.BasUrl + `QualitySampling/QualitySamplingSave?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&CartonBarCode=${CartonBarCode}&LineCode=${lineCode}`,this.httpOptions);
+   }
+
+
+   GetQualityChecking(planCode,lineCode,packingOrderNo) {
+      return this.http.get<any[]>(this.BasUrl + `QualityChecking/GetQualityCheckingDetails?PackingOrderNo=${packingOrderNo}&PlantCode=${planCode}&LineCode=${lineCode}`,this.httpOptions);
+   }
+
+   saveQualityChecking(data: any[]): Observable<any> {
+      return this.http.post(this.BasUrl + 'QualityChecking/SaveQualityChecking', data);
+    }
+
+   GetManualPackingDetails(packingOrderNo,plantCode,ScanItem) {
+     
+      return this.http.get<any[]>(this.BasUrl + `ElogSuryaApiService/GetManualPackingDetails?packingOrderNo=${packingOrderNo}&plantCode=${plantCode}&ScanItem=${ScanItem}`);
+   }
+   GetStorageLocation(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'StorageLocationApi/GetStorageLocation');
+   }
+   // GetStrLocationDtls(plancode: string): Observable<any[]> {
+   //    return this.http.get<any[]>(this.BasUrl + 'StorageLocationApi/GetStorageLocationDetails?plancode=' + plancode);
+   // }
+   GetStrLocationDtls(plancode,LocationID) {
+     
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `StorageLocationApi/GetStorageLocationDetails?plancode=${plancode}&LocationID=${LocationID}`);
+   }
+   GetBarcodeScannedDetails(barcode,plantcode) {
+     
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `StorageLocationApi/GetBarcodeScannedDetails?barcode=${barcode}&plantcode=${plantcode}`);
+   }
+
+   StorageLocationConfirmation(barcode, LocationID) {
+     
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.post<any[]>(this.BasUrl + `StorageLocationApi/StorageLocationConfirmation?barcode=${barcode}&LocationID=${LocationID}`, { responseType: 'text', options_ });
+
+   }
+
+   GetManualPackingDtls(plantcode,packingorder,linecode) {
+     
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `ManualPackingApi/GetManualPackingDetails?plantcode=${plantcode}&packingorder=${packingorder}&linecode=${linecode}`);
+   }
+
+   ValidateBarcode(BinBarCode,macAddresses,plantcode,packingorder,linecode) {
+     
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.post<any[]>(this.BasUrl + `ManualPackingApi/ValidateBarcode?BinBarCode=${BinBarCode}&macAddresses=${macAddresses}&plantcode=${plantcode}&packingorder=${packingorder}&linecode=${linecode}`, { responseType: 'text', options_ });
+
+   }
+
+   
+   getIPAddress(): Observable<any[]> {
+     
+      return this.http.get<any[]>(this.BasUrl + 'ManualPackingApi/GetMacAddress');
+   }
+
+   GetQualityItemTestedDtls(itemBarcode,plantCode) {
+     
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `QualityTested_ItemPlacementApi/GetQualityItemTestedDtls?itemBarcode=${itemBarcode}&plantCode=${plantCode}`);
+
+   }
+   ValidateShiperBarcode(itemBarcode,plantCode,ShiperBarcode) {
+      //const content_ = JSON.stringify(input);
+      return this.http.get<any[]>(this.BasUrl + `QualityTested_ItemPlacementApi/GetValidateShiperBarcode?itemBarcode=${itemBarcode}&plantCode=${plantCode}&ShiperBarcode=${ShiperBarcode}`);
+   }
+
+    QualityCheckingPackingOrderNo(planCode,lineCode) {
+      return this.http.get<any[]>(this.BasUrl + `QualityChecking/GetPackingOrderByPlantAndLine?PlantCode=${planCode}&LineNo=${lineCode}`,this.httpOptions);
+   }
+   GetchallanNo(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'TransferToBranchFromPlantApi/GetchallanNo');
+   }
+   GetChallanDetails(DeliveryChallanNo: string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'TransferToBranchFromPlantApi/GetChallanDetails?DeliveryChallanNo=' + DeliveryChallanNo);
+   }
+
+   GetValidateScanCartonBarcode(DeliveryChallanNo,CartonBarcode) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `TransferToBranchFromPlantApi/GetValidateScanCartonBarcode?DeliveryChallanNo=${DeliveryChallanNo}&CartonBarcode=${CartonBarcode}`);
+
+   }
+   GetSOchallanNo(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'TransferToDealerCustFromBranchLocApi/GetSOchallanNo');
+   }
+   // GetSOChallanDetails(DeliveryChallanNo: string): Observable<any[]> {
+   //    return this.http.get<any[]>(this.BasUrl + 'TransferToDealerCustFromBranchLocApi/GetSOChallanDetails?DeliveryChallanNo=' + DeliveryChallanNo);
+   // }
+
+   GetSOChallanDetails(DeliveryChallanNo) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `TransferToDealerCustFromBranchLocApi/GetSOChallanDetails?DeliveryChallanNo=${DeliveryChallanNo}`);
+
+   }
+   GetValidateSOScanCartonBarcode(DeliveryChallanNo,CartonBarcode) {
+      debugger;
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `TransferToDealerCustFromBranchLocApi/GetValidateSOScanCartonBarcode?DeliveryChallanNo=${DeliveryChallanNo}&CartonBarcode=${CartonBarcode}`);
+
    }
 }
