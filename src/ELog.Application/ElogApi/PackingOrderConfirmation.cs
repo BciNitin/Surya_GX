@@ -1,8 +1,13 @@
 ﻿using Abp.Application.Services;
+using Castle.Facilities.TypedFactory.Internal;
+using ELog.Application.SelectLists.Dto;
 using ELog.Application.Sessions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
+using MobiVueEVO.BO.Models;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -38,7 +43,7 @@ namespace ELog.Application.ElogApi
                     Command.CommandText = "sp_PackingOrderConfirmation";
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetPackingOrderConfirmation";
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-                    Command.Parameters.Add("sBranchCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sStorageLocation", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sPackedQty", MySqlDbType.Double).Value = 0;
                     Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = default;
@@ -70,6 +75,7 @@ namespace ELog.Application.ElogApi
             MySqlConnection conn = new MySqlConnection(connection);
             MySqlDataReader myReader = null;
             DataTable dt = new DataTable();
+            List<SelectListDto> value = new List<SelectListDto>();
             try
             {
                 using (MySqlCommand Command = new MySqlCommand())
@@ -79,7 +85,7 @@ namespace ELog.Application.ElogApi
                     Command.CommandText = "sp_PackingOrderConfirmation";
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetConfirmationPackingOrderNo";
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-                    Command.Parameters.Add("sBranchCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sStorageLocation", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sPackedQty", MySqlDbType.Double).Value = 0;
                     Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = default;
@@ -93,18 +99,26 @@ namespace ELog.Application.ElogApi
                     dt.Load(myReader);
                     Command.Connection.Close();
                 }
+                foreach (DataRow dtRow in dt.Rows)
+                {
+                    SelectListDto selectListDto = new SelectListDto();
+                    selectListDto.Id = Convert.ToString(dtRow["PackingOrderNo"]);
+                    selectListDto.Value = Convert.ToString(dtRow["PackingOrderNo"]);
 
-                return dt;
+                    value.Add(selectListDto);
+
+                }
+               
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
-            return null;
+            return value;
 
         }
        
-        public async Task<Object> ConfirmPackingOrder(string PlantCode,string PackingOrderNo)
+        public async Task<Object> ConfirmPackingOrder([FromBody] PackingOrderConfirm data)
         {
 
             MySqlConnection conn = new MySqlConnection(connection);
@@ -118,13 +132,13 @@ namespace ELog.Application.ElogApi
                     Command.Connection = conn;
                     Command.CommandText = "sp_PackingOrderConfirmation";
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ConfirmPackingOrder";
-                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
-                    Command.Parameters.Add("sBranchCode", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sStorageLocation", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sPackedQty", MySqlDbType.Double).Value = 0;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = data.PlantCode;
+                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sStorageLocation", MySqlDbType.VarChar).Value = data.StrLocCode;
+                    Command.Parameters.Add("sPackedQty", MySqlDbType.Double).Value = data.PackedQty;
                     Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = default;
-                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = PackingOrderNo;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = data.LineCode;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = data.PackingOrderNo;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
 
                     Command.CommandType = CommandType.StoredProcedure;

@@ -1,24 +1,23 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ViewChildren, OnInit, NgModule, ViewChild,QueryList, AfterViewInit } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
-import { ApiServiceService } from '@shared/APIServices/ApiService';
-import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { AppComponent } from '@app/app.component';
-import { SelectListDto } from '@shared/service-proxies/service-proxies';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
+import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { ValidationService } from '@shared/ValidationService';
-import { NoWhitespaceValidator, MyErrorStateMatcher } from '@shared/app-component-base';
-interface SerialNo {
+import { appModuleAnimation } from '@shared/animations/routerTransition';
+import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
+import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
+
+interface PackingOrderConfirmation {
+  packingOrderNo: string,
   plantCode: string,
-  packingOrder: string,
-  }
-export class PackingOrder
-{
-  PackingOrderNo : string="";
-     plantCode      : string="";
- }
+  materialCode: string,
+  packedQty: any,
+  strLocCode: string,
+  packing_Date: Date
+  lineCode:string
+}
+
 @Component({
   selector: 'app-packing-order-confirmation',
   templateUrl: './packing-order-confirmation.component.html',
@@ -26,11 +25,9 @@ export class PackingOrder
   animations: [appModuleAnimation()],
   providers: [ValidationService]
 })
-export class PackingOrderConfirmationComponent implements OnInit {
+export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit {
+  lines: any;
   searchText;
-  quantity:any;
-  packingOrder: string="";
-  plantCode: string="";
   searchTerm = '';
   p: Number = 1;
   public array: any;
@@ -38,89 +35,145 @@ export class PackingOrderConfirmationComponent implements OnInit {
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
-  line: string;
+
   plnaCodeList: any;
   packingOrderList: any;
-  picklistItems:[];
-  //public dataSource: MatTableDataSource<any> = new MatTableDataSource<SerialNo>();
-  public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<SerialNo>();
+  packingOrderNo: any;
+  plantCode: any;
+
+  public dataSource: MatTableDataSource<any> = new MatTableDataSource<PackingOrderConfirmation>();
+  public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<PackingOrderConfirmation>();
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
 
   constructor(
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
-    public _appComponent : ValidationService,
+    public _appComponent: ValidationService,
   ) { }
 
   ngOnInit() {
-
-  
     this.GetPlantCode();
-   
-    
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
+  filterCountries(searchTerm: string) {
+    this.dataSourcePagination.filter = searchTerm.trim().toLocaleLowerCase();
+    const filterValue = searchTerm;
+    this.dataSourcePagination.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filteredData = this.dataSourcePagination.filteredData;
+    this.iterator();
+  }
+
+  onMatSortChange() {
+    this.dataSource.sort = this.sort;
+  }
+
+  public handlePage(e: any) {
+
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.iterator();
+  }
+
+  private getArray() {
+    abp.ui.setBusy();
+    if(this.packingOrderNo != 'undefined' && this.packingOrderNo != undefined)
+    {
+      this._apiservice.GetPackingOrderConfirmingDetails(this.packingOrderNo, this.plantCode)
+      .subscribe((response) => {
+        this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
+        this.dataSourcePagination.paginator = this.paginator;
+        this.array = response['result'];
+        this.totalSize = this.array.length;
+        this.iterator();
+        abp.ui.clearBusy();
+      },
+      (error) => {
+        abp.ui.clearBusy();
+      }
+      );
+    }
+    else
+    {
+      abp.ui.clearBusy();
+    }
+  }
+
+  private iterator() {
+    const end = (this.currentPage + 1) * this.pageSize;
+    const start = this.currentPage * this.pageSize;
+    this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
   }
 
   addEditFormGroup: FormGroup = this.formBuilder.group({
-    //registration: [null, [Validators.required, NoWhitespaceValidator]],
-    
     plantCodeFormCControl: [null, [Validators.required, NoWhitespaceValidator]],
-    packingOrderFormControl: ['',[Validators.required,NoWhitespaceValidator]]
-    
-});
-matcher = new MyErrorStateMatcher();
-GetPlantCode() {
-  this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
-      this.plnaCodeList = modeSelectList["result"];
+    packingOrderFormControl: ['', [Validators.required, NoWhitespaceValidator]]
+
   });
-};
+  matcher = new MyErrorStateMatcher();
+
+  GetPlantCode() {
+    abp.ui.setBusy();
+    this._apiservice.getPlantCode().subscribe((response) => {
+      this.plnaCodeList = response["result"];
+      abp.ui.clearBusy();
+    },
+    (error) => {
+      abp.ui.clearBusy();
+    }
+    );
+  };
 
 
-
-onChangePlantCode(value)
-{
- 
- this._apiservice.getPackingOrderNo(value).subscribe((response) => {
-  this.packingOrderList = response["result"];
-});
-}
-
-// GrtTableGrid(value)
-// {
-//   debugger;
-//   this._apiservice.GetPackingOrderConfirmation(value).subscribe((response) => {
-//     this.picklistItems = response["result"];
-//     this.quantity=this.quantity;
-// })
-// }
+  onChangePlantCode(value: any) {
+    if(value != undefined &&  value != '')
+    {
+    abp.ui.setBusy();
+    this._apiservice.GetConfirmationPackingOrderNo(value).subscribe(
+      (response) => {
+        this.packingOrderList = response['result'];
+        abp.ui.clearBusy();
+      },
+      (error) => {
+        abp.ui.clearBusy();
+      }
+    );
+    }
+  }
 
 
-Save() {
-  debugger;
-  var _packing =  new PackingOrder();
-  _packing.PackingOrderNo=this.packingOrder;
-  _packing.plantCode=this.plantCode;
-  this._apiservice.PackingOrderConfirmation(this.packingOrder,this.plantCode).subscribe(result => {
-           if(result["result"][0]['valid'])
-           {
-             abp.notify.success(result["result"][0]['valid']);
-           }
-           else
-           {
-            abp.notify.error(result["result"][0]['error']);
-           }
-           
-      });
- }
+  Save() {
+    abp.ui.setBusy();
+    this._apiservice.PackingOrderConfirmation(this.dataSourcePagination.filteredData).subscribe(result => {
+      if (result["result"][0]['valid']) {
+        abp.notify.success(result["result"][0]['valid']);
+        this.plnaCodeList = null;
+        this.GetPlantCode();
+        abp.ui.clearBusy();
+      }
+      else {
+        abp.notify.error(result["result"][0]['error']);
+        abp.ui.clearBusy();
+      }
 
-markDirty() {
-  this._appComponent.markGroupDirty(this.addEditFormGroup);
-   return true;
-}
+    },
+    (error) => {
+      abp.ui.clearBusy();
+    });
+  }
 
-Clear() {
-  this.addEditFormGroup.controls['plantCodeFormCControl'].setValue(null);
-  this.addEditFormGroup.controls['packingOrderFormControl'].setValue(null);
-}
+  markDirty() {
+    this._appComponent.markGroupDirty(this.addEditFormGroup);
+    return true;
+  }
+
+  Clear() {
+    this.addEditFormGroup.controls['plantCodeFormCControl'].setValue(null);
+    this.addEditFormGroup.controls['packingOrderFormControl'].setValue(null);
+  }
 
 }

@@ -3,7 +3,6 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { bininput } from '@app/masters/bin/bin.component';
 import { linework } from '@app/PlantOperation/line-work-center/line-work-center.component';
 import { GenerateSerialNumber } from '@app/PlantOperation/serialbarcodegeneration/serialbarcodegeneration.component';
-import { PackingOrder } from '@app/PlantOperation/packing-order-confirmation/packing-order-confirmation.component';
 
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { Observable } from 'rxjs';
@@ -104,9 +103,15 @@ export class ApiServiceService {
    GenerateSerialNumber(plancode: string): Observable<any[]> {
       return this.http.get<any[]>(this.BasUrl + 'SelectList/GetPackingOrderNo?plantCode=' + plancode);
    }
+
    GetSerialNumberDetails(packingOrderNo: string): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetSerialNumberDetails?packingOrder=' + packingOrderNo);
+      return this.http.get<any[]>(this.BasUrl + 'SuryaGenerateSerialNo/GetSerialNumberDetails?packingOrder=' + packingOrderNo);
    }
+
+   getPackingOrderNoForSerialNumber(plancode: string,linecode:string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + `SuryaGenerateSerialNo/GetPackingOrderNo?plantCode=${plancode}&linecode=${linecode}`);
+   }
+
    SaveLineWork(input: linework) {
       const content_ = JSON.stringify(input);
       const options_: any = {
@@ -127,26 +132,21 @@ export class ApiServiceService {
          })
        };
       const content_ = JSON.stringify(input);
-      return this.http.post<any[]>(this.BasUrl + 'ElogSuryaApiService/GenerateSerialNo', content_, httpOptions);
+      return this.http.post<any[]>(this.BasUrl + 'SuryaGenerateSerialNo/GenerateSerialNo', content_, httpOptions);
    }
 
-   GetPackingOrderDetails(packingOrderNo: string,planCode:string): Observable<any[]> {
+   GetPackingOrderConfirmingDetails(packingOrderNo: string,planCode:string): Observable<any[]> {
       return this.http.get<any[]>(this.BasUrl + `PackingOrderConfirmation/GetPackingOrderDetails?packingOrder=${packingOrderNo}&PlantCode=${planCode}`);
    }
 
-   PackingOrderConfirmation(plantcode, packingorderNo) {
-     ;
-      //const content_ = JSON.stringify(input);
-      const options_: any = {
-         //body: this.content_,
-         observe: "response",
-         responseType: "blob",
-         headers: new HttpHeaders({
-            "Content-Type": "application/json-patch+json",
-         }),
-      };
-      return this.http.post<any[]>(this.BasUrl + `ElogSuryaApiService/PackingOrderConfirmation?packingOrder=${plantcode}&PlantCode=${packingorderNo}`, { responseType: 'text', options_ });
-   }
+   PackingOrderConfirmation(data: any): Observable<any> {
+      return this.http.post(this.BasUrl + 'PackingOrderConfirmation/ConfirmPackingOrder', data[0], this.httpOptions);
+    }
+    
+    GetConfirmationPackingOrderNo(planCode): Observable<any> {
+      return this.http.get<any[]>(this.BasUrl + `SuryaQualityConfirmation/GetPackingOrderNo?plantcode=${planCode}`,this.httpOptions);
+    }
+   
    getStorageMaster(): Observable<any[]> {
       return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetStorageLocationMaster');
    }
@@ -196,6 +196,18 @@ export class ApiServiceService {
 
    saveQualityChecking(data: any[]): Observable<any> {
       return this.http.post(this.BasUrl + 'QualityChecking/SaveQualityChecking', data);
+    }
+
+    GetQualityConfirmationDetails(platcode,packingorderno): Observable<any> {
+      return this.http.get(this.BasUrl + `SuryaQualityConfirmation/GetQCCheckingDetails?plantcode=${platcode}&packingorderno=${packingorderno}`,this.httpOptions);
+    }
+
+    GetQualityConfirmationPONo(platcode): Observable<any> {
+      return this.http.post(this.BasUrl + `SuryaQualityConfirmation/GetPackingOrderNo?plantcode=${platcode}`,this.httpOptions);
+    }
+
+    saveQualityConfirmation(data: any[]): Observable<any> {
+      return this.http.post(this.BasUrl + 'SuryaQualityConfirmation/QCConfirm', data);
     }
 
    GetManualPackingDetails(packingOrderNo,plantCode,ScanItem) {

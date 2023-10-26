@@ -152,17 +152,22 @@ export class SerialbarcodegenerationComponent implements OnInit {
    printingQty:[null,[Validators.required,NoWhitespaceValidator]]
 });
 matcher = new MyErrorStateMatcher();
+
 GetPlantCode() {
+  abp.ui.setBusy();
   this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
       this.plnaCodeList = modeSelectList["result"];
+      abp.ui.clearBusy();
   });
 };
 
-GetLineCode() {
-  this._apiservice.getLineWorkCenterNo().subscribe((response) => {
+  GetLineCode() {
+    abp.ui.setBusy();
+    this._apiservice.getLineWorkCenterNo().subscribe((response) => {
       this.lineList = response["result"];
-  });
-};
+      abp.ui.clearBusy();
+    });
+  };
 
 validateForm(event: any) {
   if ((event.target.selectionStart === 0 && event.code === "Space") || (event.keyCode >= 48 && event.keyCode <= 64) || (event.keyCode >= 91 && event.keyCode <= 255)) {
@@ -171,20 +176,34 @@ validateForm(event: any) {
       }
   }
 }
-onChangePlantCode(value)
-{
- 
- this._apiservice.getPackingOrderNo(value).subscribe((response) => {
-  this.packingOrderList = response["result"];
-  this.updateUIselectedOrderType = this.packingOrder;
-});
-}
+  onChangeLineCode() {
+   console.log(this.lineCode)
+    if (this.plantCode !== '' && this.lineCode !== '') {
+      abp.ui.setBusy();
+      this._apiservice.getPackingOrderNoForSerialNumber(this.plantCode, this.lineCode).subscribe(
+        (response) => {
+          this.packingOrderList = response["result"];
+          this.updateUIselectedOrderType = this.packingOrder;
+          abp.ui.clearBusy();
+        },
+        (error) => {
+          // Handle the error here
+          console.error('An error occurred:', error);
+          // Optionally, display an error message to the user
+          // You can use a notification service or display the error in the UI
+          abp.notify.error('An error occurred while fetching data.');
+          abp.ui.clearBusy();
+        }
+      );
+    }
+  }
 
   GrtTableGrid(value) {
-    this.printingQty = 0;
     if (value != '') {
+      abp.ui.setBusy();
       this._apiservice.GetSerialNumberDetails(value).subscribe((response) => {
         this.picklistItems = response["result"];
+        abp.ui.clearBusy();
       })
     }
   }
@@ -203,54 +222,56 @@ GetCheckBoxValue(event,plantCode:any,materialCode:any,quantity:any,pendingQtyToP
 
 Save() {
 
-   if(this.isSelected)
-   {
-  var _GenSerial =  new GenerateSerialNumber();
-  _GenSerial.plantCode=this.plantCode;
-  _GenSerial.ItemCode=this.materialCode;
-  _GenSerial.printingQty=this.printingQty;
-  _GenSerial.quantity=this.quantity;
-  _GenSerial.pendingQtyToPrint=this.pendingQtyToPrint;
-  _GenSerial.packing_Date=this.packing_Date;
-  _GenSerial.lineCode=this.lineCode;
-  _GenSerial.supplierCode=this.supplierCode;
-  _GenSerial.driverCode=this.driverCode;
-  _GenSerial.work_Center=this.work_Center;
-  _GenSerial.PackingOrderNo=this.packingOrder;
-  
-  if(this.pendingQtyToPrint <= this.printingQty)
-  {
-    abp.notify.error("Printing quantity should be less than from Pending Quantity!");
-    return false;
-  }
-  else
-  {
-    try {
-      this._apiservice.SaveSerialBarcodeGen(_GenSerial).subscribe(result => {
-        this.SrBarcode = result["result"];
-        if(result["result"][0].valid)
-        {
-         abp.notify.success(result["result"][0].valid);
-         this.GrtTableGrid(this.packingOrder);
-        }
-        else{
-          abp.notify.error(result["result"][0].error);
-        }
-        
-    },
-    (error) => {
-      // Handle HTTP error
-    });
-    } catch (error) {
-      abp.notify.error("There is error");
+  abp.ui.setBusy();
+  if (this.isSelected) {
+    var _GenSerial = new GenerateSerialNumber();
+    _GenSerial.plantCode = this.plantCode;
+    _GenSerial.ItemCode = this.materialCode;
+    _GenSerial.printingQty = this.printingQty;
+    _GenSerial.quantity = this.quantity;
+    _GenSerial.pendingQtyToPrint = this.pendingQtyToPrint;
+    _GenSerial.packing_Date = this.packing_Date;
+    _GenSerial.lineCode = this.lineCode;
+    _GenSerial.supplierCode = this.supplierCode;
+    _GenSerial.driverCode = this.driverCode;
+    _GenSerial.work_Center = this.work_Center;
+    _GenSerial.PackingOrderNo = this.packingOrder;
+
+    if (this.pendingQtyToPrint < this.printingQty) {
+      abp.notify.error("Printing quantity should be less than from Pending Quantity!");
+      return false;
+      abp.ui.clearBusy();
+    }
+    else {
+      try {
+        this._apiservice.SaveSerialBarcodeGen(_GenSerial).subscribe(result => {
+          this.SrBarcode = result["result"];
+          if (result["result"][0].valid) {
+            abp.notify.success(result["result"][0].valid);
+            this.GrtTableGrid(this.packingOrder);
+            abp.ui.clearBusy();
+          }
+          else {
+            abp.notify.error(result["result"][0].error);
+            abp.ui.clearBusy();
+          }
+
+        },
+          (error) => {
+            abp.ui.clearBusy();
+            // Handle HTTP error
+          });
+      } catch (error) {
+        abp.ui.clearBusy();
+        abp.notify.error("There is error");
+      }
     }
   }
-}
-else
-{
-  abp.notify.error("Please select the checkbox.");
-}
-  
+  else {
+    abp.notify.error("Please select the checkbox.");
+    abp.ui.clearBusy();
+  }
+  this.isSelected = false;
 }
 
 
