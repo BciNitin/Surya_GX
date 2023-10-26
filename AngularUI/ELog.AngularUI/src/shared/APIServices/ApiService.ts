@@ -327,7 +327,7 @@ export class ApiServiceService {
    // }
 
    GetValidateScanCartonBarcode(DeliveryChallanNo,CartonBarcode) {
-      debugger;
+      
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -345,7 +345,7 @@ export class ApiServiceService {
    }
    
 GetSOChallanDetails(DeliveryChallanNo) {
-      debugger;
+      
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -359,7 +359,7 @@ GetSOChallanDetails(DeliveryChallanNo) {
 
    }
    GetValidateSOScanCartonBarcode(DeliveryChallanNo,CartonBarcode) {
-      debugger;
+      
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -376,7 +376,7 @@ GetSOChallanDetails(DeliveryChallanNo) {
       return this.http.get<any[]>(this.BasUrl + 'RevalidationProcessBranchPlantApi/GetExpiredItemCode');
    }
    GetExpiredItemCodeDetails(MaterialCode) {
-      debugger;
+     
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -390,7 +390,7 @@ GetSOChallanDetails(DeliveryChallanNo) {
 
    }
    GetValidateItem(barcode,MaterialCode) {
-      debugger;
+      
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -405,7 +405,7 @@ GetSOChallanDetails(DeliveryChallanNo) {
    }
 
    GetValidateGRNConfirmation(DeliveryChallanNo,CartonBarcode) {
-      debugger;
+      
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -420,7 +420,7 @@ GetSOChallanDetails(DeliveryChallanNo) {
    }
 
    GetChallanDetails(DeliveryChallanNo) {
-      debugger;
+      
       //const content_ = JSON.stringify(input);
       const options_: any = {
          //body: this.content_,
@@ -433,6 +433,35 @@ GetSOChallanDetails(DeliveryChallanNo) {
       return this.http.get<any[]>(this.BasUrl + `TransferToBranchFromPlantApi/GetChallanDetails?DeliveryChallanNo=${DeliveryChallanNo}`);
 
    }
+   GetCustomerCode(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'WarrantyClaimApi/GetCustomerCode');
+   }
+   GetWarrantyDetails(Barcode,CustomerCode) {
+      
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `WarrantyClaimApi/GetWarrantyDetails?Barcode=${Barcode}&CustomerCode=${CustomerCode}`);
 
-   
+   }
+   GetValidateWarrranty(Barcode,CustomerCode) {
+      
+       //const content_ = JSON.stringify(input);
+       const options_: any = {
+          //body: this.content_,
+          observe: "response",
+          responseType: "blob",
+          headers: new HttpHeaders({
+             "Content-Type": "application/json-patch+json",
+          }),
+       };
+       return this.http.get<any[]>(this.BasUrl + `WarrantyClaimApi/GetValidateWarrranty?Barcode=${Barcode}&CustomerCode=${CustomerCode}`);
+
+    }
 }

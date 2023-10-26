@@ -48,6 +48,8 @@ import { TransferToBranchFromPlantComponent } from './PlantOperation/transfer-to
 import { TransferDealerCustomerfromBranchComponent } from './PlantOperation/transfer-dealer-customerfrom-branch/transfer-dealer-customerfrom-branch.component';
 import { RevalidationProcessBranchComponent } from './PlantOperation/revalidation-process-branch/revalidation-process-branch.component';
 import { GrnConfirmationComponent } from './PlantOperation/grn-confirmation/grn-confirmation.component';
+import { ApprovalForZonalManagerComponent } from './PlantOperation/approval-for-zonal-manager/approval-for-zonal-manager.component';
+import { WarrantyClaimComponent } from './PlantOperation/warranty-claim/warranty-claim.component';
 
 
 
@@ -141,6 +143,8 @@ import { GrnConfirmationComponent } from './PlantOperation/grn-confirmation/grn-
                     { path: 'transfer-dealer-customerfrom-branch', component: TransferDealerCustomerfromBranchComponent, canActivate: [AppRouteGuard] },
                     { path: 'revalidation-process-branch', component: RevalidationProcessBranchComponent, canActivate: [AppRouteGuard] },
                     { path: 'grn-confirmation', component: GrnConfirmationComponent, canActivate: [AppRouteGuard] },
+                    { path: 'approval-for-zonal-manager', component: ApprovalForZonalManagerComponent, canActivate: [AppRouteGuard] },
+                    { path: 'warranty-claim', component: WarrantyClaimComponent, canActivate: [AppRouteGuard] },
                    
                 ]
             }

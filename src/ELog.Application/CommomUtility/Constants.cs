@@ -61,6 +61,10 @@ namespace ELog.Application.CommomUtility
         public const string GetExpiredItemDetails = "GetExpiredItemCodeDetails"; 
         public const string GetValidateItem = "GetValidateItem";
         public const string GetValidateGRNConfirm = "GetValidateGRNConfirmation";
-        public const string sp_GRN_Confirm = "sp_GRN_Confirmation";
+        public const string sp_GRN_Confirm = "sp_GRN_Confirmation"; 
+        public const string sp_WarrantyClaim = "sp_Warranty_Claim";
+        public const string GetCustomerCode = "GetCustomerCode"; 
+        public const string GetWarrantyDetails = "GetWarrantyDetails";
+        public const string GetValidateWarrranty = "GetValidateWarrranty";
     }
 }
