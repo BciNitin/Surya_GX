@@ -266,12 +266,14 @@ Save() {
       } catch (error) {
         abp.ui.clearBusy();
         abp.notify.error("There is error");
+        this.isSelected = false;
       }
     }
   }
   else {
     abp.notify.error("Please select the checkbox.");
     abp.ui.clearBusy();
+    this.isSelected = false;
   }
   this.isSelected = false;
 }
