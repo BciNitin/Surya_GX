@@ -59,7 +59,7 @@ export class SerialbarcodegenerationComponent implements OnInit {
   packing_Date: string="";
   materialCode: string="";
   ItemCode :string="";
-  printingQty: Number;
+  printingQty: any;
   pendingQtyToPrint: Number;
   searchTerm = '';
   p: Number = 1;
@@ -177,7 +177,6 @@ validateForm(event: any) {
   }
 }
   onChangeLineCode() {
-   console.log(this.lineCode)
     if (this.plantCode !== '' && this.lineCode !== '') {
       abp.ui.setBusy();
       this._apiservice.getPackingOrderNoForSerialNumber(this.plantCode, this.lineCode).subscribe(
@@ -237,10 +236,10 @@ Save() {
     _GenSerial.work_Center = this.work_Center;
     _GenSerial.PackingOrderNo = this.packingOrder;
 
-    if (this.pendingQtyToPrint < this.printingQty) {
+    if (this.pendingQtyToPrint < this.printingQty || this.printingQty < 0) {
       abp.notify.error("Printing quantity should be less than from Pending Quantity!");
-      return false;
       abp.ui.clearBusy();
+      this.isSelected = false;
     }
     else {
       try {
@@ -250,15 +249,18 @@ Save() {
             abp.notify.success(result["result"][0].valid);
             this.GrtTableGrid(this.packingOrder);
             abp.ui.clearBusy();
+            this.isSelected = false;
           }
           else {
             abp.notify.error(result["result"][0].error);
             abp.ui.clearBusy();
+            this.isSelected = false;
           }
 
         },
           (error) => {
             abp.ui.clearBusy();
+            this.isSelected = false;
             // Handle HTTP error
           });
       } catch (error) {

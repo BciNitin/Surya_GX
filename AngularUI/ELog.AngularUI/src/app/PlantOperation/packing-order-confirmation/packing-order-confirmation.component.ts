@@ -133,7 +133,7 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
     if(value != undefined &&  value != '')
     {
     abp.ui.setBusy();
-    this._apiservice.GetConfirmationPackingOrderNo(value).subscribe(
+    this._apiservice.GetConfirming_PO_No_(value).subscribe(
       (response) => {
         this.packingOrderList = response['result'];
         abp.ui.clearBusy();
@@ -154,6 +154,8 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
         this.plnaCodeList = null;
         this.GetPlantCode();
         abp.ui.clearBusy();
+        this.dataSource.filteredData = null;
+        this.Clear();
       }
       else {
         abp.notify.error(result["result"][0]['error']);

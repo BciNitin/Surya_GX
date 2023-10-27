@@ -124,6 +124,7 @@ export class ApiServiceService {
       };
       return this.http.post<any>(this.BasUrl + 'ElogSuryaApiService/LineBinMapping_Mapping', { content_, responseType: 'text', options_ });
    }
+
    SaveSerialBarcodeGen(input: GenerateSerialNumber) {
       const httpOptions = {
          headers: new HttpHeaders({
@@ -133,6 +134,10 @@ export class ApiServiceService {
        };
       const content_ = JSON.stringify(input);
       return this.http.post<any[]>(this.BasUrl + 'SuryaGenerateSerialNo/GenerateSerialNo', content_, httpOptions);
+   }
+
+   GetConfirming_PO_No_(planCode:string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + `PackingOrderConfirmation/GetConfirmationPackingOrderNo?PlantCode=${planCode}`);
    }
 
    GetPackingOrderConfirmingDetails(packingOrderNo: string,planCode:string): Observable<any[]> {
@@ -463,5 +468,8 @@ GetSOChallanDetails(DeliveryChallanNo) {
        };
        return this.http.get<any[]>(this.BasUrl + `WarrantyClaimApi/GetValidateWarrranty?Barcode=${Barcode}&CustomerCode=${CustomerCode}`);
 
+    }
+    GetDealerCode(): Observable<any> {
+      return this.http.get(this.BasUrl + `SuryaRevalidationDealerLocation/GetDealerCode`,this.httpOptions);
     }
 }

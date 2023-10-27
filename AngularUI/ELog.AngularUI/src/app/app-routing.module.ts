@@ -50,6 +50,7 @@ import { RevalidationProcessBranchComponent } from './PlantOperation/revalidatio
 import { GrnConfirmationComponent } from './PlantOperation/grn-confirmation/grn-confirmation.component';
 import { ApprovalForZonalManagerComponent } from './PlantOperation/approval-for-zonal-manager/approval-for-zonal-manager.component';
 import { WarrantyClaimComponent } from './PlantOperation/warranty-claim/warranty-claim.component';
+import { RevalidationDealerLocationComponent } from './PlantOperation/revalidation-dealer-location/revalidation-dealer-location.component';
 
 
 
@@ -145,6 +146,7 @@ import { WarrantyClaimComponent } from './PlantOperation/warranty-claim/warranty
                     { path: 'grn-confirmation', component: GrnConfirmationComponent, canActivate: [AppRouteGuard] },
                     { path: 'approval-for-zonal-manager', component: ApprovalForZonalManagerComponent, canActivate: [AppRouteGuard] },
                     { path: 'warranty-claim', component: WarrantyClaimComponent, canActivate: [AppRouteGuard] },
+                    { path: 'revalidation-dealer-location', component: RevalidationDealerLocationComponent, canActivate: [AppRouteGuard] },
                    
                 ]
             }

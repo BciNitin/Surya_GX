@@ -65,7 +65,7 @@
                                            <!-- / <td class="td-center-align">{{picklistItem.batchCode}}</td> -->
                                             <td class="td-center-align">{{picklistItem.strLocCode}}</td>
                                             <td class="td-center-align">{{picklistItem.packedQty}}</td>
-                                            <td class="td-center-align">{{picklistItem.packing_Date | date: 'MM-dd-yyyy'}}</td>
+                                            <td class="td-center-align">{{picklistItem.packing_Date | date: 'dd-MM-yyyy'}}</td>
                                             <td class="td-center-align">{{picklistItem.lineCode}}</td>
                                         </tr>
                                         <tr *ngIf="dataSource.filteredData?.length == 0">

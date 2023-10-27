@@ -1,1 +1,99 @@
-<p>revalidation-dealer-location works!</p>
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="row user-component-content row-filter-container">
+                <div class="col-12">
+                    <h2 class="title">{{ "Revalidation Dealer Location" | localize }}</h2>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div id="collapse1" class="panel-collapse collapse in dark-text">
+                        <div class="panel-body">
+                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup"
+                                #addEditUserForm="ngForm">
+                                <div class="row fieldes">
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field>
+                                            <mat-label>Dealer Code</mat-label>
+                                            <mat-select [(ngModel)]="dealerCode" name="dealerCode"
+                                                [errorStateMatcher]="matcher" formControlName="dealerCodeFormControl"
+                                                (ngModelChange)="GetDealerCode($event)"
+                                                >
+                                                <mat-option>Select Dealer Code</mat-option>
+                                                <mat-option *ngFor="let dealer of dealerCodeList" [value]="dealer.id">
+                                                    {{dealer.id}}  |  {{dealer.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('dealerCodeFormControl')?.hasError('required') || addEditFormGroup?.get('dealerCodeFormControl')?.hasError('whitespace')">
+                                                Dealer Code is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </form>
+                            <br>
+                            <div class="body table-responsive">
+                                <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="th-center-align">{{ "Select All" | localize }}</th>
+                                            <th class="th-center-align">{{ "Plant Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Item Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Loc." | localize }}</th>
+                                            <th class="th-center-align">{{ "Batch Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "OK Qty." | localize }}</th>
+                                            <th class="th-center-align">{{ "NG Qty." | localize }}</th>
+                                            <th class="th-center-align">{{ "Packed Qty." | localize }}</th>
+                                            <th class="th-center-align">{{ "QC Date" | localize }}</th>
+                                            <th class="th-center-align">{{ "Line Code" | localize }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let  obj of dataSource.filteredData;" >
+                                            <td class="td-center-align">
+                                                <mat-checkbox [(ngModel)]="obj.checkBoxValue"></mat-checkbox>
+                                                <!-- <p *ngIf="!isAtLeastOneCheckboxSelected()">Select at least one checkbox</p> -->
+                                            </td>
+                                           
+                                            <td class="td-center-align">{{obj.plantCode}}</td>
+                                            <td class="td-center-align">{{obj.materialCode}}</td>
+                                            <td class="td-center-align">{{obj.strLocCode}}</td>
+                                            <td class="td-center-align">{{obj.batchCode}}</td>
+                                            <td class="td-center-align">{{obj.okQty}}</td>
+                                            <td class="td-center-align">{{obj.ngQty}}</td>
+                                            <td class="td-center-align">{{obj.packedQty}}</td>
+                                            <td class="td-center-align">{{obj.qcDate | date:'MM/dd/yyyy'}}</td>
+                                            <td class="td-center-align">{{obj.lineNo}}</td>
+                                        </tr>
+                                        <tr *ngIf="dataSource.filteredData?.length == 0">
+                                            <td colspan="10" class="no-data-available">No data to display.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngIf="addEditFormGroup.hasError('noCheckboxSelected', 'checkBoxes')" class="error-message">
+                                    At least one checkbox must be selected.
+                                  </div>
+                            </div>
+                            <mat-paginator [length]="totalSize" [pageSize]="pageSize"
+                                [pageSizeOptions]="[10, 20, 30, 40]" aria-label="Select page"
+                                (page)="pageEvent = handlePage($event)">
+                            </mat-paginator>
+                            <div class="row pull-right">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary  margin-right-2px"
+                                      (click)="markDirty() && addEditFormGroup.valid && Approve()">
+                                        Save
+                                    </button>
+                                    <button class="btn filter-back-button" (click)="Clear()">
+                                        Clear
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
