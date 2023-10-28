@@ -17,7 +17,6 @@
                                             <mat-label>Plant Code</mat-label>
                                             <mat-select [(ngModel)]="plantCode" name="plantId" [errorStateMatcher]="matcher"
                                                 [errorStateMatcher]="matcher"
-                                                (ngModelChange)="onChangePlantCode($event)"
                                                 formControlName="plantCodeFormCControl">
                                                 <mat-option>Select Plant</mat-option>
                                                 <mat-option *ngFor="let plant of plnatCodeList" [value]="plant.id">
@@ -34,6 +33,7 @@
                                         <mat-form-field>
                                             <mat-label>Line Work Center No.</mat-label>
                                             <mat-select [(ngModel)]="linecode" name="linecode"
+                                            (ngModelChange)="onChangeLineCode($event)"
                                                 [errorStateMatcher]="matcher" formControlName="LineCodeFormControl">
                                                 <mat-option>Select Plant</mat-option>
                                                 <mat-option *ngFor="let line of lineList" [value]="line.id">
@@ -96,7 +96,7 @@
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                             <mat-label>Count</mat-label>
                                             <input matInput required [(ngModel)]="count" name="count" readonly  
-                                                    formControlName="CountFormControl" maxlength="16" >
+                                               formControlName="CountFormControl" maxlength="16" >
                                             
                                         </mat-form-field>
                                     </div>
@@ -104,7 +104,7 @@
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                             <mat-label>Total Count</mat-label>
                                             <input matInput required [(ngModel)]="tCount" name="tCount" readonly  
-                                                    formControlName="TotalCountFormControl" maxlength="16" >
+                                            formControlName="TotalCountFormControl" maxlength="16" >
                                             
                                         </mat-form-field>
                                     </div>

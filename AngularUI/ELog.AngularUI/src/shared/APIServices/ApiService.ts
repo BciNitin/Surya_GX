@@ -215,6 +215,10 @@ export class ApiServiceService {
       return this.http.post(this.BasUrl + 'SuryaQualityConfirmation/QCConfirm', data);
     }
 
+    getManualPackingPackingOrderNo(plancode,lineCode): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + `ManualPackingApi/GetPackingOrderNo?plantcode=${plancode}&lineCode=${lineCode}`);
+   }
+
    GetManualPackingDetails(packingOrderNo,plantCode,ScanItem) {
      
       return this.http.get<any[]>(this.BasUrl + `ElogSuryaApiService/GetManualPackingDetails?packingOrderNo=${packingOrderNo}&plantCode=${plantCode}&ScanItem=${ScanItem}`);

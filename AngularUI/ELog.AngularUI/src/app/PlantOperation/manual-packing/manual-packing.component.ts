@@ -47,7 +47,9 @@ export class ManualPackingComponent implements OnInit {
   ScanItem: string="";
   lineList:any;
   ipAddress:string; 
-   
+  messageSplit: string[];
+  message: string;
+
   constructor(
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
@@ -82,13 +84,15 @@ GetPlantCode() {
       this.plnatCodeList = modeSelectList["result"];
   });
 };
-onChangePlantCode(value)
+onChangeLineCode(value)
 {
-
- this._apiservice.getPackingOrderNo(value).subscribe((response) => {
+if(value != '' && value != undefined)
+{
+ this._apiservice.getManualPackingPackingOrderNo(this.plantCode,value).subscribe((response) => {
   this.packingOrderList = response["result"];
   
 });
+}
 }
 GrtTableGrid()
 {
@@ -102,18 +106,6 @@ GrtTableGrid()
     this.manualPackingdtls = response["result"];
     this.materialCode=response["result"][0]['materialCode'];
     this.packSize=response["result"][0]['packSize'];
-    this.count=response["result"][0]['count'];
-    this.tCount=response["result"][0]['tCount'];
-    // if(response["result"][0]['valid'])
-    //        {
-    //          abp.notify.success(response["result"][0]['valid']);
-             
-    //        }
-    //        else
-    //        {
-    //         abp.notify.error(response["result"][0]['error']);
-    //        }
-
 })
 }
 GetLineCode() {
@@ -137,18 +129,22 @@ Save() {
   _Storage.linecode=this.linecode;
  this._apiservice.ValidateBarcode(this.BinBarCode,this.macAddresses,this.plantCode,this.packingOrder,this.linecode).subscribe(result => {
    
-           if(result["result"][0]['valid'])
-           {
-             abp.notify.success(result["result"][0]['valid']);
-             
-           }
-           else
-           {
-            abp.notify.error(result["result"][0]['error']);
-           }
-           
-      });
-  
+   if (result["result"][0]['valid']) {
+     this.message = result["result"][0]['valid'];
+     this.messageSplit = this.message.split('~');
+     this.count = this.messageSplit[1];
+     this.tCount = this.messageSplit[2];
+     console.log(this.messageSplit);
+
+     abp.notify.success(result["result"][0]['valid']);
+
+   }
+   else {
+     abp.notify.error(result["result"][0]['error']);
+   }
+
+ });
+
 }
 
 Clear() {
