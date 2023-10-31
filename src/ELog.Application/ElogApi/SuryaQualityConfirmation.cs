@@ -52,6 +52,8 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add(new MySqlParameter("sQCDate", MySqlDbType.Date) { Value = default });
                     Command.Parameters.Add(new MySqlParameter("sLineCode", MySqlDbType.VarChar) { Value = String.Empty });
                     Command.Parameters.Add(new MySqlParameter("sPlantCode", MySqlDbType.VarChar) { Value = plantcode});
+                    Command.Parameters.Add(new MySqlParameter("sItemBarCode", MySqlDbType.VarChar) { Value = plantcode});
+                    Command.Parameters.Add(new MySqlParameter("sParantBarCode", MySqlDbType.VarChar) { Value = plantcode});
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -100,6 +102,8 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add(new MySqlParameter("sQCDate", MySqlDbType.Date) { Value = default });
                     Command.Parameters.Add(new MySqlParameter("sLineCode", MySqlDbType.VarChar) { Value = String.Empty });
                     Command.Parameters.Add(new MySqlParameter("sPlantCode", MySqlDbType.VarChar) { Value = plantcode });
+                    Command.Parameters.Add(new MySqlParameter("sItemBarCode", MySqlDbType.VarChar) { Value = plantcode });
+                    Command.Parameters.Add(new MySqlParameter("sParantBarCode", MySqlDbType.VarChar) { Value = plantcode });
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -151,6 +155,8 @@ namespace ELog.Application.ElogApi
                                     Command.Parameters.Add(new MySqlParameter("sQCDate", MySqlDbType.Date) { Value = confirmation.QCDate });
                                     Command.Parameters.Add(new MySqlParameter("sLineCode", MySqlDbType.VarChar) { Value = confirmation.LineNo });
                                     Command.Parameters.Add(new MySqlParameter("sPlantCode", MySqlDbType.VarChar) { Value = confirmation.PlantCode });
+                                    Command.Parameters.Add(new MySqlParameter("sItemBarCode", MySqlDbType.VarChar) { Value = confirmation.ChildBarcode });
+                                    Command.Parameters.Add(new MySqlParameter("sParantBarCode", MySqlDbType.VarChar) { Value = confirmation.CartonBarCode });
                                     Command.CommandType = CommandType.StoredProcedure;
                                     myReader = await Command.ExecuteReaderAsync();
                                     dt.Load(myReader);

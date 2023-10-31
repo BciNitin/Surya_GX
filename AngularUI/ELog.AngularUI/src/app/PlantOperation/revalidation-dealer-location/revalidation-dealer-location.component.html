@@ -31,50 +31,37 @@
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Scan Item Barcode</mat-label>
+                                            <input matInput required name="ItemBarCode" (change)="ValidateItemBarCode()"
+                                                   [(ngModel)]='ItemBarCode' formControlName="ItemBarCodeFormControl" maxlength="16" >
+                                            <mat-error *ngIf="addEditFormGroup?.get('ItemBarCodeFormControl')?.hasError('required') || addEditFormGroup?.get('ItemBarCodeFormControl')?.hasError('whitespace')">
+                                                Item BarCode is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                             </form>
                             <br>
                             <div class="body table-responsive">
-                                <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
+                                <table class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="th-center-align">{{ "Select All" | localize }}</th>
-                                            <th class="th-center-align">{{ "Plant Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Label Barcode" | localize }}</th>
                                             <th class="th-center-align">{{ "Item Code" | localize }}</th>
-                                            <th class="th-center-align">{{ "Loc." | localize }}</th>
-                                            <th class="th-center-align">{{ "Batch Code" | localize }}</th>
-                                            <th class="th-center-align">{{ "OK Qty." | localize }}</th>
-                                            <th class="th-center-align">{{ "NG Qty." | localize }}</th>
-                                            <th class="th-center-align">{{ "Packed Qty." | localize }}</th>
-                                            <th class="th-center-align">{{ "QC Date" | localize }}</th>
-                                            <th class="th-center-align">{{ "Line Code" | localize }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let  obj of dataSource.filteredData;" >
-                                            <td class="td-center-align">
-                                                <mat-checkbox [(ngModel)]="obj.checkBoxValue"></mat-checkbox>
-                                                <!-- <p *ngIf="!isAtLeastOneCheckboxSelected()">Select at least one checkbox</p> -->
-                                            </td>
-                                           
-                                            <td class="td-center-align">{{obj.plantCode}}</td>
-                                            <td class="td-center-align">{{obj.materialCode}}</td>
-                                            <td class="td-center-align">{{obj.strLocCode}}</td>
-                                            <td class="td-center-align">{{obj.batchCode}}</td>
-                                            <td class="td-center-align">{{obj.okQty}}</td>
-                                            <td class="td-center-align">{{obj.ngQty}}</td>
-                                            <td class="td-center-align">{{obj.packedQty}}</td>
-                                            <td class="td-center-align">{{obj.qcDate | date:'MM/dd/yyyy'}}</td>
-                                            <td class="td-center-align">{{obj.lineNo}}</td>
+                                        <tr *ngFor="let  picklistItem of dataSource.filteredData">
+                                            <td class="td-center-align">{{picklistItem.barcode}}</td>
+                                            <td class="td-center-align">{{picklistItem.materialCode}}</td>
                                         </tr>
                                         <tr *ngIf="dataSource.filteredData?.length == 0">
-                                            <td colspan="10" class="no-data-available">No data to display.</td>
+                                            <td colspan="6" class="no-data-available">No data to display.</td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div *ngIf="addEditFormGroup.hasError('noCheckboxSelected', 'checkBoxes')" class="error-message">
-                                    At least one checkbox must be selected.
-                                  </div>
                             </div>
                             <mat-paginator [length]="totalSize" [pageSize]="pageSize"
                                 [pageSizeOptions]="[10, 20, 30, 40]" aria-label="Select page"
@@ -84,7 +71,7 @@
                                 <div class="col-md-12">
                                     <button type="button" class="btn btn-primary  margin-right-2px"
                                       (click)="markDirty() && addEditFormGroup.valid && Approve()">
-                                        Save
+                                        Approve
                                     </button>
                                     <button class="btn filter-back-button" (click)="Clear()">
                                         Clear

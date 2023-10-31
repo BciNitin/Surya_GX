@@ -49,6 +49,7 @@ export class RevalidationDealerLocationComponent implements OnInit, AfterViewIni
 
   addEditFormGroup: FormGroup = this.formBuilder.group({
     dealerCodeFormControl: [null, [Validators.required, NoWhitespaceValidator]],
+    ItemBarCodeFormControl: [null, [Validators.required, NoWhitespaceValidator]]
   });
   matcher = new MyErrorStateMatcher();
 

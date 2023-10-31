@@ -147,6 +147,7 @@ import { RevalidationDealerLocationComponent } from './PlantOperation/revalidati
                     { path: 'approval-for-zonal-manager', component: ApprovalForZonalManagerComponent, canActivate: [AppRouteGuard] },
                     { path: 'warranty-claim', component: WarrantyClaimComponent, canActivate: [AppRouteGuard] },
                     { path: 'revalidation-dealer-location', component: RevalidationDealerLocationComponent, canActivate: [AppRouteGuard] },
+                    { path: 'approval-zonal-manager  ', component: ApprovalForZonalManagerComponent, canActivate: [AppRouteGuard] },
                    
                 ]
             }

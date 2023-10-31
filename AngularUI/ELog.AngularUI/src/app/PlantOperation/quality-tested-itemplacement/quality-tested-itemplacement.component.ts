@@ -42,7 +42,7 @@ export class QualityTestedItemplacementComponent implements OnInit {
 });
 
 Validate() {
-  debugger;
+  
 
   var _iPlacement =  new itemplacement();
   _iPlacement.itemBarcode = this.itemBarcode;
@@ -55,7 +55,7 @@ Validate() {
   else
   {
   this._apiservice.GetQualityItemTestedDtls(this.itemBarcode,this.plantCode).subscribe(result => {
-    debugger;
+    
            if(result["result"][0]['error'])
            {
             abp.notify.error(result["result"][0]['error']);
@@ -70,7 +70,7 @@ Validate() {
     }
 }
 ValidateShiperBarcode() {
-  debugger;
+  
 
   var _iPlacement =  new itemplacement();
   _iPlacement.itemBarcode = this.itemBarcode;
@@ -91,7 +91,7 @@ ValidateShiperBarcode() {
     else
     {
 this._apiservice.ValidateShiperBarcode(this.itemBarcode,this.plantCode,this.ShiperBarcode).subscribe(result => {
-    debugger;
+    
     if(result["result"][0]['valid'])
     {
       abp.notify.success(result["result"][0]['valid']);

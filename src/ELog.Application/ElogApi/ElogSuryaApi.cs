@@ -69,7 +69,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.CommandText =  Constants.SP_Master;
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.PlantMaster;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -101,7 +101,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.CommandText = Constants.SP_Master;
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.MaterialMaster;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -133,7 +133,7 @@ namespace ELog.Application.ElogApi
             {
                 Command.Connection = conn;
 
-                Command.CommandText = Constants.Schema + Constants.SP_Master;
+                Command.CommandText =  Constants.SP_Master;
                 Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.CustomerMaster;
                 Command.CommandType = CommandType.StoredProcedure;
                 Command.Connection.Open();
@@ -157,7 +157,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.CommandText = Constants.SP_Master;
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.LineMaster;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -218,7 +218,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.CommandText = Constants.SP_Master;
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.StorageLocationMaster;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -248,7 +248,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.CommandText =  Constants.SP_Master;
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.BinMaster;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -278,7 +278,7 @@ namespace ELog.Application.ElogApi
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-                    Command.CommandText = Constants.Schema + Constants.sp_masters_bin;
+                    Command.CommandText =  Constants.sp_masters_bin;
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = Constants.GetBinById;
                     Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("@sBinCode", MySqlDbType.VarChar).Value = String.Empty;
@@ -313,7 +313,7 @@ namespace ELog.Application.ElogApi
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-                    Command.CommandText = Constants.Schema + Constants.sp_masters_bin;
+                    Command.CommandText =  Constants.sp_masters_bin;
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = Constants.GetBinById;
                     Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = bin.PlantCode;
                     Command.Parameters.Add("@sBinCode", MySqlDbType.VarChar).Value = bin.BinCode;
@@ -347,7 +347,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.CommandText =  Constants.SP_Master;
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetBinCode;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -438,7 +438,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + Constants.SP_Master;
+                    Command.CommandText =  Constants.SP_Master;
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetPackingMasters;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();

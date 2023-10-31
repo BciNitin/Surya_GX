@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System;
 using ELog.Application.SelectLists.Dto;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using MobiVueEVO.BO.Models;
+using Ionic.Zlib;
 
 namespace ELog.Application.ElogApi
 {
@@ -40,9 +43,64 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sParantBarCode", MySqlDbType.Double).Value = 0;
-                    Command.Parameters.Add("sManufacturingDate", MySqlDbType.DateTime).Value = default;
+                    Command.Parameters.Add("sParantBarCode", MySqlDbType.VarChar).Value = 0;
+                    Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = default;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sQty", MySqlDbType.VarChar).Value = 0;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                foreach (DataRow dtRow in dt.Rows)
+                {
+                    string[] parts = Convert.ToString(dtRow["DealerCode"]).Split('|');
+                    string code = parts[0].Trim();
+                    string name = parts[1].Trim();
+
+                    SelectListDto selectListDto = new SelectListDto();
+                    selectListDto.Id = code;
+                    selectListDto.Value = name;
+
+                    value.Add(selectListDto);
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return value;
+
+        }
+
+        public async Task<Object> GetRevalidationDetails(string DealerCode,string BarCode)
+        {
+
+            MySqlConnection conn = new MySqlConnection(connection);
+            MySqlDataReader myReader = null;
+            DataTable dt = new DataTable();
+            List<SelectListDto> value = new List<SelectListDto>();
+            try
+            {
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_RevalidateDealerLocation";
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ScanBarCode";
+                    Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = DealerCode;
+                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sParantBarCode", MySqlDbType.VarChar).Value = BarCode;
+                    Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = default;
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sQty", MySqlDbType.VarChar).Value = 0;
+                    
 
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -73,7 +131,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> GetRevalidationDetails()
+        public async Task<Object> ApproveRevalidationLocation(DealerRevalidation dealer)
         {
 
             MySqlConnection conn = new MySqlConnection(connection);
@@ -87,13 +145,15 @@ namespace ELog.Application.ElogApi
 
                     Command.Connection = conn;
                     Command.CommandText = "sp_RevalidateDealerLocation";
-                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetDealerCode";
-                    Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sParantBarCode", MySqlDbType.Double).Value = 0;
-                    Command.Parameters.Add("sManufacturingDate", MySqlDbType.DateTime).Value = default;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ApproveOnDealerLocation";
+                    Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = dealer.DealerCode;
+                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = dealer.BatchCode;
+                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = dealer.ItemBarCode;
+                    Command.Parameters.Add("sParantBarCode", MySqlDbType.VarChar).Value = dealer.ParentBarCode;
+                    Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = dealer.PackingDate;
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = dealer.MaterialCode;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sQty", MySqlDbType.Decimal).Value = dealer.Qty;
 
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();

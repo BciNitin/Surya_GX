@@ -118,7 +118,7 @@
                                                 <div *ngIf="picklistItem.plantCode != null; else rediobutton">
                                                 <mat-radio-button
                                                     (change)="GetCheckBoxValue($event,picklistItem.plantCode,picklistItem.materialCode,picklistItem.quantity,picklistItem.pendingQtyToPrint,picklistItem.printingQty,picklistItem.packing_Date,picklistItem.work_Center)"
-                                                    class="whiteMatSelect" [checked]="false"></mat-radio-button>
+                                                    class="whiteMatSelect" [checked]="isSelected"></mat-radio-button>
                                                 </div>
                                                     <ng-template #rediobutton>
                                                     </ng-template>

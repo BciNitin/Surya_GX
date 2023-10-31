@@ -86,6 +86,9 @@ namespace ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.Tenants
             superAdminUser.IsEmailConfirmed = true;
             superAdminUser.IsActive = true;
             superAdminUser.ApprovalStatusId = (int)ApprovalStatus.Approved;
+            superAdminUser.NormalizedEmailAddress = PMMSConsts.AdminHostEmailAddress;
+            superAdminUser.NormalizedUserName = PMMSConsts.SuperAdminUserName;
+            superAdminUser.NormalizedUserName = PMMSConsts.SuperAdminUserName;
             _context.Users.Add(superAdminUser);
             _context.SaveChanges();
 

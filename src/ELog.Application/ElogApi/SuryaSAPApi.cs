@@ -312,7 +312,7 @@ namespace ELog.Application.ElogApi
                     string insertquery = string.Empty;
                     if (dt.Rows.Count == 0)
                     {
-                        insertquery = "insert into tsodelivery(DeliveryChallanNo, SONo, SODate, PlantBranchCode, CustomerCode, FromStrLoc, MaterialCode, Quantity, DispatchQty, PendingQty, CreatedOn, CreatedBy ) values('" + objcls.DeliveryChallanno + "','" + objcls.SONo + "','" + objcls.SODate + "','" + objcls.PlantCode + "','" + objcls.Customercode + "','" + objcls.Fromstorage + "','" + objcls.MaterialCode + "','" + objcls.QTY + "',now(),'SAPAPI');";
+                        insertquery = "insert into tsodelivery(DeliveryChallanNo, SONo, SODate, PlantBranchCode, CustomerCode, FromStrLoc, MaterialCode, Quantity, DispatchQty, PendingQty, CreatedOn, CreatedBy ) values('" + objcls.DeliveryChallanno + "','" + objcls.SONo + "','" + objcls.SODate + "','" + objcls.PlantCode + "','" + objcls.Customercode + "','" + objcls.Fromstorage + "','" + objcls.MaterialCode + "','" + objcls.QTY + "',now()','SAPAPI');";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();

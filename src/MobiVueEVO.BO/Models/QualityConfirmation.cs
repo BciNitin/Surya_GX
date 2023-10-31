@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,6 +18,7 @@ namespace MobiVueEVO.BO.Models
         public string LineNo { get; set; }
         public decimal OKQty { get; set; } 
         public decimal NGQty { get; set; }
-
+        public string ChildBarcode { get; set; }
+        public string CartonBarCode { get; set; }
     }
 }

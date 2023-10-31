@@ -21,6 +21,7 @@ interface grid {
   okQty: number;
   ngQty: number;
   checkBoxValues : false;
+  childBarcode:string;
 }
 
 @Component({
@@ -112,16 +113,17 @@ export class QualityConfirmationComponent implements OnInit, AfterViewInit {
          this.dataSourceModel.filteredData[i] = this.dataSource.filteredData[i];
       }
     }
-        await this._apiservice.saveQualityConfirmation(this.dataSourceModel.filteredData).subscribe(
+       const filteredData = this.dataSourceModel.filteredData.filter(item => item !== null && item !== undefined);
+       console.log(filteredData); 
+       await this._apiservice.saveQualityConfirmation(filteredData).subscribe(
           (response) => {
             if (response.result[0].valid) {
               console.log(response)
-              abp.notify.error(response.result[0].valid);
-              this.dataSource.filteredData = null;
+              abp.notify.success(response.result[0].valid);
+              this.getDetails(this.packingOrder, this.plantCode);
               abp.ui.clearBusy();
             } else {
-              abp.notify.success(response.result[0].error);
-              this.dataSource.filteredData = null;
+              abp.notify.error(response.result[0].error);
               abp.ui.clearBusy();
             }
           },
