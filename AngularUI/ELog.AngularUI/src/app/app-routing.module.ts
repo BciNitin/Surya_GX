@@ -52,6 +52,7 @@ import { ApprovalForZonalManagerComponent } from './PlantOperation/approval-for-
 import { WarrantyClaimComponent } from './PlantOperation/warranty-claim/warranty-claim.component';
 import { RevalidationDealerLocationComponent } from './PlantOperation/revalidation-dealer-location/revalidation-dealer-location.component';
 import { WarrantyTrackingComponent } from './PlantOperation/warranty-tracking/warranty-tracking.component';
+import { AddEditZonalComponent } from './PlantOperation/approval-for-zonal-manager/add-edit-zonal/add-edit-zonal.component';
 
 
 
@@ -148,7 +149,8 @@ import { WarrantyTrackingComponent } from './PlantOperation/warranty-tracking/wa
                     { path: 'approval-for-zonal-manager', component: ApprovalForZonalManagerComponent, canActivate: [AppRouteGuard] },
                     { path: 'warranty-claim', component: WarrantyClaimComponent, canActivate: [AppRouteGuard] },
                     { path: 'revalidation-dealer-location', component: RevalidationDealerLocationComponent, canActivate: [AppRouteGuard] },
-                   
+                    { path: 'warranty-tracking', component: WarrantyTrackingComponent, canActivate: [AppRouteGuard] },
+                    { path: 'add-edit-zonal/:action/:approvalId', component: AddEditZonalComponent, canActivate: [AppRouteGuard] },
                 ]
             }
         ])

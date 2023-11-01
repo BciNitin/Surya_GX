@@ -10,7 +10,7 @@ namespace MobiVueEVO.BO.Models
 
         public string DealerCode { get; set; }
         public string ItemBarCode { get; set; }
-        public string ParentBarCode { get; set; }
+        public string CartonBarCode { get; set; }
         public string MaterialCode { get; set; }
         public string BatchCode { get; set; }
         public DateTime PackingDate { get; set; }

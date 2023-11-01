@@ -550,4 +550,22 @@ GetSOChallanDetails(DeliveryChallanNo) {
       return this.http.get<any[]>(this.BasUrl + `SuryaRevalidationDealerLocation/GetApprovalDtlsById?id=${id}`);
 
     }
+
+    GetRevalidationOnDealerCarton(dealerCode,barCode): Observable<any> {
+      return this.http.get(this.BasUrl + `SuryaRevalidationDealerLocation/GetRevalidationOnCarton?DealerCode=${dealerCode}&BarCode=${barCode}`,this.httpOptions);
+    }
+
+    GetRevalidationDealerOnItem(dealerCode,ItemBarCode): Observable<any> {
+      return this.http.get(this.BasUrl + `SuryaRevalidationDealerLocation/GetRevalidationOnItem?DealerCode=${dealerCode}&ItemBarCode=${ItemBarCode}`,this.httpOptions);
+    }
+
+    ApproveOnDealerLocation(model: any,type:boolean): Observable<any> {
+      if(!type)
+      {
+       return this.http.post(this.BasUrl + `SuryaRevalidationDealerLocation/ApproveRevalidationLocationByCarton`,model);
+      }
+      else{
+      return this.http.post(this.BasUrl + `SuryaRevalidationDealerLocation/ApproveRevalidationLocationByItem`,model);
+    }
+   }
 }

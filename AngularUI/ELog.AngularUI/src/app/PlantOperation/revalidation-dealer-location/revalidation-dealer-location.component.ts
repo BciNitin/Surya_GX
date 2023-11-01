@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
@@ -6,8 +6,17 @@ import { ValidationService } from '@shared/ValidationService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
+import { error } from 'console';
 
-interface grid {
+interface grid
+{
+   materialCode: string;
+   batchCode: string | null;
+   packingDate: string | null;
+   qty: number;
+   parantBarCode:string;
+   DealerCode:string;
+   itemBarCode:string;
 }
 
 @Component({
@@ -25,8 +34,9 @@ export class RevalidationDealerLocationComponent implements OnInit, AfterViewIni
 
   dealerCode: any;
   itemBarCode:any;
-  parantBarCode:any;
+  CartonBarCode:any;
   dealerCodeList:any;
+  isItemBarCodeValid:boolean= false;
 
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<grid>();
   public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<grid>();
@@ -43,15 +53,38 @@ export class RevalidationDealerLocationComponent implements OnInit, AfterViewIni
 
     abp.ui.setBusy();
     this.GetDealerCode();
+    this.toggleValidation(false);
     abp.ui.clearBusy();
 
   }
 
   addEditFormGroup: FormGroup = this.formBuilder.group({
     dealerCodeFormControl: [null, [Validators.required, NoWhitespaceValidator]],
-    ItemBarCodeFormControl: [null, [Validators.required, NoWhitespaceValidator]]
+    ItemBarCodeFormControl: [],
+    CartonBarCodeFormControl: []
   });
   matcher = new MyErrorStateMatcher();
+
+  toggleValidation(event) {
+    this.isItemBarCodeValid = event.checked;
+    if (event.checked) {
+     // this.addEditFormGroup.get('ItemBarCodeFormControl').setValidators([Validators.required, NoWhitespaceValidator]);
+      //this.addEditFormGroup.get('CartonBarCodeFormControl').clearValidators();
+      this.addEditFormGroup.controls['CartonBarCodeFormControl'].disable();
+      this.addEditFormGroup.controls['ItemBarCodeFormControl'].enable();
+      this.addEditFormGroup.get('CartonBarCodeFormControl').clearValidators();
+      this.addEditFormGroup.get('ItemBarCodeFormControl').clearValidators();
+      this.addEditFormGroup.updateValueAndValidity();
+    } else {
+      //this.addEditFormGroup.get('CartonBarCodeFormControl').setValidators([Validators.required, NoWhitespaceValidator]);
+      this.addEditFormGroup.get('CartonBarCodeFormControl').clearValidators();
+      this.addEditFormGroup.get('ItemBarCodeFormControl').clearValidators();
+      this.addEditFormGroup.controls['ItemBarCodeFormControl'].disable();
+      this.addEditFormGroup.controls['CartonBarCodeFormControl'].enable();
+      this.addEditFormGroup.updateValueAndValidity();
+    }
+ 
+  }
 
   async GetDealerCode() {
     abp.ui.setBusy();
@@ -64,13 +97,25 @@ export class RevalidationDealerLocationComponent implements OnInit, AfterViewIni
 
   Approve() {
     abp.ui.setBusy();
-    this._apiservice.saveQualityChecking(this.dataSource.filteredData).subscribe(
-      (result) => {
+    for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+      this.dataSource.filteredData[i].DealerCode = this.dealerCode;
+    }
+    this._apiservice.ApproveOnDealerLocation(this.dataSource.filteredData,this.isItemBarCodeValid).subscribe(
+      (response) => {
         abp.ui.clearBusy();
-        if (result['result'][0].error) {
-          abp.notify.error(result['result'][0].error);
+        if (Array.isArray(response['result']) && response['result'].length > 0) {
+          const firstResult = response['result'][0];
+          if (typeof firstResult === 'object' && 'error' in firstResult) {
+            abp.notify.error(response['result'][0].error);
+          } else {
+            this.dataSource.filter = '';
+            this.addEditFormGroup.controls['CartonBarCodeFormControl'].setValue(null);
+            this.addEditFormGroup.controls['ItemBarCodeFormControl'].setValue(null);
+            this.dataSource.data = [];
+            abp.notify.success(response['result'][0].valid);
+          }
         } else {
-          abp.notify.error(result['result'][0].valid);
+          abp.notify.error(response['result'][0].error);
         }
       },
       (error) => {
@@ -89,30 +134,77 @@ export class RevalidationDealerLocationComponent implements OnInit, AfterViewIni
   Clear() {
 
     this.addEditFormGroup.controls['dealerCodeFormControl'].setValue(null);
-    this.dataSource.filter = null;
-    this.dataSource.data.push('');
+    this.addEditFormGroup.controls['CartonBarCodeFormControl'].setValue(null);
+    this.addEditFormGroup.controls['ItemBarCodeFormControl'].setValue(null);
+    this.dataSource.data = [];
+    this.isItemBarCodeValid = false;
+    this.toggleValidation(this.isItemBarCodeValid);
+  
   }
 
-  getDetails() {
+  ValidateCartonBarCode(barcode) {
+    
+    const sCartonValid =  this.addEditFormGroup.controls['CartonBarCodeFormControl'].status;
+    const sDealerCode =  this.addEditFormGroup.controls['dealerCodeFormControl'].status;
     abp.ui.setBusy();
-    if (this.itemBarCode != '0' && this.itemBarCode != undefined) {
-      this._apiservice.GetQualityChecking('','','')
+    if (sCartonValid == 'VALID' && sDealerCode == 'VALID') {
+      this._apiservice.GetRevalidationOnDealerCarton(this.dealerCode,barcode)
         .subscribe((response) => {
-          if (!response['result'][0].error) {
-            this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
-            this.dataSourcePagination.paginator = this.paginator;
-            this.array = response['result'];
-            this.totalSize = this.array.length;
-            this.iterator();
+          if (Array.isArray(response['result']) && response['result'].length > 0) {
+            const firstResult = response['result'][0];
+            if (typeof firstResult === 'object' && 'error' in firstResult) {
+              abp.notify.error(response['result'][0].error);
+            } else {
+              this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
+              this.dataSourcePagination.paginator = this.paginator;
+              this.array = response['result'];
+              this.totalSize = this.array.length;
+              this.iterator();
+            }
+          } else {
+            abp.notify.error(response['result'][0].error);
           }
-          else {
-            this.dataSource.filter = null;
+
+        },
+        (error=>
+          {
+            abp.ui.clearBusy();
+          })
+        )
+    }
+    else {
+      this.dataSource.filter = '';
+    }
+    abp.ui.clearBusy();
+  }
+
+  ValidateItemBarCode(barcode) {
+    const sItemBarCodeValid =  this.addEditFormGroup.controls['ItemBarCodeFormControl'].status;
+    const sDealerCode =  this.addEditFormGroup.controls['dealerCodeFormControl'].status;
+    abp.ui.setBusy();
+    if (sItemBarCodeValid == 'VALID' && sDealerCode == 'VALID') {
+      this._apiservice.GetRevalidationDealerOnItem(this.dealerCode,barcode)
+        .subscribe((response) => {
+          console.log(response['result'])
+          if (Array.isArray(response['result']) && response['result'].length > 0) {
+            const firstResult = response['result'][0];
+            if (typeof firstResult === 'object' && 'error' in firstResult) {
+              abp.notify.error(response['result'][0].error);
+            } else {
+              this.addEditFormGroup.controls['ItemBarCodeFormControl'].setValue(null);
+              this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
+              this.dataSourcePagination.paginator = this.paginator;
+              this.array = response['result'];
+              this.totalSize = this.array.length;
+              this.iterator();
+            }
+          } else {
             abp.notify.error(response['result'][0].error);
           }
         })
     }
     else {
-      this.dataSource.filter = null;
+      this.dataSource.filter = '';
     }
     abp.ui.clearBusy();
   }
@@ -121,7 +213,8 @@ export class RevalidationDealerLocationComponent implements OnInit, AfterViewIni
     abp.ui.setBusy();
     const end = (this.currentPage + 1) * this.pageSize;
     const start = this.currentPage * this.pageSize;
-    this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
+    this.dataSource.filteredData.push(...this.dataSourcePagination.filteredData.slice(start, end));
+    //this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
     abp.ui.clearBusy();
   }
 

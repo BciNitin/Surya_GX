@@ -33,13 +33,28 @@
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
-                                            <mat-label>Scan Item Barcode</mat-label>
-                                            <input matInput required name="ItemBarCode" (change)="ValidateItemBarCode()"
-                                                   [(ngModel)]='ItemBarCode' formControlName="ItemBarCodeFormControl" maxlength="16" >
-                                            <mat-error *ngIf="addEditFormGroup?.get('ItemBarCodeFormControl')?.hasError('required') || addEditFormGroup?.get('ItemBarCodeFormControl')?.hasError('whitespace')">
-                                                Item BarCode is required.
-                                            </mat-error>
+                                            <mat-label>Scan Carton Barcode</mat-label>
+                                            <input matInput required name="CartonBarCode" (keyup.enter)="ValidateCartonBarCode(CartonBarCode)"
+                                                   [(ngModel)]='CartonBarCode' formControlName="CartonBarCodeFormControl" maxlength="16" >
+                                            <!-- <mat-error *ngIf="addEditFormGroup?.get('CartonBarCodeFormControl')?.hasError('required')">
+                                                Carton BarCode is required.
+                                            </mat-error> -->
                                         </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Scan Item Barcode</mat-label>
+                                            <input matInput required name="itemBarCode" (keyup.enter)="ValidateItemBarCode(itemBarCode)"
+                                                   [(ngModel)]='itemBarCode' formControlName="ItemBarCodeFormControl" maxlength="16" >
+                                            <!-- <mat-error *ngIf="addEditFormGroup?.get('ItemBarCodeFormControl')?.hasError('required') || addEditFormGroup?.get('ItemBarCodeFormControl')?.hasError('whitespace')">
+                                                Item BarCode is required.
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <section class="checkcarton">
+                                            <mat-checkbox  class="CartonBarCode" [ngModelOptions]="{standalone: true}" [(ngModel)]='isItemBarCodeValid' (change)="toggleValidation($event)">Revalidate by Item BarCode</mat-checkbox>
+                                          </section>
                                     </div>
                                 </div>
                             </form>
@@ -48,14 +63,22 @@
                                 <table class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="th-center-align">{{ "Label Barcode" | localize }}</th>
-                                            <th class="th-center-align">{{ "Item Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Carton BarCode" | localize }}</th>
+                                            <th class="th-center-align">{{ "Item BarCode" | localize }}</th>
+                                            <th class="th-center-align">{{ "Material Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Batch Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Packing Date" | localize  }}</th>
+                                            <th class="th-center-align">{{ "Quantity" | localize }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let  picklistItem of dataSource.filteredData">
-                                            <td class="td-center-align">{{picklistItem.barcode}}</td>
+                                            <td class="td-center-align">{{picklistItem.cartonBarCode}}</td>
+                                            <td class="td-center-align">{{picklistItem.itemBarCode}}</td>
                                             <td class="td-center-align">{{picklistItem.materialCode}}</td>
+                                            <td class="td-center-align">{{picklistItem.batchCode}}</td>
+                                            <td class="td-center-align">{{picklistItem.packingDate | date: 'dd-MM-yyyy'}}</td>
+                                            <td class="td-center-align">{{picklistItem.qty}}</td>
                                         </tr>
                                         <tr *ngIf="dataSource.filteredData?.length == 0">
                                             <td colspan="6" class="no-data-available">No data to display.</td>

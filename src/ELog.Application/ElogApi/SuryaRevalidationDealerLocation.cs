@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MobiVueEVO.BO.Models;
 using Ionic.Zlib;
+using Microsoft.AspNetCore.Mvc;
+using Abp.Runtime.Session;
 
 namespace ELog.Application.ElogApi
 {
@@ -77,7 +79,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> GetRevalidationDetails(string DealerCode,string BarCode)
+        public async Task<Object> GetRevalidationOnCarton(string DealerCode, string BarCode)
         {
 
             MySqlConnection conn = new MySqlConnection(connection);
@@ -91,7 +93,7 @@ namespace ELog.Application.ElogApi
 
                     Command.Connection = conn;
                     Command.CommandText = "sp_RevalidateDealerLocation";
-                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ScanBarCode";
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ScanCartonBarCode";
                     Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = DealerCode;
                     Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
@@ -100,7 +102,7 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.Parameters.Add("sQty", MySqlDbType.VarChar).Value = 0;
-                    
+
 
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -108,30 +110,17 @@ namespace ELog.Application.ElogApi
                     dt.Load(myReader);
                     Command.Connection.Close();
                 }
-                foreach (DataRow dtRow in dt.Rows)
-                {
-                    string[] parts = Convert.ToString(dtRow["DealerCode"]).Split('|');
-                    string code = parts[0].Trim();
-                    string name = parts[1].Trim();
 
-                    SelectListDto selectListDto = new SelectListDto();
-                    selectListDto.Id = code;
-                    selectListDto.Value = name;
-
-                    value.Add(selectListDto);
-
-                }
 
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
-            return value;
-
+            return dt;
         }
 
-        public async Task<Object> ApproveRevalidationLocation(DealerRevalidation dealer)
+        public async Task<Object> GetRevalidationOnItem(string DealerCode, string ItemBarCode)
         {
 
             MySqlConnection conn = new MySqlConnection(connection);
@@ -145,15 +134,16 @@ namespace ELog.Application.ElogApi
 
                     Command.Connection = conn;
                     Command.CommandText = "sp_RevalidateDealerLocation";
-                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ApproveOnDealerLocation";
-                    Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = dealer.DealerCode;
-                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = dealer.BatchCode;
-                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = dealer.ItemBarCode;
-                    Command.Parameters.Add("sParantBarCode", MySqlDbType.VarChar).Value = dealer.ParentBarCode;
-                    Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = dealer.PackingDate;
-                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = dealer.MaterialCode;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ScanItemBarCode";
+                    Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = DealerCode;
+                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = ItemBarCode;
+                    Command.Parameters.Add("sParantBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = default;
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-                    Command.Parameters.Add("sQty", MySqlDbType.Decimal).Value = dealer.Qty;
+                    Command.Parameters.Add("sQty", MySqlDbType.VarChar).Value = 0;
+
 
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -161,27 +151,143 @@ namespace ELog.Application.ElogApi
                     dt.Load(myReader);
                     Command.Connection.Close();
                 }
-                foreach (DataRow dtRow in dt.Rows)
-                {
-                    string[] parts = Convert.ToString(dtRow["DealerCode"]).Split('|');
-                    string code = parts[0].Trim();
-                    string name = parts[1].Trim();
 
-                    SelectListDto selectListDto = new SelectListDto();
-                    selectListDto.Id = code;
-                    selectListDto.Value = name;
-
-                    value.Add(selectListDto);
-
-                }
 
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
-            return value;
+            return dt;
+        }
 
+        public async Task<Object> ApproveRevalidationLocationByCarton(List<DealerRevalidation> dealer)
+        {
+            DataTable dt = null;
+            try
+            {
+                MySqlDataReader myReader = null;
+
+                using (var conn = new MySqlConnection(connection))
+                {
+                    conn.Open();
+
+                    using (var transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            foreach (var item in dealer)
+                            {
+                                dt = new DataTable();
+                                using (MySqlCommand Command = new MySqlCommand())
+                                {
+                                    Command.Connection = conn;
+                                    Command.Transaction = transaction;
+                                    Command.CommandText = "sp_RevalidateDealerLocation";
+                                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ApproveOnDealerLocationByCarton";
+                                    Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = item.DealerCode;
+                                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = item.BatchCode;
+                                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = item.ItemBarCode;
+                                    Command.Parameters.Add("sParantBarCode", MySqlDbType.VarChar).Value = item.CartonBarCode;
+                                    Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = item.PackingDate;
+                                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = item.MaterialCode;
+                                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                                    Command.Parameters.Add("sQty", MySqlDbType.Decimal).Value = item.Qty;
+                                    Command.CommandType = CommandType.StoredProcedure;
+                                    myReader = await Command.ExecuteReaderAsync();
+                                    dt.Load(myReader);
+                                }
+                            }
+
+                            // If all operations are successful, commit the transaction
+                            transaction.Commit();
+                            return dt;
+                        }
+                        catch (Exception ex)
+                        {
+                            // If an exception occurs, roll back the entire transaction
+                            transaction.Rollback();
+                            dt.Columns.Add("Error", typeof(string));
+                            DataRow newRow = dt.NewRow();
+                            newRow["Error"] = "Error~Error in Transaction.";
+                            dt.Rows.Add(newRow);
+                            return dt;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return dt;
+            }
+            return null;
+
+        }
+
+        public async Task<Object> ApproveRevalidationLocationByItem(List<DealerRevalidation> dealer)
+        {
+            DataTable dt = null;
+            try
+            {
+                MySqlDataReader myReader = null;
+
+                using (var conn = new MySqlConnection(connection))
+                {
+                    conn.Open();
+
+                    using (var transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            foreach (var item in dealer)
+                            {
+                                dt = new DataTable();
+                                using (MySqlCommand Command = new MySqlCommand())
+                                {
+                                    Command.Connection = conn;
+                                    Command.Transaction = transaction;
+                                    Command.CommandText = "sp_RevalidateDealerLocation";
+                                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ApproveOnDealerLocationByItem";
+                                    Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = item.DealerCode;
+                                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = item.BatchCode;
+                                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = item.ItemBarCode;
+                                    Command.Parameters.Add("sParantBarCode", MySqlDbType.VarChar).Value = item.CartonBarCode;
+                                    Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = item.PackingDate;
+                                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = item.MaterialCode;
+                                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                                    Command.Parameters.Add("sQty", MySqlDbType.Decimal).Value = item.Qty;
+                                    Command.CommandType = CommandType.StoredProcedure;
+                                    myReader = await Command.ExecuteReaderAsync();
+                                    dt.Load(myReader);
+                                }
+                            }
+
+                            // If all operations are successful, commit the transaction
+                            transaction.Commit();
+                            return dt;
+                        }
+                        catch (Exception ex)
+                        {
+                            // If an exception occurs, roll back the entire transaction
+                            transaction.Rollback();
+                            dt.Columns.Add("Error", typeof(string));
+                            DataRow newRow = dt.NewRow();
+                            newRow["Error"] = "Error~Error in Transaction.";
+                            dt.Rows.Add(newRow);
+                            return dt;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return dt;
+            }
+            return null;
         }
 
         public async Task<Object> GetApproveDetails(DealerRevalidation dealer)
@@ -262,3 +368,4 @@ namespace ELog.Application.ElogApi
 
     }
 }
+
