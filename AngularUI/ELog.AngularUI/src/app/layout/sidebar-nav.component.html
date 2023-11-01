@@ -292,6 +292,13 @@
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/approval-for-admin']">
+                            <span>
+                                Approval for Admin
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/warranty-claim']">
                             <span>
                                 Warranty Claim
@@ -304,13 +311,7 @@
                                 Warranty Tracking
                             </span></a>
                     </li>
-                    <li routerlinkactive="active" class="ng-star-inserted">
-                        <a class="toggled waves-effect waves-block ng-star-inserted"
-                            [routerLink]="['/app/Demo']">
-                            <span>
-                                Demo
-                            </span></a>
-                    </li>
+                    
                     <ng-container *ngFor="let menu of MenuList[0]; let i = index">
 
                         <li routerlinkactive="active" class="ng-star-inserted"

@@ -24,7 +24,7 @@
                                            </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let  approvalData of dataSource.filteredData" (tap)="onSelect($event,approvalData)">
+                                        <tr *ngFor="let approvalData of dataSource.filteredData" (tap)="onSelect($event,approvalData)">
                                             <td class="td-center-align">{{approvalData.dealarCode}}</td>
                                             <td class="td-center-align">{{approvalData.materialCode}}</td>
                                             <td class="td-center-align">{{approvalData.qty}}</td>

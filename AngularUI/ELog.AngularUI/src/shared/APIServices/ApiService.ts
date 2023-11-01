@@ -535,7 +535,7 @@ GetSOChallanDetails(DeliveryChallanNo) {
       return this.http.get<any[]>(this.BasUrl + `SuryaRevalidationDealerLocation/GetApproveDetails`);
 
     }
-
+    
     GetApprovalDtlsById(id) {
       
       //const content_ = JSON.stringify(input);

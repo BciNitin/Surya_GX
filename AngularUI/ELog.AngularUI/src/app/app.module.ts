@@ -112,6 +112,8 @@ import { ApprovalForZonalManagerComponent } from './PlantOperation/approval-for-
 import { WarrantyClaimComponent } from './PlantOperation/warranty-claim/warranty-claim.component';
 import { WarrantyTrackingComponent } from './PlantOperation/warranty-tracking/warranty-tracking.component';
 import { AddEditZonalComponent } from './PlantOperation/approval-for-zonal-manager/add-edit-zonal/add-edit-zonal.component';
+import { ApprovalForAdminComponent } from './PlantOperation/approval-for-admin/approval-for-admin.component';
+import { AddEditApprovalAdminComponent } from './PlantOperation/add-edit-approval-admin/add-edit-approval-admin.component';
 
 export function momentAdapterFactory() {
     return adapterFactory(moment);
@@ -208,7 +210,9 @@ export const PMMS_FORMATS = {
         ApprovalForZonalManagerComponent,
         WarrantyClaimComponent,
         AddEditZonalComponent,
-        WarrantyTrackingComponent
+        WarrantyTrackingComponent,
+        ApprovalForAdminComponent,
+        AddEditApprovalAdminComponent
     ],
     imports: [
         HttpClientModule,

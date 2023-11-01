@@ -111,6 +111,7 @@ private getArray(value) {
       // this.dataSourcePagination  = new MatTableDataSource<Element>(response['result']);
       this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
       this.dataSourcePagination.paginator = this.paginator;
+      
       this.array = response['result'];
       this.totalSize = this.array.length;
       this.iterator();
