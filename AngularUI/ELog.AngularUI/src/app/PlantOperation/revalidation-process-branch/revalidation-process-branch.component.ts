@@ -58,28 +58,24 @@ GrtTableGrid()
   
   _itemDtls.MaterialCode=this.MaterialCode;
   this._apiservice.GetExpiredItemCodeDetails(this.MaterialCode).subscribe((response) => {
-    debugger;
+    
 
   this.itemDtls = response["result"];
     
   this.isSelected=false;
   
-  // if (this.itemDtls.length == 0) {
-  //   abp.notify.error('No data present.');
-    
-  //   return;
-  // }
+  
   })
 }
 GetCheckBoxValue(event,barcode:any,materialCode:any) {
-  debugger;
+ 
   this.isSelected = event.source._checked;
   this.barcode=barcode;
   this.MaterialCode=materialCode;
   }
 
   ValidateCartonBarcode() {
-    debugger;
+  
     if(this.isSelected)
     {
     var _itemDtls =  new ItemCodedtl();
@@ -89,7 +85,7 @@ GetCheckBoxValue(event,barcode:any,materialCode:any) {
     
       
   this._apiservice.GetValidateItem(this.barcode,this.MaterialCode).subscribe(result => {
-      debugger;
+      
       if(result["result"][0]['valid'])
       {
         abp.notify.success(result["result"][0]['valid']);

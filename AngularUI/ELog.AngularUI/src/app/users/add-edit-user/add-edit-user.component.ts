@@ -90,7 +90,7 @@ export class AddEditUserComponent extends AppComponentBase {
         this.GetUserStatus();
         // this.GetReportingManager();
         // this.GetPlantMaster();
-
+debugger;
         this._route.params.subscribe((routeData: Params) => {
             if (routeData['userId']) {
                 this.routeEncrypt = routeData['userId'];

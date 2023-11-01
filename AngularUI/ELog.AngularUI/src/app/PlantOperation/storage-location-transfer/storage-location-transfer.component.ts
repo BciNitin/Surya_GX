@@ -85,7 +85,7 @@ GetBarcodeScannedDetails()
   _Storage.plantcode=this.plantCode;
   _Storage.LocationID=this.LocationID;
   this._apiservice.GetBarcodeScannedDetails(this.ScanItem,this.plantCode).subscribe((response) => {
-    debugger;
+    
     this.storageLocationQty = response["result"];
     this.qty=response["result"][0]['qty'];
 })
@@ -98,7 +98,7 @@ Save() {
   _Storage.Barcode=this.ScanItem;
   _Storage.LocationID=this.LocationID;
   this._apiservice.StorageLocationConfirmation(this.ScanItem,this.LocationID).subscribe(result => {
-    debugger;
+    
            if(result["result"][0]['valid'])
            {
              abp.notify.success(result["result"][0]['valid']);

@@ -443,7 +443,7 @@ GetSOChallanDetails(DeliveryChallanNo) {
 
    }
    GetCustomerCode(): Observable<any[]> {
-      return this.http.get<any[]>(this.BasUrl + 'WarrantyClaimApi/GetCustomerCode');
+      return this.http.get<any[]>(this.BasUrl + 'BarcodedWarrantyClaimApi/GetCustomerCode');
    }
    GetWarrantyDetails(Barcode,CustomerCode) {
       
@@ -456,10 +456,10 @@ GetSOChallanDetails(DeliveryChallanNo) {
             "Content-Type": "application/json-patch+json",
          }),
       };
-      return this.http.get<any[]>(this.BasUrl + `WarrantyClaimApi/GetWarrantyDetails?Barcode=${Barcode}&CustomerCode=${CustomerCode}`);
+      return this.http.get<any[]>(this.BasUrl + `BarcodedWarrantyClaimApi/GetWarrantyDetails?Barcode=${Barcode}&CustomerCode=${CustomerCode}`);
 
    }
-   GetValidateWarrranty(Barcode,CustomerCode) {
+   GetValidateWarrranty(Barcode,CustomerCode,BarCodeApprovedQty) {
       
        //const content_ = JSON.stringify(input);
        const options_: any = {
@@ -470,10 +470,84 @@ GetSOChallanDetails(DeliveryChallanNo) {
              "Content-Type": "application/json-patch+json",
           }),
        };
-       return this.http.get<any[]>(this.BasUrl + `WarrantyClaimApi/GetValidateWarrranty?Barcode=${Barcode}&CustomerCode=${CustomerCode}`);
+       return this.http.get<any[]>(this.BasUrl + `BarcodedWarrantyClaimApi/GetValidateWarrranty?Barcode=${Barcode}&CustomerCode=${CustomerCode}&BarCodeApprovedQty=${BarCodeApprovedQty}`);
 
     }
+
+    GetNonBarcodedWarrantyDetails(Qty,CustomerCode,ApprovedQty,MaterialCode) {
+      
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `NonBarcodedWarrantyClaimApi/GetNonBarcodedWarrantyDetails?Qty=${Qty}&CustomerCode=${CustomerCode}&ApprovedQty=${ApprovedQty}&MaterialCode=${MaterialCode}`);
+
+    }
+
     GetDealerCode(): Observable<any> {
       return this.http.get(this.BasUrl + `SuryaRevalidationDealerLocation/GetDealerCode`,this.httpOptions);
+    }
+    GetValidateNonBarcodedWarrranty(MaterialCode,CustomerCode,Qty,ApprovedQty) {
+      
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `NonBarcodedWarrantyClaimApi/GetValidateNonBarcodedWarrranty?MaterialCode=${MaterialCode}&CustomerCode=${CustomerCode}&Qty=${Qty}&ApprovedQty=${ApprovedQty}`);
+
+   }
+   GetWarrantyTrackingDtls(QrCode) {
+      
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `WarrantyTrackingApi/GetWarrantyTrackingDtls?QrCode=${QrCode}`);
+
+    }
+
+    GetApproveDetails() {
+      
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `SuryaRevalidationDealerLocation/GetApproveDetails`);
+
+    }
+
+    GetApprovalDtlsById(id) {
+      
+      //const content_ = JSON.stringify(input);
+      const options_: any = {
+         //body: this.content_,
+         observe: "response",
+         responseType: "blob",
+         headers: new HttpHeaders({
+            "Content-Type": "application/json-patch+json",
+         }),
+      };
+      return this.http.get<any[]>(this.BasUrl + `SuryaRevalidationDealerLocation/GetApprovalDtlsById?id=${id}`);
+
     }
 }

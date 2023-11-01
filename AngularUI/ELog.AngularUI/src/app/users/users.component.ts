@@ -286,6 +286,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
       } 
       onSelect($event,user: UserDto): void
       {
+        debugger;
          if($event.target.classList.contains('deleteUser'))
           {
               this.delete(user);

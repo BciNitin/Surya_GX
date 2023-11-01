@@ -68,11 +68,12 @@ Validate() {
            
       });
     }
-}
+  }
+
 ValidateShiperBarcode() {
   
 
-  var _iPlacement =  new itemplacement();
+ var _iPlacement =  new itemplacement();
   _iPlacement.itemBarcode = this.itemBarcode;
   _iPlacement.plantCode=this.plantCode;
   _iPlacement.ShiperBarcode=this.ShiperBarcode;
@@ -86,7 +87,6 @@ ValidateShiperBarcode() {
     if(this.itemBarcode=="" || this.itemBarcode==null)
     {
       abp.notify.error("Please first validate  Item barcode!");
-      this.Clear();
     }
     else
     {
@@ -100,8 +100,7 @@ this._apiservice.ValidateShiperBarcode(this.itemBarcode,this.plantCode,this.Ship
     {
      abp.notify.error(result["result"][0]['error']);
     }
-        this.Validate();   
-      });
+    });
 }
 }
 }
@@ -117,3 +116,4 @@ Clear(){
   this.addEditFormGroup.reset();
 }
 }
+

@@ -12,7 +12,7 @@ using ELog.Application.SelectLists.Dto;
 
 namespace ELog.Application.ElogApi
 {
-    public class WarrantyClaimApi : ApplicationService, IElogApiService
+    public class BarcodedWarrantyClaimApi : ApplicationService, IElogApiService
     {
 
         private readonly IConfiguration _configuration;
@@ -20,7 +20,7 @@ namespace ELog.Application.ElogApi
         private ISessionAppService _sessionAppService;
 
 
-        public WarrantyClaimApi(IConfiguration configuration, ISessionAppService sessionAppService)
+        public BarcodedWarrantyClaimApi(IConfiguration configuration, ISessionAppService sessionAppService)
         {
             _configuration = configuration;
             connection = _configuration["ConnectionStrings:Default"];
@@ -40,10 +40,12 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.sp_WarrantyClaim;
+                    Command.CommandText = Constants.sp_BarcodedWarrantyClaim;
                     Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetCustomerCode;
                     Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sQuantity", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sCustomerCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sApprovalQnty", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -80,9 +82,11 @@ namespace ELog.Application.ElogApi
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-                    Command.CommandText = Constants.sp_WarrantyClaim;
+                    Command.CommandText = Constants.sp_BarcodedWarrantyClaim;
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetWarrantyDetails;
                     Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = Barcode;
+                    Command.Parameters.Add("sQuantity", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sApprovalQnty", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sCustomerCode", MySqlDbType.VarChar).Value = CustomerCode;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
@@ -103,7 +107,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> GetValidateWarrranty(string Barcode, string CustomerCode)
+        public async Task<Object> GetValidateWarrranty(string Barcode, string CustomerCode, string BarCodeApprovedQty)
         {
 
             try
@@ -115,10 +119,12 @@ namespace ELog.Application.ElogApi
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-                    Command.CommandText = Constants.sp_WarrantyClaim;
-                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetValidateWarrranty;
+                    Command.CommandText = Constants.sp_BarcodedWarrantyClaim;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetValidateBcodeWarrranty;
                     Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = Barcode;
+                    Command.Parameters.Add("sQuantity", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sCustomerCode", MySqlDbType.VarChar).Value = CustomerCode;
+                    Command.Parameters.Add("sApprovalQnty", MySqlDbType.VarChar).Value = BarCodeApprovedQty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();

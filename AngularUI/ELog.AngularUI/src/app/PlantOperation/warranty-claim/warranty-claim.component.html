@@ -10,15 +10,15 @@
                 <div class="panel panel-default">
                     <div id="collapse1" class="panel-collapse collapse in dark-text">
                         <div class="panel-body">
-                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup"
+                                #addEditUserForm="ngForm">
                                 <div class="row fieldes">
-                                   <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12 p-t-20">
-                                        <mat-radio-group formControlName="locationFormControl"  class="p-t-25">
-
-                                           <mat-radio-button name="iSBLOCKED"   [(ngModel)]="iSBLOCKED" checked  value="true"  >Barcoded Items</mat-radio-button>
-                                            <mat-radio-button name="iSBLOCKED" [(ngModel)]="iSBLOCKED" value="false"  class="m-l-15">Non-Barcoded Items</mat-radio-button>
-                                          </mat-radio-group>
-                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 p-t-20">
+                                        <mat-radio-group [formControl]="isBlockedFormControl">
+                                          <mat-radio-button name="IsBarcodes" value="barcoded" (change)="BarcodedChange($event)">Barcoded Items</mat-radio-button>
+                                          <mat-radio-button name="NonBarcodes" class="m-l-15" value="nonbarcoded" (change)="NoneBarcodedChange($event)">Non-Barcoded Items</mat-radio-button>
+                                        </mat-radio-group>
+                                      </div>
                                     </div>
                                     <div class="row fieldes">
                                     
@@ -27,34 +27,91 @@
                                                 <mat-label>Select Retailor/Customer </mat-label>
                                                 <mat-select [(ngModel)]="CustomerCode"  name="CustomerCode" [errorStateMatcher]="matcher"
                                                     [errorStateMatcher]="matcher"
-                                                    
-                                                    formControlName="plantCodeFormCControl">
+                                                    formControlName="CustomerFormCControl">
                                                     <mat-option>Select Retailor/Customer </mat-option>
                                                     <mat-option *ngFor="let plant of customerCodelist" [value]="plant.id">
                                                         {{plant.value}}
                                                     </mat-option>
                                                 </mat-select>
                                                 <mat-error
-                                                    *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                                    *ngIf="addEditFormGroup?.get('CustomerFormCControl')?.hasError('required') || addEditFormGroup?.get('CustomerFormCControl')?.hasError('whitespace')">
                                                  Retailor/Customer  is required.
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
 
-                                        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-                                            <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12"  [ngClass]="{'hidden-control':!isNoneBarcoded}">
+                                            <mat-form-field>
                                                 <mat-label>Scan Carton Barcode</mat-label>
                                                 <input matInput required name="Barcode" (change)="GrtTableGrid()"
-                                                       [(ngModel)]='Barcode' formControlName="ShiperBarcodeFormControl" maxlength="16" >
-                                                <mat-error *ngIf="addEditFormGroup?.get('ShiperBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('ShiperBarcodeFormControl')?.hasError('whitespace')">
+                                                       [(ngModel)]='Barcode' formControlName="ScannedCartonBarcodeFormControl" maxlength="16" >
+                                                <mat-error *ngIf="addEditFormGroup?.get('ScannedCartonBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('ScannedCartonBarcodeFormControl')?.hasError('whitespace')">
                                                     Carton barcode is required.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12" [ngClass]="{'hidden-control':isNoneBarcoded}">
+                                            <mat-form-field>
+                                                <mat-label>Item Code</mat-label>
+                                                <mat-select [(ngModel)]="MaterialCode"  name="MaterialCode" [errorStateMatcher]="matcher"
+                                                    [errorStateMatcher]="matcher"
+                                                    
+                                                    formControlName="ItemCodeFormCControl">
+                                                    <mat-option>Select Item Code</mat-option>
+                                                    <mat-option *ngFor="let item of ItemCodes" [value]="item.id">
+                                                        {{item.value}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error
+                                                    *ngIf="addEditFormGroup?.get('ItemCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('ItemCodeFormCControl')?.hasError('whitespace')">
+                                                    Item code is required.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12" [ngClass]="{'hidden-control':isNoneBarcoded}">
+                                            <mat-form-field>
+                                                <mat-label> Qty</mat-label>
+                                                <input matInput required name="Qty" 
+                                                      [(ngModel)]='Qty' formControlName="QtyFormControl" maxlength="16" >
+                                                <mat-error *ngIf="addEditFormGroup?.get('QtyFormControl')?.hasError('required') || addEditFormGroup?.get('QtyFormControl')?.hasError('whitespace')">
+                                                    Qty is required.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12" [ngClass]="{'hidden-control':isNoneBarcoded}">
+                                            <mat-form-field>
+                                                <mat-label>Approved Qty</mat-label>
+                                                <input matInput required name="ApprovedQty"  
+                                                      [(ngModel)]='ApprovedQty' formControlName="ApprovedQtyFormControl" maxlength="16" >
+                                                <mat-error *ngIf="addEditFormGroup?.get('ApprovedQtyFormControl')?.hasError('required') || addEditFormGroup?.get('ApprovedQtyFormControl')?.hasError('whitespace')">
+                                                    Approved Qty is required.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12" [ngClass]="{'hidden-control':!isNoneBarcoded}">
+                                            <mat-form-field>
+                                                <mat-label>Approved  Qty</mat-label>
+                                                <input matInput required name="BarCodeApprovedQty"  
+                                                      [(ngModel)]='BarCodeApprovedQty' formControlName="BarApprovedQtyFormControl" maxlength="16" >
+                                                <mat-error *ngIf="addEditFormGroup?.get('BarApprovedQtyFormControl')?.hasError('required') || addEditFormGroup?.get('BarApprovedQtyFormControl')?.hasError('whitespace')">
+                                                    Approved Qty is required.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12" [ngClass]="{'hidden-control':isNoneBarcoded}">
+                                            <mat-form-field>
+                                                <mat-label>Remark</mat-label>
+                                                <input matInput required name="Remark" (change)="GrtNonbarcodedGrid()"
+                                                      [(ngModel)]='Remark' formControlName="RemarkFormControl" maxlength="16" >
+                                                <mat-error *ngIf="addEditFormGroup?.get('RemarkFormControl')?.hasError('required') || addEditFormGroup?.get('RemarkFormControl')?.hasError('whitespace')">
+                                                    Remark is required.
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
                                         </div>
                                </form>
                             <br>
-                            <div class="body table-responsive">
+                            <div class="body table-responsive" [ngClass]="{'hidden-control':!isNoneBarcoded}">
                                 <table id="tbl" class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
@@ -62,8 +119,9 @@
                                             <th class="th-center-align">{{ "Item Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Qty." | localize }}</th>
                                             <th class="th-center-align">{{ "Mfg. Date" | localize }}</th>
-                                            <th class="th-center-align">{{ "Warranty Remarks" | localize }}</th>
-                                            <th class="th-center-align">{{ "Status" | localize }}</th>
+                                            <th class="th-center-align">{{ "Approval Quantity" | localize }}</th>
+                                                <th class="th-center-align">{{ "Rejected Quantity" | localize }}</th>
+                                                
                                            </tr>
                                     </thead>
                                     <tbody>
@@ -71,9 +129,9 @@
                                             <td class="td-center-align">{{picklistItem.customerCode}}</td>
                                             <td class="td-center-align">{{picklistItem.materialCode}}</td>
                                             <td class="td-center-align">{{picklistItem.quantity}}</td>
-                                            <td class="td-center-align">{{picklistItem.fdf}}</td>
-                                            <td class="td-center-align">{{picklistItem.fd}}</td>
-                                            <td class="td-center-align">{{picklistItem.disfdpatchQty}}</td>
+                                            <td class="td-center-align">{{picklistItem.packingDate | date :'dd-MMM-yy'}}</td>
+                                            <td class="td-center-align">{{picklistItem.dispatchQty}}</td>
+                                            <td class="td-center-align">{{picklistItem.pendingQty}}</td>
                                          </tr>
                                         <tr *ngIf="dataSource.filteredData?.length == 0">
                                             <td colspan="6" class="no-data-available">No data to display.</td>
@@ -81,6 +139,34 @@
                                     </tbody>
                                   </table>
                                  </div>
+                                 <br>
+                                 <div class="body table-responsive" [ngClass]="{'hidden-control':isNoneBarcoded}">
+                                    <table id="tbl" class="table table-hover table-striped table-sm table-bordered">
+                                        <thead>
+                                            <tr>
+                                                 <th class="th-center-align">{{ "Customer Code" | localize }}</th>
+                                                <th class="th-center-align">{{ "Item Code" | localize }}</th>
+                                                <th class="th-center-align">{{ "Qty." | localize }}</th>
+                                                <th class="th-center-align">{{ "Approval Quantity" | localize }}</th>
+                                                <th class="th-center-align">{{ "Rejected Quantity" | localize }}</th>
+                                                
+                                               </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let  challans of dataSource.filteredData">
+                                                <td class="td-center-align">{{challans.customerCode}}</td>
+                                                <td class="td-center-align">{{challans.materialCode}}</td>
+                                                <td class="td-center-align">{{challans.quantity}}</td>
+                                                <td class="td-center-align">{{challans.dispatchQty}}</td>
+                                                <td class="td-center-align">{{challans.pendingQty}}</td>
+                                             
+                                             </tr>
+                                            <tr *ngIf="dataSource.filteredData?.length == 0">
+                                                <td colspan="6" class="no-data-available">No data to display.</td>
+                                            </tr>
+                                        </tbody>
+                                      </table>
+                                     </div>
                             <div class="row fieldes">
                                 
                             </div>
@@ -92,7 +178,7 @@
                                             (click)="Clear()">
                                         Clear
                                     </button>
-                                    <button class="btn btn-primary pull-right" (click)="markDirty() && addEditFormGroup.valid && Save()">
+                                    <button class="btn btn-primary pull-right" (click)="Save()">
                                         Confirm
                                     </button>
                                     </div>

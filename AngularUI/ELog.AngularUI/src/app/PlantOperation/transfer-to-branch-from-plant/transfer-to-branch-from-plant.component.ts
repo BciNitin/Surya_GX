@@ -51,7 +51,6 @@ GetChallanNo() {
 GrtTableGrid()
 {
   var _grnConfirm =  new transferToBranch();
-  
   _grnConfirm.DeliveryChallanNo=this.DeliveryChallanNo;
   this._apiservice.GetChallanDetails(this.DeliveryChallanNo).subscribe((response) => {
     this.challanDtls = response["result"];
@@ -59,8 +58,6 @@ GrtTableGrid()
   })
 }
 ValidateCartonBarcode() {
-  debugger;
-
   var _transferToBranch =  new transferToBranch();
   
   _transferToBranch.DeliveryChallanNo=this.DeliveryChallanNo;
@@ -74,7 +71,7 @@ ValidateCartonBarcode() {
   {
     
 this._apiservice.GetValidateScanCartonBarcode(this.DeliveryChallanNo,this.CartonBarcode).subscribe(result => {
-    debugger;
+    
     if(result["result"][0]['valid'])
     {
       abp.notify.success(result["result"][0]['valid']);

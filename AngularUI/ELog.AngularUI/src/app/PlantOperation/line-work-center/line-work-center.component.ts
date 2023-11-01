@@ -56,7 +56,7 @@ matcher = new MyErrorStateMatcher();
   _linework.barcode = this.barcode;
  _linework.lineBarCode = this.lineBarCode;
   this._apiservice.SaveLineWork(_linework).subscribe(result => {
-    debugger;
+    
            if(result["result"][0]['valid'])
            {
              abp.notify.success(result["result"][0]['valid']);

@@ -62,9 +62,16 @@ namespace ELog.Application.CommomUtility
         public const string GetValidateItem = "GetValidateItem";
         public const string GetValidateGRNConfirm = "GetValidateGRNConfirmation";
         public const string sp_GRN_Confirm = "sp_GRN_Confirmation"; 
-        public const string sp_WarrantyClaim = "sp_Warranty_Claim";
+        public const string sp_BarcodedWarrantyClaim = "sp_Barcoded_Warranty_Claim";
         public const string GetCustomerCode = "GetCustomerCode"; 
         public const string GetWarrantyDetails = "GetWarrantyDetails";
-        public const string GetValidateWarrranty = "GetValidateWarrranty";
+        public const string GetValidateBcodeWarrranty = "GetValidateBarcodeWarrranty";
+        public const string sp_NonBarcoded_Warranty = "sp_NonBarcoded_Warranty_Claim";
+        public const string GetNonBarcodeWarrantyDetails = "GetNonbarcodeWarrantyDetails";
+        public const string GetValidateNonBcodeWarrranty = "GetValidateNonBarcodeWarrranty";
+        public const string sp_WarrantyClaim = "sp_WarrantyClaim";
+        public const string sp_warrantytracking = "sp_warranty_tracking";
+        public const string GetWarranty = "GetWarranty";
+
     }
 }

@@ -130,6 +130,7 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
 
 
   onChangePlantCode(value: any) {
+    
     if(value != undefined &&  value != '')
     {
     abp.ui.setBusy();

@@ -58,8 +58,6 @@ GrtTableGrid()
   })
 }
 ValidateCartonBarcode() {
-  debugger;
-
   var _customerDealer =  new customerDealer();
   
   _customerDealer.DeliveryChallanNo=this.DeliveryChallanNo;
@@ -73,7 +71,7 @@ ValidateCartonBarcode() {
   {
     
 this._apiservice.GetValidateSOScanCartonBarcode(this.DeliveryChallanNo,this.CartonBarcode).subscribe(result => {
-    debugger;
+    
     if(result["result"][0]['valid'])
     {
       abp.notify.success(result["result"][0]['valid']);

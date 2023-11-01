@@ -183,5 +183,82 @@ namespace ELog.Application.ElogApi
             return value;
 
         }
+
+        public async Task<Object> GetApproveDetails(DealerRevalidation dealer)
+        {
+
+            try
+            {
+
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_RevalidateDealerLocation";
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "ApproveDetails";
+                    Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sBatchCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sParantBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPackingDate", MySqlDbType.DateTime).Value = default;
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sQty", MySqlDbType.Decimal).Value = 0;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+        public async Task<Object> GetApprovalDtlsById(string id)
+        {
+
+            try
+            {
+
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_Approval_for_ZonalManager";
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetApprovalDtlsById";
+                    Command.Parameters.Add("sId", MySqlDbType.VarChar).Value = id;
+                    Command.Parameters.Add("sShiperBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sItemCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sMfgDate", MySqlDbType.VarChar).Value = default;
+                    Command.Parameters.Add("sChildBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
     }
 }

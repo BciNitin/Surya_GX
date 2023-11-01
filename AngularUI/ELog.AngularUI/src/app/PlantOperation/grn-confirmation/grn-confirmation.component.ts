@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@shared/ValidationService';
 import { NoWhitespaceValidator ,MyErrorStateMatcher} from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
-export class transferToBranch
+export class GrnConfirm
 {
      plantCode: string="";
      DeliveryChallanNo:string="";
@@ -49,7 +49,7 @@ GetChallanNo() {
 
 GrtTableGrid()
 {
-  var _grnConfirm =  new transferToBranch();
+  var _grnConfirm =  new GrnConfirm();
   
   _grnConfirm.DeliveryChallanNo=this.DeliveryChallanNo;
   this._apiservice.GetChallanDetails(this.DeliveryChallanNo).subscribe((response) => {
@@ -59,12 +59,11 @@ GrtTableGrid()
 }
 
 ValidateGRNConfirmation() {
-  debugger;
-
-  var _transferToBranch =  new transferToBranch();
   
-  _transferToBranch.DeliveryChallanNo=this.DeliveryChallanNo;
-  _transferToBranch.CartonBarcode=this.CartonBarcode;
+var _grnConfirm =  new GrnConfirm();
+  
+  _grnConfirm.DeliveryChallanNo=this.DeliveryChallanNo;
+  _grnConfirm.CartonBarcode=this.CartonBarcode;
   if(this.DeliveryChallanNo=="" || this.DeliveryChallanNo==null)
   {
     abp.notify.error("Please select delivery challan !");
@@ -74,7 +73,7 @@ ValidateGRNConfirmation() {
   {
     
 this._apiservice.GetValidateGRNConfirmation(this.DeliveryChallanNo,this.CartonBarcode).subscribe(result => {
-    debugger;
+    
     if(result["result"][0]['valid'])
     {
       abp.notify.success(result["result"][0]['valid']);
