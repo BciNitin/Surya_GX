@@ -9,6 +9,7 @@ using ELog.Application.SelectLists.Dto;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MobiVueEVO.BO.Models;
+using ELog.Core.Authorization.Users;
 using Ionic.Zlib;
 
 namespace ELog.Application.ElogApi
@@ -18,11 +19,13 @@ namespace ELog.Application.ElogApi
         private readonly IConfiguration _configuration;
         private string connection;
         private ISessionAppService _sessionAppService;
+        private readonly IList<string> _roles;
         public SuryaRevalidationDealerLocation(IConfiguration configuration, ISessionAppService sessionAppService)
         {
             _configuration = configuration;
             connection = _configuration["ConnectionStrings:Default"];
             _sessionAppService = sessionAppService;
+            _roles = Task.Run(() => _sessionAppService.GetCurrentLoginInformations()).Result.Role;
         }
 
         public async Task<Object> GetDealerCode()
@@ -36,7 +39,6 @@ namespace ELog.Application.ElogApi
             {
                 using (MySqlCommand Command = new MySqlCommand())
                 {
-
                     Command.Connection = conn;
                     Command.CommandText = "sp_RevalidateDealerLocation";
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetDealerCode";
