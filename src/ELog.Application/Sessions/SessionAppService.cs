@@ -30,7 +30,9 @@ namespace ELog.Application.Sessions
 
             if (AbpSession.UserId.HasValue)
             {
+               
                 var currentUser = await GetCurrentUserAsync();
+                output.Role = await userManager.GetRolesAsync(currentUser);
                 output.User = ObjectMapper.Map<UserLoginInfoDto>(currentUser);
                 output.User.RoleNames = await GetApprovedandActiveRolesOnlyAsync(currentUser);
                 output.User.Permissions = await GetCurrentpermissionsAsync(currentUser);

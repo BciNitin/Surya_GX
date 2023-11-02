@@ -1,4 +1,6 @@
-﻿namespace ELog.Application.Sessions.Dto
+﻿using System.Collections.Generic;
+
+namespace ELog.Application.Sessions.Dto
 {
     public class GetCurrentLoginInformationsOutput
     {
@@ -7,5 +9,6 @@
         public UserLoginInfoDto User { get; set; }
 
         public TenantLoginInfoDto Tenant { get; set; }
+        public IList<string> Role { get; set; }
     }
 }
