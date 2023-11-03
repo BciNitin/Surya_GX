@@ -81,7 +81,7 @@ export class ApprovalForAdminComponent implements OnInit {
   }
 
   private getArray() {
-    this._apiservice.GetApproveDetails()
+    this._apiservice.GetDelarLocationApproveDetails()
       .subscribe((response) => {
         this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
         this.dataSourcePagination.paginator = this.paginator;

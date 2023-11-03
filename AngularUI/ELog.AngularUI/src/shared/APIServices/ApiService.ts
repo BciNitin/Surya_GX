@@ -521,34 +521,12 @@ GetSOChallanDetails(DeliveryChallanNo) {
 
     }
 
-    GetApproveDetails() {
-      
-      //const content_ = JSON.stringify(input);
-      const options_: any = {
-         //body: this.content_,
-         observe: "response",
-         responseType: "blob",
-         headers: new HttpHeaders({
-            "Content-Type": "application/json-patch+json",
-         }),
-      };
-      return this.http.get<any[]>(this.BasUrl + `SuryaRevalidationDealerLocation/GetApproveDetails`);
-
+    GetDelarLocationApproveDetails() {
+      return this.http.get<any[]>(this.BasUrl + `SuryaRevalidationDealerLocation/GetDelarLocationApproveDetails`);
     }
     
-    GetApprovalDtlsById(id) {
-      
-      //const content_ = JSON.stringify(input);
-      const options_: any = {
-         //body: this.content_,
-         observe: "response",
-         responseType: "blob",
-         headers: new HttpHeaders({
-            "Content-Type": "application/json-patch+json",
-         }),
-      };
-      return this.http.get<any[]>(this.BasUrl + `SuryaRevalidationDealerLocation/GetApprovalDtlsById?id=${id}`);
-
+    GetApprovalDtlsById(dealerCode,ItemBarCode) {
+      return this.http.get<any[]>(this.BasUrl + `SuryaRevalidationDealerLocation/GetDelarLocationApproveDetailsById?dealercode=${dealerCode}&itemcode=${ItemBarCode}`);
     }
 
     GetRevalidationOnDealerCarton(dealerCode,barCode): Observable<any> {
@@ -568,4 +546,11 @@ GetSOChallanDetails(DeliveryChallanNo) {
       return this.http.post(this.BasUrl + `SuryaRevalidationDealerLocation/ApproveRevalidationLocationByItem`,model);
     }
    }
+   ApproveRevalidation(itemBarcode): Observable<any> {
+      return this.http.get(this.BasUrl + `SuryaRevalidationDealerLocation/GetRevalidationOnItem?itembarcode=${itemBarcode}}`,this.httpOptions);
+    }
+
+   EncryptPassword(input): Observable<any> {
+      return this.http.post(this.BasUrl + `ChangePswd/EncryptPassword?input=${input}`,this.httpOptions);
+    }
 }

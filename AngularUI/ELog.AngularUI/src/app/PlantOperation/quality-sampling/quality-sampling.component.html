@@ -81,7 +81,7 @@
                                             <mat-label>Carton BarCode</mat-label>
                                             <input matInput required name="cartonBarcode"
                                                   [(ngModel)]='cartonBarcode'
-                                                  on-focusout="onScaningCarton($event)"
+                                                  (keyup.enter)="onScaningCarton($event)"
                                                   formControlName="CartonBarCodeFormControl"
                                                 >
                                                 <mat-error
@@ -95,7 +95,7 @@
                                             <mat-label>ItemBarCode</mat-label>
                                             <input matInput required name="itemBarcode"
                                                  [(ngModel)]='itemBarcode'
-                                                 on-focusout="onScaningItem($event)"
+                                                 (keyup.enter)="onScaningItem($event)"
                                                  formControlName="ItemBarCodeFormControl"
                                                >
                                                <!-- formControlName="ItemBarCodeFormControl"

@@ -9,10 +9,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ValidationService } from '@shared/ValidationService';
 import { NoWhitespaceValidator, MyErrorStateMatcher } from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
+import { forkJoin } from 'rxjs';
 
 interface grid
 {
-  id:number,
   dealarCode: string,
   materialCode: string,
   materialName: string,
@@ -44,6 +44,10 @@ export class AddEditZonalComponent implements OnInit {
   public currentPage = 0;
   public totalSize = 0;
 
+itemcode:any;
+dealerCode;any;
+splitparts:any;
+
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<grid>();
   public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<grid>();
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
@@ -62,24 +66,36 @@ export class AddEditZonalComponent implements OnInit {
     this.urlEncription();
   }
 
-urlEncription()
-{
+urlEncription() {
   this.routeEncrypt = null;
-    let that = this;
-    this._route.params.subscribe((routeData: Params) => {
-      if (routeData['approvalId']) {
-          let paramId = this._changePwdService.decryptPassword(routeData['approvalId']);
-          paramId.subscribe(id => {
-              that.approvalId = parseInt(id);
-              this.approvalId = routeData['approvalId'];
-              this.getArray(id);
-            });
-      }
-      
-  })
+  let that = this;
+  this._route.params.subscribe((routeData: Params) => {
+    const approvalId = routeData['approvalId'];
+    this.splitparts = approvalId.split('/');
+
+    if (this.splitparts) {
+      const paramId = this._changePwdService.decryptPassword(this.splitparts[0]);
+      const paramId2 = this._changePwdService.decryptPassword(this.splitparts[1]);
+
+      forkJoin([paramId, paramId2]).subscribe(responses => {
+        const response1 = responses[0];
+        const response2 = responses[1];
+
+        if (response1 !== '' && response1 !== 'undefined' && response1 !== undefined) {
+          that.dealerCode = response1;
+        }
+
+        if (response2 !== '' && response2 !== 'undefined' && response2 !== undefined) {
+          that.itemcode = response2;
+          }
+          if (that.dealerCode !== '' && that.dealerCode !== 'undefined' && that.dealerCode !== undefined) {
+            if (that.itemcode !== '' && that.itemcode !== 'undefined' && that.itemcode !== undefined) {
+            this.getArray(that.dealerCode,that.itemcode);
+          }}
+      });
+    }
+  });
 }
-
-
 ngAfterViewInit(): void {
   this.dataSource.sort = this.sort;
   // this.dataSource = new MatTableDataSource(this.dataSource.filteredData);
@@ -105,13 +121,13 @@ public handlePage(e: any) {
   this.iterator();
 }
 
-private getArray(value) {
-  this._apiservice.GetApprovalDtlsById('1')
+private getArray(dealercode,itemcode) {
+  this._apiservice.GetApprovalDtlsById(dealercode,itemcode)
     .subscribe((response) => {
       // this.dataSourcePagination  = new MatTableDataSource<Element>(response['result']);
       this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
       this.dataSourcePagination.paginator = this.paginator;
-      
+
       this.array = response['result'];
       this.totalSize = this.array.length;
       this.iterator();
@@ -123,6 +139,13 @@ private iterator() {
   const start = this.currentPage * this.pageSize;
   // this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
   this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
+}
+
+Confirm(itembarCode)
+{
+  this._apiservice.ApproveRevalidation(itembarCode)
+  .subscribe((response) => {})
+  
 }
 
 }

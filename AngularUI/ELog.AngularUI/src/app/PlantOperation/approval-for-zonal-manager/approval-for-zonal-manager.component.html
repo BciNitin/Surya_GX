@@ -19,29 +19,29 @@
                                              <th class="th-center-align">{{ "Dealer Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Item Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Quantity" | localize }}</th>
-                                           
                                             <th class="th-center-align">{{ "Action" | localize }}</th>
                                            </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let approvalData of dataSource.filteredData" (tap)="onSelect($event,approvalData)">
+                                        <tr *ngFor="let approvalData of dataSource.filteredData">
+                                        <tr *ngFor="let approvalData of dataSource.filteredData">
                                             <td class="td-center-align">{{approvalData.dealarCode}}</td>
                                             <td class="td-center-align">{{approvalData.materialCode}}</td>
                                             <td class="td-center-align">{{approvalData.qty}}</td>
                                             <td class="td-center-align remove-td-padding">
-
-                                                <i matTooltip="View" (click)="GoToView(approvalData)"
+                                                <i matTooltip="View" (click)="GoToView(approvalData.dealarCode,approvalData.materialCode)"
                                                     class="material-icons material-icon-action"
-                                                   >visibility</i>
-                                                
+                                                >visibility</i>
                                             </td>
-                                            
                                          </tr>
                                         <tr *ngIf="dataSource.filteredData?.length == 0">
                                             <td colspan="6" class="no-data-available">No data to display.</td>
                                         </tr>
                                     </tbody>
                                   </table>
+                                  <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 40]"
+                                  aria-label="Select page" (page)="pageEvent = handlePage($event)">
+                              </mat-paginator>
                                  </div>
                             <div class="row fieldes">
                                 

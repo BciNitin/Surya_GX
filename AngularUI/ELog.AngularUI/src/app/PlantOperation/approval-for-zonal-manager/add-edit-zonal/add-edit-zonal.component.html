@@ -21,24 +21,17 @@
                                     <thead>
                                         <tr>
                                              <th class="th-center-align">{{ "Shiper Code" | localize }}</th>
-                                            <th class="th-center-align">{{ "Item Code" | localize }}</th>
-                                            <th class="th-center-align">{{ "MFG. Date" | localize }}</th>
-                                            <th class="th-center-align">{{ "Action" | localize }}</th>
+                                             <th class="th-center-align">{{ "Item Barcode" | localize }}</th>
+                                             <th class="th-center-align">{{ "Item Code" | localize }}</th>
+                                             <th class="th-center-align">{{ "MFG. Date" | localize }}</th>
                                            </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let approvalData of dataSource.filteredData">
+                                        <tr *ngFor="let  approvalData of dataSource.filteredData" >
                                             <td class="td-center-align">{{approvalData.parentBarcode}}</td>
+                                            <td class="td-center-align">{{approvalData.childBarcode}}</td>
                                             <td class="td-center-align">{{approvalData.materialCode}}</td>
-                                            <td class="td-center-align">{{approvalData.packingDate}}</td>
-                                            <td class="td-center-align remove-td-padding">
-
-                                                <i matTooltip="View" (click)="GoToView(approvalData)"
-                                                    class="material-icons material-icon-action"
-                                                   >visibility</i>
-                                                
-                                            </td>
-                                            
+                                            <td class="td-center-align">{{approvalData.packingDate | date:'dd-MM-yyyy'}}</td>
                                          </tr>
                                          <tr *ngIf="dataSource.filteredData?.length == 0">
                                             <td colspan="6" class="no-data-available">No data to display.</td>
@@ -56,9 +49,9 @@
                                 <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                 </div>
                                 <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <button class="btn filter-back-button pull-right"
-                                            (click)="Clear()">
-                                        Clear
+                                    <button class="btn btn-primary pull-right"
+                                            (click)="Confirm()">
+                                        Confirm
                                     </button>
                                    </div>
                             </div>

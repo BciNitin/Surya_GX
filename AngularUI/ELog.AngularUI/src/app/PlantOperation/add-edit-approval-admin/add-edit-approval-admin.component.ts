@@ -107,7 +107,7 @@ public pageSize = 10;
   }
   
   private getArray(id) {
-    this._apiservice.GetApprovalDtlsById(id)
+    this._apiservice.GetApprovalDtlsById('','')
       .subscribe((response) => {
         // this.dataSourcePagination  = new MatTableDataSource<Element>(response['result']);
         this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
