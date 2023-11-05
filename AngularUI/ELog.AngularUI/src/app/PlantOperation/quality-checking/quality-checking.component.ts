@@ -121,7 +121,8 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
         if (result['result'][0].error) {
           abp.notify.error(result['result'][0].error);
         } else {
-          abp.notify.error(result['result'][0].valid);
+          abp.notify.success(result['result'][0].valid);
+          this.Clear();
         }
       },
       (error) => {
@@ -145,7 +146,7 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
     this.addEditFormGroup.controls['CartonBarCodeFormControl'].setValue(null);
     this.addEditFormGroup.controls['ItemBarCodeFormControl'].setValue(null);
     this.addEditFormGroup.controls['passFormControl'].setValue(null);
-    this.dataSource.filter = null;
+    this.dataSource.data = [];
 
   }
 

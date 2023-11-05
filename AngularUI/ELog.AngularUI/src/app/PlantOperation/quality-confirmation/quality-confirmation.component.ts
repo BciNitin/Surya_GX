@@ -114,7 +114,7 @@ export class QualityConfirmationComponent implements OnInit, AfterViewInit {
       }
     }
        const filteredData = this.dataSourceModel.filteredData.filter(item => item !== null && item !== undefined);
-       console.log(filteredData); 
+      // console.log(filteredData); 
        await this._apiservice.saveQualityConfirmation(filteredData).subscribe(
           (response) => {
             if (response.result[0].valid) {

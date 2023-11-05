@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 
 export class ApiServiceService {
-   //BasUrl = 'http://180.151.246.51:8089/api/services/app/';
+  // BasUrl = 'http://180.151.246.51:8089/api/services/app/';
    BasUrl = 'http://localhost:21021/api/services/app/';
    apiUrlGetMaterialMaster = 'ElogSuryaApiService/GetMaterialMaster';
 
@@ -546,8 +546,8 @@ GetSOChallanDetails(DeliveryChallanNo) {
       return this.http.post(this.BasUrl + `SuryaRevalidationDealerLocation/ApproveRevalidationLocationByItem`,model);
     }
    }
-   ApproveRevalidation(itemBarcode): Observable<any> {
-      return this.http.get(this.BasUrl + `SuryaRevalidationDealerLocation/GetRevalidationOnItem?itembarcode=${itemBarcode}}`,this.httpOptions);
+   ConfirmRevalidation(itemBarcode): Observable<any> {
+      return this.http.post(this.BasUrl + `SuryaRevalidationDealerLocation/ApproveRevalidation`,itemBarcode);
     }
 
    EncryptPassword(input): Observable<any> {

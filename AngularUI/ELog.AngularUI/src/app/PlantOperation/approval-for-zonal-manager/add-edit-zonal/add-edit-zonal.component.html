@@ -20,6 +20,7 @@
                                 <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
+                                            <th class="th-center-align">{{ "Select All" | localize }}</th>
                                              <th class="th-center-align">{{ "Shiper Code" | localize }}</th>
                                              <th class="th-center-align">{{ "Item Barcode" | localize }}</th>
                                              <th class="th-center-align">{{ "Item Code" | localize }}</th>
@@ -28,6 +29,10 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let  approvalData of dataSource.filteredData" >
+                                            <td class="td-center-align">
+                                                <mat-checkbox [(ngModel)]="approvalData.checkBoxValue"></mat-checkbox>
+                                                <!-- <p *ngIf="!isAtLeastOneCheckboxSelected()">Select at least one checkbox</p> -->
+                                            </td>
                                             <td class="td-center-align">{{approvalData.parentBarcode}}</td>
                                             <td class="td-center-align">{{approvalData.childBarcode}}</td>
                                             <td class="td-center-align">{{approvalData.materialCode}}</td>
@@ -45,16 +50,17 @@
                             <div class="row fieldes">
                                 
                             </div>
-                           <div class="row">
-                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                </div>
-                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <button class="btn btn-primary pull-right"
-                                            (click)="Confirm()">
+                            <div class="row pull-right">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary  margin-right-2px"
+                                      [disabled]="!isAtLeastOneCheckboxSelected()" (click)="Confirm()">
                                         Confirm
                                     </button>
-                                   </div>
-                            </div>
+                                    <button class="btn filter-back-button" (click)="Clear()">
+                                        Clear
+                                    </button>
+                                </div>
+                        </div>
 
                         </div>
                     </div>

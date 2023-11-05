@@ -390,7 +390,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> ApproveRevalidation([Required]List<string> itembarcode)
+        public async Task<Object> ApproveRevalidation([Required] List<string> itembarcode)
         {
             DataTable dt = null;
             try
@@ -407,29 +407,36 @@ namespace ELog.Application.ElogApi
                         {
                             try
                             {
-                                foreach (var item in itembarcode)
+                                foreach (var ItemBarCode in itembarcode)
                                 {
                                     dt = new DataTable();
                                     using (MySqlCommand Command = new MySqlCommand())
                                     {
                                         Command.Connection = conn;
+                                        Command.Transaction = transaction;
                                         Command.CommandText = "sp_Approval_Revalidation_Location";
                                         Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "Approved";
                                         Command.Parameters.Add("sDealerCode", MySqlDbType.VarChar).Value = String.Empty;
                                         Command.Parameters.Add("sId", MySqlDbType.Int32).Value = 0;
                                         Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                                         Command.Parameters.Add("sShiperBarCode", MySqlDbType.VarChar).Value = String.Empty;
-                                        Command.Parameters.Add("sItemCode", MySqlDbType.VarChar).Value = itembarcode;
+                                        Command.Parameters.Add("sItemCode", MySqlDbType.VarChar).Value = String.Empty;
                                         Command.Parameters.Add("sMfgDate", MySqlDbType.DateTime).Value = default;
-                                        Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                                        Command.Parameters.Add("sItemBarCode", MySqlDbType.VarChar).Value = ItemBarCode;
                                         Command.Parameters.Add("Qty", MySqlDbType.Decimal).Value = 0;
                                         Command.Parameters.Add("ExpiryDate", MySqlDbType.DateTime).Value = default;
                                         Command.Parameters.Add("sUserType", MySqlDbType.VarChar).Value = roles;
                                         Command.CommandType = CommandType.StoredProcedure;
-                                        Command.Connection.Open();
                                         myReader = await Command.ExecuteReaderAsync();
                                         dt.Load(myReader);
-                                        Command.Connection.Close();
+                                    }
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        if (dt.Rows[0].Table.Columns.Contains("Error") && !dt.Rows[0].IsNull("Error"))
+                                        {
+                                            transaction.Rollback();
+                                            return dt;
+                                        }
                                     }
                                 }
 
