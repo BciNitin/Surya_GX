@@ -148,12 +148,6 @@
                                 Shift Master</span></a>
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
-                        <a class="toggled waves-effect waves-block ng-star-inserted"
-                            [routerLink]="['/app/packing-order']"><span>
-                                Packing Order</span></a>
-                    </li>
-
-                    <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/bin']"><span>
                                 Bin</span></a>
                         <ng-container *ngFor="let menu of MenuList[0]; let i = index">
@@ -176,10 +170,8 @@
                 <ul class="ml-menu ng-star-inserted">
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
-                            [routerLink]="['/app/packing-order-confirmation']">
-                            <span>
-                                Packing Order Confirmation
-                            </span></a>
+                            [routerLink]="['/app/packing-order']"><span>
+                                Packing Order</span></a>
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
@@ -190,12 +182,18 @@
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/packing-order-confirmation']">
+                            <span>
+                                Packing Order Confirmation
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/line-work-center']">
                             <span>
                                 Line/Work Center & Bin Mapping
                             </span></a>
                     </li>
-                    
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/manual-packing']">
@@ -210,13 +208,18 @@
                                 Quality Sampling
                             </span></a>
                     </li>
-                    
-                    
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/quality-checking']">
                             <span>
                                 Quality Checking
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/quality-tested-itemplacement']">
+                            <span>
+                                Quality Tested Item Placement
                             </span></a>
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
@@ -227,13 +230,6 @@
                             </span></a>
                     </li>
                     
-                    <li routerlinkactive="active" class="ng-star-inserted">
-                        <a class="toggled waves-effect waves-block ng-star-inserted"
-                            [routerLink]="['/app/quality-tested-itemplacement']">
-                            <span>
-                                Quality Tested Item Placement
-                            </span></a>
-                    </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/storage-location-transfer']">
@@ -252,14 +248,7 @@
                         <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/transfer-dealer-customerfrom-branch']">
                             <span>
-                                Transfer T0 Dealer/Customer From Branch Location
-                            </span></a>
-                    </li>
-                    <li routerlinkactive="active" class="ng-star-inserted">
-                        <a class="toggled waves-effect waves-block ng-star-inserted"
-                            [routerLink]="['/app/approval-zonal-manager']">
-                            <span>
-                                Approval Zonal Manager  
+                                Transfer To Dealer/Customer From Branch Location
                             </span></a>
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
@@ -277,19 +266,27 @@
                             </span></a>
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
+
+                        <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block ng-star-inserted">
+                            <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">
+                                Revalidation For Dealer Location</span>
+                        </a>
+                    <ul class="ml-menu ng-star-inserted">
+                    <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/revalidation-dealer-location']">
                             <span>
-                                Revalidation Dealer Location
+                                Revalidation At Dealer Location
                             </span></a>
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/approval-for-zonal-manager']">
                             <span>
-                                Approval for Zonal Manager
+                                Revalidation Approval
                             </span></a>
                     </li>
+                        </ul>
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/warranty-claim']">
