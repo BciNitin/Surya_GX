@@ -53,10 +53,6 @@ import { WarrantyClaimComponent } from './PlantOperation/warranty-claim/warranty
 import { RevalidationDealerLocationComponent } from './PlantOperation/revalidation-dealer-location/revalidation-dealer-location.component';
 import { WarrantyTrackingComponent } from './PlantOperation/warranty-tracking/warranty-tracking.component';
 import { AddEditZonalComponent } from './PlantOperation/approval-for-zonal-manager/add-edit-zonal/add-edit-zonal.component';
-import { ApprovalForAdminComponent } from './PlantOperation/approval-for-admin/approval-for-admin.component';
-import { AddEditApprovalAdminComponent } from './PlantOperation/add-edit-approval-admin/add-edit-approval-admin.component';
-
-
 
 @NgModule({
     imports: [
@@ -153,9 +149,6 @@ import { AddEditApprovalAdminComponent } from './PlantOperation/add-edit-approva
                     { path: 'revalidation-dealer-location', component: RevalidationDealerLocationComponent, canActivate: [AppRouteGuard] },
                     { path: 'warranty-tracking', component: WarrantyTrackingComponent, canActivate: [AppRouteGuard] },
                     { path: 'add-edit-zonal/:action/:approvalId', component: AddEditZonalComponent, canActivate: [AppRouteGuard] },
-                    { path: 'approval-for-admin', component: ApprovalForAdminComponent, canActivate: [AppRouteGuard] },
-                    { path: 'add-edit-admin/:action/:approvalId', component: AddEditApprovalAdminComponent, canActivate: [AppRouteGuard] },
-                   
                 ]
             }
         ])
