@@ -10,6 +10,8 @@ import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { fromEvent } from 'rxjs';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
+import { Title } from '@angular/platform-browser';
+
 
 interface PlantMaster{
     code :string,
@@ -43,10 +45,12 @@ export class PlantComponent implements OnInit  {
     @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   
     constructor(
-      private _apiservice: ApiServiceService
+      private _apiservice: ApiServiceService,
+      private titleService: Title
     ) { }
   
     ngOnInit() {
+      this.titleService.setTitle('Plant Master');
       this.getArray();
     }
   

@@ -7,6 +7,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
+import { Title } from '@angular/platform-browser';
 
 interface grid {
 
@@ -50,10 +51,12 @@ export class QualitySamplingComponent implements OnInit {
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
     public _appComponent: ValidationService,
+    private titleService: Title
+
   ) { }
 
   ngOnInit() {
-   
+    this.titleService.setTitle('Quality Sampling');
     this.GetPlantCode();
     this.GetLineCode();
   }

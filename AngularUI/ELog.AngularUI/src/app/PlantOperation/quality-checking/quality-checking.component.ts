@@ -7,6 +7,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
+import { Title } from '@angular/platform-browser';
 
 interface grid {
   parentBarcode: any,
@@ -66,14 +67,17 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
     public _appComponent: ValidationService,
+    private titleService: Title
+
   ) { }
 
   ngOnInit() {
-
+    this.titleService.setTitle('Quality Checking');
     abp.ui.setBusy();
     this.GetPlantCode();
     this.GetLineCode();
     abp.ui.clearBusy();
+    
 
   }
 
@@ -110,6 +114,7 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
       this.packingOrderList = response["result"];
       this.updateUIselectedOrderType = this.packingOrder;
       abp.ui.clearBusy();
+      
     });
   }
 
@@ -122,6 +127,7 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
           abp.notify.error(result['result'][0].error);
         } else {
           abp.notify.success(result['result'][0].valid);
+          this.iterator();
           this.Clear();
         }
       },
@@ -191,9 +197,26 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
     }
     abp.ui.clearBusy();
   }
+  private iterators() {
+    abp.ui.setBusy();
+    const end = (this.currentPage + 1) * this.pageSize;
+    const start = this.currentPage * this.pageSize;
+    // this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
+    this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
+    //for dropdown default valu of status
 
+    for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+      // this.dataSource.filteredData[i].status = 'Yes';
+      this.dataSource.filteredData[i].qcStatus = this.Pass;
+      this.dataSource.filteredData[i].packingOrderNo = this.packingOrder;
+      this.dataSource.filteredData[i].plantCode = this.plantCode;
+      this.dataSource.filteredData[i].lineCode = this.lineCode;
+    }
+    abp.ui.clearBusy();
+  }
   getDetails1(v) {
-    this.iterator();
+    this.iterators();
+    // this.iterator();
   }
 
   ngAfterViewInit(): void {

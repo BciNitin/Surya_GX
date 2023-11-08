@@ -30,6 +30,7 @@ export class TopBarComponent extends AppComponentBase {
         this.plantCode = this.appSession.getPlantName();
         this.remaininngDaysForResetPassword =this.appSession.getShownPasswordResetDaysLeft();
        //this.remaininngDaysForResetPassword = 0;
+       
         if (this.appSession.getRoles() && this.appSession.getRoles().length > 0) {
             this.roleName = this.appSession.getRoles()[0]
         }

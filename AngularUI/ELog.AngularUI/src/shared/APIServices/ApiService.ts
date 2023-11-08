@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 
 export class ApiServiceService {
-  // BasUrl = 'http://180.151.246.51:8089/api/services/app/';
+   //BasUrl = 'http://180.151.246.51:8089/api/services/app/';
    BasUrl = 'http://localhost:21021/api/services/app/';
    apiUrlGetMaterialMaster = 'ElogSuryaApiService/GetMaterialMaster';
 
@@ -552,5 +552,26 @@ GetSOChallanDetails(DeliveryChallanNo) {
 
    EncryptPassword(input): Observable<any> {
       return this.http.post(this.BasUrl + `ChangePswd/EncryptPassword?input=${input}`,this.httpOptions);
+    }
+    GetPackingReportOrderNo(): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + 'PackingReportsApi/GetPackingReportOrderNo');
+   }
+
+   // GetPackingReport(_p_Report: any): Observable<any> {
+     
+   //     return this.http.post(this.BasUrl + `PackingReportsApi/GetPackingReport`,_p_Report);
+   //    }
+
+      
+   
+
+    GetPackingReport(data): Observable<any> {
+      const httpOptions = {
+         headers: new HttpHeaders({
+           'Content-Type': 'application/json'
+         })
+       };
+      debugger;
+      return this.http.post(this.BasUrl + `PackingReportsApi/GetPackingReport`,data, httpOptions);
     }
 }

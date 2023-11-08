@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@shared/ValidationService';
 import { NoWhitespaceValidator ,MyErrorStateMatcher} from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
+import { Title } from '@angular/platform-browser';
+
 export class SgtorageLocation
 {
     
@@ -37,11 +39,14 @@ export class StorageLocationTransferComponent implements OnInit {
   constructor(
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
-    public _appComponent : ValidationService
+    public _appComponent : ValidationService,
+    private titleService: Title
+
     
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Storage Location Transfer');
     this.GetPlantCode();
     this.GetStorageCode();
     
@@ -74,7 +79,14 @@ GrtTableGrid()
   _Storage.plantcode=this.plantCode;
   _Storage.LocationID=this.LocationID;
   this._apiservice.GetStrLocationDtls(this.plantCode,this.LocationID).subscribe((response) => {
-    this.storageLocationdtls = response["result"];
+    
+    if (response['result'][0].error) {
+      abp.notify.error(response['result'][0].error);
+    } else {
+      this.storageLocationdtls = response["result"];
+      
+      
+    }
 })
 }
 GetBarcodeScannedDetails()

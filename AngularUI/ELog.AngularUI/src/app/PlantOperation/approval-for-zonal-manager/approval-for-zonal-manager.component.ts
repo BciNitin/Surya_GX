@@ -4,12 +4,13 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ChangePswdServiceProxy } from '@shared/service-proxies/service-proxies';
-
+import { AppSessionService } from '@shared/session/app-session.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@shared/ValidationService';
 import { NoWhitespaceValidator, MyErrorStateMatcher } from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
+import { Title } from '@angular/platform-browser';
 
 interface grid {
   id: number;
@@ -37,7 +38,7 @@ export class ApprovalForZonalManagerComponent implements OnInit, AfterViewInit {
   public totalSize = 0;
   public array: any;
   updateUIselectedOrderType: any;
-
+  roleName: string = '';
   plantCode: any;
   packingOrder: any;
 
@@ -63,9 +64,23 @@ export class ApprovalForZonalManagerComponent implements OnInit, AfterViewInit {
     private _changePwdService: ChangePswdServiceProxy,
     private _router: Router,
     private _route: ActivatedRoute,
-  ) { }
+    private appSession: AppSessionService,
+    private titleService: Title
+) { }
 
   ngOnInit() {
+    debugger;
+        if (this.appSession.getRoles() && this.appSession.getRoles().length > 0) {
+            this.roleName = this.appSession.getRoles()[0]
+        }
+    if(this.roleName =='Admin' )
+    {
+      this.titleService.setTitle('Admin Approval(Revalidation)'); 
+    }
+    if(this.roleName =='Zonal Manager')
+    {
+      this.titleService.setTitle('Zonal Manager Approval(Revalidation)'); 
+    }
     abp.ui.setBusy();
     this.getDetails()
   }

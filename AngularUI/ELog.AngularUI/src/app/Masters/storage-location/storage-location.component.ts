@@ -2,9 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-
-
-
+import { Title } from '@angular/platform-browser';
 
 
 interface StorageMaster {
@@ -40,10 +38,13 @@ export class StorageLocationComponent implements OnInit, AfterViewInit {
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
 
   constructor(
-    private _apiservice: ApiServiceService
+    private _apiservice: ApiServiceService,
+    private titleService: Title
+
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Storage Location Master');
     this.getArray();
   }
 

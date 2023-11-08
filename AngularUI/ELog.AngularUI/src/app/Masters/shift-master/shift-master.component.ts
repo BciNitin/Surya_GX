@@ -5,6 +5,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { id } from 'date-fns/locale';
 import { finalize } from 'rxjs/operators';
 import { ActivatedRoute, Data, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 interface ShiftMaster {
   id:string,
@@ -40,10 +41,13 @@ export class ShiftMasterComponent implements OnInit {
   constructor( 
     private _apiservice: ApiServiceService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private titleService: Title
+
     ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Shift Master');
     this.getArray();
   }
   ngAfterViewInit(): void {

@@ -148,6 +148,11 @@
                                 Shift Master</span></a>
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted"
+                            [routerLink]="['/app/packing-order']"><span>
+                                Packing Order</span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/bin']"><span>
                                 Bin</span></a>
                         <ng-container *ngFor="let menu of MenuList[0]; let i = index">
@@ -170,8 +175,10 @@
                 <ul class="ml-menu ng-star-inserted">
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
-                            [routerLink]="['/app/packing-order']"><span>
-                                Packing Order</span></a>
+                            [routerLink]="['/app/packing-order-confirmation']">
+                            <span>
+                                Packing Order Confirmation
+                            </span></a>
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
@@ -180,13 +187,7 @@
                                 Serial Barcode Generation
                             </span></a>
                     </li>
-                    <li routerlinkactive="active" class="ng-star-inserted">
-                        <a class="toggled waves-effect waves-block ng-star-inserted"
-                            [routerLink]="['/app/packing-order-confirmation']">
-                            <span>
-                                Packing Order Confirmation
-                            </span></a>
-                    </li>
+                    
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted"
                             [routerLink]="['/app/line-work-center']">
@@ -302,6 +303,34 @@
                             </span></a>
                     </li>
                     
+                    <ng-container *ngFor="let menu of MenuList[0]; let i = index">
+
+                        <li routerlinkactive="active" class="ng-star-inserted"
+                            *ngIf="menu.menuId ==1 && isPermissionGranted(menu.permissions)">
+                            <a class="toggled waves-effect waves-block ng-star-inserted"
+                                [routerLink]="['/app/logData/'+menu.formName]"><span>{{FormNames[i]}}</span></a>
+                        </li>
+                    </ng-container>
+
+                </ul>
+            </li>
+
+
+            <li routerlinkactive="active" class="ng-star-inserted">
+
+                <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block ng-star-inserted">
+                    <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">Reports</span>
+                </a>
+                <ul class="ml-menu ng-star-inserted">
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/packing-reports']">
+                            <span>
+                                Packing Reports
+                            </span></a>
+                    </li>
+                    
+                    
+
                     <ng-container *ngFor="let menu of MenuList[0]; let i = index">
 
                         <li routerlinkactive="active" class="ng-star-inserted"

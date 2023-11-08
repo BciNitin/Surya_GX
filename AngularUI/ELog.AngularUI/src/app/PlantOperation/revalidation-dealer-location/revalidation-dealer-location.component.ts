@@ -6,7 +6,10 @@ import { ValidationService } from '@shared/ValidationService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
+import { Title } from '@angular/platform-browser';
+
 import { error } from 'console';
+import { Session } from 'inspector';
 
 interface grid
 {
@@ -47,10 +50,14 @@ export class RevalidationDealerLocationComponent implements OnInit, AfterViewIni
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
     public _appComponent: ValidationService,
+    private titleService: Title
+
   ) { }
 
   ngOnInit() {
-
+    
+    
+    this.titleService.setTitle('Revalidation Dealer Location');
     abp.ui.setBusy();
     this.GetDealerCode();
     this.toggleValidation(false);

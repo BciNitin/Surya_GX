@@ -12,12 +12,16 @@ import { fromEvent } from 'rxjs';
 import { AppConsts } from '@shared/AppConsts';
 import { HttpClient } from '@angular/common/http';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
+import * as XLSX from 'xlsx';
+import { Title } from '@angular/platform-browser';
+
 
 interface CustomerMaster {
     code : string;
     type :string;
     description : string;
     address : string;
+    
   
 }
 
@@ -33,7 +37,7 @@ export class CustomerComponent implements OnInit  {
     searchTerm = '';
     p: Number = 1;
     public array: any;
-  
+    DownloadPdf:any;
     public pageSize = 10;
     public currentPage = 0;
     public totalSize = 0;
@@ -44,10 +48,12 @@ export class CustomerComponent implements OnInit  {
     @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   
     constructor(
-      private _apiservice: ApiServiceService
+      private _apiservice: ApiServiceService,
+      private titleService: Title
     ) { }
   
     ngOnInit() {
+      this.titleService.setTitle('Customer Master');
       this.getArray();
     }
   
@@ -90,5 +96,41 @@ export class CustomerComponent implements OnInit  {
       const start = this.currentPage * this.pageSize;
       this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
     }
-  
+    
+   
+
+    exportoexcel(): void {
+    let element = document.getElementById('excel-table');
+   
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    XLSX.writeFile(wb, 'Customer.xlsx');
+
+}
+printPDF(): void {
+  let printContents, popupWin;
+  printContents = document.getElementById('excel-table').innerHTML;
+  popupWin = window.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
+  popupWin.document.open();
+  popupWin.document.write(`
+<html>
+  <head>
+    <title>CustomerMaster</title>
+    <style>
+    // @page title-page {
+    //   margins: 75pt 30pt 50pt 30pt;
+    //   background-color: red;
+    // }
+    </style>
+  </head>
+<body onload="window.print();window.close()">${printContents}</body>
+</html>`
+  );
+  popupWin.document.close();
+}
+
 }  

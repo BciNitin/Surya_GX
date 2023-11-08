@@ -15,6 +15,16 @@
                             (keyup)="filterCountries(searchTerm)" />
                     </mat-form-field>
                 </div>
+                
+                <!-- <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
+                    <button (click)="exportoexcel()"  class="btn btn-primary " download >Download Excel</button>
+                    
+                </div>
+                
+                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
+                    <button (click)="printPDF()"  class="btn btn-primary " download >Download PDF</button>
+                    
+                </div> -->
             </form>
           
             <div class="row clearfix row-filter-container">
@@ -22,7 +32,7 @@
                     {{filterBy}}</div>
             </div>
             <div class="body table-responsive" >
-                <table   class="table table-hover table-striped table-sm table-bordered">
+                <table id="excel-table"  class="table table-hover table-striped table-sm table-bordered">
                     <thead>
                         <tr>
                             <th class="th-center-align">{{ "Customer Code" | localize }}</th>

@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
+import { Title } from '@angular/platform-browser';
+
 
 interface LineMaster {
   packingOrderNo: string,
@@ -46,14 +48,13 @@ export class PackingOrderComponent implements OnInit {
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
 
   constructor(
-    private _apiservice: ApiServiceService
+    private _apiservice: ApiServiceService,
+    private titleService: Title
+
   ) { }
 
   ngOnInit() {
-    //  this._apiservice.getLineMaster().subscribe((data: any) => {
-    //   this.dataSource = new MatTableDataSource<LineMaster>(data['result'])
-    //   // console.log("data['result']",this.dataSource.filteredData)
-    // });
+    this.titleService.setTitle('Packing Order Master');
     this.getArray();
   }
 

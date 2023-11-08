@@ -53,6 +53,9 @@ import { WarrantyClaimComponent } from './PlantOperation/warranty-claim/warranty
 import { RevalidationDealerLocationComponent } from './PlantOperation/revalidation-dealer-location/revalidation-dealer-location.component';
 import { WarrantyTrackingComponent } from './PlantOperation/warranty-tracking/warranty-tracking.component';
 import { AddEditZonalComponent } from './PlantOperation/approval-for-zonal-manager/add-edit-zonal/add-edit-zonal.component';
+import { PackingReportsComponent } from './Reports/packing-reports/packing-reports.component';
+
+
 
 @NgModule({
     imports: [
@@ -149,6 +152,8 @@ import { AddEditZonalComponent } from './PlantOperation/approval-for-zonal-manag
                     { path: 'revalidation-dealer-location', component: RevalidationDealerLocationComponent, canActivate: [AppRouteGuard] },
                     { path: 'warranty-tracking', component: WarrantyTrackingComponent, canActivate: [AppRouteGuard] },
                     { path: 'add-edit-zonal/:action/:approvalId', component: AddEditZonalComponent, canActivate: [AppRouteGuard] },
+                    { path: 'packing-reports', component: PackingReportsComponent, canActivate: [AppRouteGuard] },
+                   
                 ]
             }
         ])

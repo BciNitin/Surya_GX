@@ -6,6 +6,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AppComponent } from '@app/app.component';
+import { Title } from '@angular/platform-browser';
 
 interface LineMaster {
   plantCode: string,
@@ -39,7 +40,9 @@ export class LineMasterComponent implements OnInit, AfterViewInit {
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
 
   constructor(
-    private _apiservice: ApiServiceService
+    private _apiservice: ApiServiceService,
+    private titleService: Title
+
   ) { }
 
   ngOnInit() {
@@ -47,6 +50,7 @@ export class LineMasterComponent implements OnInit, AfterViewInit {
     //   this.dataSource = new MatTableDataSource<LineMaster>(data['result'])
     //   // console.log("data['result']",this.dataSource.filteredData)
     // });
+    this.titleService.setTitle('Line Master');
     this.getArray();
   }
 

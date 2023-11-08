@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@shared/ValidationService';
 import { MatRadioChange } from '@angular/material';
 import { NoWhitespaceValidator, MyErrorStateMatcher } from '@shared/app-component-base';
+import { Title } from '@angular/platform-browser';
 
 import { error } from 'console';
 interface SerialNo {
@@ -89,10 +90,12 @@ export class SerialbarcodegenerationComponent implements OnInit {
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
     public _appComponent : ValidationService,
+    private titleService: Title
+
   ) { }
 
   ngOnInit() {
-
+    this.titleService.setTitle('Serail Barcode Generation');
     this.getArray();
     this.GetPlantCode();
     this.GetLineCode();

@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from '@app/app.component';
 import { finalize, debounceTime, distinctUntilChanged, map, filter, tap, switchMap } from 'rxjs/operators';
 import { error } from 'console';
+import { Title } from '@angular/platform-browser';
+
 export class linework
 {
      binMapping: any;
@@ -38,12 +40,14 @@ export class LineWorkCenterComponent implements OnInit {
     public _appComponent : ValidationService,
     private _router: Router,
     private _route: ActivatedRoute,
+    private titleService: Title
+
     
 
   ) { }
 
   ngOnInit() {
-    
+    this.titleService.setTitle('Line/Work Center and Bin Mapping');
   }
   addEditFormGroup: FormGroup = this.formBuilder.group({
     //registration: [null, [Validators.required, NoWhitespaceValidator]],

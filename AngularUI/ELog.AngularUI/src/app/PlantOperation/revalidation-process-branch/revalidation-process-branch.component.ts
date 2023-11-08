@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@shared/ValidationService';
 import { NoWhitespaceValidator ,MyErrorStateMatcher} from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
+import { Title } from '@angular/platform-browser';
+
 export class ItemCodedtl
 {
     
@@ -31,10 +33,13 @@ export class RevalidationProcessBranchComponent implements OnInit {
   constructor(
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
-    public _appComponent : ValidationService
+    public _appComponent : ValidationService,
+    private titleService: Title
+
     ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Revalidation Process Branch/Plant');
     this.GetItemCodes();
     
   }

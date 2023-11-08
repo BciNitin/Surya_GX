@@ -7,6 +7,7 @@ import { ValidationService } from '@shared/ValidationService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
+import { Title } from '@angular/platform-browser';
 
 interface PackingOrderConfirmation {
   packingOrderNo: string,
@@ -50,9 +51,12 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
     public _appComponent: ValidationService,
+    private titleService: Title
+
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Packing Order Confirmation');
     this.GetPlantCode();
   }
 

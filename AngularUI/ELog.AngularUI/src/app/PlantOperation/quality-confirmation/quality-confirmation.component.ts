@@ -8,6 +8,7 @@ import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-componen
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
 import { error } from 'console';
+import { Title } from '@angular/platform-browser';
 
 interface grid {
   plantCode: string;
@@ -60,9 +61,12 @@ export class QualityConfirmationComponent implements OnInit, AfterViewInit {
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
     public _appComponent: ValidationService,
+    private titleService: Title
+
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Quality Confirmation');
     abp.ui.setBusy(this.plantCode, this.GetPlantCode());
   }
 
