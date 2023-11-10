@@ -328,9 +328,18 @@
                                 Packing Reports
                             </span></a>
                     </li>
-                    
-                    
-
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/packing-order-barcode-dtls']">
+                            <span>
+                                Packing Order Barcode Details
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/quality-report']">
+                            <span>
+                                Quality Report
+                            </span></a>
+                    </li>
                     <ng-container *ngFor="let menu of MenuList[0]; let i = index">
 
                         <li routerlinkactive="active" class="ng-star-inserted"

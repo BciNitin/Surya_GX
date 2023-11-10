@@ -98,8 +98,16 @@ GetBarcodeScannedDetails()
   _Storage.LocationID=this.LocationID;
   this._apiservice.GetBarcodeScannedDetails(this.ScanItem,this.plantCode).subscribe((response) => {
     
-    this.storageLocationQty = response["result"];
+
+    if (response['result'][0].error) {
+      abp.notify.error(response['result'][0].error);
+    } else {
+      this.storageLocationQty = response["result"];
     this.qty=response["result"][0]['qty'];
+      
+      
+    }
+    
 })
 }
 

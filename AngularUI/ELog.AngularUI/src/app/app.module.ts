@@ -113,6 +113,8 @@ import { WarrantyClaimComponent } from './PlantOperation/warranty-claim/warranty
 import { WarrantyTrackingComponent } from './PlantOperation/warranty-tracking/warranty-tracking.component';
 import { AddEditZonalComponent } from './PlantOperation/approval-for-zonal-manager/add-edit-zonal/add-edit-zonal.component';
 import { PackingReportsComponent } from './Reports/packing-reports/packing-reports.component';
+import { PackingOrderBarcodeDtlsComponent } from './Reports/packing-order-barcode-dtls/packing-order-barcode-dtls.component';
+import { QualityReportComponent } from './Reports/quality-report/quality-report.component';
 
 export function momentAdapterFactory() {
     return adapterFactory(moment);
@@ -210,7 +212,9 @@ export const PMMS_FORMATS = {
         WarrantyClaimComponent,
         AddEditZonalComponent,
         WarrantyTrackingComponent,
-        PackingReportsComponent
+        PackingReportsComponent,
+        PackingOrderBarcodeDtlsComponent,
+        QualityReportComponent
     ],
     imports: [
         HttpClientModule,

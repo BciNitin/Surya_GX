@@ -7,9 +7,10 @@ using System.Text.Json.Serialization;
 
 namespace MobiVueEVO.BO.Models
 {
-    public class PackingReports
+    public class PackingOrderBarcodeDetails
     {
         public string MaterialCode { get; set; }
+        public string ShiperBarcode { get; set; }
         public DateTime? FromDate { get; set; }
         public string LineCode { get; set; }
         public string PackingOrder { get; set; }

@@ -54,6 +54,8 @@ import { RevalidationDealerLocationComponent } from './PlantOperation/revalidati
 import { WarrantyTrackingComponent } from './PlantOperation/warranty-tracking/warranty-tracking.component';
 import { AddEditZonalComponent } from './PlantOperation/approval-for-zonal-manager/add-edit-zonal/add-edit-zonal.component';
 import { PackingReportsComponent } from './Reports/packing-reports/packing-reports.component';
+import { PackingOrderBarcodeDtlsComponent } from './Reports/packing-order-barcode-dtls/packing-order-barcode-dtls.component';
+import { QualityReportComponent } from './Reports/quality-report/quality-report.component';
 
 
 
@@ -153,6 +155,8 @@ import { PackingReportsComponent } from './Reports/packing-reports/packing-repor
                     { path: 'warranty-tracking', component: WarrantyTrackingComponent, canActivate: [AppRouteGuard] },
                     { path: 'add-edit-zonal/:action/:approvalId', component: AddEditZonalComponent, canActivate: [AppRouteGuard] },
                     { path: 'packing-reports', component: PackingReportsComponent, canActivate: [AppRouteGuard] },
+                    { path: 'packing-order-barcode-dtls', component: PackingOrderBarcodeDtlsComponent, canActivate: [AppRouteGuard] },
+                    { path: 'quality-report', component: QualityReportComponent, canActivate: [AppRouteGuard] },
                    
                 ]
             }
