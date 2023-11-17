@@ -56,6 +56,11 @@ import { AddEditZonalComponent } from './PlantOperation/approval-for-zonal-manag
 import { PackingReportsComponent } from './Reports/packing-reports/packing-reports.component';
 import { PackingOrderBarcodeDtlsComponent } from './Reports/packing-order-barcode-dtls/packing-order-barcode-dtls.component';
 import { QualityReportComponent } from './Reports/quality-report/quality-report.component';
+import { PlantToWarehouseComponent } from './Reports/plant-to-warehouse/plant-to-warehouse.component';
+import { AsOnDateInventoryComponent } from './Reports/as-on-date-inventory/as-on-date-inventory.component';
+import { DispatchFromWarehouseComponent } from './Reports/dispatch-from-warehouse/dispatch-from-warehouse.component';
+import { GrnAtBranchComponent } from './Reports/grn-at-branch/grn-at-branch.component';
+import { DispatchFromBranchComponent } from './Reports/dispatch-from-branch/dispatch-from-branch.component';
 
 
 
@@ -157,6 +162,11 @@ import { QualityReportComponent } from './Reports/quality-report/quality-report.
                     { path: 'packing-reports', component: PackingReportsComponent, canActivate: [AppRouteGuard] },
                     { path: 'packing-order-barcode-dtls', component: PackingOrderBarcodeDtlsComponent, canActivate: [AppRouteGuard] },
                     { path: 'quality-report', component: QualityReportComponent, canActivate: [AppRouteGuard] },
+                    { path: 'plantToWarehouse', component: PlantToWarehouseComponent, canActivate: [AppRouteGuard] },
+                    { path: 'as-on-date-inventory', component: AsOnDateInventoryComponent, canActivate: [AppRouteGuard] },
+                    { path: 'dispatch-from-warehouse', component: DispatchFromWarehouseComponent, canActivate: [AppRouteGuard] },
+                    { path: 'grn-at-branch', component: GrnAtBranchComponent, canActivate: [AppRouteGuard] },
+                    { path: 'dispatch-from-branch', component: DispatchFromBranchComponent, canActivate: [AppRouteGuard] },
                    
                 ]
             }

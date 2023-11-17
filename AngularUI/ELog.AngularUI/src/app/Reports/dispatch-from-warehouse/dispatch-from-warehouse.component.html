@@ -3,7 +3,7 @@
         <div class="card main-content">
             <div class="row user-component-content row-filter-container">
                 <div class="col-12">
-                    <h2 class="title">{{ "Packing Reports" | localize }}</h2>
+                    <h2 class="title">{{ "Dispatch From Warehouse" | localize }}</h2>
                 </div>
             </div>
             <div class="panel-group" id="accordion">
@@ -45,6 +45,7 @@
                                                 From Date must be less than To date.
                                             </div>
                                         </div>
+
                                     </div>
                                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                         <mat-form-field>
@@ -57,16 +58,16 @@
                                                    (focus)="showExpirationError=false">
                                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                             <mat-datepicker #picker1></mat-datepicker>
-                                         </mat-form-field>
-                                      </div>
+                                            
+                                        </mat-form-field>
+                                       </div>
                                 </div>
                                 <div class="row fieldes">
                                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <mat-label>Item Code</mat-label>
                                             <mat-select [(ngModel)]="MaterialCode" name="MaterialCode" 
-                                               
-                                            formControlName="ItemCodeFormCControl">
+                                               formControlName="ItemCodeFormCControl">
                                                 <mat-option>Select Item Code</mat-option>
                                                 <mat-option *ngFor="let item of ItemCodes" [value]="item.id">
                                                     {{item.value}}
@@ -75,41 +76,27 @@
                                             
                                         </mat-form-field>
                                     </div>
-
-                                    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                  <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <mat-label>Line Work Center No.</mat-label>
-                                            <mat-select [(ngModel)]="LineCode" name="LineCode"
-                                            
-                                                formControlName="LineCodeFormControl">
-                                                <mat-option>Select Plant</mat-option>
-                                                <mat-option *ngFor="let line of lineList" [value]="line.id">
-                                                    {{line.value}}
-                                                </mat-option>
-                                            </mat-select>
-                                            
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                                        <mat-form-field>
-                                            <mat-label>Packing Order No.</mat-label>
-                                            <mat-select [(ngModel)]="PackingOrder"   name="PackingOrder"  formControlName="packingOrderFormControl">
+                                            <mat-label>Delivery Challan No.</mat-label>
+                                            <mat-select [(ngModel)]="DeliveryNo"   name="DeliveryNo"  formControlName="packingOrderFormControl">
                                                 <mat-option>Select Packing Order</mat-option>
-                                                <mat-option *ngFor="let packing of packingOrderlist" [value]="packing.id">
-                                                    {{packing.value}}
+                                                <mat-option *ngFor="let delievery of delieveryNoList" [value]="delievery.id">
+                                                    {{delievery.value}}
                                                 </mat-option>
                                             </mat-select>
-                                            
-                                        </mat-form-field>
+                                            </mat-form-field>
                                     </div>
-                                    <div class="col-md-12 col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                        
-                                        <button class="btn btn-primary pull-right" (click)="markDirty() && addEditFormGroup.valid && getArray()">
+                                    
+                                    
+                                </div>
+                                <div class="row fieldes">
+                                    
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                        <button class="btn btn-primary pull-right" (click)="getArray()">
                                             Search
                                         </button>
-                                        
-                                    </div>
+                                      </div>
                                 </div>
                             </form>
                             <br>
@@ -119,22 +106,20 @@
                                         <tr>
                                             
                                             <th class="th-center-align">{{ "Plant Code" | localize }}</th>
-                                            
-                                            <th class="th-center-align">{{ "Line Code" | localize }}</th>
-                                            <th class="th-center-align">{{ "Packing Order No." | localize }}</th>
-                                            <th class="th-center-align">{{ "Item" | localize }}</th>
+                                            <th class="th-center-align">{{ "Distibution Center" | localize }}</th>
+                                            <th class="th-center-align">{{ "Delivery Challan No." | localize }}</th>
                                             <th class="th-center-align">{{ "Total Qty." | localize }}</th>
-                                            <th class="th-center-align">{{ "Packed Qty." | localize }}</th>
-                                        </tr>
+                                            <th class="th-center-align">{{ "Deilivered Qty." | localize }}</th>
+                                            </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let  picklistItem of dataSource.filteredData" >
-                                            <td class="td-center-align">{{picklistItem.plantCode}}</td>
-                                           <td class="td-center-align">{{picklistItem.work_Center}}</td>
-                                            <td class="td-center-align">{{picklistItem.packingOrderNo}}</td>
-                                            <td class="td-center-align">{{picklistItem.materialCode}}</td>
+                                            <td class="td-center-align">{{picklistItem.plantBranchCode}}</td>
+                                           <td class="td-center-align">{{picklistItem.lineNo}}</td>
+                                            <td class="td-center-align">{{picklistItem.deliveryChallanNo}}</td>
                                             <td class="td-center-align">{{picklistItem.quantity}}</td>
-                                            <td class="td-center-align">{{picklistItem.packedQty}}</td>
+                                            <td class="td-center-align">{{picklistItem.dispatchQty}}</td>
+                                            
                                         </tr>
                                         <tr *ngIf="dataSource.filteredData?.length == 0">
                                             <td colspan="8" class="no-data-available">No data to display.</td>

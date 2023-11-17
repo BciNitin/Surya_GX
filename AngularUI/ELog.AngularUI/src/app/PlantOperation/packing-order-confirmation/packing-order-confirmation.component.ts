@@ -181,6 +181,7 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
   Clear() {
     this.addEditFormGroup.controls['plantCodeFormCControl'].setValue(null);
     this.addEditFormGroup.controls['packingOrderFormControl'].setValue(null);
+    this.packingOrderList=null;
   }
 
 }

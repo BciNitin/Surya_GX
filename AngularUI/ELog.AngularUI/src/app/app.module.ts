@@ -115,6 +115,11 @@ import { AddEditZonalComponent } from './PlantOperation/approval-for-zonal-manag
 import { PackingReportsComponent } from './Reports/packing-reports/packing-reports.component';
 import { PackingOrderBarcodeDtlsComponent } from './Reports/packing-order-barcode-dtls/packing-order-barcode-dtls.component';
 import { QualityReportComponent } from './Reports/quality-report/quality-report.component';
+import { PlantToWarehouseComponent } from './Reports/plant-to-warehouse/plant-to-warehouse.component';
+import { AsOnDateInventoryComponent } from './Reports/as-on-date-inventory/as-on-date-inventory.component';
+import { DispatchFromWarehouseComponent } from './Reports/dispatch-from-warehouse/dispatch-from-warehouse.component';
+import { GrnAtBranchComponent } from './Reports/grn-at-branch/grn-at-branch.component';
+import { DispatchFromBranchComponent } from './Reports/dispatch-from-branch/dispatch-from-branch.component';
 
 export function momentAdapterFactory() {
     return adapterFactory(moment);
@@ -214,7 +219,12 @@ export const PMMS_FORMATS = {
         WarrantyTrackingComponent,
         PackingReportsComponent,
         PackingOrderBarcodeDtlsComponent,
-        QualityReportComponent
+        QualityReportComponent,
+        PlantToWarehouseComponent,
+        AsOnDateInventoryComponent,
+        DispatchFromWarehouseComponent,
+        GrnAtBranchComponent,
+        DispatchFromBranchComponent
     ],
     imports: [
         HttpClientModule,

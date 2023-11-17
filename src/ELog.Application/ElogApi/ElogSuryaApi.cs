@@ -33,6 +33,7 @@ using System.Reflection.PortableExecutable;
 using System.Xml;
 using Castle.Facilities.TypedFactory.Internal;
 using System.IO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ELog.Application.ElogApi
 {
@@ -769,7 +770,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> LineBinMapping_Mapping(LineWorkBinMapping linework)
+        public async Task<Object> LineBinMapping_Mapping(string barcode, string lineBarCode)
         {
             string connection = _configuration["ConnectionStrings:Default"];
             MySqlConnection conn = null;
@@ -785,11 +786,11 @@ namespace ELog.Application.ElogApi
                     Command.Connection = conn;
 
                     Command.CommandText = Constants.Schema + "sp_LineBinMapping";
-                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "MappingLineBin";
-                    Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = linework.PlantCode;
-                    Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = AbpSession.UserId;
-                    Command.Parameters.Add("@sBarCode", MySqlDbType.VarChar).Value = linework.Barcode;
-                    Command.Parameters.Add("@sLineCode", MySqlDbType.VarChar).Value = linework.LineBarCode;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "MappingLineBin";
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sUserID", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sBarCode", MySqlDbType.VarChar).Value = barcode;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = lineBarCode;
 
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();

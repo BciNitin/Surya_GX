@@ -12,8 +12,8 @@ import { Observable } from 'rxjs';
 })
 
 export class ApiServiceService {
-   BasUrl = 'http://180.151.246.51:8089/api/services/app/';
-   //BasUrl = 'http://localhost:21021/api/services/app/';
+   //BasUrl = 'http://180.151.246.51:8089/api/services/app/';
+   BasUrl = 'http://localhost:21021/api/services/app/';
    apiUrlGetMaterialMaster = 'ElogSuryaApiService/GetMaterialMaster';
 
    //content_ = JSON.stringify(body);
@@ -112,18 +112,7 @@ export class ApiServiceService {
       return this.http.get<any[]>(this.BasUrl + `SuryaGenerateSerialNo/GetPackingOrderNo?plantCode=${plancode}&linecode=${linecode}`);
    }
 
-   SaveLineWork(input: linework) {
-      const content_ = JSON.stringify(input);
-      const options_: any = {
-         //body: this.content_,
-         observe: "response",
-         responseType: "blob",
-         headers: new HttpHeaders({
-            "Content-Type": "application/json-patch+json",
-         }),
-      };
-      return this.http.post<any>(this.BasUrl + 'ElogSuryaApiService/LineBinMapping_Mapping', { content_, responseType: 'text', options_ });
-   }
+   
 
    SaveSerialBarcodeGen(input: GenerateSerialNumber) {
       const httpOptions = {
@@ -569,5 +558,45 @@ GetSOChallanDetails(DeliveryChallanNo) {
 GetQualityReport(data:any): Observable<any> {
       
    return this.http.post<any>(this.BasUrl + `QualityReportsApi/GetQualityReport`, data);
+}
+GetTransferOrderNo(): Observable<any[]> {
+   return this.http.get<any[]>(this.BasUrl + 'TransferPlantToWarehouseApi/GetTransferOrderNo');
+}
+GetTranferPlantToWarehouseReport(data:any): Observable<any> {
+      
+   return this.http.post<any>(this.BasUrl + `TransferPlantToWarehouseApi/GetTranferPlantToWarehouseReport`, data);
+}
+GetAsOnDateInventoryReport(data:any): Observable<any> {
+      
+   return this.http.post<any>(this.BasUrl + `AsOnDateInventoryReportsApi/GetAsOnDateInventoryReport`, data);
+}
+GetDelieveryNo(): Observable<any[]> {
+   return this.http.get<any[]>(this.BasUrl + 'DispatchFromWarehouseReportsApi/GetDelieveryNo');
+}
+GetDispatchFromWarehouseReport(data:any): Observable<any> {
+      
+   return this.http.post<any>(this.BasUrl + `DispatchFromWarehouseReportsApi/GetDispatchFromWarehouseReport`, data);
+}
+SaveLineWork(barcode,lineBarCode) {
+     
+   //const content_ = JSON.stringify(input);
+   const options_: any = {
+      //body: this.content_,
+      observe: "response",
+      responseType: "blob",
+      headers: new HttpHeaders({
+         "Content-Type": "application/json-patch+json",
+      }),
+   };
+   return this.http.post<any[]>(this.BasUrl + `ElogSuryaApiService/LineBinMapping_Mapping?barcode=${barcode}&lineBarCode=${lineBarCode}`, { responseType: 'text', options_ });
+
+}
+GetGRN_AtBranchReport(data:any): Observable<any> {
+      
+   return this.http.post<any>(this.BasUrl + `GRN_AtBranchReportsApi/GetGRN_AtBranchReport`, data);
+}
+GetDispatchFromBranchReport(data:any): Observable<any> {
+      
+   return this.http.post<any>(this.BasUrl + `DispatchFromBranchReportsApi/GetDispatchFromBranchReport`, data);
 }
 }

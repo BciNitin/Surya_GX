@@ -103,9 +103,18 @@ export class PackingOrderBarcodeDtlsComponent implements OnInit {
   this._apiservice.GetPackingOrderbarCodeDtlsReport(data).subscribe(result => {
         this.dataSourcePagination = new MatTableDataSource<Element>(result['result']);
         this.dataSourcePagination.paginator = this.paginator;
-        this.array = result['result'];
-        this.totalSize = this.array.length;
-        this.iterator();
+        if(result["result"][0]['error'])
+        {
+          abp.notify.error(result["result"][0]['error']);
+
+          this.iterator();
+        }
+        else
+        {
+          this.array = result['result'];
+          this.totalSize = this.array.length;
+          this.iterator();
+        }
       });
   }
 

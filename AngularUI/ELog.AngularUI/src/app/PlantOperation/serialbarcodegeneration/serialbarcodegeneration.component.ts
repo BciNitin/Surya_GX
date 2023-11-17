@@ -95,7 +95,7 @@ export class SerialbarcodegenerationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Serail Barcode Generation');
+    this.titleService.setTitle('Serial Barcode Generation');
     this.getArray();
     this.GetPlantCode();
     this.GetLineCode();
@@ -184,9 +184,13 @@ validateForm(event: any) {
       abp.ui.setBusy();
       this._apiservice.getPackingOrderNoForSerialNumber(this.plantCode, this.lineCode).subscribe(
         (response) => {
-          this.packingOrderList = response["result"];
-          this.updateUIselectedOrderType = this.packingOrder;
-          abp.ui.clearBusy();
+          debugger;
+          
+            this.packingOrderList = response["result"];
+            this.updateUIselectedOrderType = this.packingOrder;
+            abp.ui.clearBusy();
+         
+          
         },
         (error) => {
           // Handle the error here
@@ -204,8 +208,16 @@ validateForm(event: any) {
     if (value != '') {
       abp.ui.setBusy();
       this._apiservice.GetSerialNumberDetails(value).subscribe((response) => {
-        this.picklistItems = response["result"];
-        abp.ui.clearBusy();
+        if (response["result"][0]['error'])
+        {
+          abp.notify.error(response["result"][0]['error']);
+          abp.ui.clearBusy();
+        }
+        else{
+          this.picklistItems = response["result"];
+          abp.ui.clearBusy();
+        }
+        
       })
     }
   }
@@ -240,7 +252,7 @@ Save() {
     _GenSerial.PackingOrderNo = this.packingOrder;
 
     if (this.pendingQtyToPrint < this.printingQty || this.printingQty < 0) {
-      abp.notify.error("Printing quantity should be less than from Pending Quantity!");
+      abp.notify.error("Printing Quantity should be equal to or less than from Pending Quantity!");
       abp.ui.clearBusy();
       this.isSelected = false;
     }

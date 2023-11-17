@@ -8,74 +8,68 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import { SelectListDto, SmartDateTime } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
+import * as moment from 'moment';
+import { Moment } from 'moment';
 import { Title } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
-
 interface grid {
-    FromDate: Date;
-    LineCode: string;
-    MaterialCode: string;
-    PackingOrder: string;
-    PlantCode: string;
-    ToDate: Date;
+  FromDate: Date;
+  LineCode: string;
+  MaterialCode: string;
+  DeliveryNo: string;
+  PlantCode: string;
+  ToDate: Date;
+  ShiperBarcode:string;
 }
-
 @Component({
-  selector: 'app-packing-reports',
-  templateUrl: './packing-reports.component.html',
-  styleUrls: ['./packing-reports.component.css'],
+  selector: 'app-dispatch-from-warehouse',
+  templateUrl: './dispatch-from-warehouse.component.html',
+  styleUrls: ['./dispatch-from-warehouse.component.css'],
   animations: [appModuleAnimation()],
   providers: [ValidationService]
 })
-export class PackingReportsComponent implements OnInit {
+export class DispatchFromWarehouseComponent implements OnInit {
+
   MaterialCode: string;
-    FromDate: Date;
-    LineCode: string;
-    PackingOrder: string;
-    PlantCode: string;
-    ToDate: Date;
-    packingReports:any;
+  FromDate: Date;
+  LineCode: string;
+  DeliveryNo: string;
+  PlantCode: string;
+  ToDate: Date;
+  packingReports:any;
   plnaCodeList:any;
   ItemCodes:any;
   lineList:any;
   public array: any;
- 
-   packingOrderlist:any;
-   public pageSize = 10;
-   public currentPage = 0;
-   public totalSize = 0;
- 
+  delieveryNoList:any;
+  public pageSize = 10;
+  public currentPage = 0;
+  public totalSize = 0;
+  validationTypes: string[] | null;
+  showProcurmentError: boolean | false;
+  showInstallationError: boolean | false;
+  showExpirationError: boolean | false;
+ public dataSource: MatTableDataSource<any> = new MatTableDataSource<grid>();
+ public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<grid>();
+ @ViewChild(MatSort, { static: false }) sort!: MatSort;
+ @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+ constructor(
+  private _apiservice: ApiServiceService,
+  private formBuilder: FormBuilder,
+  public _appComponent: ValidationService,
+  private titleService: Title,
+  private datePipe: DatePipe
 
-   validationTypes: string[] | null;
-    showProcurmentError: boolean | false;
-    showInstallationError: boolean | false;
-    showExpirationError: boolean | false;
-   public dataSource: MatTableDataSource<any> = new MatTableDataSource<grid>();
-   public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<grid>();
-   @ViewChild(MatSort, { static: false }) sort!: MatSort;
-   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-   
+) { }
 
-  constructor(
-    private _apiservice: ApiServiceService,
-    private formBuilder: FormBuilder,
-    public _appComponent: ValidationService,
-    private titleService: Title,
-    private datePipe: DatePipe
-
-  ) { }
-ngOnInit() {
-    this.titleService.setTitle('Quality Report');
+  ngOnInit() {
+    this.titleService.setTitle('Packing Order Barcode Details');
     this.GetPlantCode();
     this.GetItemCodes();
     this.GetLineCode();
-    this.GetPackingReportOrderNo();
+    this.GetDelieveryNo();
     //this.getArray();
   }
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-  }
-
   filterCountries(searchTerm: string) {
     this.dataSourcePagination.filter = searchTerm.trim().toLocaleLowerCase();
     const filterValue = searchTerm;
@@ -96,17 +90,17 @@ ngOnInit() {
   }
 
   private getArray() {
+    debugger;
     const data = {
       MaterialCode: this.MaterialCode,
       FromDate: this.FromDate,
       ToDate: this.ToDate,
       LineCode: this.LineCode,
-      PackingOrder: this.PackingOrder,
+      DeliveryNo: this.DeliveryNo,
       PlantCode: this.PlantCode
+      
     };
-  
-
-   this._apiservice.GetPackingReport(data).subscribe(result => {
+  this._apiservice.GetDispatchFromWarehouseReport(data).subscribe(result => {
         this.dataSourcePagination = new MatTableDataSource<Element>(result['result']);
         this.dataSourcePagination.paginator = this.paginator;
         if(result["result"][0]['error'])
@@ -135,8 +129,9 @@ ngOnInit() {
     ItemCodeFormCControl: [''],
     LineCodeFormControl:[''],
     FromDateFormControl:[null],
-    ToDateFormControl: [null]
-    //ToDateFormControl: [null, [this.dateSelectedValidator, Validators.required, NoWhitespaceValidator]]
+    ToDateFormControl: [null],
+    ShiperBarcodeFormControl:['']
+
   });
   matcher = new MyErrorStateMatcher();
 
@@ -165,15 +160,12 @@ ngOnInit() {
         this.lineList = response["result"];
     });
   };
-  GetPackingReportOrderNo() {
-    this._apiservice.GetPackingReportOrderNo().subscribe((response) => {
-        this.packingOrderlist = response["result"];
+  GetDelieveryNo() {
+    this._apiservice.GetDelieveryNo().subscribe((response) => {
+        this.delieveryNoList = response["result"];
     });
   };
-  markDirty() {
-    this._appComponent.markGroupDirty(this.addEditFormGroup);
-    return true;
-  }
+
   onDateChangeEvent() {
     this.validationTypes = [];
     this.showExpirationError = false;
@@ -189,5 +181,4 @@ ngOnInit() {
     this.ToDate = todate;
     return true;
 }
-
 }

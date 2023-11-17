@@ -49,12 +49,15 @@ namespace ELog.Application.ElogApi.Report
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = reports.PlantCode;
                     Command.Parameters.Add("sfromDate", MySqlDbType.DateTime).Value = reports.FromDate;
                     Command.Parameters.Add("stoDate", MySqlDbType.DateTime).Value = reports.ToDate;
+                    Command.Parameters.Add("sChallanNos", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sQCStatus", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sDeliveryNo", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = reports.MaterialCode;
                     Command.Parameters.Add("sShiperBarcode", MySqlDbType.VarChar).Value = reports.ShiperBarcode;
                     Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = reports.LineCode;
+                    Command.Parameters.Add("sTransferOrderNo", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = reports.PackingOrder;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();

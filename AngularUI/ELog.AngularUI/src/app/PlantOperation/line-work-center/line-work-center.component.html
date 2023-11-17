@@ -14,21 +14,21 @@
                                 <div class="row fieldes">
                                     <div class="col-md-4 col-lg-4 col-sm-8 col-xs-8">
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
-                                            <mat-label>Scan Bin barcode label</mat-label>
+                                            <mat-label>Scan Bin Barcode Label</mat-label>
                                             <input matInput required name="barcode"
                                                    [(ngModel)]='barcode' formControlName="barcode" maxlength="16"  [errorStateMatcher]="matcher">
                                             <mat-error *ngIf="addEditFormGroup?.get('barcode')?.hasError('required') || addEditFormGroup?.get('barcode')?.hasError('whitespace')">
-                                                Bin barcode label is required.
+                                                Bin Barcode Label is required.
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4 col-lg-4 col-sm-8 col-xs-8">
                                         <mat-form-field>
-                                            <mat-label>Scan Line barcode Lable</mat-label>
-                                            <input matInput 
+                                            <mat-label>Scan Line/ Work Center Barcode Label</mat-label>
+                                            <input matInput required
                                                     formControlName="lineBarCode" name="lineBarCode" [(ngModel)]='lineBarCode' [errorStateMatcher]="matcher">
                                             <mat-error *ngIf="addEditFormGroup?.get('lineBarCode')?.hasError('required') || addEditFormGroup?.get('lineBarCode')?.hasError('whitespace')">
-                                                Line barcode Lable is required.
+                                                Line Barcode Label is required.
                                             </mat-error>
                                         </mat-form-field>
                                     </div>

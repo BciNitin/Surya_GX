@@ -59,7 +59,7 @@ matcher = new MyErrorStateMatcher();
   var _linework =  new linework();
   _linework.barcode = this.barcode;
  _linework.lineBarCode = this.lineBarCode;
-  this._apiservice.SaveLineWork(_linework).subscribe(result => {
+  this._apiservice.SaveLineWork(this.barcode,this.lineBarCode).subscribe(result => {
     
            if(result["result"][0]['valid'])
            {

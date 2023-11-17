@@ -14,22 +14,20 @@ using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace ELog.Application.ElogApi.Report
 {
-    public class PackingReportsApi : ApplicationService
+   public class TransferPlantToWarehouseApi : ApplicationService
     {
         private readonly IConfiguration _configuration;
         private string connection;
         private ISessionAppService _sessionAppService;
-        public PackingReportsApi(IConfiguration configuration, ISessionAppService sessionAppService)
+        public TransferPlantToWarehouseApi(IConfiguration configuration, ISessionAppService sessionAppService)
         {
             _configuration = configuration;
             connection = _configuration["ConnectionStrings:Default"];
             _sessionAppService = sessionAppService;
         }
-
-        public async Task<Object> GetPackingReportOrderNo()
+        public async Task<Object> GetTransferOrderNo()
         {
 
             MySqlConnection conn = new MySqlConnection(connection);
@@ -42,8 +40,19 @@ namespace ELog.Application.ElogApi.Report
                 {
 
                     Command.Connection = conn;
-                    Command.CommandText = "sp_PackingReport";
-                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetPackingOrderNo";
+                    Command.CommandText = "sp_Reports";
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetTransferOrderNo";
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sfromDate", MySqlDbType.DateTime).Value = default;
+                    Command.Parameters.Add("stoDate", MySqlDbType.DateTime).Value = default;
+                    Command.Parameters.Add("sQCStatus", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sShiperBarcode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sDeliveryNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sChallanNos", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sTransferOrderNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
 
                     Command.CommandType = CommandType.StoredProcedure;
@@ -55,8 +64,8 @@ namespace ELog.Application.ElogApi.Report
                 foreach (DataRow dtRow in dt.Rows)
                 {
                     SelectListDto selectListDto = new SelectListDto();
-                    selectListDto.Id = Convert.ToString(dtRow["PackingOrderNo"]);
-                    selectListDto.Value = Convert.ToString(dtRow["PackingOrderNo"]);
+                    selectListDto.Id = Convert.ToString(dtRow["DeliveryChallanNo"]);
+                    selectListDto.Value = Convert.ToString(dtRow["DeliveryChallanNo"]);
 
                     value.Add(selectListDto);
 
@@ -72,11 +81,11 @@ namespace ELog.Application.ElogApi.Report
         }
 
         [HttpPost]
-        public async Task<Object> GetPackingReport([FromBody] PackingReports reports)
+        public async Task<Object> GetTranferPlantToWarehouseReport([FromBody] TransferPlantToWarehouseReports reports)
         {
             try
             {
-                
+
                 MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();
@@ -85,20 +94,18 @@ namespace ELog.Application.ElogApi.Report
 
                     Command.Connection = conn;
                     Command.CommandText = "sp_Reports";
-                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "PackingReports";
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "TranferPlantToWarehouseReports";
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = reports.PlantCode;
-                    Command.Parameters.Add("sChallanNos", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sfromDate", MySqlDbType.DateTime).Value = reports.FromDate;
                     Command.Parameters.Add("stoDate", MySqlDbType.DateTime).Value = reports.ToDate;
-                    Command.Parameters.Add("sQCStatus", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = reports.MaterialCode;
-                    Command.Parameters.Add("sTransferOrderNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sShiperBarcode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sQCStatus", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sDeliveryNo", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sShiperBarcode", MySqlDbType.VarChar).Value =String.Empty;
-                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = reports.LineCode;
-                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = reports.PackingOrder;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sTransferOrderNo", MySqlDbType.VarChar).Value = reports.TransferOrder;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
