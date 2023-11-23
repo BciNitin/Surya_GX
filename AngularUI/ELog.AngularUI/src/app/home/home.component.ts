@@ -35,6 +35,7 @@ export class HomeComponent
      /*   this.GetDueOnWeighingMachineList(); 
         this.GetStandardWeightStampingDueListDtoList();    
         this.GetMaterialStatusList(); */ 
+        
     }
 
     CheckPasswordStatus() {

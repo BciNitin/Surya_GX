@@ -76,8 +76,9 @@ export class PlantComponent implements OnInit  {
     private getArray() {
       this._apiservice.getPlantMaster()
         .subscribe((response) => {
-          this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
           debugger;
+          this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
+          
           this.dataSourcePagination.paginator = this.paginator;
           this.array = response['result'];
           this.totalSize = this.array.length;
@@ -86,7 +87,7 @@ export class PlantComponent implements OnInit  {
     }
   
     private iterator() {
-     
+    debugger;
       const end = (this.currentPage + 1) * this.pageSize;
       const start = this.currentPage * this.pageSize;
       // this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);

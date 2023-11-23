@@ -1,5 +1,5 @@
 import { Component, ElementRef, Injector, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { debounceTime, distinctUntilChanged, filter, finalize, map } from 'rxjs/operators';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { PagedListingComponentBase, PagedRequestDto } from 'shared/paged-listing-component-base';
@@ -48,8 +48,19 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
     approvalStatusId:number|null;
     approvalStatuses: SelectListDto[];
 
-    @ViewChild('searchTextBox', { static: true }) searchTextBox: ElementRef;
 
+    public array: any;
+    challanNo:any;
+    public pageSize = 10;
+    public currentPage = 0;
+    public totalSize = 0;
+
+
+    @ViewChild('searchTextBox', { static: true }) searchTextBox: ElementRef;
+    public dataSource: MatTableDataSource<any> = new MatTableDataSource<UserDto>();
+    public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<UserDto>();
+    @ViewChild(MatSort, { static: false }) sort!: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     constructor(
         injector: Injector,
         private _changePwdService: ChangePswdServiceProxy,private _userService: UserServiceProxy,
@@ -81,7 +92,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
             this.users = [];
             this.refresh();
         });
-
+        this.paginator._intl.itemsPerPageLabel="Records per page";
         // this.GetModes();
         // this.GetUserDesignations();
         // this.GetUserSortBy();
@@ -271,8 +282,17 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
             .subscribe((result: UsersListDtoPagedResultDto) => {
                 if(result.items.length >0)
                 {
+                    debugger;
+                    
                     this.users = this.users.concat(result.items);
+                    this.dataSource.filteredData =this.users;
+                    this.array = this.users;
+                    this.dataSourcePagination = new MatTableDataSource<Element>(this.array);
+                    this.dataSourcePagination.paginator = this.paginator;
+                    this.totalSize = this.array.length;
+                    this.iterator();
                     this.showPaging(result, pageNumber);
+                    
                 }
                 
             });
@@ -318,5 +338,36 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
         );
     }
 
+
+    ngAfterViewInit(): void {
+        this.dataSource.sort = this.sort;
+      }
+      
+      filterCountries(searchTerm: string) {
+        this.dataSourcePagination.filter = searchTerm.trim().toLocaleLowerCase();
+        const filterValue = searchTerm;
+        this.dataSourcePagination.filter = filterValue.trim().toLowerCase();
+        this.dataSource.filteredData = this.dataSourcePagination.filteredData;
+        this.iterator();
+      }
+      
+      onMatSortChange() {
+        this.dataSource.sort = this.sort;
+      }
+      
+      public handlePage(e: any) {
+      debugger;
+        this.currentPage = e.pageIndex;
+        this.pageSize = e.pageSize;
+        this.iterator();
+      }
+      
     
+      
+      private iterator() {
+        debugger;
+        const end = (this.currentPage + 1) * this.pageSize;
+        const start = this.currentPage * this.pageSize;
+        this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
+      }
 }

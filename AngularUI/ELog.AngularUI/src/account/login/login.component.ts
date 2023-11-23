@@ -70,6 +70,7 @@ export class LoginComponent extends AppComponentBase {
         this.externalLoginProviders = externalLoginProviders;
       });
     this.loadDefaultTenant();
+    
   }
   checkIsLoginWithAdSetting() {
     this._settingService.getAll().subscribe((result: SettingDto[]) => {
@@ -291,5 +292,7 @@ export class LoginComponent extends AppComponentBase {
         });
     }
   }
+  
+  
 }
 

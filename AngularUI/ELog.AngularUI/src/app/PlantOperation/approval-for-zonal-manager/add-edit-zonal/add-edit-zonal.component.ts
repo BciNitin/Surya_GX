@@ -174,4 +174,9 @@ export class AddEditZonalComponent implements OnInit {
         )
     }
   }
+
+  goBack(): void {
+    
+    this._router.navigate(['../../../approval-for-zonal-manager'], { relativeTo: this._route });
+  }
 }

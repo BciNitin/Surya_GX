@@ -105,6 +105,7 @@ namespace ELog.Application.ElogApi.Report
                     Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sTransferOrderNo", MySqlDbType.VarChar).Value = reports.TransferOrder;
                     Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sChallanNos", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
