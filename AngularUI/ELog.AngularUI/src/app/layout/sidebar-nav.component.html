@@ -71,7 +71,7 @@
             <li routerlinkactive="active" class="ng-star-inserted">
 
                 <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block ng-star-inserted">
-                    <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">Users</span>
+                    <i class="material-icons ng-star-inserted">library_books</i><span class="pm-selected">User</span>
                 </a>
                 <ul class="ml-menu ng-star-inserted">
                     <li routerlinkactive="active" class="ng-star-inserted">
@@ -83,7 +83,7 @@
                     <li routerlinkactive="active" class="ng-star-inserted">
                         <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/roles']">
                             <span>
-                                Roles Managment
+                                Role Managment
                             </span></a>
                     </li>
                     <li routerlinkactive="active" class="ng-star-inserted">
@@ -368,6 +368,18 @@
                         <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/dispatch-from-branch']">
                             <span>
                                 Dispatch From Branch
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/branch-location-from-dealer']">
+                            <span>
+                                Return To Branch Location From Dealer
+                            </span></a>
+                    </li>
+                    <li routerlinkactive="active" class="ng-star-inserted">
+                        <a class="toggled waves-effect waves-block ng-star-inserted" [routerLink]="['/app/Revalidation-report']">
+                            <span>
+                                Revalidation Report
                             </span></a>
                     </li>
                     <ng-container *ngFor="let menu of MenuList[0]; let i = index">

@@ -78,8 +78,8 @@ namespace ELog.Core
             [Display(Name = "Description")]
             Description = 3,
 
-            [Display(Name = "Approval Status")]
-            Approval_Status = 4,
+            //[Display(Name = "Approval Status")]
+            //Approval_Status = 4,
 
             [Display(Name = "Status")]
             Status = 5

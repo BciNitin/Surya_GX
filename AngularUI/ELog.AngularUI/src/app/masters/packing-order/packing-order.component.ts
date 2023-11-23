@@ -45,7 +45,7 @@ export class PackingOrderComponent implements OnInit {
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<LineMaster>();
   public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<LineMaster>();
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private _apiservice: ApiServiceService,
@@ -56,6 +56,7 @@ export class PackingOrderComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Packing Order Master');
     this.getArray();
+    this.paginator._intl.itemsPerPageLabel="Records per page";
   }
 
   ngAfterViewInit(): void {

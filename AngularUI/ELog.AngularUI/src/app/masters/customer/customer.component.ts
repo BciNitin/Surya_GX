@@ -45,7 +45,7 @@ export class CustomerComponent implements OnInit  {
     public dataSource: MatTableDataSource<any> = new MatTableDataSource<CustomerMaster>();
     public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<CustomerMaster>();
     @ViewChild(MatSort, { static: false }) sort!: MatSort;
-    @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   
     constructor(
       private _apiservice: ApiServiceService,
@@ -55,6 +55,7 @@ export class CustomerComponent implements OnInit  {
     ngOnInit() {
       this.titleService.setTitle('Customer Master');
       this.getArray();
+      this.paginator._intl.itemsPerPageLabel="Records per page";
     }
   
     ngAfterViewInit(): void {

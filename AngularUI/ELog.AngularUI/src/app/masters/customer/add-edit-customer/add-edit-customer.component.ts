@@ -45,7 +45,8 @@ export class AddEditCustomerComponent extends AppComponentBase {
         private _router: Router,
         private _route: ActivatedRoute,
         private _selectListService: SelectListServiceProxy,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        
     ) {
         super(injector);
         //this.GetPlantMaster();
@@ -210,12 +211,10 @@ export class AddEditCustomerComponent extends AppComponentBase {
     GoToViewUser(userId: number) {
         this._router.navigate(['../user', 'view', userId], { relativeTo: this._route });
     }
-    GoToUsersListFromView() {
-        if (this.isProfileView) {
-            this._router.navigate(['../../..//home'], { relativeTo: this._route });
-        } else {
+    GoToCustomerListFromView() {
+        
             this._router.navigate(['../../../users'], { relativeTo: this._route });
-        }
+      
     }
     GoToUsersListFromEdit() {
         if (this.isProfileView) {
@@ -373,7 +372,7 @@ export class AddEditCustomerComponent extends AppComponentBase {
                         })
                     ).subscribe(result => {
                         abp.notify.success('User approved successfully.');
-                        this.GoToUsersListFromView();
+                        this.GoToCustomerListFromView();
                     })
                 }
             }
@@ -405,10 +404,12 @@ export class AddEditCustomerComponent extends AppComponentBase {
                         })
                     ).subscribe(result => {
                         abp.notify.success('User rejected successfully.');
-                        this.GoToUsersListFromView();
+                        this.GoToCustomerListFromView();
                     })
                 }
             }
         );
     }
+    
+    
 }

@@ -51,7 +51,7 @@ challanNo:any;
  public dataSource: MatTableDataSource<any> = new MatTableDataSource<grid>();
  public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<grid>();
  @ViewChild(MatSort, { static: false }) sort!: MatSort;
- @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+ @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
  
 
 constructor(
@@ -68,6 +68,7 @@ ngOnInit() {
   this.GetItemCodes();
   this.GetLineCode();
   this.GetChallanNo();
+  this.paginator._intl.itemsPerPageLabel="Records per page";
   //this.getArray();
 }
 ngAfterViewInit(): void {
@@ -110,7 +111,7 @@ private getArray() {
       if(result["result"][0]['error'])
       {
         abp.notify.error(result["result"][0]['error']);
-
+        this.totalSize = 0;
         this.iterator();
       }
       else

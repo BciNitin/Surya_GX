@@ -37,7 +37,7 @@ export class LineMasterComponent implements OnInit, AfterViewInit {
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<LineMaster>();
   public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<LineMaster>();
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private _apiservice: ApiServiceService,
@@ -46,12 +46,10 @@ export class LineMasterComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    //  this._apiservice.getLineMaster().subscribe((data: any) => {
-    //   this.dataSource = new MatTableDataSource<LineMaster>(data['result'])
-    //   // console.log("data['result']",this.dataSource.filteredData)
-    // });
+    
     this.titleService.setTitle('Line Master');
     this.getArray();
+    this.paginator._intl.itemsPerPageLabel="Records per page";
   }
 
   ngAfterViewInit(): void {

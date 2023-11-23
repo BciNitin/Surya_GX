@@ -51,7 +51,7 @@ public array: any;
  public dataSource: MatTableDataSource<any> = new MatTableDataSource<grid>();
  public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<grid>();
  @ViewChild(MatSort, { static: false }) sort!: MatSort;
- @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+ @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
  
 
 constructor(
@@ -68,6 +68,7 @@ ngOnInit() {
   this.GetItemCodes();
   this.GetLineCode();
   this.GetTransferOrderNo();
+  this.paginator._intl.itemsPerPageLabel="Records per page";
   //this.getArray();
 }
 ngAfterViewInit(): void {
@@ -109,7 +110,7 @@ this._apiservice.GetTranferPlantToWarehouseReport(data).subscribe(result => {
       if(result["result"][0]['error'])
       {
         abp.notify.error(result["result"][0]['error']);
-
+        this.totalSize = 0;
         this.iterator();
       }
       else

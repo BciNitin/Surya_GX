@@ -13,13 +13,13 @@
                 </div>
                 <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <h3 class="pull-right" *ngIf="isOnlyView && !isProfileView && userId">
+                        <i class="material-icons edit-icon  pull-right"  (click)="GoToAddEditUser(userId)">note_alt</i>
+                        <button type="button" (click)="GoToAddEditUser(userId)" class="btn add-circle-button  pull-right">Edit</button>
+                    </h3>
+                    <!-- <h3 class="pull-right" *ngIf="isOnlyView && userId && isProfileView">
                         <i class="material-icons edit-icon" (click)="GoToAddEditUser(userId)">note_alt</i>
                         <button type="button" (click)="GoToAddEditUser(userId)" class="btn add-circle-button">Edit</button>
-                    </h3>
-                    <h3 class="pull-right" *ngIf="isOnlyView && userId && isProfileView">
-                        <i class="material-icons edit-icon" (click)="GoToAddEditUser(userId)">note_alt</i>
-                        <button type="button" (click)="GoToAddEditUser(userId)" class="btn add-circle-button">Edit</button>
-                    </h3>
+                    </h3> -->
                 </div>
                 
             </div>

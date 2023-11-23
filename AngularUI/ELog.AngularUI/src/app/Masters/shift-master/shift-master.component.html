@@ -48,34 +48,19 @@
                             <td class="td-center-align add-wrap">{{ShiftMaster.shift_Description}}</td>
                             <td class="td-center-align add-wrap">{{ShiftMaster.shift_StartTime}}</td>
                             <td class="td-center-align add-wrap">{{ShiftMaster.shift_EndTime}}</td>
-                            <td>
-                             <i matTooltip="Delete User" class="material-icons material-icon-action deleteUser"
-                                    (tap)="delete(user)" (click)="delete(ShiftMaster.id)"
+                            <td class="td-center-align">
+                             <i matTooltip="Delete Shift" class="material-icons material-icon-action"
+                                    (tap)="Delete(ShiftMaster)" (click)="delete(ShiftMaster.id)"
                                     >delete</i>
                             </td>
-                            <!-- <td class="td-center-align">
-                                <span class="material-icons-outlined active-icon-green"
-                                    *ngIf="line.active">check_circle_outline</span>
-                                <span class="material-icons-outlined inactive-icon-red"
-                                    *ngIf="!line.active">do_disturb_on</span>
-                            </td> -->
-                            <!-- <td class="td-center-align remove-td-padding">
-
-                                <i matTooltip="View Customer" (click)="GoToViewUser(line)"
-                                    class="material-icons material-icon-action"
-                                   >visibility</i>
-                                <i matTooltip="Delete Customer" class="material-icons material-icon-action deleteUser"
-                                    (tap)="delete(line)" (click)="delete(customer)"
-                                    >delete</i>
-                            </td> -->
                         </tr>
                         <tr *ngIf="dataSource.filteredData?.length == 0">
                             <td colspan="8" class="no-data-available">No data to display.</td>
                         </tr>
                     </tbody>
                 </table>
-                <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 40]"
-                    aria-label="Select page" (page)="pageEvent = handlePage($event)">
+                <mat-paginator   [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
+                     (page)="pageEvent = handlePage($event)">
                 </mat-paginator>
             </div>
         </div>

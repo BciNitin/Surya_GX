@@ -69,10 +69,10 @@ export class ApprovalForZonalManagerComponent implements OnInit, AfterViewInit {
 ) { }
 
   ngOnInit() {
-    debugger;
-        if (this.appSession.getRoles() && this.appSession.getRoles().length > 0) {
-            this.roleName = this.appSession.getRoles()[0]
-        }
+    
+    if (this.appSession.getRoles() && this.appSession.getRoles().length > 0) {
+        this.roleName = this.appSession.getRoles()[0]
+    }
     if(this.roleName =='Admin' )
     {
       this.titleService.setTitle('Admin Approval(Revalidation)'); 

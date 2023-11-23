@@ -120,6 +120,8 @@ import { AsOnDateInventoryComponent } from './Reports/as-on-date-inventory/as-on
 import { DispatchFromWarehouseComponent } from './Reports/dispatch-from-warehouse/dispatch-from-warehouse.component';
 import { GrnAtBranchComponent } from './Reports/grn-at-branch/grn-at-branch.component';
 import { DispatchFromBranchComponent } from './Reports/dispatch-from-branch/dispatch-from-branch.component';
+import { BranchLocationFromDealerComponent } from './Reports/branch-location-from-dealer/branch-location-from-dealer.component';
+import { RevalidationReportComponent } from './Reports/revalidation-report/revalidation-report.component';
 
 export function momentAdapterFactory() {
     return adapterFactory(moment);
@@ -224,7 +226,9 @@ export const PMMS_FORMATS = {
         AsOnDateInventoryComponent,
         DispatchFromWarehouseComponent,
         GrnAtBranchComponent,
-        DispatchFromBranchComponent
+        DispatchFromBranchComponent,
+        BranchLocationFromDealerComponent,
+        RevalidationReportComponent
     ],
     imports: [
         HttpClientModule,

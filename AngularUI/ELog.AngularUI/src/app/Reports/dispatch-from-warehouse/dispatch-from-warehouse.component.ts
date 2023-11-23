@@ -52,7 +52,7 @@ export class DispatchFromWarehouseComponent implements OnInit {
  public dataSource: MatTableDataSource<any> = new MatTableDataSource<grid>();
  public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<grid>();
  @ViewChild(MatSort, { static: false }) sort!: MatSort;
- @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+ @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
  constructor(
   private _apiservice: ApiServiceService,
   private formBuilder: FormBuilder,
@@ -68,6 +68,7 @@ export class DispatchFromWarehouseComponent implements OnInit {
     this.GetItemCodes();
     this.GetLineCode();
     this.GetDelieveryNo();
+    this.paginator._intl.itemsPerPageLabel="Records per page";
     //this.getArray();
   }
   filterCountries(searchTerm: string) {
@@ -106,7 +107,7 @@ export class DispatchFromWarehouseComponent implements OnInit {
         if(result["result"][0]['error'])
         {
           abp.notify.error(result["result"][0]['error']);
-
+          this.totalSize = 0;
           this.iterator();
         }
         else

@@ -7,12 +7,15 @@ import { finalize } from 'rxjs/operators';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
+
+
 interface ShiftMaster {
   id:string,
   shift_Code: string,
   shift_Description: string,
   shift_StartTime: string,
   shift_EndTime: string,
+  
 }
 @Component({
   selector: 'app-shift-master',
@@ -23,7 +26,13 @@ interface ShiftMaster {
 
 export class ShiftMasterComponent implements OnInit {
   lines: any;
+  id:string="";
+  shift_Code: string="";
+  shift_Description: string="";
+  shift_StartTime: string="";
+  shift_EndTime: string="";
   searchText;
+  ShiftModes: any;
   searchTerm = '';
   p: Number = 1;
   public array: any;
@@ -37,18 +46,22 @@ export class ShiftMasterComponent implements OnInit {
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<ShiftMaster>();
   public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<ShiftMaster>();
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  //@ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor( 
     private _apiservice: ApiServiceService,
     private _router: Router,
     private _route: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
+    
 
     ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Shift Master');
     this.getArray();
+    this.paginator._intl.itemsPerPageLabel="Records per page";
+    
   }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -56,6 +69,7 @@ export class ShiftMasterComponent implements OnInit {
     // this.dataSource.paginator = this.paginator;
   }
   filterCountries(searchTerm: string) {
+    
     this.dataSourcePagination.filter = searchTerm.trim().toLocaleLowerCase();
     const filterValue = searchTerm;
     this.dataSourcePagination.filter = filterValue.trim().toLowerCase();
@@ -76,6 +90,7 @@ export class ShiftMasterComponent implements OnInit {
   private getArray() {
     this._apiservice.getShiftMaster()
       .subscribe((response) => {
+        debugger;
         this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
         this.dataSourcePagination.paginator = this.paginator;
         this.array = response['result'];
@@ -85,10 +100,12 @@ export class ShiftMasterComponent implements OnInit {
   }
 
   private iterator() {
+    
     const end = (this.currentPage + 1) * this.pageSize;
     const start = this.currentPage * this.pageSize;
     // this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
     this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
+    
   }
   addUser() {
     this._router.navigate(['../add-shift'], { relativeTo: this._route });
@@ -99,7 +116,7 @@ export class ShiftMasterComponent implements OnInit {
       finalize(()=>{abp.ui.clearBusy})
     )
     .subscribe((response) => {
-      console.log("res", response['result'])
+      
       if(response['result'][0].valid)
        {
          abp.notify.success(response['result'][0].valid);
@@ -115,4 +132,24 @@ export class ShiftMasterComponent implements OnInit {
   }
   
   
+
+
+
+  
+  Delete(Shiftdetalis:any) {
+    if (confirm('Are you sure you want to delete this?')) {
+    try {
+      this._apiservice.DeleteShift(Shiftdetalis.id).subscribe((response) => {
+        debugger;
+        abp.notify.success(response["result"][0]['valid']);
+        this.getArray();
+    });
+    } catch (error) {
+      abp.notify.error("There is error to  delete the shift");
+    }
+  }
+  };
+
+
+ 
 }

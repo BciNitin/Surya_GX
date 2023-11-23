@@ -593,6 +593,77 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
+        [HttpPost]
+        public async Task<Object> DeleteSift(string id)
+        {
+
+            try
+            {
+
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_Masters_ShiftMaster";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "DeleteShift";
+                    Command.Parameters.Add("@sid", MySqlDbType.VarChar).Value = id;
+                    Command.Parameters.Add("@sShiftCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("@sShiftDescription", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("@sShiftStartTime", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("@sShiftEndTime", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+        [HttpPost]
+        public async Task<Object> DeleteBin(string id)
+        {
+
+            try
+            {
+
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_masters_bin";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "DeleteBin";
+                    Command.Parameters.Add("@sid", MySqlDbType.VarChar).Value = id;
+                    Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("@sBinCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("@sDescription", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("@sActive", MySqlDbType.Bit).Value = String.Empty;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
 
         public async Task<Object> PostPlantMaster(string PlantCode, string PlantType, string Description, string Address, bool Active)
         {

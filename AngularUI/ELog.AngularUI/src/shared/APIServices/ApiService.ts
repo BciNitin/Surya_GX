@@ -599,4 +599,40 @@ GetDispatchFromBranchReport(data:any): Observable<any> {
       
    return this.http.post<any>(this.BasUrl + `DispatchFromBranchReportsApi/GetDispatchFromBranchReport`, data);
 }
+
+GetReturnToBranchLocationFromDealer(data:any): Observable<any> {
+      
+   return this.http.post<any>(this.BasUrl + `ReturnToBranchLocationFromDealerReportsApi/GetReturnToBranchLocationFromDealer`, data);
+}
+GetRevalidationReport(data:any): Observable<any> {
+      
+   return this.http.post<any>(this.BasUrl + `RevalidationReportsApi/GetRevalidationReport`, data);
+}
+DeleteShift(id) {
+     debugger;
+   //const content_ = JSON.stringify(input);
+   const options_: any = {
+      //body: this.content_,
+      observe: "response",
+      responseType: "blob",
+      headers: new HttpHeaders({
+         "Content-Type": "application/json-patch+json",
+      }),
+   };
+   return this.http.post<any[]>(this.BasUrl + `ElogSuryaApiService/DeleteSift?id=${id}`, { responseType: 'text', options_ });
+}
+
+DeleteBin(id) {
+   debugger;
+ //const content_ = JSON.stringify(input);
+ const options_: any = {
+    //body: this.content_,
+    observe: "response",
+    responseType: "blob",
+    headers: new HttpHeaders({
+       "Content-Type": "application/json-patch+json",
+    }),
+ };
+ return this.http.post<any[]>(this.BasUrl + `ElogSuryaApiService/DeleteBin?id=${id}`, { responseType: 'text', options_ });
+}
 }

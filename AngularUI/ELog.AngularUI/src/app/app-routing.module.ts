@@ -61,6 +61,8 @@ import { AsOnDateInventoryComponent } from './Reports/as-on-date-inventory/as-on
 import { DispatchFromWarehouseComponent } from './Reports/dispatch-from-warehouse/dispatch-from-warehouse.component';
 import { GrnAtBranchComponent } from './Reports/grn-at-branch/grn-at-branch.component';
 import { DispatchFromBranchComponent } from './Reports/dispatch-from-branch/dispatch-from-branch.component';
+import { BranchLocationFromDealerComponent } from './Reports/branch-location-from-dealer/branch-location-from-dealer.component';
+import { RevalidationReportComponent } from './Reports/revalidation-report/revalidation-report.component';
 
 
 
@@ -167,6 +169,8 @@ import { DispatchFromBranchComponent } from './Reports/dispatch-from-branch/disp
                     { path: 'dispatch-from-warehouse', component: DispatchFromWarehouseComponent, canActivate: [AppRouteGuard] },
                     { path: 'grn-at-branch', component: GrnAtBranchComponent, canActivate: [AppRouteGuard] },
                     { path: 'dispatch-from-branch', component: DispatchFromBranchComponent, canActivate: [AppRouteGuard] },
+                    { path: 'branch-location-from-dealer', component: BranchLocationFromDealerComponent, canActivate: [AppRouteGuard] },
+                    { path: 'Revalidation-report', component: RevalidationReportComponent, canActivate: [AppRouteGuard] },
                    
                 ]
             }

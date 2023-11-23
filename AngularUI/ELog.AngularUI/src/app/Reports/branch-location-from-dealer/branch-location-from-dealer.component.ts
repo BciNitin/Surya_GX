@@ -9,29 +9,21 @@ import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-componen
 import { SelectListDto, SmartDateTime } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
 import { Title } from '@angular/platform-browser';
-import { DatePipe } from '@angular/common';
 interface grid {
-  FromDate: Date;
-  LineCode: string;
   MaterialCode: string;
-  challanNos: string;
   PlantCode: string;
-  ToDate: Date;
-}
+  }
 @Component({
-  selector: 'app-dispatch-from-branch',
-  templateUrl: './dispatch-from-branch.component.html',
-  styleUrls: ['./dispatch-from-branch.component.css'],
+  selector: 'app-branch-location-from-dealer',
+  templateUrl: './branch-location-from-dealer.component.html',
+  styleUrls: ['./branch-location-from-dealer.component.css'],
   animations: [appModuleAnimation()],
   providers: [ValidationService]
 })
-export class DispatchFromBranchComponent implements OnInit {
+export class BranchLocationFromDealerComponent implements OnInit {
+
   MaterialCode: string;
-  FromDate: Date;
-  LineCode: string;
-  challanNos: string;
   PlantCode: string;
-  ToDate: Date;
   packingReports:any;
   plnaCodeList:any;
   ItemCodes:any;
@@ -58,17 +50,14 @@ constructor(
   private formBuilder: FormBuilder,
   public _appComponent: ValidationService,
   private titleService: Title,
-  private datePipe: DatePipe
-
+  
 ) { }
 ngOnInit() {
-  this.titleService.setTitle('Dispatch From Branch');
+  this.titleService.setTitle('Return To Branch Location From Dealer');
   this.GetPlantCode();
   this.GetItemCodes();
-  this.GetLineCode();
-  this.GetChallanNo();
   this.paginator._intl.itemsPerPageLabel="Records per page";
-  //this.getArray();
+ 
 }
 ngAfterViewInit(): void {
   this.dataSource.sort = this.sort;
@@ -96,15 +85,11 @@ public handlePage(e: any) {
 private getArray() {
   const data = {
     MaterialCode: this.MaterialCode,
-    FromDate: this.FromDate,
-    ToDate: this.ToDate,
-    LineCode: this.LineCode,
-    challanNos: this.challanNos,
     PlantCode: this.PlantCode
   };
 
 
- this._apiservice.GetDispatchFromBranchReport(data).subscribe(result => {
+ this._apiservice.GetReturnToBranchLocationFromDealer(data).subscribe(result => {
       this.dataSourcePagination = new MatTableDataSource<Element>(result['result']);
       this.dataSourcePagination.paginator = this.paginator;
       if(result["result"][0]['error'])
@@ -157,35 +142,13 @@ GetItemCodes() {
   });
 };
 
-GetLineCode() {
-  this._apiservice.getLineWorkCenterNo().subscribe((response) => {
-      this.lineList = response["result"];
-  });
-};
-GetChallanNo() {
-  this._apiservice.GetSOchallanNo().subscribe((modeSelectList: SelectListDto[]) => {
-      this.challanNo = modeSelectList["result"];
-  });
-};
+
 
 markDirty() {
   this._appComponent.markGroupDirty(this.addEditFormGroup);
   return true;
 }
-onDateChangeEvent() {
-  this.validationTypes = [];
-  this.showExpirationError = false;
-  this.showInstallationError = false;
-  this.showProcurmentError = false;
-  var fromdate = this.addEditFormGroup.get("FromDateFormControl").value;
-  var todate = this.addEditFormGroup.get("ToDateFormControl").value;
-  if (fromdate > todate) {
-      this.showExpirationError = true;
-      this.validationTypes.push("frommustbeless");
-  }
-  this.FromDate = fromdate;
-  this.ToDate = todate;
-  return true;
-}
+
 
 }
+

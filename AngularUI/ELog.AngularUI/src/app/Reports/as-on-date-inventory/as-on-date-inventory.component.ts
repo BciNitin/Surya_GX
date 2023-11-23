@@ -39,7 +39,7 @@ export class AsOnDateInventoryComponent implements OnInit {
  public dataSource: MatTableDataSource<any> = new MatTableDataSource<grid>();
  public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<grid>();
  @ViewChild(MatSort, { static: false }) sort!: MatSort;
- @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+ @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
  
 
 constructor(
@@ -54,7 +54,7 @@ ngOnInit() {
   this.titleService.setTitle('As On Date Inventory');
   this.GetPlantCode();
   this.GetItemCodes();
-  //this.getArray();
+  this.paginator._intl.itemsPerPageLabel="Records per page";
 }
 ngAfterViewInit(): void {
   this.dataSource.sort = this.sort;
@@ -91,7 +91,7 @@ this._apiservice.GetAsOnDateInventoryReport(data).subscribe(result => {
       if(result["result"][0]['error'])
       {
         abp.notify.error(result["result"][0]['error']);
-
+        this.totalSize = 0;
         this.iterator();
       }
       else

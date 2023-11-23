@@ -115,14 +115,16 @@
                                     </div>
                                     
                                     <div class="row">
-                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                            
+                                        <div class="col-md-12">
+                                            <button class="btn back-btn pull-right"
+                                            (click)="goBack()"> Back</button>
                                            <button type="button" (click)="Clear()" class="btn filter-clear-button pull-right">
                                                 Clear
                                             </button>
                                             <button type="button" (click)="markDirty() && addEditFormGroup.valid && Save()" class="btn btn-primary pull-right">
                                                 Save
                                             </button>
+                                            
                                         </div>
                                     </div>
                                 </form>

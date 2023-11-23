@@ -59,7 +59,7 @@ export class RolesComponent extends PagedListingComponentBase<RoleDto> {
     }
     ngOnInit(): void {
         debugger;
-        this.setTitle('Roles Management');
+        this.setTitle('Role Management');
         fromEvent(this.searchTextBox.nativeElement, 'keyup').pipe(
 
             // get value

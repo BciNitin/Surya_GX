@@ -35,7 +35,7 @@ export class StorageLocationComponent implements OnInit, AfterViewInit {
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<StorageMaster>();
   public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<StorageMaster>();
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private _apiservice: ApiServiceService,
@@ -46,6 +46,7 @@ export class StorageLocationComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.titleService.setTitle('Storage Location Master');
     this.getArray();
+    this.paginator._intl.itemsPerPageLabel="Records per page";
   }
 
   ngAfterViewInit(): void {

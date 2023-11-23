@@ -62,7 +62,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
     }
 
     ngOnInit(): void {
-        this.setTitle('Users Management');
+        this.setTitle('User Management');
         this.maxDate = moment(new Date()).toDate();
         fromEvent(this.searchTextBox.nativeElement, 'keyup').pipe(
 

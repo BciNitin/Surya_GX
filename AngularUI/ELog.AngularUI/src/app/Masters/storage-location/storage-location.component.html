@@ -59,7 +59,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 40]"
+                <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
                     aria-label="Select page" (page)="pageEvent = handlePage($event)">
                 </mat-paginator>
             </div>

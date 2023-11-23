@@ -182,6 +182,7 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
     this.addEditFormGroup.controls['plantCodeFormCControl'].setValue(null);
     this.addEditFormGroup.controls['packingOrderFormControl'].setValue(null);
     this.packingOrderList=null;
+    this.dataSource.filteredData = null;
   }
 
 }

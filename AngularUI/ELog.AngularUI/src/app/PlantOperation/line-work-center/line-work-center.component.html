@@ -28,7 +28,7 @@
                                             <input matInput required
                                                     formControlName="lineBarCode" name="lineBarCode" [(ngModel)]='lineBarCode' [errorStateMatcher]="matcher">
                                             <mat-error *ngIf="addEditFormGroup?.get('lineBarCode')?.hasError('required') || addEditFormGroup?.get('lineBarCode')?.hasError('whitespace')">
-                                                Line Barcode Label is required.
+                                                Line/Work Center Barcode Label is required.
                                             </mat-error>
                                         </mat-form-field>
                                     </div>

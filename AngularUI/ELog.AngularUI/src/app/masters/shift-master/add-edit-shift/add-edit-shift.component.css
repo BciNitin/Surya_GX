@@ -1,3 +1,6 @@
-.filter-clear-button {
-    margin: 0 0 0 0.6em;
+
+.back-btn {
+    margin: 0px 3px 0px 2px !important;
+    background-color: #adadc7;
+    color: white;
 }

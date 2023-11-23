@@ -40,7 +40,7 @@ export class MaterialComponent implements OnInit, AfterViewInit {
     p: Number = 1;
     public array: any;
 
-    public pageSize = 1;
+    public pageSize = 10;
     public currentPage = 0;
     public totalSize = 0;
 
@@ -49,7 +49,7 @@ export class MaterialComponent implements OnInit, AfterViewInit {
     public dataSource: MatTableDataSource<any> = new MatTableDataSource<MaterialMaster>();
     public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<MaterialMaster>();
     @ViewChild(MatSort, { static: false }) sort!: MatSort;
-    @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     constructor(
         private _apiservice: ApiServiceService,
@@ -58,12 +58,10 @@ export class MaterialComponent implements OnInit, AfterViewInit {
     ) { }
 
     ngOnInit() {
-        //  this._apiservice.getLineMaster().subscribe((data: any) => {
-        //   this.dataSource = new MatTableDataSource<LineMaster>(data['result'])
-        //   // console.log("data['result']",this.dataSource.filteredData)
-        // });
+        
         this.titleService.setTitle('Material Master');
         this.getArray();
+        this.paginator._intl.itemsPerPageLabel="Records per page";
     }
 
     ngAfterViewInit(): void {

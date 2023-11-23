@@ -12,7 +12,6 @@ import { DatePipe } from '@angular/common';
 import { parse, toDate } from 'date-fns';
 import { date } from '@rxweb/reactive-form-validators';
 
-
 //import { shiftinput } from '../shift-master.component';
 export class shiftinput
 {
@@ -30,6 +29,7 @@ export class shiftinput
   animations: [appModuleAnimation()],
   providers: [ValidationService]
 })
+
 export class AddEditShiftComponent implements OnInit {
   validationTypes: string[] | null;
   showInstallationError: boolean | false;
@@ -116,4 +116,8 @@ onDateChangeEvent() {
         
     this.addEditFormGroup.reset();
   }
+  goBack(): void {
+    
+    this._router.navigate(['../shift-master'], { relativeTo: this._route });
+}
 }
