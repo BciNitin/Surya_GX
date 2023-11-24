@@ -635,4 +635,16 @@ DeleteBin(id) {
  };
  return this.http.post<any[]>(this.BasUrl + `ElogSuryaApiService/DeleteBin?id=${id}`, { responseType: 'text', options_ });
 }
+
+GetMonthlyInspectionReportForDealer(): Observable<any[]> {
+   return this.http.get<any[]>(this.BasUrl + 'MonthlyInspectionReportForDealerApi/GetMonthlyInspectionReportForDealer');
+}
+
+GetDealerWiseFailureDetails(): Observable<any[]> {
+   return this.http.get<any[]>(this.BasUrl + 'DealerWiseFailureDetailsApi/GetDealerWiseFailureDetails');
+}
+
+GetNonBarcodedProductDetails(): Observable<any[]> {
+   return this.http.get<any[]>(this.BasUrl + 'NonBarcodedProductsReportsApi/GetNonBarcodedProductDetails');
+}
 }

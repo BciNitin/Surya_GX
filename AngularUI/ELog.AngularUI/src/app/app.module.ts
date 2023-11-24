@@ -122,6 +122,10 @@ import { GrnAtBranchComponent } from './Reports/grn-at-branch/grn-at-branch.comp
 import { DispatchFromBranchComponent } from './Reports/dispatch-from-branch/dispatch-from-branch.component';
 import { BranchLocationFromDealerComponent } from './Reports/branch-location-from-dealer/branch-location-from-dealer.component';
 import { RevalidationReportComponent } from './Reports/revalidation-report/revalidation-report.component';
+import { MonthlyInspecForDealerComponent } from './Reports/monthly-inspec-for-dealer/monthly-inspec-for-dealer.component';
+import { DealerWiseFailureDetailsComponent } from './Reports/dealer-wise-failure-details/dealer-wise-failure-details.component';
+import { NonBarcodedProductsComponent } from './Reports/non-barcoded-products/non-barcoded-products.component';
+import { ConsolidatedNonBarcodedProductsComponent } from './Reports/consolidated-non-barcoded-products/consolidated-non-barcoded-products.component';
 
 export function momentAdapterFactory() {
     return adapterFactory(moment);
@@ -228,7 +232,12 @@ export const PMMS_FORMATS = {
         GrnAtBranchComponent,
         DispatchFromBranchComponent,
         BranchLocationFromDealerComponent,
-        RevalidationReportComponent
+        RevalidationReportComponent,
+        MonthlyInspecForDealerComponent,
+        DealerWiseFailureDetailsComponent,
+        NonBarcodedProductsComponent,
+        
+        ConsolidatedNonBarcodedProductsComponent
     ],
     imports: [
         HttpClientModule,

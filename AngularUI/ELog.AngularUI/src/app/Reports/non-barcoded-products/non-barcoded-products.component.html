@@ -1,0 +1,55 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="row user-component-content row-filter-container">
+                <div class="col-12">
+                    <h2 class="title">{{ "Non Barcoded Products Report" | localize }}</h2>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div id="collapse1" class="panel-collapse collapse in dark-text">
+                        <div class="panel-body">
+                            <br>
+                            <div class="body table-responsive">
+                                <table  class="table table-hover table-striped table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="th-center-align">{{ "Dealer Name" | localize }}</th>
+                                            <th class="th-center-align">{{ "Branch" | localize }}</th>
+                                            <th class="th-center-align">{{ "Item Desc" | localize }}</th>
+                                            <th class="th-center-align">{{ "Offered Quantity " | localize }}</th>
+                                            <th class="th-center-align">{{ "Approved Quantity" | localize }}</th>
+                                            <th class="th-center-align">{{ "Reason" | localize }}</th>
+                                            <th class="th-center-align">{{ "Plant" | localize }}</th>
+                                            <th class="th-center-align">{{ "Vendor" | localize }}</th>
+                                            <th class="th-center-align">{{ "Scan Date" | localize }}</th>
+                                            </thead>
+                                    <tbody>
+                                        <tr  *ngFor="let  picklistItem of dataSource.filteredData" >
+                                            <td class="td-center-align">{{picklistItem.dealerName}}</td>
+                                            <td class="td-center-align">{{picklistItem.mfgPlant}}</td>
+                                            <td class="td-center-align">{{picklistItem.itemDesc}}</td>
+                                            <td class="td-center-align">{{picklistItem.offeredQuantity}}</td>
+                                            <td class="td-center-align">{{picklistItem.approvedQuantity}}</td>
+                                            <td class="td-center-align">{{picklistItem.mfgPlant}}</td>
+                                            <td class="td-center-align">{{picklistItem.plantCode}}</td>
+                                            <td class="td-center-align">{{picklistItem.sas}}</td>
+                                            <td class="td-center-align">{{picklistItem.scanDate | date:'MM/dd/yyyy'}}</td>
+                                            </tr>
+                                        <tr *ngIf="dataSource.filteredData?.length == 0">
+                                            <td colspan="8" class="no-data-available">No data to display.</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
+                                aria-label="Select page" (page)="pageEvent = handlePage($event)">
+                            </mat-paginator>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

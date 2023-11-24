@@ -1,0 +1,48 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="row user-component-content row-filter-container">
+                <div class="col-12">
+                    <h2 class="title">{{ "Dealer Wise Failure Details For Month" | localize }}</h2>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div id="collapse1" class="panel-collapse collapse in dark-text">
+                        <div class="panel-body">
+                            <br>
+                            <div class="body table-responsive">
+                                <table  class="table table-hover table-striped table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th class="th-center-align">{{ "Item Desc" | localize }}</th>
+                                            <th class="th-center-align">{{ "MFG Plant" | localize }}</th>
+                                            <th class="th-center-align">{{ "MFG Date" | localize }}</th>
+                                            <th class="th-center-align">{{ "Inspection Date " | localize }}</th>
+                                            <th class="th-center-align">{{ "Quantity" | localize }}</tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr  *ngFor="let  picklistItem of dataSource.filteredData" >
+                                            <td class="td-center-align">{{picklistItem.itemDesc}}</td>
+                                            <td class="td-center-align">{{picklistItem.mfgPlant}}</td>
+                                            <td class="td-center-align">{{picklistItem.mfgDate | date:'MM/dd/yyyy'}}</td>
+                                            <td class="td-center-align">{{picklistItem.inspectionDate | date:'MM/dd/yyyy'}}</td>
+                                            <td class="td-center-align">{{picklistItem.quantity}}</td>
+                                            </tr>
+                                        <tr *ngIf="dataSource.filteredData?.length == 0">
+                                            <td colspan="8" class="no-data-available">No data to display.</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
+                                aria-label="Select page" (page)="pageEvent = handlePage($event)">
+                            </mat-paginator>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

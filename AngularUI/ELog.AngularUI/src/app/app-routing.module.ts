@@ -63,6 +63,10 @@ import { GrnAtBranchComponent } from './Reports/grn-at-branch/grn-at-branch.comp
 import { DispatchFromBranchComponent } from './Reports/dispatch-from-branch/dispatch-from-branch.component';
 import { BranchLocationFromDealerComponent } from './Reports/branch-location-from-dealer/branch-location-from-dealer.component';
 import { RevalidationReportComponent } from './Reports/revalidation-report/revalidation-report.component';
+import { MonthlyInspecForDealerComponent } from './Reports/monthly-inspec-for-dealer/monthly-inspec-for-dealer.component';
+import { DealerWiseFailureDetailsComponent } from './Reports/dealer-wise-failure-details/dealer-wise-failure-details.component';
+import { NonBarcodedProductsComponent } from './Reports/non-barcoded-products/non-barcoded-products.component';
+import { ConsolidatedNonBarcodedProductsComponent } from './Reports/consolidated-non-barcoded-products/consolidated-non-barcoded-products.component';
 
 
 
@@ -171,6 +175,10 @@ import { RevalidationReportComponent } from './Reports/revalidation-report/reval
                     { path: 'dispatch-from-branch', component: DispatchFromBranchComponent, canActivate: [AppRouteGuard] },
                     { path: 'branch-location-from-dealer', component: BranchLocationFromDealerComponent, canActivate: [AppRouteGuard] },
                     { path: 'Revalidation-report', component: RevalidationReportComponent, canActivate: [AppRouteGuard] },
+                    { path: 'MonthlyInspectionForDealer', component: MonthlyInspecForDealerComponent, canActivate: [AppRouteGuard] },
+                    { path: 'DealerWiseFailure', component: DealerWiseFailureDetailsComponent, canActivate: [AppRouteGuard] },
+                    { path: 'NonBarcodedProducts', component: NonBarcodedProductsComponent, canActivate: [AppRouteGuard] },
+                    { path: 'ConsolidatNonBarcodedProducts', component: ConsolidatedNonBarcodedProductsComponent, canActivate: [AppRouteGuard] },
                    
                 ]
             }
