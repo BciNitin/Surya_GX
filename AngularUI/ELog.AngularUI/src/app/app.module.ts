@@ -126,6 +126,7 @@ import { MonthlyInspecForDealerComponent } from './Reports/monthly-inspec-for-de
 import { DealerWiseFailureDetailsComponent } from './Reports/dealer-wise-failure-details/dealer-wise-failure-details.component';
 import { NonBarcodedProductsComponent } from './Reports/non-barcoded-products/non-barcoded-products.component';
 import { ConsolidatedNonBarcodedProductsComponent } from './Reports/consolidated-non-barcoded-products/consolidated-non-barcoded-products.component';
+import { LifeCycleReportComponent } from './Reports/life-cycle-report/life-cycle-report.component';
 
 export function momentAdapterFactory() {
     return adapterFactory(moment);
@@ -237,7 +238,9 @@ export const PMMS_FORMATS = {
         DealerWiseFailureDetailsComponent,
         NonBarcodedProductsComponent,
         
-        ConsolidatedNonBarcodedProductsComponent
+        ConsolidatedNonBarcodedProductsComponent,
+        
+        LifeCycleReportComponent
     ],
     imports: [
         HttpClientModule,

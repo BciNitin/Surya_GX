@@ -14,15 +14,14 @@ interface grid {
   PlantCode: string;
   
 }
-
 @Component({
-  selector: 'app-consolidated-non-barcoded-products',
-  templateUrl: './consolidated-non-barcoded-products.component.html',
-  styleUrls: ['./consolidated-non-barcoded-products.component.css'],
+  selector: 'app-life-cycle-report',
+  templateUrl: './life-cycle-report.component.html',
+  styleUrls: ['./life-cycle-report.component.css'],
   animations: [appModuleAnimation()],
   providers: [ValidationService]
 })
-export class ConsolidatedNonBarcodedProductsComponent implements OnInit {
+export class LifeCycleReportComponent implements OnInit {
   public array: any;
   challanNo:any;
   public pageSize = 10;
@@ -46,7 +45,7 @@ constructor(
   
 ) { }
 ngOnInit() {
-  this.titleService.setTitle('Consolidated Report of Non Barcoded Products');
+  this.titleService.setTitle('Life Cycle Report');
   
   this.paginator._intl.itemsPerPageLabel="Records per page";
   this.getArray();
@@ -75,7 +74,7 @@ debugger;
 }
 
 private getArray() {
-      this._apiservice.GetConsNonBarcodedProductDetails().subscribe(result => {
+      this._apiservice.GetLifeCycleReport().subscribe(result => {
       this.dataSourcePagination = new MatTableDataSource<Element>(result['result']);
       this.dataSourcePagination.paginator = this.paginator;
       if(result["result"][0]['error'])

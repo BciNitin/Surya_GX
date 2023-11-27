@@ -215,9 +215,7 @@ export class ApiServiceService {
    GetStorageLocation(): Observable<any[]> {
       return this.http.get<any[]>(this.BasUrl + 'StorageLocationApi/GetStorageLocation');
    }
-   // GetStrLocationDtls(plancode: string): Observable<any[]> {
-   //    return this.http.get<any[]>(this.BasUrl + 'StorageLocationApi/GetStorageLocationDetails?plancode=' + plancode);
-   // }
+   
    GetStrLocationDtls(plancode,LocationID) {
      
       //const content_ = JSON.stringify(input);
@@ -646,5 +644,12 @@ GetDealerWiseFailureDetails(): Observable<any[]> {
 
 GetNonBarcodedProductDetails(): Observable<any[]> {
    return this.http.get<any[]>(this.BasUrl + 'NonBarcodedProductsReportsApi/GetNonBarcodedProductDetails');
+}
+
+GetLifeCycleReport(): Observable<any[]> {
+   return this.http.get<any[]>(this.BasUrl + 'LifeCycleReportApi/GetLifeCycleReport');
+}
+GetConsNonBarcodedProductDetails(): Observable<any[]> {
+   return this.http.get<any[]>(this.BasUrl + 'Consoli_NonBarcodedProductsReportsApi/GetConsNonBarcodedProductDetails');
 }
 }

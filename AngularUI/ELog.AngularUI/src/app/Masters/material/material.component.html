@@ -30,6 +30,7 @@
                             <th class="th-center-align">{{ "Pack Size" | localize }}</th>
                             <th class="th-center-align">{{ "UOM" | localize }}</th>
                             <th class="th-center-align">{{ "Unit Weight" | localize }}</th>
+                            <th class="th-center-align">{{ "Self Life" | localize }}</th>
                             <th class="th-center-align">{{ "IsActive" | localize }}</th>
 
                         </tr>
@@ -39,13 +40,13 @@
                             <td class="td-center-align add-wrap">{{material.materialCode}}</td>
                             <td class="td-center-align add-wrap">{{material.description}}</td>
                             <td class="td-center-align add-wrap">{{material.packSize}}</td>
-                            <td class="td-center-align add-wrap">
+                             <td class="td-center-align add-wrap">
                                 {{material.uom}}
                             </td>
                             <td class="td-center-align add-wrap">
                                 {{material.unitWeight}}
                             </td>
-                           
+                            <td class="td-center-align add-wrap">{{material.selfLife}}</td>
                           <td class="td-center-align">
                                 <span class="material-icons-outlined active-icon-green"
                                     *ngIf="material.active">check_circle_outline</span>

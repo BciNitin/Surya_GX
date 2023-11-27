@@ -3,7 +3,7 @@
         <div class="card main-content">
             <div class="row user-component-content row-filter-container">
                 <div class="col-12">
-                    <h2 class="title">{{ "Consolidated Report of Non Barcoded Products " | localize }}</h2>
+                    <h2 class="title">{{ "Life Cycle Report(month wise return report against manufactured)" | localize }}</h2>
                 </div>
             </div>
             <div class="panel-group" id="accordion">
@@ -15,22 +15,27 @@
                                 <table  class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="th-center-align">{{ "Srno" | localize }}</th>
+                                            <th class="th-center-align">{{ "MFG Qty" | localize }}</th>
+                                            <th class="th-center-align">{{ "MFG Month" | localize }}</th>
+                                            <th class="th-center-align">{{ "Scan Qty" | localize }}</th>
+                                            <th class="th-center-align">{{ "Scanning Month" | localize }}</th>
+                                            <th class="th-center-align">{{ "Number of Month From MFG" | localize }}</th>
+                                            <th class="th-center-align">{{ "HO_Item_Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Item Desc" | localize }}</th>
                                             <th class="th-center-align">{{ "Branch" | localize }}</th>
-                                            <th class="th-center-align">{{ "Product Desc" | localize }}</th>
-                                            <th class="th-center-align">{{ "Offered Qty" | localize }}</th>
-                                            <th class="th-center-align">{{ "Approved Qty" | localize }}</th>
-                                            <th class="th-center-align">{{ "No of Party Inspected" | localize }}</th>
-                                             </thead>
+                                            <th class="th-center-align">{{ "Plant" | localize }}</th>
+                                            </thead>
                                     <tbody>
                                         <tr  *ngFor="let  picklistItem of dataSource.filteredData" >
-                                            <td class="td-center-align">{{picklistItem.row_num}}</td>
                                             <td class="td-center-align">{{picklistItem.mfgQty}}</td>
-                                            <td class="td-center-align">{{picklistItem.itemDesc}}</td>
-                                            <td class="td-center-align">{{picklistItem.offeredQuantity}}</td>
-                                            <td class="td-center-align">{{picklistItem.approvedQuantity}}</td>
-                                            <td class="td-center-align">{{picklistItem.dealerName}}</td>
-                                            
+                                            <td class="td-center-align">{{picklistItem.mfgMonth}}</td>
+                                            <td class="td-center-align">{{picklistItem.scanQty}}</td>
+                                            <td class="td-center-align">{{picklistItem.scanningMonth}}</td>
+                                            <td class="td-center-align">{{picklistItem.numberOfMonthFromMFG}}</td>
+                                            <td class="td-center-align">{{picklistItem.hO_Item_Code}}</td>
+                                            <td class="td-center-align">{{picklistItem.item_Desc}}</td>
+                                            <td class="td-center-align">{{picklistItem.sas}}</td>
+                                            <td class="td-center-align">{{picklistItem.plant}}</td>
                                             </tr>
                                         <tr *ngIf="dataSource.filteredData?.length == 0">
                                             <td colspan="8" class="no-data-available">No data to display.</td>
