@@ -68,6 +68,8 @@ import { DealerWiseFailureDetailsComponent } from './Reports/dealer-wise-failure
 import { NonBarcodedProductsComponent } from './Reports/non-barcoded-products/non-barcoded-products.component';
 import { ConsolidatedNonBarcodedProductsComponent } from './Reports/consolidated-non-barcoded-products/consolidated-non-barcoded-products.component';
 import { LifeCycleReportComponent } from './Reports/life-cycle-report/life-cycle-report.component';
+import { ManufacturingMonthWiseDefectiveComponent } from './Reports/manufacturing-month-wise-defective/manufacturing-month-wise-defective.component';
+import { ManufacturingTimeWiseDefectiveComponent } from './Reports/manufacturing-time-wise-defective/manufacturing-time-wise-defective.component';
 
 
 
@@ -181,6 +183,8 @@ import { LifeCycleReportComponent } from './Reports/life-cycle-report/life-cycle
                     { path: 'NonBarcodedProducts', component: NonBarcodedProductsComponent, canActivate: [AppRouteGuard] },
                     { path: 'ConsolidatNonBarcodedProducts', component: ConsolidatedNonBarcodedProductsComponent, canActivate: [AppRouteGuard] },
                     { path: 'lifeCycleReport', component: LifeCycleReportComponent, canActivate: [AppRouteGuard] },
+                    { path: 'MfgMonthByDefective', component: ManufacturingMonthWiseDefectiveComponent, canActivate: [AppRouteGuard] },
+                    { path: 'MfgTimeWiseDefective', component: ManufacturingTimeWiseDefectiveComponent, canActivate: [AppRouteGuard] },
                    
                 ]
             }

@@ -21,7 +21,9 @@
                                                     {{plant.value}}
                                                 </mat-option>
                                             </mat-select>
-                                            
+                                            <mat-error *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                                Plant Code is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
                                     
@@ -74,21 +76,6 @@
                                             
                                         </mat-form-field>
                                     </div>
-
-                                    <!-- <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                                        <mat-form-field>
-                                            <mat-label>Line Work Center No.</mat-label>
-                                            <mat-select [(ngModel)]="LineCode" name="LineCode"
-                                            
-                                                formControlName="LineCodeFormControl">
-                                                <mat-option>Select Plant</mat-option>
-                                                <mat-option *ngFor="let line of lineList" [value]="line.id">
-                                                    {{line.value}}
-                                                </mat-option>
-                                            </mat-select>
-                                            
-                                        </mat-form-field>
-                                    </div> -->
 
                                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                         <mat-form-field>

@@ -63,7 +63,7 @@ export class DispatchFromWarehouseComponent implements OnInit {
 ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Packing Order Barcode Details');
+    this.titleService.setTitle('Dispatch From Warehouse');
     this.GetPlantCode();
     this.GetItemCodes();
     this.GetLineCode();
@@ -107,8 +107,10 @@ export class DispatchFromWarehouseComponent implements OnInit {
         if(result["result"][0]['error'])
         {
           abp.notify.error(result["result"][0]['error']);
-          this.totalSize = 0;
+        
           this.iterator();
+          this.dataSource.filteredData.length=0;
+          this.totalSize = 0;
         }
         else
         {
@@ -181,5 +183,9 @@ export class DispatchFromWarehouseComponent implements OnInit {
     this.FromDate = fromdate;
     this.ToDate = todate;
     return true;
+}
+markDirty() {
+  this._appComponent.markGroupDirty(this.addEditFormGroup);
+  return true;
 }
 }

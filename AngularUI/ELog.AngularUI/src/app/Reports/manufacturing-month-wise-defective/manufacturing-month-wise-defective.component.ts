@@ -15,26 +15,18 @@ interface grid {
   
 }
 @Component({
-  selector: 'app-revalidation-report',
-  templateUrl: './revalidation-report.component.html',
-  styleUrls: ['./revalidation-report.component.css'],
+  selector: 'app-manufacturing-month-wise-defective',
+  templateUrl: './manufacturing-month-wise-defective.component.html',
+  styleUrls: ['./manufacturing-month-wise-defective.component.css'],
   animations: [appModuleAnimation()],
   providers: [ValidationService]
 })
-export class RevalidationReportComponent implements OnInit {
-  MaterialCode: string;
-  PlantCode: string;
-  packingReports:any;
-  plnaCodeList:any;
-  ItemCodes:any;
+export class ManufacturingMonthWiseDefectiveComponent implements OnInit {
   public array: any;
-  challanNo:any;
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
-
-
- validationTypes: string[] | null;
+  validationTypes: string[] | null;
   showProcurmentError: boolean | false;
   showInstallationError: boolean | false;
   showExpirationError: boolean | false;
@@ -52,10 +44,10 @@ constructor(
   
 ) { }
 ngOnInit() {
-  this.titleService.setTitle('Revalidation Report');
-  this.GetPlantCode();
-  this.GetItemCodes();
+  this.titleService.setTitle('Manufacturing Month Wise Defective');
+  
   this.paginator._intl.itemsPerPageLabel="Records per page";
+  this.getArray();
 }
 ngAfterViewInit(): void {
   this.dataSource.sort = this.sort;
@@ -81,23 +73,17 @@ debugger;
 }
 
 private getArray() {
-  const data = {
-    MaterialCode: this.MaterialCode,
-    PlantCode: this.PlantCode
-  };
-
-
- this._apiservice.GetRevalidationReport(data).subscribe(result => {
+      this._apiservice.GetManufacturingMonthWiseDefective().subscribe(result => {
       this.dataSourcePagination = new MatTableDataSource<Element>(result['result']);
       this.dataSourcePagination.paginator = this.paginator;
       if(result["result"][0]['error'])
       {
         abp.notify.error(result["result"][0]['error']);
+      
         this.iterator();
         this.dataSource.filteredData.length=0;
         this.totalSize = 0;
-       
-      }
+     }
       else
       {
         debugger;
@@ -123,33 +109,4 @@ addEditFormGroup: FormGroup = this.formBuilder.group({
   
 });
 matcher = new MyErrorStateMatcher();
-
-GetPlantCode() {
-  abp.ui.setBusy();
-  this._apiservice.getPlantCode().subscribe((response) => {
-    this.plnaCodeList = response["result"];
-    abp.ui.clearBusy();
-  },
-  (error) => {
-    abp.ui.clearBusy();
-  }
-  );
-};
-
-GetItemCodes() {
-
-  this._apiservice.GetItemCodes().subscribe((modeSelectList: SelectListDto[]) => {
-      this.ItemCodes = modeSelectList["result"];
-      
-  });
-};
-
-
-
-markDirty() {
-  this._appComponent.markGroupDirty(this.addEditFormGroup);
-  return true;
-}
-
-
 }

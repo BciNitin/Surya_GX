@@ -21,7 +21,9 @@
                                                     {{plant.value}}
                                                 </mat-option>
                                             </mat-select>
-                                            
+                                            <mat-error *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                                Plant Code is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
                                     

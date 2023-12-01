@@ -652,4 +652,10 @@ GetLifeCycleReport(): Observable<any[]> {
 GetConsNonBarcodedProductDetails(): Observable<any[]> {
    return this.http.get<any[]>(this.BasUrl + 'Consoli_NonBarcodedProductsReportsApi/GetConsNonBarcodedProductDetails');
 }
+GetManufacturingMonthWiseDefective(): Observable<any[]> {
+   return this.http.get<any[]>(this.BasUrl + 'ManufacturingMonthWiseDefectiveApi/GetManufacturingMonthWiseDefective');
+}
+GetManufacturingTimeWiseDefective(): Observable<any[]> {
+   return this.http.get<any[]>(this.BasUrl + 'ManufacturingTimeWiseDefectiveApi/GetManufacturingTimeWiseDefective');
+}
 }

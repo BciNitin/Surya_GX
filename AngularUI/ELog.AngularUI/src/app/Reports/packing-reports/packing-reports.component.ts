@@ -65,7 +65,7 @@ export class PackingReportsComponent implements OnInit {
 
   ) { }
 ngOnInit() {
-    this.titleService.setTitle('Quality Report');
+    this.titleService.setTitle('Packing Report');
     this.GetPlantCode();
     this.GetItemCodes();
     this.GetLineCode();
@@ -78,6 +78,7 @@ ngOnInit() {
   }
 
   filterCountries(searchTerm: string) {
+    
     this.dataSourcePagination.filter = searchTerm.trim().toLocaleLowerCase();
     const filterValue = searchTerm;
     this.dataSourcePagination.filter = filterValue.trim().toLowerCase();
@@ -97,6 +98,7 @@ ngOnInit() {
   }
 
   private getArray() {
+    
     const data = {
       MaterialCode: this.MaterialCode,
       FromDate: this.FromDate,
@@ -115,6 +117,8 @@ ngOnInit() {
           abp.notify.error(result["result"][0]['error']);
           this.totalSize = 0;
           this.iterator();
+          this.dataSource.filteredData.length=0;
+          this.totalSize = 0;
         }
         else
         {
@@ -126,6 +130,7 @@ ngOnInit() {
   }
 
   private iterator() {
+    
     const end = (this.currentPage + 1) * this.pageSize;
     const start = this.currentPage * this.pageSize;
     this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
@@ -173,7 +178,10 @@ ngOnInit() {
   };
   markDirty() {
     this._appComponent.markGroupDirty(this.addEditFormGroup);
+    this.dataSource.filteredData=null;
+    this.totalSize = 0;
     return true;
+    
   }
   onDateChangeEvent() {
     this.validationTypes = [];
@@ -189,6 +197,7 @@ ngOnInit() {
     this.FromDate = fromdate;
     this.ToDate = todate;
     return true;
+    
 }
 
 }

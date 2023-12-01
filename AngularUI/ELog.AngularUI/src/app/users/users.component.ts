@@ -50,7 +50,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
 
 
     public array: any;
-    challanNo:any;
+    
     public pageSize = 10;
     public currentPage = 0;
     public totalSize = 0;
@@ -93,11 +93,11 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
             this.refresh();
         });
         this.paginator._intl.itemsPerPageLabel="Records per page";
-        // this.GetModes();
-        // this.GetUserDesignations();
+        this.GetModes();
+        //this.GetUserDesignations();
         // this.GetUserSortBy();
         // this.GetApprovalStatuses();
-        // this.GetPlants();
+        //this.GetPlants();
         this.filterBy = null;
         // this.GetActiveInactiveStatus();
         super.ngOnInit();
@@ -206,6 +206,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
 
     }
     GetPlants() {
+        debugger;
         this._selectListService.getPlantsOnUser().subscribe((plantSelectList: SelectListDto[]) => {
             this.plants = plantSelectList;
         });
@@ -217,6 +218,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
     }
 
     GetModes() {
+        debugger;
         this._selectListService.getModes().subscribe((modeSelectList: SelectListDto[]) => {
             this.userModes = modeSelectList;
         });
@@ -282,7 +284,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
             .subscribe((result: UsersListDtoPagedResultDto) => {
                 if(result.items.length >0)
                 {
-                    debugger;
+                    
                     
                     this.users = this.users.concat(result.items);
                     this.dataSource.filteredData =this.users;

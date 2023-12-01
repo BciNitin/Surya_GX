@@ -21,26 +21,30 @@
                                                     {{plant.value}}
                                                 </mat-option>
                                             </mat-select>
-                                            
+                                            <mat-error *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                                Plant Code is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <mat-label>Packing Order No.</mat-label>
-                                            <mat-select [(ngModel)]="PackingOrder"   name="PackingOrder"  formControlName="packingOrderFormControl">
+                                            <mat-select [(ngModel)]="PackingOrder" required  name="PackingOrder" [errorStateMatcher]="matcher"  formControlName="packingOrderFormControl">
                                                 <mat-option>Select Packing Order</mat-option>
                                                 <mat-option *ngFor="let packing of packingOrderlist" [value]="packing.id">
                                                     {{packing.value}}
                                                 </mat-option>
                                             </mat-select>
-                                            
+                                            <mat-error *ngIf="addEditFormGroup?.get('packingOrderFormControl')?.hasError('required') || addEditFormGroup?.get('packingOrderFormControl')?.hasError('whitespace')">
+                                                Packing Order No. is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <mat-label>QC Status</mat-label>
-                                            <mat-select [(ngModel)]="QCStatus" name="QCStatus"
+                                            <mat-select [(ngModel)]="QCStatus" name="QCStatus" [errorStateMatcher]="matcher"
                                             
                                                 formControlName="QCStatusFormControl">
                                                 <mat-option value="0">Select QC Status</mat-option>
@@ -48,7 +52,9 @@
                                                 <mat-option value="NG">NG</mat-option>
                                                 
                                             </mat-select>
-                                            
+                                            <mat-error *ngIf="addEditFormGroup?.get('QCStatusFormControl')?.hasError('required') || addEditFormGroup?.get('QCStatusFormControl')?.hasError('whitespace')">
+                                                QC Status is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
                                      </div>

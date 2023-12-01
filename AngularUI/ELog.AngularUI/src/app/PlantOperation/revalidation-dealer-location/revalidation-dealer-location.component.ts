@@ -161,6 +161,7 @@ export class RevalidationDealerLocationComponent implements OnInit, AfterViewIni
             const firstResult = response['result'][0];
             if (typeof firstResult === 'object' && 'error' in firstResult) {
               abp.notify.error(response['result'][0].error);
+              this.Clear();
             } else {
               this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
               this.dataSourcePagination.paginator = this.paginator;
@@ -170,6 +171,7 @@ export class RevalidationDealerLocationComponent implements OnInit, AfterViewIni
             }
           } else {
             abp.notify.error(response['result'][0].error);
+            
           }
 
         },
@@ -197,7 +199,8 @@ export class RevalidationDealerLocationComponent implements OnInit, AfterViewIni
             const firstResult = response['result'][0];
             if (typeof firstResult === 'object' && 'error' in firstResult) {
               abp.notify.error(response['result'][0].error);
-            } else {
+            } 
+            else {
               this.addEditFormGroup.controls['ItemBarCodeFormControl'].setValue(null);
               this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
               this.dataSourcePagination.paginator = this.paginator;

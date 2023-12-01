@@ -110,8 +110,10 @@ this._apiservice.GetTranferPlantToWarehouseReport(data).subscribe(result => {
       if(result["result"][0]['error'])
       {
         abp.notify.error(result["result"][0]['error']);
-        this.totalSize = 0;
+        
         this.iterator();
+        this.dataSource.filteredData.length=0;
+        this.totalSize = 0;
       }
       else
       {
@@ -170,6 +172,8 @@ GetTransferOrderNo() {
 };
 markDirty() {
   this._appComponent.markGroupDirty(this.addEditFormGroup);
+  this.dataSource.filteredData=null;
+  this.totalSize = 0;
   return true;
 }
 onDateChangeEvent() {

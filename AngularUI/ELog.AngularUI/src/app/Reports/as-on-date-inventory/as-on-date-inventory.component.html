@@ -21,7 +21,9 @@
                                                     {{plant.value}}
                                                 </mat-option>
                                             </mat-select>
-                                            
+                                            <mat-error *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                                Plant Code is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
@@ -60,11 +62,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let  picklistItem of dataSource.filteredData" >
-                                            <td class="td-center-align">{{picklistItem.plantCode}}</td>
-                                            <td class="td-center-align">{{picklistItem.materialCode}}</td>
-                                            <td class="td-center-align">{{picklistItem.materialDescription}}</td>
-                                            <td class="td-center-align">{{picklistItem.quantity}}</td>
+                                        <tr *ngFor="let  asOndate of dataSource.filteredData" >
+                                            <td class="td-center-align">{{asOndate.plantCode}}</td>
+                                            <td class="td-center-align">{{asOndate.materialCode}}</td>
+                                            <td class="td-center-align">{{asOndate.materialDescription}}</td>
+                                            <td class="td-center-align">{{asOndate.quantity}}</td>
                                            </tr>
                                         <tr *ngIf="dataSource.filteredData?.length == 0">
                                             <td colspan="8" class="no-data-available">No data to display.</td>

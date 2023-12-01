@@ -107,8 +107,10 @@ export class PackingOrderBarcodeDtlsComponent implements OnInit {
         if(result["result"][0]['error'])
         {
           abp.notify.error(result["result"][0]['error']);
-          this.totalSize = 0;
+          
           this.iterator();
+          this.dataSource.filteredData.length=0;
+          this.totalSize = 0;
         }
         else
         {
@@ -181,5 +183,11 @@ export class PackingOrderBarcodeDtlsComponent implements OnInit {
     this.FromDate = fromdate;
     this.ToDate = todate;
     return true;
+}
+markDirty() {
+  this._appComponent.markGroupDirty(this.addEditFormGroup);
+  this.dataSource.filteredData=null;
+  this.totalSize = 0;
+  return true;
 }
 }

@@ -111,8 +111,10 @@ private getArray() {
       if(result["result"][0]['error'])
       {
         abp.notify.error(result["result"][0]['error']);
-        this.totalSize = 0;
+       
         this.iterator();
+        this.dataSource.filteredData.length=0;
+        this.totalSize = 0;
       }
       else
       {

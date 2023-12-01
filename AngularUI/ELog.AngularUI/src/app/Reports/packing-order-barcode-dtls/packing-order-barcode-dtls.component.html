@@ -21,7 +21,9 @@
                                                     {{plant.value}}
                                                 </mat-option>
                                             </mat-select>
-                                            
+                                            <mat-error *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                                Plant Code is required.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
                                     
@@ -120,7 +122,7 @@
                                     </div>
                                     <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
                                         
-                                        <button class="btn btn-primary pull-right" (click)="getArray()">
+                                        <button class="btn btn-primary pull-right" (click)="markDirty() && addEditFormGroup.valid && getArray()">
                                             Search
                                         </button>
                                         
