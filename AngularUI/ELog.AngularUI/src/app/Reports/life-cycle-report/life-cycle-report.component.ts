@@ -9,6 +9,7 @@ import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-componen
 import { SelectListDto, SmartDateTime } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
 import { Title } from '@angular/platform-browser';
+import * as XLSX from 'xlsx';
 interface grid {
   MaterialCode: string;
   PlantCode: string;
@@ -24,6 +25,8 @@ interface grid {
 export class LifeCycleReportComponent implements OnInit {
   public array: any;
   challanNo:any;
+  IExcel: grid | any;
+  exportExcel: any | 0;
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
@@ -113,5 +116,28 @@ addEditFormGroup: FormGroup = this.formBuilder.group({
   
 });
 matcher = new MyErrorStateMatcher();
+
+
+
+
+
+exportexcel(): void {
+  
+  this.exportExcel = 1
+  
+      this.IExcel =this.array;
+      let Heading = [['MFG Qty', 'MFG Month', 'Scan Qty', 'Scanning Month', 'Number of Month From MFG','HO_Item_Code','Item Desc','Branch','Plant']];
+      const wb = XLSX.utils.book_new();
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.IExcel);
+      XLSX.utils.sheet_add_aoa(ws, Heading);
+      XLSX.utils.sheet_add_json(ws, this.IExcel, { origin: 'A2', skipHeader: true });
+
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+      XLSX.writeFile(wb, 'LifeCycleReport.xlsx');
+
+    }
+    
 }
+
 

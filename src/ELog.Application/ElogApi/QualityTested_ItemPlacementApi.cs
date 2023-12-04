@@ -7,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 using ELog.Application.Masters.Areas;
 using MySql.Data.MySqlClient;
 using ELog.Application.CommomUtility;
+using ELog.Core.Authorization;
 
 namespace ELog.Application.ElogApi
 {
-   public class QualityTested_ItemPlacementApi : ApplicationService, IElogApiService
+    [PMMSAuthorize]
+    public class QualityTested_ItemPlacementApi : ApplicationService, IElogApiService
     {
 
         private readonly IConfiguration _configuration;

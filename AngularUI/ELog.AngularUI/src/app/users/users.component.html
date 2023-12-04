@@ -20,17 +20,6 @@
                             <div class="row">
                                 <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                     <mat-form-field>
-                                        <mat-label>Select Plant</mat-label>
-                                        <mat-select [(ngModel)]="plantId" name="plantId">
-                                            <mat-option>Select Plant</mat-option>
-                                            <mat-option *ngFor="let plant of plants" [value]="plant.id">
-                                                {{plant.value}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <mat-form-field>
                                         <mat-label>Select Mode</mat-label>
                                         <mat-select [(ngModel)]="mode" name="mode">
                                             <mat-option>Select Mode</mat-option>
@@ -40,6 +29,20 @@
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <mat-form-field>
+                                        <mat-label>Select Status</mat-label>
+                                        <mat-select [(ngModel)]="activeStatus" name="activeStatus">
+                                            <mat-option>Select Status</mat-option>
+                                            <mat-option *ngFor="let userstatus of activeStatuses"
+                                                [value]="userstatus.id">
+                                                {{userstatus.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                </div>
+                                
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
@@ -63,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <!-- <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                     <mat-form-field>
                                         <mat-label>Select Status</mat-label>
                                         <mat-select [(ngModel)]="activeStatus" name="activeStatus">
@@ -75,7 +78,7 @@
                                         </mat-select>
                                     </mat-form-field>
 
-                                </div>
+                                </div> -->
                                 <!-- <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
 
                                     <mat-form-field>
@@ -91,7 +94,7 @@
                                 </div> -->
                             </div>
                             <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <!-- <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
 
                                     <mat-form-field>
                                         <mat-label>Select Designation</mat-label>
@@ -103,7 +106,7 @@
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row">
 

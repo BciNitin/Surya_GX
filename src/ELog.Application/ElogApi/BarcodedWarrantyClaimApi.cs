@@ -9,9 +9,11 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using ELog.Application.CommomUtility;
 using ELog.Application.SelectLists.Dto;
+using ELog.Core.Authorization;
 
 namespace ELog.Application.ElogApi
 {
+    [PMMSAuthorize]
     public class BarcodedWarrantyClaimApi : ApplicationService, IElogApiService
     {
 

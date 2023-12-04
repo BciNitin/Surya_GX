@@ -2,6 +2,7 @@
 using Castle.Facilities.TypedFactory.Internal;
 using ELog.Application.SelectLists.Dto;
 using ELog.Application.Sessions;
+using ELog.Core.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
@@ -16,7 +17,8 @@ using System.Threading.Tasks;
 
 namespace ELog.Application.ElogApi.Report
 {
-   public class TransferPlantToWarehouseApi : ApplicationService
+    [PMMSAuthorize]
+    public class TransferPlantToWarehouseApi : ApplicationService
     {
         private readonly IConfiguration _configuration;
         private string connection;

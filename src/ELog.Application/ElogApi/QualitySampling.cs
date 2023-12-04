@@ -2,6 +2,7 @@
 using ELog.Application.CommomUtility;
 using ELog.Application.SelectLists.Dto;
 using ELog.Application.Sessions;
+using ELog.Core.Authorization;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace ELog.Application.ElogApi
 {
+    [PMMSAuthorize]
     public class QualitySampling: ApplicationService
     {
         private readonly IConfiguration _configuration;

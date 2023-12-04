@@ -3,6 +3,7 @@ using Abp.Runtime.Session;
 using ELog.Application.CommomUtility;
 using ELog.Application.SelectLists.Dto;
 using ELog.Application.Sessions;
+using ELog.Core.Authorization;
 using Microsoft.Extensions.Configuration;
 using MobiVueEVO.BO.Models;
 using MySql.Data.MySqlClient;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace ELog.Application.ElogApi
 {
+    [PMMSAuthorize]
     public class SuryaGenerateSerialNo : ApplicationService
     {
         private readonly IConfiguration _configuration;

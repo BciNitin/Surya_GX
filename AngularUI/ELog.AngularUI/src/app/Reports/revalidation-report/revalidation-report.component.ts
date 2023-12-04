@@ -7,7 +7,7 @@ import { ValidationService } from '@shared/ValidationService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import { SelectListDto, SmartDateTime } from '@shared/service-proxies/service-proxies';
-import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
+import * as XLSX from 'xlsx';
 import { Title } from '@angular/platform-browser';
 interface grid {
   MaterialCode: string;
@@ -23,6 +23,8 @@ interface grid {
 })
 export class RevalidationReportComponent implements OnInit {
   MaterialCode: string;
+  IExcel: grid | any;
+  exportExcel: any | 0;
   PlantCode: string;
   packingReports:any;
   plnaCodeList:any;
@@ -148,8 +150,24 @@ GetItemCodes() {
 
 markDirty() {
   this._appComponent.markGroupDirty(this.addEditFormGroup);
+  this.dataSource.filteredData.length=0;
+    this.totalSize = 0;
   return true;
 }
 
+exportexcel(): void {
+  this.exportExcel = 1
+  
+      this.IExcel =this.array;
+      let Heading = [['Plant Code', 'Item Code', 'Item Description', 'Shipper Barcode','Part Barcode','Actually MFG Date','New MFG Date']];
+      const wb = XLSX.utils.book_new();
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.IExcel);
+      XLSX.utils.sheet_add_aoa(ws, Heading);
+      XLSX.utils.sheet_add_json(ws, this.IExcel, { origin: 'A2', skipHeader: true });
 
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+      XLSX.writeFile(wb, 'RevalidationReport.xlsx');
+
+    }
 }

@@ -6,12 +6,8 @@ import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { ValidationService } from '@shared/ValidationService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
-import { SelectListDto, SmartDateTime } from '@shared/service-proxies/service-proxies';
-import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
-import * as moment from 'moment';
-import { Moment } from 'moment';
 import { Title } from '@angular/platform-browser';
-import { DatePipe } from '@angular/common';
+import * as XLSX from 'xlsx';
 interface grid {
   FromDate: Date;
   LineCode: string;
@@ -30,7 +26,8 @@ interface grid {
   providers: [ValidationService]
 })
 export class QualityReportComponent implements OnInit {
-  
+  IExcel: grid | any;
+  exportExcel: any | 0;
   PackingOrder: string;
   PlantCode: string;
   QCStatus:string;
@@ -99,6 +96,7 @@ export class QualityReportComponent implements OnInit {
         }
         else
         {
+          debugger;
           this.array = result['result'];
           this.totalSize = this.array.length;
           this.iterator();
@@ -138,6 +136,27 @@ export class QualityReportComponent implements OnInit {
   };
   markDirty() {
     this._appComponent.markGroupDirty(this.addEditFormGroup);
+    this.dataSource.filteredData.length=0;
+    this.totalSize = 0;
     return true;
   }
-}
+
+
+  exportexcel(): void {
+    this.exportExcel = 1
+    this.IExcel =this.array;
+        let Heading = [['Plant Code','Line Code','Packing Order No.', 'Item', 'Shipper Barcode', 'Item Barcode']];
+        const wb = XLSX.utils.book_new();
+        const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.IExcel);
+        XLSX.utils.sheet_add_aoa(ws, Heading);
+        XLSX.utils.sheet_add_json(ws, this.IExcel, { origin: 'A2', skipHeader: true });
+  
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+        XLSX.writeFile(wb, 'QualityReport.xlsx');
+  
+      }
+      
+  
+  }
+

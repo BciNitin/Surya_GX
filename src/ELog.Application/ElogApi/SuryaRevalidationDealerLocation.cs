@@ -9,13 +9,12 @@ using ELog.Application.SelectLists.Dto;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MobiVueEVO.BO.Models;
-using Ionic.Zlib;
-using Microsoft.AspNetCore.Mvc;
-using Abp.Runtime.Session;
 using System.Linq;
+using ELog.Core.Authorization;
 
 namespace ELog.Application.ElogApi
 {
+    [PMMSAuthorize]
     public class SuryaRevalidationDealerLocation : ApplicationService
     {
         private readonly IConfiguration _configuration;

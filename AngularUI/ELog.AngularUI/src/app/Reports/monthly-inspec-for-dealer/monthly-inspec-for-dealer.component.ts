@@ -1,14 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { ValidationService } from '@shared/ValidationService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
-import { SelectListDto, SmartDateTime } from '@shared/service-proxies/service-proxies';
-import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
 import { Title } from '@angular/platform-browser';
+import * as XLSX from 'xlsx';
 interface grid {
   MaterialCode: string;
   PlantCode: string;
@@ -23,6 +21,8 @@ interface grid {
 })
 export class MonthlyInspecForDealerComponent implements OnInit {
   public array: any;
+  IExcel: grid | any;
+  exportExcel: any | 0;
   challanNo:any;
   public pageSize = 10;
   public currentPage = 0;
@@ -113,4 +113,21 @@ addEditFormGroup: FormGroup = this.formBuilder.group({
   
 });
 matcher = new MyErrorStateMatcher();
+
+
+exportexcel(): void {
+  this.exportExcel = 1
+  
+      this.IExcel =this.array;
+      let Heading = [['Month', 'Items Passed', 'No of Dealers Inspected', 'Branch','Zone Description']];
+      const wb = XLSX.utils.book_new();
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.IExcel);
+      XLSX.utils.sheet_add_aoa(ws, Heading);
+      XLSX.utils.sheet_add_json(ws, this.IExcel, { origin: 'A2', skipHeader: true });
+
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+      XLSX.writeFile(wb, 'MonthlyInspectionForDealer.xlsx');
+
+    }
 }

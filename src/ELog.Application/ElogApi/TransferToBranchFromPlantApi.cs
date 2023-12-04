@@ -9,10 +9,12 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using ELog.Application.CommomUtility;
 using ELog.Application.SelectLists.Dto;
+using ELog.Core.Authorization;
 
 namespace ELog.Application.ElogApi
 {
-   public class TransferToBranchFromPlantApi : ApplicationService, IElogApiService
+    [PMMSAuthorize]
+    public class TransferToBranchFromPlantApi : ApplicationService, IElogApiService
     {
 
         private readonly IConfiguration _configuration;

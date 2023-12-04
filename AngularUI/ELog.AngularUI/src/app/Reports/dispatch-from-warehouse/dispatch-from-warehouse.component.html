@@ -31,17 +31,21 @@
                                         <mat-form-field>
                                             <mat-label>From Date</mat-label>
                                             <input matInput [matDatepicker]="picker2" 
+                                            [errorStateMatcher]="matcher"
                                                     formControlName="FromDateFormControl" 
                                                     (dateChange)="onDateChangeEvent()"
                                                    [(ngModel)]="FromDate" 
                                                    (focus)="showInstallationError=false">
                                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
-                                            <mat-error *ngIf="addEditFormGroup?.get('FromDateFormControl')?.hasError('matDatepickerParse')" style="margin: 17px 0;">
+                                            <mat-error *ngIf="addEditFormGroup?.get('FromDateFormControl')?.hasError('matDatepickerParse')">
                                                 From Date  is not valid.
                                             </mat-error>
+                                            <mat-error *ngIf="addEditFormGroup?.get('FromDateFormControl')?.hasError('required')" >
+                                                From Date  is required.
+                                            </mat-error>
                                         </mat-form-field>
-                                        <div *ngFor="let validationType of validationTypes" style="margin: 17px 0;">
+                                        <div *ngFor="let validationType of validationTypes">
                                             <div class="mat-error date-value-error1"
                                                  *ngIf="validationType=='frommustbeless'">
                                                 From Date must be less than To date.
@@ -60,9 +64,11 @@
                                                    (focus)="showExpirationError=false">
                                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                             <mat-datepicker #picker1></mat-datepicker>
-                                            
+                                            <mat-error *ngIf="addEditFormGroup?.get('ToDateFormControl')?.hasError('required')">
+                                                To Date  is required.
+                                            </mat-error>
                                         </mat-form-field>
-                                       </div>
+                                        </div>
                                 </div>
                                 <div class="row fieldes">
                                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
@@ -95,6 +101,8 @@
                                 <div class="row fieldes">
                                     
                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                        <button (click)="exportexcel()"  class="btn btn-primary pull-right" download >Download Report</button>
+                                        
                                         <button class="btn btn-primary pull-right" (click)="markDirty() && addEditFormGroup.valid && getArray()">
                                             Search
                                         </button>
@@ -106,7 +114,6 @@
                                 <table  class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
-                                            
                                             <th class="th-center-align">{{ "Plant Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Distibution Center" | localize }}</th>
                                             <th class="th-center-align">{{ "Delivery Challan No." | localize }}</th>
@@ -117,12 +124,11 @@
                                     <tbody>
                                         <tr *ngFor="let  picklistItem of dataSource.filteredData" >
                                             <td class="td-center-align">{{picklistItem.plantBranchCode}}</td>
-                                           <td class="td-center-align">{{picklistItem.lineNo}}</td>
+                                           <td class="td-center-align">{{picklistItem.distibutionCenter}}</td>
                                             <td class="td-center-align">{{picklistItem.deliveryChallanNo}}</td>
                                             <td class="td-center-align">{{picklistItem.quantity}}</td>
                                             <td class="td-center-align">{{picklistItem.dispatchQty}}</td>
-                                            
-                                        </tr>
+                                         </tr>
                                         <tr *ngIf="dataSource.filteredData?.length == 0">
                                             <td colspan="8" class="no-data-available">No data to display.</td>
                                         </tr>

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
@@ -10,6 +10,7 @@ import { SelectListDto, SmartDateTime } from '@shared/service-proxies/service-pr
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
 import { Title } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
+import * as XLSX from 'xlsx';
 
 interface grid {
     FromDate: Date;
@@ -29,17 +30,20 @@ interface grid {
 })
 export class PackingReportsComponent implements OnInit {
   MaterialCode: string;
-    FromDate: Date;
-    LineCode: string;
-    PackingOrder: string;
-    PlantCode: string;
-    ToDate: Date;
-    packingReports:any;
+  dateform:FormGroup;
+  FromDate: Date;
+  LineCode: string;
+  PackingOrder: string;
+  PlantCode: string;
+  ToDate: Date;
+  IExcel: grid | any;
+  exportExcel: any | 0;
+  packingReports:any;
   plnaCodeList:any;
   ItemCodes:any;
   lineList:any;
   public array: any;
- 
+  form:any;
    packingOrderlist:any;
    public pageSize = 10;
    public currentPage = 0;
@@ -73,6 +77,10 @@ ngOnInit() {
     this.paginator._intl.itemsPerPageLabel="Records per page";
     //this.getArray();
   }
+  
+
+
+  
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
   }
@@ -115,7 +123,7 @@ ngOnInit() {
         if(result["result"][0]['error'])
         {
           abp.notify.error(result["result"][0]['error']);
-          this.totalSize = 0;
+          
           this.iterator();
           this.dataSource.filteredData.length=0;
           this.totalSize = 0;
@@ -135,13 +143,17 @@ ngOnInit() {
     const start = this.currentPage * this.pageSize;
     this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
   }
+ 
+  
   addEditFormGroup: FormGroup = this.formBuilder.group({
     plantCodeFormCControl: [null, [Validators.required, NoWhitespaceValidator]],
     packingOrderFormControl: [''],
     ItemCodeFormCControl: [''],
     LineCodeFormControl:[''],
-    FromDateFormControl:[null],
-    ToDateFormControl: [null]
+    FromDateFormControl: [null, [Validators.required, NoWhitespaceValidator]],
+    ToDateFormControl: [null, [Validators.required, NoWhitespaceValidator]],
+    // FromDateFormControl:[null],
+    // ToDateFormControl: [null]
     //ToDateFormControl: [null, [this.dateSelectedValidator, Validators.required, NoWhitespaceValidator]]
   });
   matcher = new MyErrorStateMatcher();
@@ -178,8 +190,13 @@ ngOnInit() {
   };
   markDirty() {
     this._appComponent.markGroupDirty(this.addEditFormGroup);
-    this.dataSource.filteredData=null;
+    
+    this.dataSource.filteredData.length=0;
     this.totalSize = 0;
+    if(this.showExpirationError==true)
+    {
+      return false;
+    }
     return true;
     
   }
@@ -199,5 +216,43 @@ ngOnInit() {
     return true;
     
 }
+exportexcel(): void {
+  debugger;
+  this.pageSize = 100000;
+  this.exportExcel = 1
+  debugger;
+  const data = {
+    MaterialCode: this.MaterialCode,
+    FromDate: this.FromDate,
+    ToDate: this.ToDate,
+    LineCode: this.LineCode,
+    PackingOrder: this.PackingOrder,
+    PlantCode: this.PlantCode
+  };
+  this._apiservice.GetPackingReport(data).subscribe({
+    next: data => {
+      debugger;
+      if (data == null) {
+        abp.notify.error('No data present.');
+        
+        return;
+      }
+      this.IExcel =this.dataSource.filteredData;
+      let Heading = [['Plant Code','Line Code','Packing Order No.', 'Item', 'Total Qty.', 'Packed Qty.']];
+      const wb = XLSX.utils.book_new();
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.IExcel);
+      XLSX.utils.sheet_add_aoa(ws, Heading);
+      XLSX.utils.sheet_add_json(ws, this.IExcel, { origin: 'A2', skipHeader: true });
 
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+      XLSX.writeFile(wb, 'PackingReport.xlsx');
+
+    },
+    error: error => {
+      console.error('There was an error!', error);
+    }
+  });
+
+}
 }

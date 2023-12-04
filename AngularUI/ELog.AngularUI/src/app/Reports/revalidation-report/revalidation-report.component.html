@@ -40,6 +40,8 @@
                                            </mat-form-field>
                                     </div>
                                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                        <button (click)="exportexcel()"  class="btn btn-primary pull-right" download >Download Report</button>
+                                        
                                         <button class="btn btn-primary pull-right" (click)="markDirty() && addEditFormGroup.valid && getArray()">
                                             Search
                                         </button>

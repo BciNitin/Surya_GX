@@ -2,6 +2,7 @@
 using Castle.Facilities.TypedFactory.Internal;
 using ELog.Application.SelectLists.Dto;
 using ELog.Application.Sessions;
+using ELog.Core.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
@@ -17,6 +18,7 @@ using System.Threading.Tasks;
 
 namespace ELog.Application.ElogApi.Report
 {
+    [PMMSAuthorize]
     public class QualityReportsApi : ApplicationService
     {
         private readonly IConfiguration _configuration;

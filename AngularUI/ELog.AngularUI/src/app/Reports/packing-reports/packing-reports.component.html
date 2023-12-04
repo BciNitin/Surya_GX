@@ -30,15 +30,16 @@
                                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <mat-label>From Date</mat-label>
-                                            <input matInput [matDatepicker]="picker2" 
+                                            <input matInput required [matDatepicker]="picker2" 
                                                     formControlName="FromDateFormControl" 
+                                                    [errorStateMatcher]="matcher"
                                                     (dateChange)="onDateChangeEvent()"
                                                    [(ngModel)]="FromDate" 
                                                    (focus)="showInstallationError=false">
                                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
-                                            <mat-error *ngIf="addEditFormGroup?.get('FromDateFormControl')?.hasError('matDatepickerParse')" style="margin: 17px 0;">
-                                                From Date  is not valid.
+                                            <mat-error *ngIf="addEditFormGroup?.get('FromDateFormControl')?.hasError('required')">
+                                                From Date  is required.
                                             </mat-error>
                                         </mat-form-field>
                                         <div *ngFor="let validationType of validationTypes" style="margin: 17px 0;">
@@ -51,7 +52,7 @@
                                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <mat-label>To Date</mat-label>
-                                            <input matInput [matDatepicker]="picker1" 
+                                            <input matInput required [matDatepicker]="picker1" 
                                                    [errorStateMatcher]="matcher" formControlName="ToDateFormControl"
 
                                                    (dateChange)="onDateChangeEvent()"
@@ -59,6 +60,9 @@
                                                    (focus)="showExpirationError=false">
                                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                             <mat-datepicker #picker1></mat-datepicker>
+                                            <mat-error *ngIf="addEditFormGroup?.get('ToDateFormControl')?.hasError('required')">
+                                                To Date  is required.
+                                            </mat-error>
                                          </mat-form-field>
                                       </div>
                                 </div>
@@ -106,12 +110,15 @@
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-12 col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                        <button (click)="exportexcel()"  class="btn btn-primary pull-right" download >Download Report</button>
                                         
                                         <button class="btn btn-primary pull-right" (click)="markDirty() && addEditFormGroup.valid && getArray()">
                                             Search
                                         </button>
                                         
+                                        
                                     </div>
+                                    
                                 </div>
                             </form>
                             <br>

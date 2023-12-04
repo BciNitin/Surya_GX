@@ -1,17 +1,14 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { ValidationService } from '@shared/ValidationService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import { SelectListDto, SmartDateTime } from '@shared/service-proxies/service-proxies';
-import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
-import * as moment from 'moment';
-import { Moment } from 'moment';
 import { Title } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
+import * as XLSX from 'xlsx';
 interface grid {
   FromDate: Date;
   LineCode: string;
@@ -33,6 +30,8 @@ export class PackingOrderBarcodeDtlsComponent implements OnInit {
   FromDate: Date;
   LineCode: string;
   PackingOrder: string;
+  IExcel: grid | any;
+  exportExcel: any | 0;
   ShiperBarcode:string;
   PlantCode: string;
   ToDate: Date;
@@ -42,7 +41,7 @@ export class PackingOrderBarcodeDtlsComponent implements OnInit {
   lineList:any;
   public array: any;
   packingOrderlist:any;
-  public pageSize = 10;
+  public pageSize=10;
   public currentPage = 0;
   public totalSize = 0;
   validationTypes: string[] | null;
@@ -131,8 +130,8 @@ export class PackingOrderBarcodeDtlsComponent implements OnInit {
     packingOrderFormControl: [''],
     ItemCodeFormCControl: [''],
     LineCodeFormControl:[''],
-    FromDateFormControl:[null],
-    ToDateFormControl: [null],
+    FromDateFormControl: [null, [Validators.required, NoWhitespaceValidator]],
+    ToDateFormControl: [null, [Validators.required, NoWhitespaceValidator]],
     ShiperBarcodeFormControl:['']
 
   });
@@ -186,8 +185,32 @@ export class PackingOrderBarcodeDtlsComponent implements OnInit {
 }
 markDirty() {
   this._appComponent.markGroupDirty(this.addEditFormGroup);
-  this.dataSource.filteredData=null;
-  this.totalSize = 0;
+  this.dataSource.filteredData.length=0;
+    this.totalSize = 0;
+    if(this.showExpirationError==true)
+    {
+      return false;
+    }
   return true;
 }
+
+
+exportexcel(): void {
+  this.pageSize = 100000;
+  this.exportExcel = 1
+  
+      this.IExcel =this.array;;
+      let Heading = [['Plant Code','Line Code','Packing Order No.', 'Item', 'Shipper Barcode', 'Item Barcode']];
+      const wb = XLSX.utils.book_new();
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.IExcel);
+      XLSX.utils.sheet_add_aoa(ws, Heading);
+      XLSX.utils.sheet_add_json(ws, this.IExcel, { origin: 'A2', skipHeader: true });
+
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+      XLSX.writeFile(wb, 'PackingOrderBarcode.xlsx');
+
+    }
+    
 }
+

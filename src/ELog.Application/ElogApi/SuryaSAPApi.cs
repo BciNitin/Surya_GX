@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using ELog.Application.CommomUtility;
 using ELog.Application.Sessions;
+using ELog.Core.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MobiVueEVO.BO.Models;
@@ -14,6 +15,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ELog.Application.ElogApi
 {
+    [PMMSAuthorize]
     public class SuryaSAPApi : ApplicationService, ISuryaSAPApi
     {
         private readonly IConfiguration _configuration;

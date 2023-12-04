@@ -41,6 +41,10 @@ export class CustomerComponent implements OnInit  {
     public pageSize = 10;
     public currentPage = 0;
     public totalSize = 0;
+
+
+  inventoryExcel: CustomerMaster | any;
+  exportExcel: any | 0;
   
     public dataSource: MatTableDataSource<any> = new MatTableDataSource<CustomerMaster>();
     public dataSourcePagination: MatTableDataSource<any> = new MatTableDataSource<CustomerMaster>();
@@ -98,20 +102,25 @@ export class CustomerComponent implements OnInit  {
       this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);
     }
     
-   
-
-    exportoexcel(): void {
-    let element = document.getElementById('excel-table');
-   
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
+    exportexcel(): void {
+      this.exportExcel = 1
+      
+          this.inventoryExcel =this.array;
+          let Heading = [['Customer Code', 'Name', 'Address', 'City', 'District']];
+          const wb = XLSX.utils.book_new();
+          const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.inventoryExcel);
+          XLSX.utils.sheet_add_aoa(ws, Heading);
+          XLSX.utils.sheet_add_json(ws, this.inventoryExcel, { origin: 'A2', skipHeader: true });
+  
+          XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+          XLSX.writeFile(wb, 'Customer.xlsx');
+  
+        }
+  
     
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    XLSX.writeFile(wb, 'Customer.xlsx');
 
-}
 printPDF(): void {
   let printContents, popupWin;
   printContents = document.getElementById('excel-table').innerHTML;

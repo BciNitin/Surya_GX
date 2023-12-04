@@ -7,8 +7,8 @@ import { ValidationService } from '@shared/ValidationService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import { SelectListDto, SmartDateTime } from '@shared/service-proxies/service-proxies';
-import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
 import { Title } from '@angular/platform-browser';
+import * as XLSX from 'xlsx';
 interface grid {
   MaterialCode: string;
   PlantCode: string;
@@ -21,7 +21,8 @@ interface grid {
   providers: [ValidationService]
 })
 export class BranchLocationFromDealerComponent implements OnInit {
-
+  IExcel: grid | any;
+  exportExcel: any | 0;
   MaterialCode: string;
   PlantCode: string;
   packingReports:any;
@@ -144,13 +145,27 @@ GetItemCodes() {
   });
 };
 
-
-
 markDirty() {
   this._appComponent.markGroupDirty(this.addEditFormGroup);
+  this.dataSource.filteredData.length=0;
+    this.totalSize = 0;
   return true;
 }
+exportexcel(): void {
+  this.exportExcel = 1
+  
+      this.IExcel =this.array;
+      let Heading = [['Retailer', 'Distribution Center', 'Item', 'Part Barcode','Return Date']];
+      const wb = XLSX.utils.book_new();
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.IExcel);
+      XLSX.utils.sheet_add_aoa(ws, Heading);
+      XLSX.utils.sheet_add_json(ws, this.IExcel, { origin: 'A2', skipHeader: true });
 
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+      XLSX.writeFile(wb, 'BranchLocationFromDealer.xlsx');
+
+    }
 
 }
 

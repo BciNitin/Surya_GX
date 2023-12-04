@@ -1,5 +1,6 @@
 ﻿using Abp.Application.Services;
 using ELog.Application.Sessions;
+using ELog.Core.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MobiVueEVO.BO.Models;
@@ -10,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace ELog.Application.ElogApi.Report
 {
-   public  class DealerWiseFailureDetailsApi : ApplicationService
+    [PMMSAuthorize]
+    public  class DealerWiseFailureDetailsApi : ApplicationService
     {
         private readonly IConfiguration _configuration;
         private string connection;

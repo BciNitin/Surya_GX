@@ -2,6 +2,7 @@
 using Abp.Runtime.Session;
 using ELog.Application.SelectLists.Dto;
 using ELog.Application.Sessions;
+using ELog.Core.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MobiVueEVO.BO.Models;
@@ -16,6 +17,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ELog.Application.ElogApi
 {
+    [PMMSAuthorize]
     public class SuryaQualityConfirmation: ApplicationService
     {
         private readonly IConfiguration _configuration;

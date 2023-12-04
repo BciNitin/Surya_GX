@@ -12,9 +12,11 @@ using ELog.Application.SelectLists.Dto;
 using Microsoft.PowerBI.Api.Models;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using ELog.Core.Authorization;
 
 namespace ELog.Application.ElogApi
 {
+    [PMMSAuthorize]
     public class ManualPackingApi : ApplicationService, IElogApiService
     {
 

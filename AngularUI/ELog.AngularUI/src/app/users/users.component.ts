@@ -95,11 +95,11 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
         this.paginator._intl.itemsPerPageLabel="Records per page";
         this.GetModes();
         //this.GetUserDesignations();
-        // this.GetUserSortBy();
+        this.GetUserSortBy();
         // this.GetApprovalStatuses();
         //this.GetPlants();
         this.filterBy = null;
-        // this.GetActiveInactiveStatus();
+        this.GetActiveInactiveStatus();
         super.ngOnInit();
     }
 
@@ -135,6 +135,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
         }
     }
     CreateFilterString() {
+        
         this.filterBy = '';
         let order = '';
         if(!this.sortByOrder){
@@ -212,6 +213,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
         });
     }
     GetActiveInactiveStatus() {
+        debugger;
         this._selectListService.getStatus().subscribe((activeSelectList: SelectListDto[]) => {
             this.activeStatuses = activeSelectList;
         });
@@ -225,6 +227,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
     }
 
     GetUserDesignations() {
+        debugger;
         this._selectListService.getDesignation().subscribe((designationSelectList: SelectListDto[]) => {
             this.userDesignations = designationSelectList;
         });
@@ -255,7 +258,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
     }
    
     addUser() {
-        debugger;
+        
         this._router.navigate(['../add-user'], { relativeTo: this._route });
     }
 
@@ -282,10 +285,9 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
                 })
             )
             .subscribe((result: UsersListDtoPagedResultDto) => {
+                debugger;
                 if(result.items.length >0)
                 {
-                    
-                    
                     this.users = this.users.concat(result.items);
                     this.dataSource.filteredData =this.users;
                     this.array = this.users;
@@ -295,6 +297,12 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
                     this.iterator();
                     this.showPaging(result, pageNumber);
                     
+                }
+                else 
+                {
+                    this.dataSource.filteredData.length=0;
+                    this.totalSize=0;
+                    abp.notify.error('No records founds!');
                 }
                 
             });
