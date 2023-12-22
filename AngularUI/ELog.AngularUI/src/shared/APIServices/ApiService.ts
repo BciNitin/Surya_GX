@@ -8,13 +8,14 @@ import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { Observable } from 'rxjs';
 
 @Injectable({
+   
    providedIn: 'root'
 })
 
 export class ApiServiceService {
    //BasUrl = 'http://180.151.246.51:8089/api/services/app/';
    BasUrl = 'http://localhost:21021/api/services/app/';
-   apiUrlGetMaterialMaster = 'ElogSuryaApiService/GetMaterialMaster';
+   apiUrlGetMaterialMaster ='ElogSuryaApiService/GetMaterialMaster';
 
    //content_ = JSON.stringify(body);
 
@@ -111,7 +112,9 @@ export class ApiServiceService {
    getPackingOrderNoForSerialNumber(plancode: string,linecode:string): Observable<any[]> {
       return this.http.get<any[]>(this.BasUrl + `SuryaGenerateSerialNo/GetPackingOrderNo?plantCode=${plancode}&linecode=${linecode}`);
    }
-
+   getLineCodeasPerPlant(plancode: string): Observable<any[]> {
+      return this.http.get<any[]>(this.BasUrl + `SuryaGenerateSerialNo/GetLineAsPerPlant?plantCode=${plancode}`);
+   }
    
 
    SaveSerialBarcodeGen(input: GenerateSerialNumber) {

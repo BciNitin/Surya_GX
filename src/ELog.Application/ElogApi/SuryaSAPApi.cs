@@ -195,7 +195,7 @@ namespace ELog.Application.ElogApi
                 foreach (SAPMaster.STORAGELOCATION objcls in _objstoragelocationmaster)
                 {
                     String Query = String.Empty;
-                    Query = "SELECT * FROM mstrloc where Code='" + objcls.Code + "';";
+                    Query = "SELECT * FROM mstrloc where StrLocCode='" + objcls.StrLocCode + "';";
                     MySqlCommand MyCommand2 = new MySqlCommand(Query, conn);
                     MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
                     conn.Open();
@@ -212,7 +212,7 @@ namespace ELog.Application.ElogApi
                     }
                     else
                     {
-                        insertquery = "UPDATE mworkcenterorline SET StrLocCode='" + objcls.StrLocCode + "',Description='" + objcls.Description + "',CreatedBy='SAPAPI',Createdon=NOW() WHERE StrLocCode='" + objcls.Code + "';";
+                        insertquery = "UPDATE mstrloc SET StrLocCode='" + objcls.StrLocCode + "',Description='" + objcls.Description + "',CreatedBy='SAPAPI',Createdon=NOW() WHERE StrLocCode='" + objcls.StrLocCode + "';";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();
@@ -348,6 +348,60 @@ namespace ELog.Application.ElogApi
 
         }
 
+
+        public object MATERIALMASTER([FromBody] SAPMaster.MATERIALMASTER[] _objmaterialmaster)
+        {
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+            string sReturn = string.Empty;
+            try
+            {
+                foreach (SAPMaster.MATERIALMASTER objclsProductionorder in _objmaterialmaster)
+                {
+                    String Query = String.Empty;
+                    Query = "SELECT * FROM mmaterial where MaterialCode='" + objclsProductionorder.MaterialCode + "';";
+                    MySqlCommand MyCommand2 = new MySqlCommand(Query, conn);
+                    MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                    conn.Open();
+                    MyAdapter.SelectCommand = MyCommand2;
+                    DataTable dt = new DataTable();
+                    MyAdapter.Fill(dt);
+                    string insertquery = string.Empty;
+                    if (dt.Rows.Count == 0)
+                    {
+                        insertquery = "insert into mmaterial(MaterialCode, MaterialDescription, PackSize, UOM, UnitWeight, SelfLife,Active,CreatedOn,CreatedBy) values('" + objclsProductionorder.MaterialCode + "','" + objclsProductionorder.MaterialDescription + "','" + objclsProductionorder.PackSize + "','" + objclsProductionorder.UOM + "','" + objclsProductionorder.UnitWeight + "','" + objclsProductionorder.SelfLife + "','" + objclsProductionorder.Active + "',now(),'SAPAPI');";
+                        MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
+                        MySqlDataReader MyReader2;
+                        MyReader2 = MyCommandINSERT.ExecuteReader();
+                    }
+                    else
+                    {
+                        insertquery = "UPDATE mmaterial SET MaterialDescription='" + objclsProductionorder.MaterialDescription + "',PackSize='" + objclsProductionorder.PackSize + "',UOM='" + objclsProductionorder.UOM + "',UnitWeight='" + objclsProductionorder.UnitWeight + "',SelfLife='" + objclsProductionorder.SelfLife + "',CreatedBy='SAPAPI',CreatedOn=NOW() WHERE MaterialCode='" + objclsProductionorder.MaterialCode + "';";
+                        MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
+                        MySqlDataReader MyReader2;
+                        MyReader2 = MyCommandINSERT.ExecuteReader();
+
+                    }
+                    conn.Close();
+                    sReturn = "Data Save Successfully.";
+                }
+
+            }
+            catch (Exception e)
+            {
+                sReturn = e.Message;
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return sReturn;
+
+        }
         //------------------------------Transaction Master End()--------------------
 
 

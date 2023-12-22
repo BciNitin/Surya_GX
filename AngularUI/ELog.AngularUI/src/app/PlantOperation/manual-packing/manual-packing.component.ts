@@ -46,6 +46,7 @@ export class ManualPackingComponent implements OnInit {
   linecode:string="";
   packingOrder: string="";
   ScanItem: string="";
+  lineOrderList:any;
   lineList:any;
   ipAddress:string; 
   messageSplit: string[];
@@ -97,6 +98,7 @@ if(value != '' && value != undefined)
   
 });
 }
+this.packingOrderList=null;
 }
 GrtTableGrid()
 {
@@ -106,10 +108,11 @@ GrtTableGrid()
   _Storage.packingorder=this.packingOrder;
   _Storage.linecode=this.linecode;
   this._apiservice.GetManualPackingDtls(this.plantCode,this.packingOrder,this.linecode).subscribe((response) => {
-   
+   debugger;
     this.manualPackingdtls = response["result"];
     this.materialCode=response["result"][0]['materialCode'];
     this.packSize=response["result"][0]['packSize'];
+    this.count=response["result"][0]['count'];
 })
 }
 GetLineCode() {
@@ -140,7 +143,10 @@ Save() {
      this.tCount = this.messageSplit[2];
      abp.notify.success(this.messageSplit[0]+' '+ this.messageSplit[3]);
      this.BinBarCode=null;
-
+if(this.packSize==this.count)
+{
+  this.Clear();
+}
    }
    else {
      abp.notify.error(result["result"][0]['error']);
@@ -150,7 +156,31 @@ Save() {
  });
 
 }
-
+onChangePlantCode() {
+  debugger;
+  if (this.plantCode !== '') {
+    abp.ui.setBusy();
+    this._apiservice.getLineCodeasPerPlant(this.plantCode).subscribe(
+      (response) => {
+        debugger;
+        
+          this.lineOrderList = response["result"];
+          
+          abp.ui.clearBusy();
+       
+        
+      },
+      (error) => {
+        // Handle the error here
+        console.error('An error occurred:', error);
+        // Optionally, display an error message to the user
+        // You can use a notification service or display the error in the UI
+        abp.notify.error('An error occurred while fetching data.');
+        abp.ui.clearBusy();
+      }
+    );
+  }
+}
 Clear() {
         
   this.addEditFormGroup.reset();

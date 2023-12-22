@@ -1,13 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { ValidationService } from '@shared/ValidationService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
-import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
 import { Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
 interface PackingOrderConfirmation {
   packingOrderNo: string,
@@ -32,11 +31,9 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
   searchTerm = '';
   p: Number = 1;
   public array: any;
-
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
-
   plnaCodeList: any;
   packingOrderList: any;
   packingOrderNo: any;
@@ -47,6 +44,9 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
 
+
+
+  
   constructor(
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
@@ -56,8 +56,15 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Packing Order Confirmation');
+    this.titleService.setTitle('Packing Order Process');
     this.GetPlantCode();
+
+
+  }
+  private _filterPlants(value: string): any[] {
+    const filterValue = value.toLowerCase();
+
+    return this.plnaCodeList.filter(plant => plant.value.toLowerCase().includes(filterValue));
   }
 
   ngAfterViewInit(): void {
@@ -160,7 +167,7 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
         this.GetPlantCode();
         abp.ui.clearBusy();
         this.dataSource.filteredData = null;
-        this.Clear();
+        // this.Clear();
       }
       else {
         abp.notify.error(result["result"][0]['error']);

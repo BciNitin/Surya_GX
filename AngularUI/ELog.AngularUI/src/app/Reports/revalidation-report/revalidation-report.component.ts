@@ -98,8 +98,7 @@ private getArray() {
         this.iterator();
         this.dataSource.filteredData.length=0;
         this.totalSize = 0;
-       
-      }
+       }
       else
       {
         debugger;

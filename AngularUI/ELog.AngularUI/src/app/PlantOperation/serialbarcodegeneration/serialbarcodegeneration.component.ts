@@ -74,6 +74,7 @@ export class SerialbarcodegenerationComponent implements OnInit {
   supplierCode: string;
   
   plnaCodeList: any;
+  lineOrderList:any;
   lineList: any;
   packingOrderList: any;
   picklistItems:[];
@@ -149,7 +150,7 @@ export class SerialbarcodegenerationComponent implements OnInit {
     //registration: [null, [Validators.required, NoWhitespaceValidator]],
     LineCodeFormControl: [null, [Validators.required, NoWhitespaceValidator]],
     plantCodeFormCControl: [null, [Validators.required, NoWhitespaceValidator]],
-    packingOrderFormControl: ['',[Validators.required,NoWhitespaceValidator]],
+    packingOrderFormControl: [null,[Validators.required,NoWhitespaceValidator]],
     supplierCodeFormControl:[null,[Validators.required,NoWhitespaceValidator]],
     driverCodeFormControl:[null,[Validators.required,NoWhitespaceValidator]],
    printingQty:[null,[Validators.required,NoWhitespaceValidator]]
@@ -180,7 +181,8 @@ validateForm(event: any) {
   }
 }
   onChangeLineCode() {
-    if (this.plantCode !== '' && this.lineCode !== '') {
+    debugger;
+    if (typeof this.plantCode !== 'undefined' && typeof this.lineCode !== 'undefined') {
       abp.ui.setBusy();
       this._apiservice.getPackingOrderNoForSerialNumber(this.plantCode, this.lineCode).subscribe(
         (response) => {
@@ -202,8 +204,34 @@ validateForm(event: any) {
         }
       );
     }
+    this.packingOrderList=null;
+    this.picklistItems=null;
   }
-
+  onChangePlantCode() {
+    debugger;
+    if (this.plantCode !== '') {
+      abp.ui.setBusy();
+      this._apiservice.getLineCodeasPerPlant(this.plantCode).subscribe(
+        (response) => {
+          debugger;
+          
+            this.lineOrderList = response["result"];
+            this.updateUIselectedOrderType = this.packingOrder;
+            abp.ui.clearBusy();
+         
+          
+        },
+        (error) => {
+          // Handle the error here
+          console.error('An error occurred:', error);
+          // Optionally, display an error message to the user
+          // You can use a notification service or display the error in the UI
+          abp.notify.error('An error occurred while fetching data.');
+          abp.ui.clearBusy();
+        }
+      );
+    }
+  }
   GrtTableGrid(value) {
     if (value != '') {
       abp.ui.setBusy();
@@ -263,6 +291,7 @@ Save() {
           if (result["result"][0].valid) {
             abp.notify.success(result["result"][0].valid);
             this.GrtTableGrid(this.packingOrder);
+            this.printingQty=0;
             abp.ui.clearBusy();
             this.isSelected = false;
           }
