@@ -17,6 +17,7 @@
                                             <mat-label>Plant Code</mat-label>
                                             <mat-select [(ngModel)]="plantCode" name="plantId" [errorStateMatcher]="matcher"
                                                 [errorStateMatcher]="matcher"
+                                                (ngModelChange)="onChangePlantCode()"
                                                 formControlName="plantCodeFormCControl">
                                                 <mat-option>Select Plant</mat-option>
                                                 <mat-option *ngFor="let plant of plnatCodeList" [value]="plant.id">
@@ -36,7 +37,7 @@
                                             (ngModelChange)="onChangeLineCode($event)"
                                                 [errorStateMatcher]="matcher" formControlName="LineCodeFormControl">
                                                 <mat-option>Select Line/ Work Center Code</mat-option>
-                                                <mat-option *ngFor="let line of lineList" [value]="line.id">
+                                                <mat-option *ngFor="let line of lineOrderList" [value]="line.id">
                                                     {{line.value}}
                                                 </mat-option>
                                             </mat-select>

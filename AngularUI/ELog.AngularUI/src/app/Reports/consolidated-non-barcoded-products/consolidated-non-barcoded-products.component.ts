@@ -6,6 +6,7 @@ import { ValidationService } from '@shared/ValidationService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import * as XLSX from 'xlsx';
+
 import { Title } from '@angular/platform-browser';
 interface grid {
   MaterialCode: string;
@@ -118,7 +119,7 @@ exportexcel(): void {
   this.exportExcel = 1
   
       this.IExcel =this.array;
-      let Heading = [['Retailer', 'Distribution Center', 'Item', 'Part Barcode','Return Date']];
+      let Heading = [['Srno', 'Branch', 'Product Desc', 'Offered Qty','Approved Qty','No of Party Inspected']];
       const wb = XLSX.utils.book_new();
       const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.IExcel);
       XLSX.utils.sheet_add_aoa(ws, Heading);
@@ -126,8 +127,12 @@ exportexcel(): void {
 
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-      XLSX.writeFile(wb, 'BranchLocationFromDealer.xlsx');
+      XLSX.writeFile(wb, 'ConsolidatedNonBarcodedProducts.xlsx');
 
     }
+
+
+
+    
 }
 

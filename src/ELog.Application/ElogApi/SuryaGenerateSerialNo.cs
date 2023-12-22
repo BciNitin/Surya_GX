@@ -207,5 +207,60 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
+
+        public async Task<Object> GetLineAsPerPlant(string plantcode)
+        {
+            List<SelectListDto> value = new List<SelectListDto>();
+            try
+            {
+
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = Constants.SP_GenerateSerialNumber;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetLineAsPerPlant";
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = plantcode;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sSupplierCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sDriverCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sQuantity", MySqlDbType.Double).Value = 0;
+                    Command.Parameters.Add("sPackingDate", MySqlDbType.Date).Value = default;
+                    Command.Parameters.Add("sItemCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPrintedQty", MySqlDbType.Double).Value = 1;
+                    Command.Parameters.Add("sPendingQtyToPrint", MySqlDbType.Double).Value = 1;
+                    Command.Parameters.Add("sPrintingQty", MySqlDbType.Double).Value = 0;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                foreach (DataRow dtRow in dt.Rows)
+                {
+
+
+                    SelectListDto selectListDto = new SelectListDto();
+                    selectListDto.Id = Convert.ToString(dtRow["WorkCenterCode"]);
+                    selectListDto.Value = Convert.ToString(dtRow["WorkCenterCode"]);
+                    value.Add(selectListDto);
+
+
+                }
+                return value;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
     }
+
 }

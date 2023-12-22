@@ -96,5 +96,22 @@ namespace MobiVueEVO.BO.Models
             public string NoofBoxes { get; set; }
         }
 
+        public class MATERIALMASTER
+        {
+            [Required]
+            public string MaterialCode { get; set; }
+            [Required]
+            public string MaterialDescription { get; set; }
+            [Required]
+            public string PackSize { get; set; }
+            [Required]
+            public string UOM { get; set; }
+            public string UnitWeight { get; set; }
+            [Required]
+            public string SelfLife { get; set; }
+            [Required]
+            public string Active { get; set; }
+        }
+
     }
 }
