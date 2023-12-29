@@ -72,7 +72,7 @@ namespace ELog.Application.CommomUtility
         {
             try
             {
-                string path = Path.Combine(FilePath, FileName + ".csv");
+               // string path = Path.Combine(FilePath, FileName + ".csv");
                 StreamWriter sw = new StreamWriter(FilePath, false);
                 //headers    
                 for (int i = 0; i < dtDataTable.Columns.Count; i++)

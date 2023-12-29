@@ -19,7 +19,7 @@ using System.Drawing;
 namespace ELog.Application.ElogApi
 {
     //[PMMSAuthorize]
-    public class WaightValidation : ApplicationService, IElogApiService
+    public class WeightValidation : ApplicationService, IElogApiService
     {
 
         private readonly IConfiguration _configuration;
@@ -27,7 +27,7 @@ namespace ELog.Application.ElogApi
         private ISessionAppService _sessionAppService;
         private IPrinterConnector _printer;
        // private readonly IList<string> _roles;
-        public WaightValidation(IConfiguration configuration, ISessionAppService sessionAppService, IPrinterConnector printer)
+        public WeightValidation(IConfiguration configuration, ISessionAppService sessionAppService, IPrinterConnector printer)
         {
             _configuration = configuration;
             connection = _configuration["ConnectionStrings:Default"];

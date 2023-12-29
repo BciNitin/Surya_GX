@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { bininput } from '@app/masters/bin/bin.component';
 import { linework } from '@app/PlantOperation/line-work-center/line-work-center.component';
@@ -109,6 +109,21 @@ export class ApiServiceService {
       return this.http.get<any[]>(this.BasUrl + 'SuryaGenerateSerialNo/GetSerialNumberDetails?packingOrder=' + packingOrderNo);
    }
 
+   downloadSerialNumberCSV(fileName: string): Observable<HttpResponse<Blob>> {
+      // const url = `${this.BasUrl}SuryaGenerateSerialNo/DownloadFile?FileName=`+fileName;
+      const url = `${this.BasUrl}SuryaGenerateSerialNo/GetDownloadFile?FileName=`+fileName
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        // Add any additional headers if needed
+      });
+    debugger
+      return this.http.get(url, { // <-- Corrected syntax
+        headers: headers,
+        observe: 'response',
+        responseType: 'blob',
+      });
+    }
+    
    getPackingOrderNoForSerialNumber(plancode: string,linecode:string): Observable<any[]> {
       return this.http.get<any[]>(this.BasUrl + `SuryaGenerateSerialNo/GetPackingOrderNo?plantCode=${plancode}&linecode=${linecode}`);
    }

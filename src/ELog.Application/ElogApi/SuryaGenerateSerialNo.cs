@@ -4,6 +4,8 @@ using ELog.Application.CommomUtility;
 using ELog.Application.SelectLists.Dto;
 using ELog.Application.Sessions;
 using ELog.Core.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MobiVueEVO.BO.Models;
 using MySql.Data.MySqlClient;
@@ -23,11 +25,13 @@ namespace ELog.Application.ElogApi
         private readonly IConfiguration _configuration;
         private string connection;
         private ISessionAppService _sessionAppService;
-        public SuryaGenerateSerialNo(IConfiguration configuration, ISessionAppService sessionAppService)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public SuryaGenerateSerialNo(IConfiguration configuration, ISessionAppService sessionAppService, IWebHostEnvironment webHostEnvironment)
         {
             _configuration = configuration;
             connection = _configuration["ConnectionStrings:Default"];
             _sessionAppService = sessionAppService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<Object> GenerateSerialNo(GenerateSerialNumber generate)
@@ -95,8 +99,16 @@ namespace ELog.Application.ElogApi
                     string FileName = generate.PackingOrderNo + generate.LineCode + DateTime.Now.ToString("ddMMyyyyHHmmss");
                     //string Directory = System.Environment.ExpandEnvironmentVariables("%userprofile%\\Downloads\\");
 
-                    string path = Path.Combine("D:\\Share\\SerialNumber", FileName + ".csv");
-                    Utility.DataTableToCSV(dtList, path, FileName);
+                    //string path = Path.Combine("D:\\Share\\SerialNumber", FileName + ".csv");
+                    string webRootPath = _webHostEnvironment.WebRootPath;
+                    string path = Path.Combine(webRootPath, "SerialNumber", FileName + ".csv");
+                    string CSVFileName = FileName + ".csv";
+                    bool isFileCreated = Utility.DataTableToCSV(dtList, path, FileName);
+                    if (isFileCreated)
+                    {
+                        dt.Columns.Add(new DataColumn("FileName", typeof(string)));
+                        dt.Rows[0]["FileName"] = CSVFileName;
+                    }
 
                 }
                 return dt;
@@ -154,7 +166,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> GetPackingOrderNo(string plantcode,string linecode)
+        public async Task<Object> GetPackingOrderNo(string plantcode, string linecode)
         {
             List<SelectListDto> value = new List<SelectListDto>();
             try
@@ -207,6 +219,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
+
 
         public async Task<Object> GetLineAsPerPlant(string plantcode)
         {
@@ -261,6 +274,22 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-    }
+        
+        public IActionResult GetDownloadFile(string FileName)
+        {
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            var filePath = Path.Combine(webRootPath, "SerialNumber", FileName);
 
+            if (!System.IO.File.Exists(filePath))
+            {
+                return new NotFoundResult();
+            }
+
+            var fileStream = System.IO.File.OpenRead(filePath);
+            return new FileStreamResult(fileStream, "application/octet-stream")
+            {
+                FileDownloadName = FileName
+            };
+        }
+    }
 }

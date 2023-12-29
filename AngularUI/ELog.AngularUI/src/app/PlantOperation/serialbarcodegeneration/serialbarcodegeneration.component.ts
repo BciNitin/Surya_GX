@@ -14,6 +14,8 @@ import { NoWhitespaceValidator, MyErrorStateMatcher } from '@shared/app-componen
 import { Title } from '@angular/platform-browser';
 
 import { error } from 'console';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 interface SerialNo {
   plantCode: string,
   line: string,
@@ -91,7 +93,8 @@ export class SerialbarcodegenerationComponent implements OnInit {
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
     public _appComponent : ValidationService,
-    private titleService: Title
+    private titleService: Title,
+    private http: HttpClient
 
   ) { }
 
@@ -181,12 +184,12 @@ validateForm(event: any) {
   }
 }
   onChangeLineCode() {
-    debugger;
+    
     if (typeof this.plantCode !== 'undefined' && typeof this.lineCode !== 'undefined') {
       abp.ui.setBusy();
       this._apiservice.getPackingOrderNoForSerialNumber(this.plantCode, this.lineCode).subscribe(
         (response) => {
-          debugger;
+          
           
             this.packingOrderList = response["result"];
             this.updateUIselectedOrderType = this.packingOrder;
@@ -208,12 +211,12 @@ validateForm(event: any) {
     this.picklistItems=null;
   }
   onChangePlantCode() {
-    debugger;
+    
     if (this.plantCode !== '') {
       abp.ui.setBusy();
       this._apiservice.getLineCodeasPerPlant(this.plantCode).subscribe(
         (response) => {
-          debugger;
+          
           
             this.lineOrderList = response["result"];
             this.updateUIselectedOrderType = this.packingOrder;
@@ -258,6 +261,7 @@ GetCheckBoxValue(event,plantCode:any,materialCode:any,quantity:any,pendingQtyToP
      this.quantity=quantity;
      this.pendingQtyToPrint=pendingQtyToPrint;
      this.packing_Date=packing_Date;
+     debugger
      this.work_Center=work_Center;
      
 }
@@ -294,6 +298,15 @@ Save() {
             this.printingQty=0;
             abp.ui.clearBusy();
             this.isSelected = false;
+            console.log("result",result["result"][0].fileName)
+            const fileName = result["result"][0].fileName            ;
+            this._apiservice.downloadSerialNumberCSV(fileName).subscribe((response) => {
+              const blob = new Blob([response.body], { type: response.headers.get('content-type') });
+              const link = document.createElement('a');
+              link.href = window.URL.createObjectURL(blob);
+              link.download = fileName;
+              link.click();
+            });
           }
           else {
             abp.notify.error(result["result"][0].error);
@@ -320,8 +333,22 @@ Save() {
     this.isSelected = false;
   }
   this.isSelected = false;
+
 }
 
+// downloadFileService(): Observable<HttpResponse<Blob>> {
+//   const url = `${"http://localhost:21021/"}/downloadFile`;
+//   const headers = new HttpHeaders({
+//     'Content-Type': 'application/json',
+//     // Add any additional headers if needed
+//   });
+
+//   return this.http.get(url, {
+//     headers: headers,
+//     observe: 'response',
+//     responseType: 'blob',
+//   });
+// }
 
 markDirty() {
   this._appComponent.markGroupDirty(this.addEditFormGroup);
