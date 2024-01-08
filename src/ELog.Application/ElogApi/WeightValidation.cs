@@ -15,6 +15,7 @@ using System.Reflection;
 using ELog.Core.Printer;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using Microsoft.AspNetCore.Http;
 
 namespace ELog.Application.ElogApi
 {
@@ -26,13 +27,17 @@ namespace ELog.Application.ElogApi
         private string connection;
         private ISessionAppService _sessionAppService;
         private IPrinterConnector _printer;
-       // private readonly IList<string> _roles;
-        public WeightValidation(IConfiguration configuration, ISessionAppService sessionAppService, IPrinterConnector printer)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly string SessionPlantCode = null;
+        // private readonly IList<string> _roles;
+        public WeightValidation(IConfiguration configuration, ISessionAppService sessionAppService, IPrinterConnector printer, IHttpContextAccessor httpContextAccessor)
         {
             _configuration = configuration;
             connection = _configuration["ConnectionStrings:Default"];
             _sessionAppService = sessionAppService;
             _printer = printer;
+            _httpContextAccessor = httpContextAccessor;
+            SessionPlantCode = _httpContextAccessor.HttpContext.Session.GetString("PlantCode");
         }
 
         public async Task<Object> CaptureWeight(string BarCode,decimal Weight)
@@ -40,7 +45,7 @@ namespace ELog.Application.ElogApi
 
             try
             {
-
+                var Plant = _httpContextAccessor.HttpContext.Session.GetString("PlantCode");
                 MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();
@@ -51,6 +56,7 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "CaptureWeight";
                     Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = BarCode;
                     Command.Parameters.Add("sWeight", MySqlDbType.Decimal).Value = Weight;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.Decimal).Value = _httpContextAccessor.HttpContext.Session.GetString("PlantCode");
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -115,6 +121,44 @@ namespace ELog.Application.ElogApi
                         return "Printer Not Available.";
                     }
                     
+                }
+
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
+        public async Task<Object> GetBarCodeDetails()
+        {
+
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_WeightValidation";
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetBarCodeDetails";
+                    Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = "";
+                    Command.Parameters.Add("sWeight", MySqlDbType.Decimal).Value = 0;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.Decimal).Value = SessionPlantCode;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                    if (dt.Rows.Count == 0)
+                    {
+                        return "Invalid BarCode.";
+                    }
                 }
 
 

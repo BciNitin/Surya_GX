@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
 })
 
 export class ApiServiceService {
-   //BasUrl = 'http://180.151.246.51:8089/api/services/app/';
-   BasUrl = 'http://localhost:21021/api/services/app/';
+   BasUrl = 'http://180.151.246.51:8089/api/services/app/';
+  // BasUrl = 'http://localhost:21021/api/services/app/';
    apiUrlGetMaterialMaster ='ElogSuryaApiService/GetMaterialMaster';
 
    //content_ = JSON.stringify(body);

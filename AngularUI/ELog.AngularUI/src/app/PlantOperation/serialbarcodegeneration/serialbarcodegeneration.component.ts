@@ -76,6 +76,7 @@ export class SerialbarcodegenerationComponent implements OnInit {
   supplierCode: string;
   
   plnaCodeList: any;
+  plnaCodeListSelect: any;
   lineOrderList:any;
   lineList: any;
   packingOrderList: any;
@@ -164,6 +165,7 @@ GetPlantCode() {
   abp.ui.setBusy();
   this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
       this.plnaCodeList = modeSelectList["result"];
+      this.plnaCodeListSelect = [...this.plnaCodeList];
       abp.ui.clearBusy();
   });
 };
@@ -261,10 +263,33 @@ GetCheckBoxValue(event,plantCode:any,materialCode:any,quantity:any,pendingQtyToP
      this.quantity=quantity;
      this.pendingQtyToPrint=pendingQtyToPrint;
      this.packing_Date=packing_Date;
-     debugger
      this.work_Center=work_Center;
      
 }
+
+onKey(searchTerm: string) { 
+  //this.plnaCodeList = this.search(value);
+  const filterValue = searchTerm.trim().toLowerCase();
+  this.plnaCodeListSelect = this.plnaCodeList.filter(item =>
+   
+     item.id.toLowerCase().includes(filterValue)
+    
+  );
+   console.log('item',this.plnaCodeListSelect)
+  }
+  
+  search(searchTerm: string) {
+    this.plnaCodeList = searchTerm.trim().toLocaleLowerCase();
+    const filterValue = searchTerm;
+    this.plnaCodeList.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filteredData = this.dataSourcePagination.filteredData;
+    this.iterator();
+  }
+
+  // search(value: string) { 
+  //   let filter = value.toLowerCase();
+  //   return this.plnaCodeList.filter(option => option.toLowerCase().startsWith(filter));
+  // }
 
 Save() {
 

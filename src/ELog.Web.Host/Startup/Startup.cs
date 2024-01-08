@@ -45,8 +45,14 @@ namespace ELog.Web.Host.Startup
             });
             services.AddHttpClient();
             services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "PlantCode";
+                options.IdleTimeout = TimeSpan.FromDays(1); // Adjust as needed
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
-          
 
             IdentityRegistrar.Register(services);
             AuthConfigurer.ConfigureAsync(services, _appConfiguration);
@@ -122,7 +128,7 @@ namespace ELog.Web.Host.Startup
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCookiePolicy();
-
+            app.UseSession();
             app.UseAbpRequestLocalization();
             // global error handler
             app.UseMiddleware<ErrorHandlerMiddleware>();

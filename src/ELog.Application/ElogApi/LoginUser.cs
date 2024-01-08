@@ -27,6 +27,7 @@ using static ELog.Core.PMMSEnums;
 using ELog.Core.Authorization;
 using static ELog.Core.Authorization.Roles.StaticRoleNames;
 using Microsoft.PowerBI.Api.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ELog.Application.ElogApi
 {
@@ -39,6 +40,7 @@ namespace ELog.Application.ElogApi
        // private readonly IRepository<User, long> _userRepository;
         private readonly SignInManager _signInManager;
         private readonly IUserManagementConfig _userManagementConfig;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public LoginUser(
             IRepository<ApprovalStatusMaster> approvalStatusMasterRepository,
@@ -46,7 +48,9 @@ namespace ELog.Application.ElogApi
             PMMSLoginResultTypeHelper abpLoginResultTypeHelper,
            // IRepository<User, long> userRepository,
             SignInManager signInManager,
-            IUserManagementConfig userManagementConfig)
+            IUserManagementConfig userManagementConfig,
+            IHttpContextAccessor httpContextAccessor
+            )
         {
             _approvalStatusMasterRepository = approvalStatusMasterRepository;
             _userManager = userManager;
@@ -54,11 +58,12 @@ namespace ELog.Application.ElogApi
           //  _userRepository = userRepository;
             _signInManager = signInManager;
             _userManagementConfig = userManagementConfig;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         
 
-        public async Task<Object> LoginAsyncInternal(string userNameOrEmailAddress, string plainPassword)
+        public async Task<Object> Login(string userNameOrEmailAddress, string plainPassword,string plantCode)
         {
             if (userNameOrEmailAddress.IsNullOrEmpty())
             {
@@ -68,6 +73,7 @@ namespace ELog.Application.ElogApi
             if (plainPassword.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(plainPassword));
+                
             }
 
             var user = await _userManager.FindByNameOrEmailAsync(userNameOrEmailAddress);
@@ -93,6 +99,8 @@ namespace ELog.Application.ElogApi
             }
             if(user != null && IsCheck)
             {
+                _httpContextAccessor.HttpContext.Session.Clear();
+                _httpContextAccessor.HttpContext.Session.SetString("PlantCode", plantCode);
                 return result;
             }
             else
