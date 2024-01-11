@@ -172,6 +172,44 @@ namespace ELog.Application.ElogApi
 
         }
 
+        public async Task<Object> CaptureWeightNonBarCoded()
+        {
+
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_WeightValidation";
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "CaptureWeightNoneBarCoded";
+                    Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = "";
+                    Command.Parameters.Add("sWeight", MySqlDbType.Decimal).Value = 0;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.Decimal).Value = SessionPlantCode;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                    if (dt.Rows.Count == 0)
+                    {
+                        return "Invalid BarCode.";
+                    }
+                }
+
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+
         private string ReplacePRNKeysValues(string inputText, DataTable dataTable)
         {
 
@@ -194,6 +232,38 @@ namespace ELog.Application.ElogApi
             });
 
             return replacedText;
+        }
+
+        public async Task<Object> GetPlantCode()
+        {
+
+            try
+            {
+                var Plant = _httpContextAccessor.HttpContext.Session.GetString("PlantCode");
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_masters";
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GETPLANT";
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+
+                return dt;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
         }
     }
 }
