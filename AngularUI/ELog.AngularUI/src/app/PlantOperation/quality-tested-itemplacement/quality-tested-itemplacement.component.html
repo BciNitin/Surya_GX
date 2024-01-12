@@ -72,7 +72,7 @@
                                     <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                         <mat-label>Scan Shipper Barcode</mat-label>
                                         <input matInput required name="ShiperBarcode" (keyup.enter)="ValidateShiperBarcode()"
-                                               [(ngModel)]='ShiperBarcode' formControlName="ShiperBarcodeFormControl" maxlength="16" >
+                                               [(ngModel)]='ShiperBarcode' formControlName="ShiperBarcodeFormControl"  >
                                         <mat-error *ngIf="addEditFormGroup?.get('ShiperBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('ShiperBarcodeFormControl')?.hasError('whitespace')">
                                             Shipper barcode is required.
                                         </mat-error>

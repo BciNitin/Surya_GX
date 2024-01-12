@@ -70,6 +70,7 @@ import { ConsolidatedNonBarcodedProductsComponent } from './Reports/consolidated
 import { LifeCycleReportComponent } from './Reports/life-cycle-report/life-cycle-report.component';
 import { ManufacturingMonthWiseDefectiveComponent } from './Reports/manufacturing-month-wise-defective/manufacturing-month-wise-defective.component';
 import { ManufacturingTimeWiseDefectiveComponent } from './Reports/manufacturing-time-wise-defective/manufacturing-time-wise-defective.component';
+import { MaterialToleranceComponent } from './masters/material-tolerance/material-tolerance.component';
 
 
 
@@ -185,6 +186,7 @@ import { ManufacturingTimeWiseDefectiveComponent } from './Reports/manufacturing
                     { path: 'lifeCycleReport', component: LifeCycleReportComponent, canActivate: [AppRouteGuard] },
                     { path: 'MfgMonthByDefective', component: ManufacturingMonthWiseDefectiveComponent, canActivate: [AppRouteGuard] },
                     { path: 'MfgTimeWiseDefective', component: ManufacturingTimeWiseDefectiveComponent, canActivate: [AppRouteGuard] },
+                    { path: 'MaterialTolerance', component: MaterialToleranceComponent, canActivate: [AppRouteGuard] },
                    
                 ]
             }

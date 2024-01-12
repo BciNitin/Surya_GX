@@ -129,6 +129,7 @@ import { ConsolidatedNonBarcodedProductsComponent } from './Reports/consolidated
 import { LifeCycleReportComponent } from './Reports/life-cycle-report/life-cycle-report.component';
 import { ManufacturingMonthWiseDefectiveComponent } from './Reports/manufacturing-month-wise-defective/manufacturing-month-wise-defective.component';
 import { ManufacturingTimeWiseDefectiveComponent } from './Reports/manufacturing-time-wise-defective/manufacturing-time-wise-defective.component';
+import { MaterialToleranceComponent } from './masters/material-tolerance/material-tolerance.component';
 
 export function momentAdapterFactory() {
     return adapterFactory(moment);
@@ -246,7 +247,9 @@ export const PMMS_FORMATS = {
         
         ManufacturingMonthWiseDefectiveComponent,
         
-        ManufacturingTimeWiseDefectiveComponent
+        ManufacturingTimeWiseDefectiveComponent,
+        
+        MaterialToleranceComponent
     ],
     imports: [
         HttpClientModule,

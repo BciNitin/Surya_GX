@@ -1,0 +1,100 @@
+<div class="row clearfix" [@routerTransition]>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card main-content">
+            <div class="row user-component-content row-filter-container">
+                <div class="col-12">
+                    <h2 class="title">{{ "Weight Tolerance" | localize }}</h2>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div id="collapse1" class="panel-collapse collapse in dark-text">
+                        <div class="panel-body">
+                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                <div class="row fieldes">
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field>
+                                            <mat-label>Material Code</mat-label>
+                                            <mat-select [(ngModel)]="plantCode" name="plantId" [errorStateMatcher]="matcher"
+                                                [errorStateMatcher]="matcher"
+                                                (ngModelChange)="onChangeMaterialCode()"
+                                                formControlName="plantCodeFormCControl">
+                                                <mat-option>Select Material Code</mat-option>
+                                                <mat-option *ngFor="let ItemCode of MeterialCodeList" [value]="ItemCode.id">
+                                                    {{ItemCode.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                                Material code is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Material Description</mat-label>
+                                            <input matInput required [(ngModel)]="materialCode" name="materialCode" readonly   
+                                                    formControlName="materialCodeFormControl" maxlength="16" >
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Min Tolerance</mat-label>
+                                            <input (keypress)="numberOnly($event)" matInput required [(ngModel)]="minWeight" name="minWeight"  [errorStateMatcher]="matcher" 
+                                                    formControlName="minWeightFormControl" maxlength="20" >
+                                            <mat-error *ngIf="addEditFormGroup?.get('minWeightFormControl')?.hasError('required') || addEditFormGroup?.get('minWeightFormControl')?.hasError('whitespace')">
+                                                Min Tolerance is required.
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                       
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Max Tolerance</mat-label>
+                                            <input (keypress)="numberOnly($event)" matInput required [(ngModel)]="maxWeight" name="maxWeight"  [errorStateMatcher]="matcher" 
+                                                    formControlName="maxWeightFormControl" maxlength="20" >
+                                            <mat-error *ngIf="addEditFormGroup?.get('maxWeightFormControl')?.hasError('required') || addEditFormGroup?.get('maxWeightFormControl')?.hasError('whitespace')">
+                                                Max Tolerance is required.
+                                            </mat-error>
+                                        </mat-form-field>
+
+
+
+
+
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                 </div>
+                            </form>
+                            <br>
+                            
+                            <div class="row">
+                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                </div>
+                                <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                    <button class="btn filter-back-button pull-right" 
+                                    (click)="Clear()">
+                                        Clear
+                                    </button>
+                                    <button class="btn btn-primary pull-right" (click)="markDirty() && addEditFormGroup.valid && Save()">
+                                        Save
+                                    </button>
+                                    <!-- <button class="btn btn-primary pull-right"  (click)="markDirty() && addEditFormGroup.valid && Save()">
+                                        Confirm
+                                    </button>
+                                     -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -72,6 +72,7 @@ namespace ELog.Application.CommomUtility
         public const string sp_WarrantyClaim = "sp_WarrantyClaim";
         public const string sp_warrantytracking = "sp_warranty_tracking";
         public const string GetWarranty = "GetWarranty";
+        public const string sp_MaterialTolerance = "sp_Material_Tolerance";
 
     }
 }

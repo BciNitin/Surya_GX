@@ -28,7 +28,7 @@ interface MaterialMaster {
 })
 
 @Component({
-    selector: 'app-material',
+    //selector: 'app-material',
     templateUrl: './material.component.html',
     styleUrls: ['./material.component.css'],
     animations: [appModuleAnimation()],

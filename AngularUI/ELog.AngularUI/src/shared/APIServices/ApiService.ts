@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 
 export class ApiServiceService {
    BasUrl = 'http://180.151.246.51:8089/api/services/app/';
-  // BasUrl = 'http://localhost:21021/api/services/app/';
+  //BasUrl = 'http://localhost:21021/api/services/app/';
    apiUrlGetMaterialMaster ='ElogSuryaApiService/GetMaterialMaster';
 
    //content_ = JSON.stringify(body);
@@ -675,5 +675,32 @@ GetManufacturingMonthWiseDefective(): Observable<any[]> {
 }
 GetManufacturingTimeWiseDefective(): Observable<any[]> {
    return this.http.get<any[]>(this.BasUrl + 'ManufacturingTimeWiseDefectiveApi/GetManufacturingTimeWiseDefective');
+}
+GetMaterialCode(): Observable<SelectListDto[]> {
+   const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Access-Control-Allow-Origin':'*'
+      })
+    };
+   return this.http.get<any[]>(this.BasUrl + 'MaterialToleranceApi/GetMaterialCode', httpOptions);
+}
+GetItemDesc(plancode: string): Observable<any[]> {
+   return this.http.get<any[]>(this.BasUrl + `MaterialToleranceApi/GetMaterailDescription?ItemCode=${plancode}`);
+}
+
+MaterialToleranceSave(materialCode,minWeight,maxWeight) {
+     debugger;
+   //const content_ = JSON.stringify(input);
+   const options_: any = {
+      //body: this.content_,
+      observe: "response",
+      responseType: "blob",
+      headers: new HttpHeaders({
+         "Content-Type": "application/json-patch+json",
+      }),
+   };
+   return this.http.post<any[]>(this.BasUrl + `MaterialToleranceApi/MaterialTolerance?materialCode=${materialCode}&minWeight=${minWeight}&maxWeight=${maxWeight}`, { responseType: 'text', options_ });
+
 }
 }

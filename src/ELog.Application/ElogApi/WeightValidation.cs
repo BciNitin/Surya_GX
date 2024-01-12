@@ -16,6 +16,8 @@ using ELog.Core.Printer;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using Microsoft.AspNetCore.Http;
+using MobiVueEVO.BO;
+
 
 namespace ELog.Application.ElogApi
 {
@@ -49,6 +51,7 @@ namespace ELog.Application.ElogApi
                 MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();
+                Response response = new Response();
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
@@ -62,14 +65,22 @@ namespace ELog.Application.ElogApi
                     myReader = await Command.ExecuteReaderAsync();
                     dt.Load(myReader);
                     Command.Connection.Close();
-                    if(dt.Rows.Count == 0)
+                    if (dt.Rows.Count > 0)
                     {
-                        return "Invalid BarCode.";
+                        response.Message = Convert.ToString(dt.Rows[0]["Success"]);
+                        response.Status = true;
+                        return response;
+                    }
+                    else
+                    {
+                        response.Message = Convert.ToString(dt.Rows[0]["Error"]);
+                        response.Status = false;
+                        return response;
                     }
                 }
 
 
-                return dt;
+                
             }
             catch (Exception e)
             {
@@ -89,7 +100,7 @@ namespace ELog.Application.ElogApi
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();
                 PrinterInput printer = new PrinterInput();
-
+                Response response = new Response();
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
@@ -101,30 +112,33 @@ namespace ELog.Application.ElogApi
                     myReader = await Command.ExecuteReaderAsync();
                     dt.Load(myReader);
                     Command.Connection.Close();
-                    if (dt.Rows.Count == 0)
+                    if (!dt.Columns.Contains("Error"))
                     {
-                        return "Invalid BarCode.";
-                    }
-                    dt.Columns.Add("OTP", typeof(System.String));
-                    dt.Rows[0]["OTP"] = AbpSession.UserId;
-                    printer.IPAddress = Convert.ToString(dt.Rows[0]["PrinterIP"]);
-                    printer.Port = Convert.ToInt32(dt.Rows[0]["IP"]);
-                    printer.PrintBody = Convert.ToString(dt.Rows[0]["PRNFile"]);
-                    printer.PrintBody = ReplacePRNKeysValues(printer.PrintBody, dt);
-                    bool isActive = await _printer.PrinterAvailable(printer);
-                    if (isActive)
-                    {
-                        await _printer.Print(printer);
-                    }
-                    else
-                    {
-                        return "Printer Not Available.";
+                        
+                        dt.Columns.Add("OTP", typeof(System.String));
+                        dt.Rows[0]["OTP"] = AbpSession.UserId;
+                        printer.IPAddress = Convert.ToString(dt.Rows[0]["PrinterIP"]);
+                        printer.Port = Convert.ToInt32(dt.Rows[0]["IP"]);
+                        printer.PrintBody = Convert.ToString(dt.Rows[0]["PRNFile"]);
+                        printer.PrintBody = ReplacePRNKeysValues(printer.PrintBody, dt);
+                        bool isActive = await _printer.PrinterAvailable(printer);
+                        if (isActive)
+                        {
+                            await _printer.Print(printer);
+                            response.Message = "Print Successfully.";
+                            response.Status = true;
+                            return response;
+                        }
+                        else
+                        {
+                            response.Message = "Printer Not Available.";
+                            response.Status = false;
+                            return response;
+                        }
                     }
                     
                 }
 
-
-                return dt;
             }
             catch (Exception e)
             {
@@ -142,6 +156,7 @@ namespace ELog.Application.ElogApi
                 MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();
+                Response response = new Response();
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
@@ -155,14 +170,21 @@ namespace ELog.Application.ElogApi
                     myReader = await Command.ExecuteReaderAsync();
                     dt.Load(myReader);
                     Command.Connection.Close();
-                    if (dt.Rows.Count == 0)
+                    if (!dt.Columns.Contains("Error"))
                     {
-                        return "Invalid BarCode.";
+                        
+                        response.Result = dt;
+                        response.Status = true;
+                        return response;
+                    }
+                    else
+                    {
+                        response.Message = Convert.ToString(dt.Rows[0]["Error"]);
+                        response.Status = false;
+                        return response;
                     }
                 }
 
-
-                return dt;
             }
             catch (Exception e)
             {
@@ -172,7 +194,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> CaptureWeightNonBarCoded()
+        public async Task<Object> CaptureWeightNonBarCoded(string BarCode, decimal Weight)
         {
 
             try
@@ -180,27 +202,34 @@ namespace ELog.Application.ElogApi
                 MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();
+                Response response = new Response();
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
                     Command.CommandText = "sp_WeightValidation";
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "CaptureWeightNoneBarCoded";
-                    Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = "";
-                    Command.Parameters.Add("sWeight", MySqlDbType.Decimal).Value = 0;
+                    Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = BarCode;
+                    Command.Parameters.Add("sWeight", MySqlDbType.Decimal).Value = Weight;
                     Command.Parameters.Add("sPlantCode", MySqlDbType.Decimal).Value = SessionPlantCode;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
                     dt.Load(myReader);
                     Command.Connection.Close();
-                    if (dt.Rows.Count == 0)
+                    if (!dt.Columns.Contains("Error"))
                     {
-                        return "Invalid BarCode.";
+                        response.Message = Convert.ToString(dt.Rows[0]["Success"]); 
+                        response.Result = dt;
+                        response.Status = true;
+                        return response;
+                    }
+                    else
+                    {
+                        response.Message = Convert.ToString(dt.Rows[0]["Error"]);
+                        response.Status = false;
+                        return response;
                     }
                 }
-
-
-                return dt;
             }
             catch (Exception e)
             {
@@ -234,29 +263,49 @@ namespace ELog.Application.ElogApi
             return replacedText;
         }
 
+
         public async Task<Object> GetPlantCode()
         {
 
             try
             {
                 var Plant = _httpContextAccessor.HttpContext.Session.GetString("PlantCode");
+
+
                 MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();
+                Response response = new Response();
                 using (MySqlCommand Command = new MySqlCommand())
                 {
                     Command.Connection = conn;
-                    Command.CommandText = "sp_masters";
+                    Command.CommandText = "sp_WeightValidation";
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GETPLANT";
+                    
+                    Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sWeight", MySqlDbType.Decimal).Value = 0;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.Decimal).Value = SessionPlantCode;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
                     dt.Load(myReader);
                     Command.Connection.Close();
+                    if (!dt.Columns.Contains("Error"))
+                    {
+                        response.Message = "";
+                        response.Result = dt;
+                        response.Status = true;
+                        return response;
+                    }
+                    else
+                    {
+                        response.Message ="No data Found.";
+                        response.Result = dt;
+                        response.Status = false;
+                        return response;
+                    }
                 }
 
-
-                return dt;
             }
             catch (Exception e)
             {
@@ -265,5 +314,6 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
+
     }
 }
