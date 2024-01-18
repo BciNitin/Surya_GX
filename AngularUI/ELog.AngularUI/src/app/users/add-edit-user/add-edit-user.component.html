@@ -11,17 +11,19 @@
                         {{isOnlyView?'User Profile Details':userId ?'Edit User Profile':'Add User'}}
                     </h3>
                 </div>
-                <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <!-- <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <h3 class="pull-right" *ngIf="isOnlyView && !isProfileView && userId">
                         <i class="material-icons edit-icon  pull-right"  (click)="GoToAddEditUser(userId)">note_alt</i>
                         <button type="button" (click)="GoToAddEditUser(userId)" class="btn add-circle-button  pull-right">Edit</button>
                     </h3>
-                    <!-- <h3 class="pull-right" *ngIf="isOnlyView && userId && isProfileView">
-                        <i class="material-icons edit-icon" (click)="GoToAddEditUser(userId)">note_alt</i>
-                        <button type="button" (click)="GoToAddEditUser(userId)" class="btn add-circle-button">Edit</button>
-                    </h3> -->
+                    
+                </div> -->
+                <div class="alignRight col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <h3 class="pull-right" *ngIf="isOnlyView && !isProfileView && userId">
+                        <i class="material-icons edit-icon pull-right" (click)="GoToAddEditUser(userId)" style="margin-right: 2px;">note_alt</i>
+                        <button type="button" (click)="GoToAddEditUser(userId)" class="btn add-circle-button pull-right" style="margin-left: 2px;">Edit</button>
+                    </h3>
                 </div>
-                
             </div>
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">

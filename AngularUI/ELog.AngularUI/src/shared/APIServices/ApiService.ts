@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
 })
 
 export class ApiServiceService {
-   BasUrl = 'http://180.151.246.51:8089/api/services/app/';
-  //BasUrl = 'http://localhost:21021/api/services/app/';
+   //BasUrl = 'http://180.151.246.51:8089/api/services/app/';
+  BasUrl = 'http://localhost:21021/api/services/app/';
    apiUrlGetMaterialMaster ='ElogSuryaApiService/GetMaterialMaster';
 
    //content_ = JSON.stringify(body);
@@ -166,7 +166,7 @@ export class ApiServiceService {
       return this.http.get<any[]>(this.BasUrl + 'ElogSuryaApiService/GetSiftMaster');
    }
    DeleteSiftMasterbyid(ShiftCode: string) {
-      return this.http.delete(this.BasUrl + 'ElogSuryaApiService/DeleteSiftMasterById?id=' + ShiftCode);
+      return this.http.delete(this.BasUrl + 'ElogSuryaApiService/DeleteSift?id=' + ShiftCode);
    }
 
    CreateSiftMaster(ShiftCode,ShiftDescription,sShiftStartTime,sShiftEndTime) {

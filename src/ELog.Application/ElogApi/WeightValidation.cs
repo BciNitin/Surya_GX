@@ -148,11 +148,12 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> GetBarCodeDetails()
+        public async Task<Object> GetBarCodeDetails(string SessionPlantCode)
         {
 
             try
             {
+                var Plant = _httpContextAccessor.HttpContext.Session.GetString("PlantCode");
                 MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();
@@ -172,7 +173,7 @@ namespace ELog.Application.ElogApi
                     Command.Connection.Close();
                     if (!dt.Columns.Contains("Error"))
                     {
-                        
+                        response.Message = "";
                         response.Result = dt;
                         response.Status = true;
                         return response;
@@ -180,6 +181,7 @@ namespace ELog.Application.ElogApi
                     else
                     {
                         response.Message = Convert.ToString(dt.Rows[0]["Error"]);
+                        response.Result = dt;
                         response.Status = false;
                         return response;
                     }

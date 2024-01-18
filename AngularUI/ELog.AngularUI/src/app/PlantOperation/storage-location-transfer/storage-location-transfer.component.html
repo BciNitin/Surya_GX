@@ -54,7 +54,7 @@
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                             <mat-label>Scan Carton Barcode</mat-label>
                                             <input matInput required [(ngModel)]="ScanItem"  name="ScanItem"  [errorStateMatcher]="matcher"  (change)="GetBarcodeScannedDetails()"
-                                                    formControlName="scannedItemFormControl" maxlength="16" >
+                                                    formControlName="scannedItemFormControl"  >
                                             <mat-error *ngIf="addEditFormGroup?.get('scannedItemFormControl')?.hasError('required') || addEditFormGroup?.get('scannedItemFormControl')?.hasError('whitespace')">
                                                 Carton Barcode is required.
                                             </mat-error>
@@ -101,7 +101,7 @@
                                     <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                         <mat-label class="fieldes">Scanning Quantity</mat-label>
                                         <input formControlName="scannedqtyFormControl" matInput [(ngModel)]="qty" required name="qty" readonly  
-                                                 maxlength="16" >
+                                                  >
                                         </mat-form-field>
                                 </div>
                                 <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">

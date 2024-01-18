@@ -47,7 +47,7 @@ export class LineMasterComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     
-    this.titleService.setTitle('Line Master');
+    this.titleService.setTitle('Work Center/Line');
     this.getArray();
     this.paginator._intl.itemsPerPageLabel="Records per page";
   }

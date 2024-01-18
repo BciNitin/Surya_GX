@@ -20,7 +20,7 @@
                                                 
                                                 formControlName="plantCodeFormCControl">
                                                 <mat-option>Select Plant</mat-option>
-                                                <mat-option *ngFor="let plant of plnatCodeList" [value]="plant.id">
+                                                <mat-option required *ngFor="let plant of plnatCodeList" [value]="plant.id">
                                                     {{plant.value}}
                                                 </mat-option>
                                             </mat-select>
@@ -34,7 +34,7 @@
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                             <mat-label>Scan Item Barcode Label</mat-label>
                                             <input matInput required name="itemBarcode"  (keyup.enter)="Validate()"
-                                                   [(ngModel)]='itemBarcode' formControlName="itemBarcodeFormControl" maxlength="16">
+                                                   [(ngModel)]='itemBarcode' formControlName="itemBarcodeFormControl">
                                             <mat-error *ngIf="addEditFormGroup?.get('itemBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('itemBarcodeFormControl')?.hasError('whitespace')">
                                                 Item barcode label is required.
                                             </mat-error>

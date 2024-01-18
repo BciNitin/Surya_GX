@@ -4,7 +4,7 @@
             <div class="row user-component-content row-filter-container">
                 <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10">
                     <h3 class="title" *ngIf="!isProfileView">
-                        {{isOnlyView?'User Details':userId?'Edit User':'Add Sift'}}
+                        {{isOnlyView?'User Details':userId?'Edit User':'Add Shift'}}
 
                     </h3>
                 </div>
@@ -89,7 +89,7 @@
                                     <div class="fieldes">
                                         <div class="col-md-4">
                                             <mat-form-field>
-                                                <mat-label>Shift Start Time</mat-label>
+                                                <mat-label>Shift End Time</mat-label>
                                                 <input type="time" matInput required name="sShiftEndTime" 
                                                formControlName="sShiftEndTime" [errorStateMatcher]="matcher"
                                                [(ngModel)]="sShiftEndTime">

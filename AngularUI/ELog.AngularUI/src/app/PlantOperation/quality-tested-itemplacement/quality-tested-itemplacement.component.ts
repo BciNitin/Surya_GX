@@ -69,6 +69,7 @@ Validate() {
            else
            {
             this.qualityItemDtls = result["result"];
+            this.Clear();
            }
            
       });

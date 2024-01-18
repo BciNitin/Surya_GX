@@ -17,7 +17,7 @@
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                             <mat-label>Scan QR Code</mat-label>
                                             <input matInput required name="QRBarcode"  (change)="GrtNonbarcodedGrid()"
-                                                   [(ngModel)]='QRBarcode' formControlName="QRBarcodeBarcodeFormControl" maxlength="16" >
+                                                   [(ngModel)]='QRBarcode' formControlName="QRBarcodeBarcodeFormControl"  >
                                             <mat-error *ngIf="addEditFormGroup?.get('QRBarcodeBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('QRBarcodeBarcodeFormControl')?.hasError('whitespace')">
                                                 QR Code is required.
                                             </mat-error>
@@ -27,7 +27,7 @@
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                             <mat-label>Serial Number</mat-label>
                                             <input matInput required name="SerialNo" (change)="ValidateCartonBarcode()"
-                                                   [(ngModel)]='SerialNo' formControlName="SerialNoFormControl" maxlength="16" >
+                                                   [(ngModel)]='SerialNo' formControlName="SerialNoFormControl"  >
                                             <mat-error *ngIf="addEditFormGroup?.get('SerialNoFormControl')?.hasError('required') || addEditFormGroup?.get('SerialNoFormControl')?.hasError('whitespace')">
                                                 Serial Number is required.
                                             </mat-error>

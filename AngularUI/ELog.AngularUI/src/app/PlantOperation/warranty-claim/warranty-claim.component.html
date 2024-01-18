@@ -44,7 +44,7 @@
                                             <mat-form-field>
                                                 <mat-label>Scan Carton Barcode</mat-label>
                                                 <input matInput required name="Barcode" (change)="GrtTableGrid()"
-                                                       [(ngModel)]='Barcode' formControlName="ScannedCartonBarcodeFormControl" maxlength="16" >
+                                                       [(ngModel)]='Barcode' formControlName="ScannedCartonBarcodeFormControl"  >
                                                 <mat-error *ngIf="addEditFormGroup?.get('ScannedCartonBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('ScannedCartonBarcodeFormControl')?.hasError('whitespace')">
                                                     Carton barcode is required.
                                                 </mat-error>
@@ -72,7 +72,7 @@
                                             <mat-form-field>
                                                 <mat-label> Qty</mat-label>
                                                 <input matInput required name="Qty" 
-                                                      [(ngModel)]='Qty' formControlName="QtyFormControl" maxlength="16" >
+                                                      [(ngModel)]='Qty' formControlName="QtyFormControl"  >
                                                 <mat-error *ngIf="addEditFormGroup?.get('QtyFormControl')?.hasError('required') || addEditFormGroup?.get('QtyFormControl')?.hasError('whitespace')">
                                                     Qty is required.
                                                 </mat-error>
@@ -82,7 +82,7 @@
                                             <mat-form-field>
                                                 <mat-label>Approved Qty</mat-label>
                                                 <input matInput required name="ApprovedQty"  
-                                                      [(ngModel)]='ApprovedQty' formControlName="ApprovedQtyFormControl" maxlength="16" >
+                                                      [(ngModel)]='ApprovedQty' formControlName="ApprovedQtyFormControl"  >
                                                 <mat-error *ngIf="addEditFormGroup?.get('ApprovedQtyFormControl')?.hasError('required') || addEditFormGroup?.get('ApprovedQtyFormControl')?.hasError('whitespace')">
                                                     Approved Qty is required.
                                                 </mat-error>
@@ -92,7 +92,7 @@
                                             <mat-form-field>
                                                 <mat-label>Approved  Qty</mat-label>
                                                 <input matInput required name="BarCodeApprovedQty"  
-                                                      [(ngModel)]='BarCodeApprovedQty' formControlName="BarApprovedQtyFormControl" maxlength="16" >
+                                                      [(ngModel)]='BarCodeApprovedQty' formControlName="BarApprovedQtyFormControl"  >
                                                 <mat-error *ngIf="addEditFormGroup?.get('BarApprovedQtyFormControl')?.hasError('required') || addEditFormGroup?.get('BarApprovedQtyFormControl')?.hasError('whitespace')">
                                                     Approved Qty is required.
                                                 </mat-error>
@@ -102,7 +102,7 @@
                                             <mat-form-field>
                                                 <mat-label>Remark</mat-label>
                                                 <input matInput required name="Remark" (change)="GrtNonbarcodedGrid()"
-                                                      [(ngModel)]='Remark' formControlName="RemarkFormControl" maxlength="16" >
+                                                      [(ngModel)]='Remark' formControlName="RemarkFormControl"  >
                                                 <mat-error *ngIf="addEditFormGroup?.get('RemarkFormControl')?.hasError('required') || addEditFormGroup?.get('RemarkFormControl')?.hasError('whitespace')">
                                                     Remark is required.
                                                 </mat-error>

@@ -112,6 +112,7 @@ export class ShiftMasterComponent implements OnInit {
   };
     
   delete(id){  
+    debugger;
       this._apiservice.DeleteSiftMasterbyid(id).pipe(
       finalize(()=>{abp.ui.clearBusy})
     )

@@ -37,7 +37,6 @@ namespace ELog.Application.ElogApi
         private readonly IRepository<ApprovalStatusMaster> _approvalStatusMasterRepository;
         private readonly UserManager _userManager;
         private readonly PMMSLoginResultTypeHelper _abpLoginResultTypeHelper;
-       // private readonly IRepository<User, long> _userRepository;
         private readonly SignInManager _signInManager;
         private readonly IUserManagementConfig _userManagementConfig;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -46,7 +45,7 @@ namespace ELog.Application.ElogApi
             IRepository<ApprovalStatusMaster> approvalStatusMasterRepository,
             UserManager userManager,
             PMMSLoginResultTypeHelper abpLoginResultTypeHelper,
-           // IRepository<User, long> userRepository,
+            // IRepository<User, long> userRepository,
             SignInManager signInManager,
             IUserManagementConfig userManagementConfig,
             IHttpContextAccessor httpContextAccessor
@@ -86,6 +85,7 @@ namespace ELog.Application.ElogApi
             {
                 throw _abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(null, resetPasswordDaysLeft);
             }
+            //var verificationResult = _userManager.PasswordHasher.VerifyHashedPassword(user, user.Password, plainPassword);
             var IsCheck = await _userManager.CheckPasswordAsync(user, plainPassword);
             List<string> User = new List<string>();
             var result = new

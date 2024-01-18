@@ -16,7 +16,7 @@
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <mat-label>Plant Code</mat-label>
-                                            <mat-select [(ngModel)]="plantCode" name="plantId"
+                                            <mat-select [(ngModel)]="plantCode" required name="plantId"
                                                 [errorStateMatcher]="matcher"
                                                 formControlName="plantCodeFormCControl">
                                                 <mat-option>Select Plant</mat-option>
@@ -32,12 +32,12 @@
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <mat-label>Line Work Center No.</mat-label>
-                                            <mat-select [(ngModel)]="lineCode" name="lineCode"
+                                            <mat-label>Line Work Center</mat-label>
+                                            <mat-select [(ngModel)]="lineCode" required name="lineCode"
                                                 [errorStateMatcher]="matcher"
                                                 formControlName="LineCodeFormControl"
                                                 (ngModelChange)="onChangeLineCode($event)">
-                                                <mat-option>Select Plant</mat-option>
+                                                <mat-option>Select Line Work Center</mat-option>
                                                 <mat-option *ngFor="let line of lineList" [value]="line.id">
                                                     {{line.value}}
                                                 </mat-option>
@@ -51,7 +51,7 @@
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <mat-label>Packing Order No.</mat-label>
-                                            <mat-select [(ngModel)]="packingOrder" [errorStateMatcher]="matcher"
+                                            <mat-select [(ngModel)]="packingOrder" required [errorStateMatcher]="matcher"
                                                  name="packingOrder"
                                                 formControlName="packingOrderFormControl"
                                                 (ngModelChange)="getQuantity($event)"
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <section class="checkcarton">
-                                            <mat-checkbox class="CartonBarCode" [checked]="checked" (change)="onSelectionChanged($event)">Complete by Carton BarCode</mat-checkbox>
+                                            <mat-checkbox class="CartonBarCode" [checked]="checked" (change)="onSelectionChanged($event)">Complete by Carton Barcode</mat-checkbox>
                                           </section>
                                     </div>
                             </div>
@@ -78,7 +78,7 @@
                                 <div class="row fieldes">
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <mat-label>Carton BarCode</mat-label>
+                                            <mat-label>Carton Barcode</mat-label>
                                             <input matInput required name="cartonBarcode"
                                                   [(ngModel)]='cartonBarcode'
                                                   (keyup.enter)="onScaningCarton($event)"
@@ -86,13 +86,13 @@
                                                 >
                                                 <mat-error
                                                 *ngIf="addEditFormGroup?.get('CartonBarCodeFormControl')?.hasError('required') || addEditFormGroup?.get('CartonBarCodeFormControl')?.hasError('whitespace')">
-                                                 Carton BarCode is required.
+                                                 Carton Barcode is required.
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <mat-label>ItemBarCode</mat-label>
+                                            <mat-label>Item Barcode</mat-label>
                                             <input matInput required name="itemBarcode"
                                                  [(ngModel)]='itemBarcode'
                                                  (keyup.enter)="onScaningItem($event)"

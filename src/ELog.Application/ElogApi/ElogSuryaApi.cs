@@ -607,7 +607,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
                     Command.CommandText = "sp_Masters_ShiftMaster";
-                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "DeleteShift";
+                    Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "DeleteSiftMasterbyid";
                     Command.Parameters.Add("@sid", MySqlDbType.VarChar).Value = id;
                     Command.Parameters.Add("@sShiftCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("@sShiftDescription", MySqlDbType.VarChar).Value = String.Empty;
