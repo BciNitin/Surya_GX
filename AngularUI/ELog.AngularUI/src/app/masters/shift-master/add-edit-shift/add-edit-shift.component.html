@@ -44,7 +44,7 @@
                                     <div class="fieldes">
                                         <div class="col-md-4">
                                             <mat-form-field>
-                                            <mat-label>Shfit Description</mat-label>
+                                            <mat-label>Shift Description</mat-label>
                                             <input matInput required name="ShiftDescription" 
                                                    formControlName="ShiftDescription" [errorStateMatcher]="matcher"
                                                    [(ngModel)]="ShiftDescription">
@@ -58,9 +58,12 @@
                                             <div class="col-md-4">
                                                 <mat-form-field>
                                                     <mat-label>Shift Start Time</mat-label>
-                                                    <input type="time" matInput required name="sShiftStartTime" 
+                                                    <input required type="time" matInput required name="sShiftStartTime" 
                                                    formControlName="sShiftStartTime" [errorStateMatcher]="matcher"
                                                    [(ngModel)]="sShiftStartTime">
+                                                   <mat-error *ngIf="addEditFormGroup?.get('sShiftStartTime')?.hasError('required') || addEditFormGroup?.get('sShiftStartTime')?.hasError('whitespace')">
+                                                    Shift start time is required.
+                                                </mat-error>
                                                 </mat-form-field>
                                             </div>
                                         <!-- <div class="col-md-4">
@@ -93,6 +96,9 @@
                                                 <input type="time" matInput required name="sShiftEndTime" 
                                                formControlName="sShiftEndTime" [errorStateMatcher]="matcher"
                                                [(ngModel)]="sShiftEndTime">
+                                               <mat-error *ngIf="addEditFormGroup?.get('sShiftEndTime')?.hasError('required') || addEditFormGroup?.get('sShiftEndTime')?.hasError('whitespace')">
+                                                Shift end time is required.
+                                            </mat-error>
                                             </mat-form-field>
                                         </div>
                                         <!-- <div class="col-md-4">
