@@ -108,7 +108,6 @@ GrtTableGrid()
   _Storage.packingorder=this.packingOrder;
   _Storage.linecode=this.linecode;
   this._apiservice.GetManualPackingDtls(this.plantCode,this.packingOrder,this.linecode).subscribe((response) => {
-   debugger;
     this.manualPackingdtls = response["result"];
     this.materialCode=response["result"][0]['materialCode'];
     this.packSize=response["result"][0]['packSize'];
@@ -126,21 +125,15 @@ markDirty() {
 }
 
 Save() {
- 
 
-  var _Storage =  new manualPack();
-  _Storage.BinBarCode = this.BinBarCode;
-  _Storage.macAddresses=this.macAddresses;
-  _Storage.plantcode=this.plantCode;
-  _Storage.packingorder=this.packingOrder;
-  _Storage.linecode=this.linecode;
- this._apiservice.ValidateBarcode(this.BinBarCode,this.macAddresses,this.plantCode,this.packingOrder,this.linecode).subscribe(result => {
+ this._apiservice.ValidateBarcode(this.BinBarCode,this.macAddresses,this.plantCode,this.packingOrder,this.linecode,this.materialCode).subscribe(result => {
    
    if (result["result"][0]['valid']) {
      this.message = result["result"][0]['valid'];
      this.messageSplit = this.message.split('~');
      this.count = this.messageSplit[1];
      this.tCount = this.messageSplit[2];
+     debugger
     //  abp.notify.success(this.messageSplit[0]+' '+ this.messageSplit[3]);
     abp.notify.success(this.messageSplit[0]);
      this.BinBarCode=null;
@@ -158,12 +151,11 @@ if(this.packSize==this.count)
 
 }
 onChangePlantCode() {
-  debugger;
+
   if (this.plantCode !== '') {
     abp.ui.setBusy();
     this._apiservice.getLineCodeasPerPlant(this.plantCode).subscribe(
       (response) => {
-        debugger;
         
           this.lineOrderList = response["result"];
           

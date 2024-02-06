@@ -314,14 +314,14 @@ namespace ELog.Application.ElogApi
                     string insertquery = string.Empty;
                     if (dt.Rows.Count == 0)
                     {
-                        insertquery = "insert into tsodelivery(DeliveryChallanNo, SONo, SODate, PlantBranchCode, CustomerCode, FromStrLoc, MaterialCode, Quantity, DispatchQty, PendingQty, CreatedOn, CreatedBy ) values('" + objcls.DeliveryChallanno + "','" + objcls.SONo + "','" + objcls.SODate + "','" + objcls.PlantCode + "','" + objcls.Customercode + "','" + objcls.Fromstorage + "','" + objcls.MaterialCode + "','" + objcls.QTY + "',now()','SAPAPI');";
+                        insertquery = "insert into tsodelivery(DeliveryChallanNo, SONo, SODate, PlantBranchCode,ToPlantBranchCode, CustomerCode, FromStrLoc, MaterialCode, Quantity, CreatedOn, CreatedBy ) values('" + objcls.DeliveryChallanno + "','" + objcls.SONo + "','" + objcls.SODate + "','" + objcls.FromPlantCode + "','" + objcls.ToPlantCode + "','" + objcls.Customercode + "','" + objcls.Fromstorage + "','" + objcls.MaterialCode + "','" + objcls.QTY + "',now(),'SAPAPI');";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();
                     }
                     else
                     {
-                        insertquery = "UPDATE tsodelivery SET  SODate='"+ objcls.SODate + "', PlantBranchCode='"+ objcls.PlantCode + "', CustomerCode='"+ objcls.Customercode + "', FromStrLoc='"+ objcls.Fromstorage + "', Quantity='"+ objcls.QTY + "' WHERE DeliveryChallanNo='" + objcls.DeliveryChallanno + "' and SONo='"+ objcls.SONo + "' and MaterialCode='" + objcls.MaterialCode + "';";
+                        insertquery = "UPDATE tsodelivery SET  SODate='"+ objcls.SODate + "', PlantBranchCode='"+ objcls.ToPlantCode + "',ToPlantBranchCode='" + objcls.FromPlantCode + "', CustomerCode='" + objcls.Customercode + "', FromStrLoc='"+ objcls.Fromstorage + "', Quantity='"+ objcls.QTY + "' WHERE DeliveryChallanNo='" + objcls.DeliveryChallanno + "' and SONo='"+ objcls.SONo + "' and MaterialCode='" + objcls.MaterialCode + "';";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();
@@ -348,6 +348,61 @@ namespace ELog.Application.ElogApi
 
         }
 
+        public object STODelivery([FromBody] SAPMaster.STODelivery[] _objSODelivery)
+        {
+            MySqlConnection conn = null;
+            conn = new MySqlConnection(connection);
+            string sReturn = string.Empty;
+            try
+            {
+                foreach (SAPMaster.STODelivery objcls in _objSODelivery)
+                {
+                    String Query = String.Empty;
+                    Query = "SELECT * FROM tsodelivery where DeliveryChallanNo='" + objcls.DeliveryChallanNo + "' and SONo='" + objcls.SalesOrderNo + "' and MaterialCode='" + objcls.MaterialCode + "' ;";
+                    MySqlCommand MyCommand2 = new MySqlCommand(Query, conn);
+                    MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                    conn.Open();
+                    MyAdapter.SelectCommand = MyCommand2;
+                    DataTable dt = new DataTable();
+                    MyAdapter.Fill(dt);
+                    string insertquery = string.Empty;
+                    if (dt.Rows.Count == 0)
+                    {
+                        insertquery = "insert into tstodelivery(" +
+                            "DeliveryChallanNo, SONo, SODate, SendingPlantCode , ReceivingPlantCode , MaterialCode , FromStrLoc , Quantity , CreatedOn, CreatedBy ) " +
+                            "values('" + objcls.DeliveryChallanNo + "','" + objcls.SalesOrderNo + "','" + objcls.SODate.ToString("yyyy-MM-dd") + "','" + objcls.SendingPlantCode + "','" + objcls.ReceivingPlantCode + "','" + objcls.MaterialCode + "','" + objcls.StorageLoc + "','" + objcls.Quantity + "',now(),'SAPAPI');";
+                        MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
+                        MySqlDataReader MyReader2;
+                        MyReader2 = MyCommandINSERT.ExecuteReader();
+                    }
+                    else
+                    {
+                        insertquery = "UPDATE tstodelivery SET  SODate='" + objcls.SODate + "', SendingPlantCode='" + objcls.SendingPlantCode + "', ReceivingPlantCode='" + objcls.ReceivingPlantCode + "', MaterialCode='" + objcls.MaterialCode + "', FromStrLoc='" + objcls.StorageLoc + "', Quantity='" + objcls.Quantity + "' WHERE DeliveryChallanNo='" + objcls.DeliveryChallanNo + "' and SONo='" + objcls.SalesOrderNo + "' and MaterialCode='" + objcls.MaterialCode + "';";
+                        MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
+                        MySqlDataReader MyReader2;
+                        MyReader2 = MyCommandINSERT.ExecuteReader();
+
+                    }
+                    conn.Close();
+                    sReturn = "Data Save Successfully.";
+                }
+
+            }
+            catch (Exception e)
+            {
+                sReturn = e.Message;
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return sReturn;
+
+        }
 
         public object MATERIALMASTER([FromBody] SAPMaster.MATERIALMASTER[] _objmaterialmaster)
         {

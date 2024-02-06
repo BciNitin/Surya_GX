@@ -58,7 +58,6 @@ export class QualitySamplingComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Quality Sampling');
     this.GetPlantCode();
-    this.GetLineCode();
   }
   ngAfterViewInit(): void {
 
@@ -74,54 +73,70 @@ export class QualitySamplingComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   async GetPlantCode() {
+    abp.ui.setBusy();
    await this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
       this.plnaCodeList = modeSelectList["result"];
+      abp.ui.clearBusy();
     },
     (error) => {
       // Handle HTTP error
+      abp.ui.clearBusy();
     }
     );
   };
 
   async GetLineCode() {
-    await this._apiservice.getLineWorkCenterNo().subscribe((response) => {
+    abp.ui.setBusy();
+    await this._apiservice.getqualitySamplingLineWorkCenterNo(this.plantCode).subscribe((response) => {
       this.lineList = response["result"];
+      abp.ui.clearBusy();
     },
     (error) => {
       // Handle HTTP error
+      abp.ui.clearBusy();
     }
     );
   };
 
 
   onChangeLineCode() {
+    abp.ui.setBusy();
     this._apiservice.QualitySaplingPackingOrderNo(this.plantCode, this.lineCode).subscribe((response) => {
       this.packingOrderList = response["result"];
       this.updateUIselectedOrderType = this.packingOrder;
+      abp.ui.clearBusy();
     },
     (error) => {
       // Handle HTTP error
+      abp.ui.clearBusy();
     }
     );
   }
 
   onScaningCarton(value) {
+    abp.ui.setBusy();
     const valid = this.markDirty();
    // if (valid && this.addEditFormGroup.valid) {
       this._apiservice.ScanCartonBarCode(this.plantCode, this.lineCode, value.target.value, this.packingOrder)
         .subscribe((response) => {
           if (response["result"][0].error) {
             abp.notify.error(response["result"][0].error);
+            abp.ui.clearBusy();
+
           }
           else {
             if(!this.checked)
             {
           //  abp.notify.success(response["result"][0].valid);
+          abp.ui.clearBusy();
+
             }
           }
         },
         (error) => {
           // Handle HTTP error
+          abp.ui.clearBusy();
+
         }
         )
     // }
@@ -131,21 +146,25 @@ export class QualitySamplingComponent implements OnInit {
   }
 
   onScaningItem(value) {
+    abp.ui.setBusy();
     const valid = this.markDirty();
     if (valid && this.addEditFormGroup.valid) {
       this._apiservice.ScanItemBarCode(this.plantCode, this.lineCode, this.cartonBarcode, this.itemBarcode, this.packingOrder)
         .subscribe((response) => {
           if (response["result"][0].error) {
             abp.notify.error(response["result"][0].error);
+            abp.ui.clearBusy();
           }
           else {
             abp.notify.success(response["result"][0].valid);
             this.Qty = response["result"][0].qty;
+            abp.ui.clearBusy();
           }
 
         },
         (error) => {
           // Handle HTTP error
+          abp.ui.clearBusy();
         }
         )
     }
@@ -156,19 +175,23 @@ export class QualitySamplingComponent implements OnInit {
 
   Save() 
   {
+    abp.ui.setBusy();
     this._apiservice.SaveQualitySampling(this.plantCode,this.lineCode,this.packingOrder,this.cartonBarcode)
     .subscribe(result => {
             if(result["result"][0].error) {
               abp.notify.error(result["result"][0].error);
+              abp.ui.clearBusy();
             }
             else {
               abp.notify.success(result["result"][0].valid);
               this.Qty = 0;
               this.Clear();
+              abp.ui.clearBusy();
             }
         },
         (error) => {
           // Handle HTTP error
+          abp.ui.clearBusy();
         }
         );
    }

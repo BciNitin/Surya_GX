@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Threading.Tasks;
+using static MobiVueEVO.BO.Models.SAPMaster;
 
 namespace ELog.Application.ElogApi
 {
@@ -30,6 +31,51 @@ namespace ELog.Application.ElogApi
             _configuration = configuration;
             connection = _configuration["ConnectionStrings:Default"];
             _sessionAppService = sessionAppService;
+        }
+
+        public async Task<Object> GetLineWorkNo(string PlantCode)
+        {
+            List<SelectListDto> value = new List<SelectListDto>();
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = "sp_QualityChecking";
+                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = "GetLineCode";
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sChildBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sQCStatus", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sStatus", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                foreach (DataRow dtRow in dt.Rows)
+                {
+                    SelectListDto selectListDto = new SelectListDto();
+                    selectListDto.Id = Convert.ToString(dtRow["WorkCenterCode"]);
+                    selectListDto.Value = Convert.ToString(dtRow["WorkCenterCode"]);
+                    value.Add(selectListDto);
+                }
+                return value;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
         }
 
         public async Task<Object> GetQualityCheckingDetails([Required]string PlantCode, [Required] string LineCode, [Required] string PackingOrderNo)

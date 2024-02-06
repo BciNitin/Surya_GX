@@ -75,10 +75,7 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
     this.titleService.setTitle('Quality Checking');
     abp.ui.setBusy();
     this.GetPlantCode();
-    this.GetLineCode();
     abp.ui.clearBusy();
-    
-
   }
 
   addEditFormGroup: FormGroup = this.formBuilder.group({
@@ -98,15 +95,16 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
     
   };
 
-  async GetLineCode() {
-    abp.ui.setBusy();
-      await this._apiservice.getLineWorkCenterNo().subscribe((response) => {
-      this.lineList = response["result"];
-      abp.ui.clearBusy();
-    });
-   
-  };
+  GetLineCode() {
+    if (this.plantCode !== undefined) {
+      abp.ui.setBusy();
+      this._apiservice.getqualitySamplingLineWorkCenterNo(this.plantCode).subscribe((response) => {
+        this.lineList = response["result"];
+        abp.ui.clearBusy();
+      });
 
+    };
+  }
 
   onChangeLineCode() {
     abp.ui.setBusy();

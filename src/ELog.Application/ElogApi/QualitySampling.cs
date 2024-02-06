@@ -25,6 +25,50 @@ namespace ELog.Application.ElogApi
             connection = _configuration["ConnectionStrings:Default"];
         }
 
+        public async Task<Object> GetLineWorkNo(string PlantCode)
+        {
+            List<SelectListDto> value = new List<SelectListDto>();
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+                    Command.CommandText = Constants.sp_QualitySampling;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetLineCode;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("sLineCode", MySqlDbType.VarChar).Value = string.Empty;
+                    Command.Parameters.Add("sCartonBarCode", MySqlDbType.VarChar).Value = string.Empty;
+                    Command.Parameters.Add("sChildBarCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sPackingOrderNo", MySqlDbType.VarChar).Value = string.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+
+
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                foreach (DataRow dtRow in dt.Rows)
+                {
+                    SelectListDto selectListDto = new SelectListDto();
+                    selectListDto.Id = Convert.ToString(dtRow["WorkCenterCode"]);
+                    selectListDto.Value = Convert.ToString(dtRow["WorkCenterCode"]);
+                    value.Add(selectListDto);
+                }
+                return value;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+        }
+
         public async Task<Object> QualitySamplingSave([Required] string PackingOrderNo, [Required] string PlantCode, [Required] string CartonBarCode,[Required] string LineCode)
         {
             try

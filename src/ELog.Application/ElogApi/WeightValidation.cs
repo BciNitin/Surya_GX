@@ -42,7 +42,7 @@ namespace ELog.Application.ElogApi
             SessionPlantCode = _httpContextAccessor.HttpContext.Session.GetString("PlantCode");
         }
 
-        public async Task<Object> CaptureWeight(string BarCode,decimal Weight)
+        public async Task<Object> CaptureWeight(string BarCode,decimal Weight,string PlantCode)
         {
 
             try
@@ -59,21 +59,21 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "CaptureWeight";
                     Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = BarCode;
                     Command.Parameters.Add("sWeight", MySqlDbType.Decimal).Value = Weight;
-                    Command.Parameters.Add("sPlantCode", MySqlDbType.Decimal).Value = _httpContextAccessor.HttpContext.Session.GetString("PlantCode");
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.Decimal).Value = PlantCode;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
                     dt.Load(myReader);
                     Command.Connection.Close();
-                    if (dt.Rows.Count > 0)
+                    if(!dt.Columns.Contains("Error") && dt.Rows.Count > 0)
                     {
-                        response.Message = Convert.ToString(dt.Rows[0]["Success"]);
+                        response.Message = Convert.ToString(dt.Rows[0]["Message"]);
                         response.Status = true;
                         return response;
                     }
                     else
                     {
-                        response.Message = Convert.ToString(dt.Rows[0]["Error"]);
+                        response.Message = Convert.ToString(dt.Rows[0]["Message"]);
                         response.Status = false;
                         return response;
                     }
@@ -107,18 +107,20 @@ namespace ELog.Application.ElogApi
                     Command.CommandText = "sp_WeightValidation";
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "PrintCapureWeight";
                     Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = BarCode;
+                    Command.Parameters.Add("sWeight", MySqlDbType.Decimal).Value =0;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = "";
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
                     dt.Load(myReader);
                     Command.Connection.Close();
-                    if (!dt.Columns.Contains("Error"))
+                    if (!dt.Columns.Contains("Error") && dt.Rows.Count > 0)
                     {
                         
                         dt.Columns.Add("OTP", typeof(System.String));
                         dt.Rows[0]["OTP"] = AbpSession.UserId;
                         printer.IPAddress = Convert.ToString(dt.Rows[0]["PrinterIP"]);
-                        printer.Port = Convert.ToInt32(dt.Rows[0]["IP"]);
+                        printer.Port = Convert.ToInt32(dt.Rows[0]["Port"]);
                         printer.PrintBody = Convert.ToString(dt.Rows[0]["PRNFile"]);
                         printer.PrintBody = ReplacePRNKeysValues(printer.PrintBody, dt);
                         bool isActive = await _printer.PrinterAvailable(printer);
@@ -136,8 +138,14 @@ namespace ELog.Application.ElogApi
                             return response;
                         }
                     }
-                    
+                    else
+                    {
+                        response.Message = Convert.ToString(dt.Rows[0]["Message"]);
+                        response.Status = false;
+                        return response;
+                    }
                 }
+                
 
             }
             catch (Exception e)
@@ -148,7 +156,7 @@ namespace ELog.Application.ElogApi
 
         }
 
-        public async Task<Object> GetBarCodeDetails(string SessionPlantCode)
+        public async Task<Object> GetBarCodeDetails(string PlantCode)
         {
 
             try
@@ -165,7 +173,7 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetBarCodeDetails";
                     Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = "";
                     Command.Parameters.Add("sWeight", MySqlDbType.Decimal).Value = 0;
-                    Command.Parameters.Add("sPlantCode", MySqlDbType.Decimal).Value = SessionPlantCode;
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.Decimal).Value = PlantCode;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();

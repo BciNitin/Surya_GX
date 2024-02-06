@@ -10,13 +10,31 @@
                 <div class="panel panel-default">
                     <div id="collapse1" class="panel-collapse collapse in dark-text">
                         <div class="panel-body">
+                            <div class="row fieldes">
                             <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
-                                <div class="row fieldes">
+                                
                                     
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
+                                            <mat-label>Plant Code</mat-label>
+                                            <mat-select [(ngModel)]="PlantCode" (selectionChange)="GetItemCodes($event)" name="PlantCode" [errorStateMatcher]="matcher"
+                                                [errorStateMatcher]="matcher"
+                                                formControlName="PlantCodeFormControl">
+                                                <mat-option>Select Plant Code</mat-option>
+                                                <mat-option *ngFor="let item of PlantCodeList" [value]="item.id">
+                                                    {{item.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('PlantCodeFormControl')?.hasError('required') || addEditFormGroup?.get('PlantCodeFormControl')?.hasError('whitespace')">
+                                                Plant Code is required.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field>
                                             <mat-label>Item Code</mat-label>
-                                            <mat-select [(ngModel)]="MaterialCode" (ngModelChange)="GrtTableGrid($event)" name="MaterialCode" [errorStateMatcher]="matcher"
+                                            <mat-select [(ngModel)]="MaterialCode" (selectionChange)="getArray($event)" name="MaterialCode" [errorStateMatcher]="matcher"
                                                 [errorStateMatcher]="matcher"
                                                 
                                                 formControlName="ItemCodeFormCControl">
@@ -27,49 +45,66 @@
                                             </mat-select>
                                             <mat-error
                                                 *ngIf="addEditFormGroup?.get('ItemCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('ItemCodeFormCControl')?.hasError('whitespace')">
-                                                Item code is required.
+                                                Item Code is required.
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
-                                    
-                                  </div>
-                               </form>
-                            <br>
+                            </form>
+                                    <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                        <div class="row fieldes">
+                                        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                        <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                                            <mat-label>Scan Carton Or Item Barcode</mat-label>
+                                            <input matInput name="ScanBarcode"  (keyup.enter)="ValidateByBarcode()"
+                                                   [(ngModel)]='ScanBarcode' formControlName="BarcodeFormControl" >
+                                            <!-- <mat-error *ngIf="addEditFormGroup?.get('ShiperBarcodeFormControl')?.hasError('required') || addEditFormGroup?.get('ShiperBarcodeFormControl')?.hasError('whitespace')">
+                                                 Barcode is required.
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+
                             <div class="body table-responsive">
                                 <table class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
                                             <th class="th-center-align">{{ "Select" | localize }}</th>
                                             <th class="th-center-align">{{ "Label Barcode" | localize }}</th>
+                                            <th class="th-center-align">{{ "Item Barcode" | localize }}</th>
                                             <th class="th-center-align">{{ "Item Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Aging(days)" | localize }}</th>
                                             
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let  picklistItem of itemDtls">
+                                        <tr *ngFor="let  picklistItem of dataSource.filteredData">
 
                                             <td class="td-center-align">
                                                 <div *ngIf="picklistItem.plantCode != null; else rediobutton">
-                                                <mat-radio-button
-                                                    (change)="GetCheckBoxValue($event,picklistItem.barcode,picklistItem.materialCode)"
-                                                    class="whiteMatSelect" [checked]="false"></mat-radio-button>
+                                                      <mat-checkbox [(ngModel)]="picklistItem.checkBoxValue"  (change)="GetCheckBoxValue($event,picklistItem.barcode,picklistItem.materialCode,picklistItem.itemBarcode)"></mat-checkbox>
                                                 </div>
                                                     <ng-template #rediobutton>
                                                     </ng-template>
 
                                             </td>
                                             <td class="td-center-align">{{picklistItem.barcode}}</td>
+                                            <td class="td-center-align">{{picklistItem.itemBarcode}}</td>
                                             <td class="td-center-align">{{picklistItem.materialCode}}</td>
                                             <td class="td-center-align">{{picklistItem.ageing}}</td>
                                             
                                         </tr>
-                                        <tr *ngIf="obj?.length == 0">
+                                        <tr *ngIf="dataSource.filteredData?.length == 0">
                                             <td colspan="6" class="no-data-available">No data to display.</td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 40]"
+                            aria-label="Select page" (page)="pageEvent = handlePage($event)">
+                        </mat-paginator>
                             </div>
+                            
                             <div class="row fieldes">
                                 
                             </div>

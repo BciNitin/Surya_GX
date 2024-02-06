@@ -3,29 +3,30 @@
         <div class="card main-content">
             <div class="row user-component-content row-filter-container">
                 <div class="col-12">
-                    <h2 class="title">{{ "Packing Order Process" | localize }}</h2>
+                    <h2 class="title">{{ "Packing Order Confirmation" | localize }}</h2>
                 </div>
             </div>
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
                     <div id="collapse1" class="panel-collapse collapse in dark-text">
                         <div class="panel-body">
-                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
+                            <form novalidate autocomplete="off" [formGroup]="addEditFormGroup"
+                                #addEditUserForm="ngForm">
                                 <div class="row fieldes">
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-
-
-
-                                    
-                                        <mat-form-field >
+                                        <mat-form-field>
                                             <mat-label>Plant Code</mat-label>
-                                            <mat-select required [(ngModel)]="plantCode" name="plantId" [errorStateMatcher]="matcher" (ngModelChange)="onChangePlantCode($event)" formControlName="plantCodeFormCControl">
+                                            <mat-select required [(ngModel)]="plantCode" name="plantId"
+                                                [errorStateMatcher]="matcher"
+                                                (ngModelChange)="onChangePlantCode($event)"
+                                                formControlName="plantCodeFormCControl">
                                                 <mat-option>Select Plant</mat-option>
                                                 <mat-option *ngFor="let plant of plnaCodeList" [value]="plant.id">
                                                     {{plant.value}}
                                                 </mat-option>
                                             </mat-select>
-                                            <mat-error *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('plantCodeFormCControl')?.hasError('required') || addEditFormGroup?.get('plantCodeFormCControl')?.hasError('whitespace')">
                                                 Plant Code is required.
                                             </mat-error>
                                         </mat-form-field>
@@ -33,22 +34,27 @@
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <mat-label>Packing Order No.</mat-label>
-                                            <mat-select required [(ngModel)]="packingOrderNo" [errorStateMatcher]="matcher" (ngModelChange)="getArray()" name="packingOrder"  formControlName="packingOrderFormControl">
+                                            <mat-select required [(ngModel)]="packingOrderNo"
+                                                [errorStateMatcher]="matcher" (ngModelChange)="getArray()"
+                                                name="packingOrder" formControlName="packingOrderFormControl">
                                                 <mat-option>Select Packing Order</mat-option>
-                                                <mat-option *ngFor="let packing of packingOrderList" [value]="packing.id">
+                                                <mat-option *ngFor="let packing of packingOrderList"
+                                                    [value]="packing.id">
                                                     {{packing.value}}
                                                 </mat-option>
                                             </mat-select>
-                                            <mat-error *ngIf="addEditFormGroup?.get('packingOrderFormControl')?.hasError('required') || addEditFormGroup?.get('packingOrderFormControl')?.hasError('whitespace')">
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('packingOrderFormControl')?.hasError('required') || addEditFormGroup?.get('packingOrderFormControl')?.hasError('whitespace')">
                                                 Packing Order Number is required.
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
                                 </div>
-                               </form>
+                            </form>
                             <br>
-                            <div class="body table-responsive">
-                                <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
+
+                            <div class="body mh500  table-responsive">
+                                <table class="table table-hover table-striped table-sm table-bordered">
                                     <thead>
                                         <tr>
                                             <th class="th-center-align">{{ "Plant Code" | localize }}</th>
@@ -62,36 +68,37 @@
                                     <tbody>
                                         <tr *ngFor="let  picklistItem of dataSource.filteredData">
                                             <td class="td-center-align">{{picklistItem.plantCode}}</td>
-                                           <!-- / <td class="td-center-align">{{picklistItem.batchCode}}</td> -->
+                                            <!-- / <td class="td-center-align">{{picklistItem.batchCode}}</td> -->
                                             <td class="td-center-align">{{picklistItem.strLocCode}}</td>
                                             <td class="td-center-align">{{picklistItem.packedQty}}</td>
-                                            <td class="td-center-align">{{picklistItem.packing_Date | date: 'dd-MM-yyyy'}}</td>
+                                            <td class="td-center-align">{{picklistItem.packing_Date | date:
+                                                'dd-MM-yyyy'}}</td>
                                             <td class="td-center-align">{{picklistItem.lineCode}}</td>
                                         </tr>
                                         <tr *ngIf="dataSource.filteredData?.length == 0">
                                             <td colspan="8" class="no-data-available">No data to display.</td>
                                         </tr>
                                     </tbody>
-                                    
+
                                 </table>
                                 <!-- <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 40]"
                                 aria-label="Select page" (page)="pageEvent = handlePage($event)">
                             </mat-paginator> -->
                             </div>
-                            
-                           
+
+
                             <div class="row">
                                 <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                 </div>
                                 <div class="col-md-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                    <button class="btn filter-back-button pull-right"
-                                            (click)="Clear()">
+                                    <button class="btn filter-back-button pull-right" (click)="Clear()">
                                         Clear
                                     </button>
-                                    <button class="btn btn-primary pull-right" (click)="markDirty() && addEditFormGroup.valid && Save()">
+                                    <button class="btn btn-primary pull-right"
+                                        (click)="markDirty() && addEditFormGroup.valid && Save()">
                                         Confirm
                                     </button>
-                                    
+
                                 </div>
                             </div>
 

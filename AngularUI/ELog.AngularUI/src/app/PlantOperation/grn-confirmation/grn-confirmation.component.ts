@@ -26,8 +26,14 @@ export class GrnConfirm
 export class GrnConfirmationComponent implements OnInit {
   challanNo:any;
   challanDtls:any;
-  DeliveryChallanNo:string="";
+  DeliveryChallanNo:string=null;
   CartonBarcode:string="";
+  quantity:any="";
+  scanedQty:any="";
+  CheckNGOK:boolean=false;
+  fromPlantCode:any;
+  toPlantCode:any;
+
   constructor(
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
@@ -39,49 +45,67 @@ export class GrnConfirmationComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('GRN Confirmation');
     this.GetChallanNo();
+    this.addEditFormGroup.controls['FormControlQuantity'].disable();
+    this.addEditFormGroup.controls['FormControlscanedQty'].disable();
   }
   addEditFormGroup: FormGroup = this.formBuilder.group({
     
     ShiperBarcodeFormControl: ['',[Validators.required,NoWhitespaceValidator]],
-    challanFormCControl: ['',[Validators.required,NoWhitespaceValidator]]
+    challanFormCControl: ['',[Validators.required,NoWhitespaceValidator]],
+    FormControlQuantity:[null],
+    FormControlscanedQty:[null],
+    FormControlOKNG:[null]
 });
 
 GetChallanNo() {
-  this._apiservice.GetchallanNo().subscribe((modeSelectList: SelectListDto[]) => {
+  abp.ui.setBusy();
+  this._apiservice.GetChallanNoForGRNConfirm().subscribe((modeSelectList: SelectListDto[]) => {
       this.challanNo = modeSelectList["result"];
+      abp.ui.clearBusy();
   });
 };
 
 GrtTableGrid()
 {
-  var _grnConfirm =  new GrnConfirm();
-  
-  _grnConfirm.DeliveryChallanNo=this.DeliveryChallanNo;
-  this._apiservice.GetChallanDetails(this.DeliveryChallanNo).subscribe((response) => {
+  abp.ui.setBusy();
+  if ( this.DeliveryChallanNo !== undefined) {
+  this._apiservice.GetSOChallanDetails(this.DeliveryChallanNo).subscribe((response) => {
     this.challanDtls = response["result"];
-    
+    console.log('res',response["result"])
+    this.fromPlantCode = response["result"][0]['fromPlantCode']
+     this.toPlantCode = response["result"][0]['toPlantCode']
+     this.CartonBarcode = '';
+     this.scanedQty ='';
+     this.quantity = '';
+     abp.ui.clearBusy();
   })
 }
+else{
+  abp.ui.clearBusy();
+}
+}
 
-ValidateGRNConfirmation() {
-  
-var _grnConfirm =  new GrnConfirm();
-  
-  _grnConfirm.DeliveryChallanNo=this.DeliveryChallanNo;
-  _grnConfirm.CartonBarcode=this.CartonBarcode;
+GRNConfirmation() {
+
   if(this.DeliveryChallanNo=="" || this.DeliveryChallanNo==null)
   {
-    abp.notify.error("Please select delivery challan !");
+    abp.notify.error("Please select delivery challan.");
+    this.quantity = '';
+    this.scanedQty = '';
+    this.CartonBarcode = '';
     this.Clear();
   }
   else
   {
     
-this._apiservice.GetValidateGRNConfirmation(this.DeliveryChallanNo,this.CartonBarcode).subscribe(result => {
+   this._apiservice.GetValidateGRNConfirmation(this.DeliveryChallanNo,this.CartonBarcode,this.CheckNGOK,this.toPlantCode,this.fromPlantCode).subscribe(result => {
     
     if(result["result"][0]['valid'])
-    {
+    { 
       abp.notify.success(result["result"][0]['valid']);
+      this.quantity = result["result"][0]['quantity']
+      this.scanedQty = result["result"][0]['scanedQty']
+      
     }
     else
     {
@@ -90,11 +114,47 @@ this._apiservice.GetValidateGRNConfirmation(this.DeliveryChallanNo,this.CartonBa
          
       });
 }
-this.GrtTableGrid();
 }
 
 Clear(){
         
   this.addEditFormGroup.reset();
 }
+markDirty() {
+  this._appComponent.markGroupDirty(this.addEditFormGroup);
+   return true;
+}
+
+GRNValidation()
+{
+
+  if(this.DeliveryChallanNo=="" || this.DeliveryChallanNo==null && this.CartonBarcode !=undefined)
+  {
+    abp.notify.error("Please select delivery challan.");
+    this.quantity = '';
+    this.scanedQty = '';
+    this.CartonBarcode = '';
+    this.Clear();
+  }
+  else
+  {
+    
+   this._apiservice.ConfirmGRN(this.DeliveryChallanNo,this.CartonBarcode,this.CheckNGOK,this.toPlantCode,this.fromPlantCode).subscribe(result => {
+    
+    if(result["result"][0]['valid'])
+    { 
+      abp.notify.success(result["result"][0]['valid']);
+      this.quantity = result["result"][0]['quantity']
+      this.scanedQty = result["result"][0]['scanedQty']
+      
+    }
+    else
+    {
+     abp.notify.error(result["result"][0]['error']);
+    }
+         
+      });
+}
+}
+
 }

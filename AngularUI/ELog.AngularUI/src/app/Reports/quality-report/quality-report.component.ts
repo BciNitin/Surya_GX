@@ -53,7 +53,6 @@ export class QualityReportComponent implements OnInit {
 ) { }
   ngOnInit() {
     this.GetPlantCode();
-    this.GetPackingReportOrderNo();
     this.paginator._intl.itemsPerPageLabel="Records per page";
   }
   filterCountries(searchTerm: string) {
@@ -76,27 +75,25 @@ export class QualityReportComponent implements OnInit {
   }
 
   private getArray() {
-    debugger;
     const data = {
       
       PackingOrder: this.PackingOrder,
       PlantCode: this.PlantCode,
       QCStatus:this.QCStatus
     };
-  this._apiservice.GetQualityReport(data).subscribe(result => {
+
+       this._apiservice.GetQualityReport(data).subscribe(result => {
         this.dataSourcePagination = new MatTableDataSource<Element>(result['result']);
         this.dataSourcePagination.paginator = this.paginator;
         if(result["result"][0]['error'])
         {
           abp.notify.error(result["result"][0]['error']);
-          
           this.iterator();
           this.dataSource.filteredData.length=0;
           this.totalSize = 0;
         }
         else
         {
-          debugger;
           this.array = result['result'];
           this.totalSize = this.array.length;
           this.iterator();
@@ -129,8 +126,8 @@ export class QualityReportComponent implements OnInit {
     );
   };
   
-  GetPackingReportOrderNo() {
-    this._apiservice.GetPackingReportOrderNo().subscribe((response) => {
+  GetPackingReportOrderNo(plantcode) {
+    this._apiservice.GetPackingReportOrderNo(this.PlantCode).subscribe((response) => {
         this.packingOrderlist = response["result"];
     });
   };

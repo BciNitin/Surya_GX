@@ -323,7 +323,6 @@ Save() {
             this.printingQty=0;
             abp.ui.clearBusy();
             this.isSelected = false;
-            console.log("result",result["result"][0].fileName)
             const fileName = result["result"][0].fileName            ;
             this._apiservice.downloadSerialNumberCSV(fileName).subscribe((response) => {
               const blob = new Blob([response.body], { type: response.headers.get('content-type') });

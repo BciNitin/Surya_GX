@@ -47,7 +47,6 @@ export class QualityTestedItemplacementComponent implements OnInit {
 });
 
 Validate() {
-  
 
   var _iPlacement =  new itemplacement();
   _iPlacement.itemBarcode = this.itemBarcode;
@@ -55,7 +54,6 @@ Validate() {
   if(this.plantCode=="" || this.plantCode==null)
   {
     abp.notify.error("Please select Plant code!");
-    this.Clear();
   }
   else
   {
@@ -64,12 +62,10 @@ Validate() {
            if(result["result"][0]['error'])
            {
             abp.notify.error(result["result"][0]['error']);
-            this.Clear();
            }
            else
            {
             this.qualityItemDtls = result["result"];
-            this.Clear();
            }
            
       });

@@ -97,6 +97,7 @@ export class MaterialComponent implements OnInit, AfterViewInit {
                 this.array = response['result'];
                 this.totalSize = this.array.length;
                 this.iterator();
+                console.log("response['result']",response['result'])
             });
     }
 

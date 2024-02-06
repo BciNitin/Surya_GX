@@ -18,6 +18,7 @@
                                             <mat-label>Plant Code</mat-label>
                                             <mat-select [(ngModel)]="plantCode" required name="plantId"
                                                 [errorStateMatcher]="matcher"
+                                               (selectionChange)="GetLineCode()"
                                                 formControlName="plantCodeFormCControl">
                                                 <mat-option>Select Plant</mat-option>
                                                 <mat-option *ngFor="let plant of plnaCodeList" [value]="plant.id">

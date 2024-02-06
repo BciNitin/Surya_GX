@@ -66,7 +66,7 @@ export class PackingOrderBarcodeDtlsComponent implements OnInit {
     this.GetPlantCode();
     this.GetItemCodes();
     this.GetLineCode();
-    this.GetPackingReportOrderNo();
+   // this.GetPackingReportOrderNo();
     this.paginator._intl.itemsPerPageLabel="Records per page";
     //this.getArray();
   }
@@ -163,7 +163,7 @@ export class PackingOrderBarcodeDtlsComponent implements OnInit {
     });
   };
   GetPackingReportOrderNo() {
-    this._apiservice.GetPackingReportOrderNo().subscribe((response) => {
+    this._apiservice.GetPackingReportOrderNo(this.PlantCode).subscribe((response) => {
         this.packingOrderlist = response["result"];
     });
   };

@@ -73,7 +73,7 @@ ngOnInit() {
     this.GetPlantCode();
     this.GetItemCodes();
     this.GetLineCode();
-    this.GetPackingReportOrderNo();
+    //this.GetPackingReportOrderNo();
     this.paginator._intl.itemsPerPageLabel="Records per page";
     //this.getArray();
   }
@@ -183,8 +183,8 @@ ngOnInit() {
         this.lineList = response["result"];
     });
   };
-  GetPackingReportOrderNo() {
-    this._apiservice.GetPackingReportOrderNo().subscribe((response) => {
+  GetPackingReportOrderNo(plantode) {
+    this._apiservice.GetPackingReportOrderNo(plantode).subscribe((response) => {
         this.packingOrderlist = response["result"];
     });
   };
@@ -217,10 +217,8 @@ ngOnInit() {
     
 }
 exportexcel(): void {
-  debugger;
   this.pageSize = 100000;
   this.exportExcel = 1
-  debugger;
   const data = {
     MaterialCode: this.MaterialCode,
     FromDate: this.FromDate,
@@ -229,12 +227,12 @@ exportexcel(): void {
     PackingOrder: this.PackingOrder,
     PlantCode: this.PlantCode
   };
+  if(this.dataSource.filteredData.length > 0)
+  {
   this._apiservice.GetPackingReport(data).subscribe({
     next: data => {
-      debugger;
       if (data == null) {
         abp.notify.error('No data present.');
-        
         return;
       }
       this.IExcel =this.dataSource.filteredData;
@@ -253,6 +251,10 @@ exportexcel(): void {
       console.error('There was an error!', error);
     }
   });
-
+  }
+  else
+  {
+    abp.notify.error('Please Get the Data First.');
+  }
 }
 }

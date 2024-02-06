@@ -90,7 +90,7 @@ export class ShiftMasterComponent implements OnInit {
   private getArray() {
     this._apiservice.getShiftMaster()
       .subscribe((response) => {
-        debugger;
+        
         this.dataSourcePagination = new MatTableDataSource<Element>(response['result']);
         this.dataSourcePagination.paginator = this.paginator;
         this.array = response['result'];
@@ -112,7 +112,7 @@ export class ShiftMasterComponent implements OnInit {
   };
     
   delete(id){  
-    debugger;
+    
       this._apiservice.DeleteSiftMasterbyid(id).pipe(
       finalize(()=>{abp.ui.clearBusy})
     )
@@ -141,7 +141,7 @@ export class ShiftMasterComponent implements OnInit {
     if (confirm('Are you sure you want to delete this?')) {
     try {
       this._apiservice.DeleteShift(Shiftdetalis.id).subscribe((response) => {
-        debugger;
+        
         abp.notify.success(response["result"][0]['valid']);
         this.getArray();
     });

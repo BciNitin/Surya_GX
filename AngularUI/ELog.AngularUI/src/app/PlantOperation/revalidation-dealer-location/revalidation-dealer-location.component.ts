@@ -29,6 +29,7 @@ interface grid
   animations: [appModuleAnimation()],
   providers: [ValidationService]
 })
+
 export class RevalidationDealerLocationComponent implements OnInit, AfterViewInit {
   public pageSize = 10;
   public currentPage = 0;

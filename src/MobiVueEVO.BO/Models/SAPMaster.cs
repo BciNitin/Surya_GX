@@ -102,7 +102,10 @@ namespace MobiVueEVO.BO.Models
             public string DeliveryChallanno { get; set; }
             [Required]
             [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
-            public string PlantCode { get; set; }
+            public string FromPlantCode { get; set; }
+            [Required]
+            [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
+            public string ToPlantCode { get; set; }
             [Required]
             [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string SONo { get; set; }
@@ -128,7 +131,17 @@ namespace MobiVueEVO.BO.Models
             [RegularExpression(@"^[0-9]+$", ErrorMessage = "Only Numbers Are Allowed.")]
             public string NoofBoxes { get; set; }
         }
-
+        public class STODelivery
+        {
+            public string DeliveryChallanNo { get; set; }
+            public string SalesOrderNo { get; set; }
+            public DateTime SODate { get; set; }
+            public string SendingPlantCode { get; set; }
+            public string ReceivingPlantCode { get; set; }
+            public string MaterialCode { get; set; }
+            public string StorageLoc { get; set; }
+            public int Quantity { get; set; }
+        }
         public class MATERIALMASTER
         {
             [Required]
@@ -144,8 +157,8 @@ namespace MobiVueEVO.BO.Models
             [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string UOM { get; set; }
             [Required]
-            [RegularExpression(@"^[0-9]+(\.[0-9]+)?$", ErrorMessage = "Invalid Input. Only Numbers And Decimals Are Allowed.")]
-            public string UnitWeight { get; set; }
+            //[RegularExpression(@"^[0-9]+(\.[0-9]+)?$", ErrorMessage = "Invalid Input. Only Numbers And Decimals Are Allowed.")]
+            public decimal UnitWeight { get; set; }
             [Required]
             public string SelfLife { get; set; }
             [Required]

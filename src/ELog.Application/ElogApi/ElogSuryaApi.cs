@@ -110,9 +110,9 @@ namespace ELog.Application.ElogApi
                     dt.Load(myReader);
                     Command.Connection.Close();
                 }
-                var result = Utility.DataTableToList<Material>(dt);
+               // var result = Utility.DataTableToList<Material>(dt);
                 //var result = Utility.ToListof<Material>(dt);
-                return result;
+                return dt;
             }
             catch (Exception e)
             {

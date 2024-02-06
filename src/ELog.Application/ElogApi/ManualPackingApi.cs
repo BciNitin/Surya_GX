@@ -70,7 +70,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        public async Task<Object> ValidateBarcode(string BinBarCode,string macAddresses, string plantcode, string linecode, string packingorder)
+        public async Task<Object> ValidateBarcode(string BinBarCode,string macAddresses, string plantcode, string linecode, string packingorder,string MaterialCode)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sMacID", MySqlDbType.VarChar).Value = macAddresses;
                     Command.Parameters.Add("sBinBarCode", MySqlDbType.VarChar).Value = BinBarCode;
                     Command.Parameters.Add("sparentBarCode", MySqlDbType.VarChar).Value = String.Empty;
-                    Command.Parameters.Add("sItemCode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sItemCode", MySqlDbType.VarChar).Value = MaterialCode;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();

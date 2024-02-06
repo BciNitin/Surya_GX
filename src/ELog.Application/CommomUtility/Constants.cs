@@ -59,8 +59,10 @@ namespace ELog.Application.CommomUtility
         public const string sp_Revalidation_Process_Branch = "sp_Revalidation_Process_BranchPlant";
         public const string GetExpiredItemCode = "GetExpiredItemCode";
         public const string GetExpiredItemDetails = "GetExpiredItemCodeDetails"; 
-        public const string GetValidateItem = "GetValidateItem";
+        public const string ValidateItemByBarCode = "ValidateItemByBarCode";
+        public const string GetValidateItem = "ValidateItem";
         public const string GetValidateGRNConfirm = "GetValidateGRNConfirmation";
+        public const string GetGRNConfirmation = "GetGRNConfirmation";
         public const string sp_GRN_Confirm = "sp_GRN_Confirmation"; 
         public const string sp_BarcodedWarrantyClaim = "sp_Barcoded_Warranty_Claim";
         public const string GetCustomerCode = "GetCustomerCode"; 
@@ -73,6 +75,9 @@ namespace ELog.Application.CommomUtility
         public const string sp_warrantytracking = "sp_warranty_tracking";
         public const string GetWarranty = "GetWarranty";
         public const string sp_MaterialTolerance = "sp_Material_Tolerance";
+
+        public const string GetGetMaterialCode = "GetMaterialCode";
+
 
     }
 }

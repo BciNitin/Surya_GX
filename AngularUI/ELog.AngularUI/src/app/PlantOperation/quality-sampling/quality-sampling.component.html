@@ -18,6 +18,7 @@
                                             <mat-label>Plant Code</mat-label>
                                             <mat-select [(ngModel)]="plantCode" required name="plantId"
                                                 [errorStateMatcher]="matcher"
+                                               (selectionChange)="GetLineCode()"
                                                 formControlName="plantCodeFormCControl">
                                                 <mat-option>Select Plant</mat-option>
                                                 <mat-option *ngFor="let plant of plnaCodeList" [value]="plant.id">
@@ -98,16 +99,10 @@
                                                  (keyup.enter)="onScaningItem($event)"
                                                  formControlName="ItemBarCodeFormControl"
                                                >
-                                               <!-- formControlName="ItemBarCodeFormControl"
-                                               <mat-error
-                                                *ngIf="addEditFormGroup?.get('ItemBarCodeFormControl')?.hasError('required') || addEditFormGroup?.get('ItemBarCodeFormControl')?.hasError('whitespace')">
-                                                Item BarCode is required.
-                                            </mat-error> -->
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                                         <div style="margin: 15px">
-                                            <!-- <p >Quantity</p> -->
                                             <mat-label >Sampling Quantity: {{Qty}}</mat-label>
                                         </div>
                                     </div>
