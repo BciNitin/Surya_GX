@@ -19,23 +19,23 @@ namespace ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.CheckpointTypeMaster
 
         public void Create()
         {
-            var existingCheckpoints = _context.CheckpointTypeMaster.IgnoreQueryFilters().Select(x => x.Title).ToList() ?? default;
+        //    var existingCheckpoints = _context.CheckpointTypeMaster.IgnoreQueryFilters().Select(x => x.Title).ToList() ?? default;
 
-            var checkpoints = SeedHelper.SeedEntityData<string>(PMMSConsts.CheckpointTypeMasterSeedFilePath).Where(x => !existingCheckpoints.Contains(x));
-            foreach (var checkpoint in checkpoints)
-            {
-                if (_context.CheckpointTypeMaster.IgnoreQueryFilters().Any(l => l.Title == checkpoint))
-                {
-                    continue;
-                }
-                var checkpointTypeMaster = new ELog.Core.Entities.CheckpointTypeMaster
-                {
-                    Title = checkpoint,
-                    IsDeleted = false
-                };
-                _context.CheckpointTypeMaster.Add(checkpointTypeMaster);
-                _context.SaveChanges();
-            }
+        //    var checkpoints = SeedHelper.SeedEntityData<string>(PMMSConsts.CheckpointTypeMasterSeedFilePath).Where(x => !existingCheckpoints.Contains(x));
+        //    foreach (var checkpoint in checkpoints)
+        //    {
+        //        if (_context.CheckpointTypeMaster.IgnoreQueryFilters().Any(l => l.Title == checkpoint))
+        //        {
+        //            continue;
+        //        }
+        //        var checkpointTypeMaster = new ELog.Core.Entities.CheckpointTypeMaster
+        //        {
+        //            Title = checkpoint,
+        //            IsDeleted = false
+        //        };
+        //        _context.CheckpointTypeMaster.Add(checkpointTypeMaster);
+        //        _context.SaveChanges();
+        //    }
         }
     }
 }

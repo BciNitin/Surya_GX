@@ -46,7 +46,7 @@ namespace ELog.Core.Entities
         [ForeignKey("SubModuleId")]
         public ICollection<StatusMaster> StatusMasters { get; set; }
 
-        [ForeignKey("SubModuleId")]
-        public ICollection<ReportConfiguration> ReportConfigurations { get; set; }
+        //[ForeignKey("SubModuleId")]
+        //public ICollection<ReportConfiguration> ReportConfigurations { get; set; }
     }
 }

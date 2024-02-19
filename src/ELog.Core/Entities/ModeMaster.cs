@@ -22,7 +22,5 @@ namespace ELog.Core.Entities
         [ForeignKey("ModeId")]
         public ICollection<User> Users { get; set; }
 
-        [ForeignKey("ModeId")]
-        public ICollection<DeviceMaster> DeviceMasters { get; set; }
     }
 }

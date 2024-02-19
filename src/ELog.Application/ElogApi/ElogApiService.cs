@@ -37,24 +37,22 @@ namespace ELog.Application.ElogApi
         private readonly PMMSDbContext _context;
         private readonly IRepository<PlantMaster> _plantRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IRepository<GateEntry> _gateEntryRepository;
         private readonly ISessionAppService _sessionAppService;
         public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
         private readonly IRepository<User, long> _userRepository;
         private readonly IRepository<Loading> _loadingRepository;
         private readonly IModuleAppService _moduleAppService;
-        public  ElogApiService(IRepository<PurchaseOrder> purchaseOrderRepository,
-        IRepository<GateEntry> gateEntryRepository, IConfiguration configuration,
+        public  ElogApiService(
+        IConfiguration configuration,
         IHttpContextAccessor httpContextAccessor,
         ISessionAppService sessionAppService,
         IRepository<User, long> userRepository, IRepository<PlantMaster> plantRepository,
         IRepository<Loading> loadingRepository,
-        IRepository<LineClearanceCheckpoint> lineClearanceCheckPointRepository, IModuleAppService moduleAppService
+        IModuleAppService moduleAppService
 
           )
         {
             AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
-            _gateEntryRepository = gateEntryRepository;
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
             _sessionAppService = sessionAppService;

@@ -31,10 +31,10 @@ namespace ELog.Application
         {
             var thisAssembly = typeof(PMMSApplicationModule).GetAssembly();
             IocManager.Register<ERPConnectorFactory.ERPConnectorFactory, ERPConnectorFactory.ERPConnectorFactory>();
-            IocManager.Register<IConnector, SAPAjantaConnector>();
+        //    IocManager.Register<IConnector, SAPAjantaConnector>();
             IocManager.Register<IHttpClientProvider, HttpClientProvider>();
 
-            IocManager.Register<ISAPAjantaAdapter, SAPAjantaAdapter>();
+           // IocManager.Register<ISAPAjantaAdapter, SAPAjantaAdapter>();
             IocManager.Register<IPrinterConnector, PRNPrinter>();
             IocManager.Register<PrinterFactory, PrinterFactory>();
             IocManager.Register<IWeighingScaleConnector, WeighingScale>();

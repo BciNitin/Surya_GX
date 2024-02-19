@@ -105,3 +105,5 @@ ELog.Connector/bin/Debug/netcoreapp3.1/ELog.Core.dll
 /src/ELog.Migrator/appsettings.json
 /AngularUI/ELog.AngularUI/dist.zip
 /AngularUI/ELog.AngularUI/dist.zip
+src/ELog.Web.Host/wwwroot/SerialNumber/T0002BTLIN214022024152306.csv
+src/ELog.Web.Host/wwwroot/SerialNumber/T0001BTLIN214022024120210.csv

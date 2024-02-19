@@ -78,47 +78,43 @@ namespace ELog.Application.ElogApi
                         Command.Connection.Close();
                         if (dt.Rows.Count > 0)
                         {
-                            if (!dtList.Columns.Contains("Barcode Serial No"))
+                            if (!dtList.Columns.Contains("BarCode"))
                             {
-                                dtList.Columns.Add(new DataColumn("Barcode Serial No", typeof(string)));
+                                dtList.Columns.Add(new DataColumn("BarCode", typeof(string)));
                             }
                             dtList.Rows.Add(i);
-                            dtList.Rows[i]["Barcode Serial No"] = dt.Rows[0]["BarCode"].ToString();
+                            dtList.Rows[i]["BarCode"] = dt.Rows[0]["BarCode"].ToString();
                         }
 
                     }
                 }
                 if (dtList.Rows.Count > 0)
                 {
-                    //DataTable dtDataTable = new DataTable();
-                    //dtDataTable.Columns.Add(new DataColumn("Barcode Serial No", typeof(string)));
 
-                    //dtDataTable.Rows.Add(i);
-                    //dtDataTable.Rows[i]["Barcode Serial No"] = ;
+                    //string FileName = generate.PackingOrderNo + generate.LineCode + DateTime.Now.ToString("ddMMyyyyHHmmss");
+                    //string webRootPath = _webHostEnvironment.WebRootPath;
+                    //string path = Path.Combine(webRootPath, "SerialNumber", FileName + ".csv");
+                    //string CSVFileName = FileName + ".csv";
+                    //bool isFileCreated = Utility.DataTableToCSV(dtList, path, FileName);
+                    //if (isFileCreated)
+                    //{
+                    //    dt.Columns.Add(new DataColumn("FileName", typeof(string)));
+                    //    dt.Rows[0]["FileName"] = CSVFileName;
+                    //}
 
-                    string FileName = generate.PackingOrderNo + generate.LineCode + DateTime.Now.ToString("ddMMyyyyHHmmss");
-                    //string Directory = System.Environment.ExpandEnvironmentVariables("%userprofile%\\Downloads\\");
-
-                    //string path = Path.Combine("D:\\Share\\SerialNumber", FileName + ".csv");
-                    string webRootPath = _webHostEnvironment.WebRootPath;
-                    string path = Path.Combine(webRootPath, "SerialNumber", FileName + ".csv");
-                    string CSVFileName = FileName + ".csv";
-                    bool isFileCreated = Utility.DataTableToCSV(dtList, path, FileName);
-                    if (isFileCreated)
-                    {
-                        dt.Columns.Add(new DataColumn("FileName", typeof(string)));
-                        dt.Rows[0]["FileName"] = CSVFileName;
-                    }
+                    string FileName = generate.PackingOrderNo+"_"+ generate.LineCode+"_" + DateTime.Now.ToString("ddMMyyyy_HH_mm_ss");
+                    dtList.Columns.Add(new DataColumn("FileName", typeof(string)));
+                    dtList.Rows[0]["FileName"] = FileName;
+                    return dtList;
 
                 }
-                return dt;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
                 return dt;
             }
-            return null;
+
+            return dt;
 
         }
 

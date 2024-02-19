@@ -11,13 +11,9 @@ import { Title } from '@angular/platform-browser';
 
 export class SgtorageLocation
 {
-    
-     
      plantcode: string="";
      Barcode:string="";
-     LocationID:string="";
-     
-    
+     LocationID:string=""; 
 }
 @Component({
   selector: 'app-storage-location-transfer',
@@ -57,7 +53,6 @@ export class StorageLocationTransferComponent implements OnInit {
     toStoragelocationFormControl: ['',[Validators.required,NoWhitespaceValidator]],
     scannedItemFormControl: [null, [Validators.required, NoWhitespaceValidator]],
     scannedqtyFormControl: [null, [Validators.required, NoWhitespaceValidator]],
-    
     
 });
 
@@ -122,6 +117,7 @@ Save() {
            if(result["result"][0]['valid'])
            {
              abp.notify.success(result["result"][0]['valid']);
+             this.storageLocationdtls = null;
              this.Clear();
 
            }

@@ -314,14 +314,14 @@ namespace ELog.Application.ElogApi
                     string insertquery = string.Empty;
                     if (dt.Rows.Count == 0)
                     {
-                        insertquery = "insert into tsodelivery(DeliveryChallanNo, SONo, SODate, PlantBranchCode,ToPlantBranchCode, CustomerCode, FromStrLoc, MaterialCode, Quantity, CreatedOn, CreatedBy ) values('" + objcls.DeliveryChallanno + "','" + objcls.SONo + "','" + objcls.SODate + "','" + objcls.FromPlantCode + "','" + objcls.ToPlantCode + "','" + objcls.Customercode + "','" + objcls.Fromstorage + "','" + objcls.MaterialCode + "','" + objcls.QTY + "',now(),'SAPAPI');";
+                        insertquery = "insert into tsodelivery(DeliveryChallanNo, SONo, SODate, PlantBranchCode, CustomerCode, FromStrLoc, MaterialCode, Quantity, CreatedOn, CreatedBy ) values('" + objcls.DeliveryChallanno + "','" + objcls.SONo + "','" + objcls.SODate + "','" + objcls.FromPlantCode + "','" + objcls.Customercode + "','" + objcls.Fromstorage + "','" + objcls.MaterialCode + "','" + objcls.QTY + "',now(),'SAPAPI');";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();
                     }
                     else
                     {
-                        insertquery = "UPDATE tsodelivery SET  SODate='"+ objcls.SODate + "', PlantBranchCode='"+ objcls.ToPlantCode + "',ToPlantBranchCode='" + objcls.FromPlantCode + "', CustomerCode='" + objcls.Customercode + "', FromStrLoc='"+ objcls.Fromstorage + "', Quantity='"+ objcls.QTY + "' WHERE DeliveryChallanNo='" + objcls.DeliveryChallanno + "' and SONo='"+ objcls.SONo + "' and MaterialCode='" + objcls.MaterialCode + "';";
+                        insertquery = "UPDATE tsodelivery SET  SODate='"+ objcls.SODate + "',PlantBranchCode='" + objcls.FromPlantCode + "', CustomerCode='" + objcls.Customercode + "', FromStrLoc='"+ objcls.Fromstorage + "', Quantity='"+ objcls.QTY + "' WHERE DeliveryChallanNo='" + objcls.DeliveryChallanno + "' and SONo='"+ objcls.SONo + "' and MaterialCode='" + objcls.MaterialCode + "';";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();

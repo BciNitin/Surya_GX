@@ -56,7 +56,7 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Packing Order Process');
+    this.titleService.setTitle('Packing Order Confirmation');
     this.GetPlantCode();
   }
   private _filterPlants(value: string): any[] {

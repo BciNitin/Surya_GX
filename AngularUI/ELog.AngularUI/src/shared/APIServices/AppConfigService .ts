@@ -13,17 +13,19 @@ export class AppConfigService {
   constructor(private http: HttpClient) { }
 
   loadConfig(): Observable<any> {
-    debugger
     return this.http.get('/assets/config.json'); // Adjust the path to your configuration file
   }
 
   setBaseUrl(baseUrl: string): void {
-    this.config.remoteServiceBaseUrl = baseUrl;
+    debugger;
+    this.config.remoteServiceBaseUrl = baseUrl + '/api/services/app/';
   }
 
-  getConfig(): any {
-    return this.config;
+  getConfig(url): any {
+    debugger
+    return this.config+url;
   }
+  
 }
 
 

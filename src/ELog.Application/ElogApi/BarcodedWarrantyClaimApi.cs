@@ -34,7 +34,6 @@ namespace ELog.Application.ElogApi
             List<SelectListDto> value = new List<SelectListDto>();
             try
             {
-                string connection = _configuration["ConnectionStrings:Default"];
                 MySqlConnection conn = new MySqlConnection(connection);
                 MySqlDataReader myReader = null;
                 DataTable dt = new DataTable();

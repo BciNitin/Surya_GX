@@ -94,8 +94,6 @@ numberOnly(event): boolean {
 
 }
 Save() {
-  debugger;
- 
   var _Storage =  new manualPack();
   _Storage.plantCode = this.plantCode;
   _Storage.minWeight=this.minWeight;
@@ -125,12 +123,10 @@ else{
 
 }
 onChangeMaterialCode() {
-  debugger;
   if (this.plantCode !== ''  && this.plantCode != undefined) {
     abp.ui.setBusy();
     this._apiservice.GetItemDesc(this.plantCode).subscribe(
       (response) => {
-        debugger;
         
           this.lineOrderList = response["result"];
           this.materialCode=response["result"][0]['materialDescription'];

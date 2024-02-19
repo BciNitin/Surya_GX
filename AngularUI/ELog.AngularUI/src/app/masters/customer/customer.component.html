@@ -16,17 +16,11 @@
                     </mat-form-field>
                 </div>
                 
-                 <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
-                    <button (click)="exportexcel()"  class="btn btn-primary " download >Download Excel</button>
-                    
-                </div>
-                
                 <!-- <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
-                    <button (click)="printPDF()"  class="btn btn-primary " download >Download PDF</button>
-                    
+                    <button (click)="exportexcel()" class="btn btn-primary" download>Download Excel</button>
                 </div> -->
             </form>
-          
+
             <div class="row clearfix row-filter-container">
                 <div class="col-12 filter-by-string filter-font" *ngIf="filterBy && !isFilterOpen">Filter By :
                     {{filterBy}}</div>

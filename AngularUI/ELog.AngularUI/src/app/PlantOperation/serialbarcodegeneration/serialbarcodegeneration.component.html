@@ -93,6 +93,10 @@
                                                 *ngIf="addEditFormGroup?.get('supplierCodeFormControl')?.hasError('required') || addEditFormGroup?.get('supplierCodeFormControl')?.hasError('whitespace')">
                                                 Supplier Code is required.
                                             </mat-error>
+                                            <mat-error
+                                            *ngIf="addEditFormGroup?.get('supplierCodeFormControl')?.hasError('pattern')">
+                                           Special character not allowed. 
+                                        </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
@@ -104,6 +108,11 @@
                                             <mat-error
                                                 *ngIf="addEditFormGroup?.get('driverCodeFormControl')?.hasError('required') || addEditFormGroup?.get('driverCodeFormControl')?.hasError('whitespace')">
                                                 Driver Code is required.
+                                                
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="addEditFormGroup?.get('driverCodeFormControl')?.hasError('pattern')">
+                                               Special character not allowed. 
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
@@ -120,7 +129,7 @@
                                             <th class="th-center-align">{{ "Plant Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Item Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Packing Date" | localize }}</th>
-                                            <th class="th-center-align">{{ "Line Code" | localize }}</th>
+                                            <th class="th-center-align">{{ "Line/Work Center Code" | localize }}</th>
                                             <th class="th-center-align">{{ "Quantity" | localize }}</th>
                                             <th class="th-center-align">{{ "Pending Quantity" | localize }}</th>
                                             <th class="th-center-align">{{"Printing Quantity"}}</th>
@@ -150,7 +159,7 @@
                                                 <mat-form-field [formGroup]="addEditFormGroup"
                                                     #addEditUserForm="ngForm">
                                                     <mat-label>Printing Quantity</mat-label>
-                                                    <input matInput type="number" name="printingQty"
+                                                    <input matInput type="text" name="printingQty"pattern="[0-9]*" (keypress)="onKeyPress($event)"
                                                         [(ngModel)]='printingQty' formControlName="printingQty"
                                                         [errorStateMatcher]="matcher" 
                                                         [errorStateMatcher]="matcher">

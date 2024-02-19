@@ -18,7 +18,7 @@ namespace ELog.ERPConnectorFactory
                 {
                     case ERPConnectorType.SAPAjanta:
                     default:
-                        return IocManager.Instance.ResolveAsDisposable<SAPAjantaConnector>().Object;
+                        return null;
                 }
             }
             catch (Exception)

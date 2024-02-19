@@ -124,6 +124,9 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>	
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="EntityFrameworkCore\Seed\CalibrationStatusMaster\" />
+	</ItemGroup>
 	<ProjectExtensions>
 		<VisualStudio>
 			<UserProperties entityframeworkcore_4resources_4country_3state_1json__JsonSchema="https://beaujs.com/schema.json" />

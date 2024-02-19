@@ -105,9 +105,6 @@ namespace MobiVueEVO.BO.Models
             public string FromPlantCode { get; set; }
             [Required]
             [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
-            public string ToPlantCode { get; set; }
-            [Required]
-            [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string SONo { get; set; }
             [Required]
             [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]

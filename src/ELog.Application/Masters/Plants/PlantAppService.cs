@@ -25,53 +25,21 @@ namespace ELog.Application.Masters.Plants
     public class PlantAppService : ApplicationService, IPlantAppService
     {
         private readonly IRepository<PlantMaster> _plantRepository;
-        private readonly IRepository<CountryMaster> _countryRepository;
         private readonly IRepository<User, long> _userRepository;
-        private readonly IRepository<GateMaster> _gateRepository;
-        private readonly IRepository<LocationMaster> _locationRepository;
-        private readonly IRepository<CubicleMaster> _cubicleRepository;
-        private readonly IRepository<EquipmentMaster> _equipmentRepository;
-        private readonly IRepository<HandlingUnitMaster> _handlingUnitRepository;
-        private readonly IRepository<WeighingMachineMaster> _weighingMachineRepository;
-        private readonly IMasterCommonRepository _masterCommonRepository;
         private readonly IRepository<ApprovalStatusMaster> _approvalStatusRepository;
-        private readonly IRepository<DeviceMaster> _deviceRepository;
         private readonly IRepository<UserPlants> _userPlantsRepository;
-        private readonly IRepository<InspectionChecklistMaster> _inspectionChecklistRepository;
         private readonly IRepository<ChecklistTypeMaster> _checklistTypeRepository;
         public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
 
         public PlantAppService(IRepository<PlantMaster> plantRepository,
-           IRepository<CountryMaster> countryRepository,
             IRepository<User, long> userRepository,
-            IRepository<GateMaster> gateRepository,
-            IRepository<LocationMaster> locationRepository,
-            IRepository<CubicleMaster> cubicleRepository,
-            IRepository<EquipmentMaster> equipmentRepository,
-          IRepository<HandlingUnitMaster> handlingUnitRepository,
-          IRepository<WeighingMachineMaster> weighingMachineRepository,
-          IMasterCommonRepository masterCommonRepository,
           IRepository<ApprovalStatusMaster> approvalStatusRepository,
-          IRepository<DeviceMaster> deviceRepository,
           IRepository<UserPlants> userPlantsRepository,
-          IRepository<InspectionChecklistMaster> inspectionChecklistRepository,
           IRepository<ChecklistTypeMaster> checklistTypeRepository)
         {
             _plantRepository = plantRepository;
             AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
-            _countryRepository = countryRepository;
-            _userRepository = userRepository;
-            _gateRepository = gateRepository;
-            _locationRepository = locationRepository;
-            _cubicleRepository = cubicleRepository;
-            _equipmentRepository = equipmentRepository;
-            _handlingUnitRepository = handlingUnitRepository;
-            _weighingMachineRepository = weighingMachineRepository;
-            _masterCommonRepository = masterCommonRepository;
-            _approvalStatusRepository = approvalStatusRepository;
-            _deviceRepository = deviceRepository;
             _userPlantsRepository = userPlantsRepository;
-            _inspectionChecklistRepository = inspectionChecklistRepository;
             _checklistTypeRepository = checklistTypeRepository;
         }
 
@@ -80,7 +48,6 @@ namespace ELog.Application.Masters.Plants
         {
             var entity = await _plantRepository.GetAsync(input.Id);
             var plant = ObjectMapper.Map<PlantDto>(entity);
-            plant.IsApprovalRequired = await _masterCommonRepository.IsApprovalRequired(PMMSPermissionConst.Plant_SubModule);
             plant.UserEnteredApprovalStatus = ((ApprovalStatus)entity.ApprovalStatusId).ToString();
             return plant;
         }
@@ -112,7 +79,6 @@ namespace ELog.Application.Masters.Plants
             }
             var plant = ObjectMapper.Map<PlantMaster>(input);
             plant.TenantId = AbpSession.TenantId;
-            plant.ApprovalStatusId = (int)await _masterCommonRepository.GetApprovalForAdd(PMMSPermissionConst.Plant_SubModule);
             await _plantRepository.InsertAsync(plant);
 
             CurrentUnitOfWork.SaveChanges();
@@ -150,7 +116,6 @@ namespace ELog.Application.Masters.Plants
                 input.MasterPlantId = null;
             }
 
-            plant.ApprovalStatusId = (int)await _masterCommonRepository.GetApprovalForEdit(PMMSPermissionConst.Plant_SubModule, plant.ApprovalStatusId);
             ObjectMapper.Map(input, plant);
             await _plantRepository.UpdateAsync(plant);
 
@@ -199,37 +164,15 @@ namespace ELog.Application.Masters.Plants
                                 on plant.Id equals user.PlantId into userps
                                 from user in userps.DefaultIfEmpty()
 
-                                join gate in _gateRepository.GetAll()
-                                on plant.Id equals gate.PlantId into gateps
-                                from gate in gateps.DefaultIfEmpty()
+                                
 
-                                join location in _locationRepository.GetAll()
-                                on plant.Id equals location.PlantId into locationps
-                                from location in locationps.DefaultIfEmpty()
+                            
 
-                                join cubicle in _cubicleRepository.GetAll()
-                                on plant.Id equals cubicle.PlantId into cubicles
-                                from cubicle in cubicles.DefaultIfEmpty()
+                              
 
-                                join equipment in _equipmentRepository.GetAll()
-                                on plant.Id equals equipment.PlantId into equipments
-                                from equipment in equipments.DefaultIfEmpty()
+                              
 
-                                join handlingUnit in _handlingUnitRepository.GetAll()
-                               on plant.Id equals handlingUnit.PlantId into handlingUnits
-                                from handlingUnit in handlingUnits.DefaultIfEmpty()
-
-                                join weighingMaster in _weighingMachineRepository.GetAll()
-                                on plant.Id equals weighingMaster.SubPlantId into weighingSubPlants
-                                from weighingMaster in weighingSubPlants.DefaultIfEmpty()
-
-                                join deviceMaster in _deviceRepository.GetAll()
-                                on plant.Id equals deviceMaster.SubPlantId into deviceSubPlants
-                                from deviceMaster in deviceSubPlants.DefaultIfEmpty()
-
-                                join inspectionChecklist in _inspectionChecklistRepository.GetAll()
-                                on plant.Id equals inspectionChecklist.PlantId into inspectionChecklistPlants
-                                from inspectionChecklist in inspectionChecklistPlants.DefaultIfEmpty()
+                              
 
                                 join checklistType in _checklistTypeRepository.GetAll()
                                 on plant.Id equals checklistType.SubPlantId into checklisttypePlants
@@ -239,56 +182,12 @@ namespace ELog.Application.Masters.Plants
                                 select new
                                 {
                                     userPlantId = user.PlantId,
-                                    gatePlantId = gate.PlantId,
-                                    locationPlantId = location.PlantId,
-                                    cubiclePlantId = cubicle.PlantId,
-                                    equipmentPlantId = equipment.PlantId,
-                                    handlingUnitPlantId = handlingUnit.PlantId,
                                     masterPlantId = masterplant.Id,
-                                    weighingMasterSubPlantId = weighingMaster.SubPlantId,
-                                    deviceMasterSubPlantId = deviceMaster.SubPlantId,
-                                    inspectionChecklistPlantId = inspectionChecklist.PlantId,
                                     checklisttypePlantId = checklistType.SubPlantId
                                 }).FirstOrDefaultAsync() ?? default;
             if (entity?.userPlantId > 0)
             {
                 lstAssociatedEntities.Add("User");
-            }
-            if (entity?.gatePlantId > 0)
-            {
-                lstAssociatedEntities.Add("Gate");
-            }
-            if (entity?.locationPlantId > 0)
-            {
-                lstAssociatedEntities.Add("Location");
-            }
-            if (entity?.cubiclePlantId > 0)
-            {
-                lstAssociatedEntities.Add("Cubicle");
-            }
-            if (entity?.equipmentPlantId > 0)
-            {
-                lstAssociatedEntities.Add("Equipment");
-            }
-            if (entity?.handlingUnitPlantId > 0)
-            {
-                lstAssociatedEntities.Add("Handling Unit");
-            }
-            if (entity?.masterPlantId > 0)
-            {
-                lstAssociatedEntities.Add("Plant");
-            }
-            if (entity?.weighingMasterSubPlantId > 0)
-            {
-                lstAssociatedEntities.Add("Weighing Machine");
-            }
-            if (entity?.deviceMasterSubPlantId > 0)
-            {
-                lstAssociatedEntities.Add("Device");
-            }
-            if (entity?.inspectionChecklistPlantId > 0)
-            {
-                lstAssociatedEntities.Add("Inspection Checklist");
             }
             if (entity?.checklisttypePlantId > 0)
             {
@@ -349,16 +248,12 @@ namespace ELog.Application.Masters.Plants
         protected IQueryable<PlantListDto> CreateUserListFilteredQuery(PagedPlantResultRequestDto input)
         {
             var plantQuery = from plant in _plantRepository.GetAll()
-                             join country in _countryRepository.GetAll()
-                             on plant.CountryId equals country.Id into ps
-                             from country in ps.DefaultIfEmpty()
                              join approvalStatus in _approvalStatusRepository.GetAll()
                              on plant.ApprovalStatusId equals approvalStatus.Id into paStatus
                              from approvalStatus in paStatus.DefaultIfEmpty()
                              select new PlantListDto
                              {
                                  CountryId = plant.CountryId,
-                                 CountryName = country.CountryName,
                                  Id = plant.Id,
                                  IsActive = plant.IsActive,
                                  License = plant.License,

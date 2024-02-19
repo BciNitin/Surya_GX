@@ -2,18 +2,9 @@
 using Abp.Domain.Uow;
 using Abp.EntityFrameworkCore.Uow;
 using Abp.MultiTenancy;
-using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.CalibrationStatusMaster;
-using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.CalibrationTestStatusMaster;
 using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.CheckpointTypeMaster;
-using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.CountryStateMaster;
-using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.CubicleCleaningTypeMaster;
-using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.DeviceTypeMaster;
-using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.EquipmentTypeMaster;
-using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.FrequencyTypeMaster;
-using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.HolidayTypeMaster;
 using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.Host;
 using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.Tenants;
-using ELog.EntityFrameworkCore.EntityFrameworkCore.Seed.UnitOfMeasurementTypeMaster;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -47,23 +38,10 @@ namespace ELog.EntityFrameworkCore.EntityFrameworkCore.Seed
             new SubModuleTypeMasterBuilder(context).Create();
             new ModuleSubModuleBuilder(context, 1).Create();
             new DefaultRolePermissionBuilder(context, 1).Create();
-            new CountryStateBuilder(context, 1).Create();
-            new EquipmentTypeMasterBuilder(context).Create();
-            new UnitOfMeasurementTypeMasterBuilder(context, 1).Create();
             new ModeMasterBuilder(context).Create();
             new DefaultSettingsForTenantsCreator(context, 1).Create();
             new CheckpointTypeMasterBuilder(context, 1).Create();
-            new TransactionStatusMasterBuilder(context).Create();
-            new HolidayTypeMasterBuilder(context, 1).Create();
-            new MaterialTransferTypeMasterBuilder(context).Create();
-            new FrequencyTypeMasterBuilder(context, 1).Create();
-            new CalibrationStatusMasterBuilder(context, 1).Create();
-            new CalibrationTestStatusMasterBuilder(context, 1).Create();
             new StatusMasterBuilder(context).Create();
-            new CubicleCleaningTypeMasterBuilder(context).Create();
-            new EquipmentCleaningTypeMasterBuilder(context).Create();
-            new SamplingTypeMasterBuilder(context).Create();
-            new DeviceTypeMasterBuilder(context, 1).Create();
 
         }
 

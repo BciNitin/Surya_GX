@@ -31,25 +31,5 @@ namespace ELog.Core.Entities
 
         [StringLength(PMMSConsts.Medium)]
         public string AcceptanceValue { get; set; }
-
-        [ForeignKey("CheckpointId")]
-        public ICollection<VehicleInspectionDetail> VehicleInspectionDetails { get; set; }
-
-        [ForeignKey("CheckPointId")]
-        public ICollection<MaterialChecklistDetail> MaterialChecklistDetails { get; set; }
-
-        [ForeignKey("CheckPointId")]
-        public ICollection<WMCalibrationCheckpoint> WMCalibrationCheckpoints { get; set; }
-
-        [ForeignKey("CheckPointId")]
-        public ICollection<CubicleCleaningCheckpoint> CubicleCleaningCheckpoints { get; set; }
-        [ForeignKey("CheckPointId")]
-        public ICollection<LineClearanceCheckpoint> LineClearanceCheckpoints { get; set; }
-
-        [ForeignKey("CheckpointId")]
-        public ICollection<EquipmentUsageLogList> EquipmentUsageLogList { get; set; }
-
-        [ForeignKey("CheckpointId")]
-        public ICollection<AreaUsageListLog> AreaUsageListLog { get; set; }
     }
 }

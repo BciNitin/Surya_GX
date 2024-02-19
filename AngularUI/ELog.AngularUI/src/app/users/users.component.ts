@@ -207,27 +207,23 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
 
     }
     GetPlants() {
-        debugger;
         this._selectListService.getPlantsOnUser().subscribe((plantSelectList: SelectListDto[]) => {
             this.plants = plantSelectList;
         });
     }
     GetActiveInactiveStatus() {
-        debugger;
         this._selectListService.getStatus().subscribe((activeSelectList: SelectListDto[]) => {
             this.activeStatuses = activeSelectList;
         });
     }
 
     GetModes() {
-        debugger;
         this._selectListService.getModes().subscribe((modeSelectList: SelectListDto[]) => {
             this.userModes = modeSelectList;
         });
     }
 
     GetUserDesignations() {
-        debugger;
         this._selectListService.getDesignation().subscribe((designationSelectList: SelectListDto[]) => {
             this.userDesignations = designationSelectList;
         });

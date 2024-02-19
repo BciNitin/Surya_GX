@@ -63,42 +63,6 @@ namespace ELog.Core.Entities
         [ForeignKey("PlantId")]
         public ICollection<User> Users { get; set; }
 
-        [ForeignKey("PlantId")]
-        public ICollection<GateMaster> GateMasters { get; set; }
-
-        [ForeignKey("PlantId")]
-        public ICollection<LocationMaster> LocationMasters { get; set; }
-
-        [ForeignKey("MasterPlantId")]
-        public ICollection<PlantMaster> MasterPlants { get; set; }
-
-        [ForeignKey("PlantId")]
-        public ICollection<CubicleMaster> CubicleMasters { get; set; }
-
-        [ForeignKey("PlantId")]
-        public ICollection<EquipmentMaster> EquipmentMasters { get; set; }
-
-        [ForeignKey("PlantId")]
-        public ICollection<HandlingUnitMaster> HandlingUnitMasters { get; set; }
-
-        [ForeignKey("SubPlantId")]
-        public ICollection<StandardWeightBoxMaster> StandardWeightBoxMasters { get; set; }
-
-        [ForeignKey("SubPlantId")]
-        public ICollection<StandardWeightMaster> StandardWeightMasters { get; set; }
-
-        [ForeignKey("SubPlantId")]
-        public ICollection<DepartmentMaster> DepartmentMasters { get; set; }
-
-        [ForeignKey("SubPlantId")]
-        public ICollection<AreaMaster> AreaMasters { get; set; }
-
-        [ForeignKey("SubPlantId")]
-        public ICollection<WeighingMachineMaster> WeighingMachineMasters { get; set; }
-
-        [ForeignKey("PlantId")]
-        public ICollection<PurchaseOrder> PurchaseOrders { get; set; }
-
         [ForeignKey("SubPlantId")]
         public virtual ICollection<ChecklistTypeMaster> ChecklistTypeMasters { get; set; }
 

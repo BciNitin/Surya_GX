@@ -129,6 +129,10 @@ GetMaterialCode()
           // this.array = result['result'];
           // this.totalSize = this.array.length;
           // this.iterator();
+          if(this.quantity == this.ScanCount)
+          {
+            this.Clear();
+          }
           abp.notify.success(result["result"][0].valid)
         }
         else {

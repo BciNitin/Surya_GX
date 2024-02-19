@@ -133,7 +133,6 @@ Save() {
      this.messageSplit = this.message.split('~');
      this.count = this.messageSplit[1];
      this.tCount = this.messageSplit[2];
-     debugger
     //  abp.notify.success(this.messageSplit[0]+' '+ this.messageSplit[3]);
     abp.notify.success(this.messageSplit[0]);
      this.BinBarCode=null;

@@ -22,13 +22,5 @@ namespace ELog.Core.Entities
         public bool IsActive { get; set; }
         public int? TenantId { get; set; }
 
-        [ForeignKey("ChecklistTypeId")]
-        public ICollection<VehicleInspectionHeader> VehicleInspectionHeader { get; set; }
-
-        [ForeignKey("ChecklistTypeId")]
-        public ICollection<MaterialInspectionRelationDetail> MaterialInspectionRelationDetails { get; set; }
-
-        [ForeignKey("ChecklistTypeId")]
-        public ICollection<WMCalibrationHeader> WMCalibrationHeaders { get; set; }
     }
 }
