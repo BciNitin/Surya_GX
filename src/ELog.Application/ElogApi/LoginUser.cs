@@ -78,7 +78,7 @@ namespace ELog.Application.ElogApi
             var user = await _userManager.FindByNameOrEmailAsync(userNameOrEmailAddress);
             if (user == null)
             {
-                throw new UserFriendlyException("Please check userId or password.");
+                throw new UserFriendlyException("Please check user name or password.");
             }
             var resetPasswordDaysLeft = await _userManager.GetResetPasswordDaysLeft(user.Id);
             if (resetPasswordDaysLeft <= 0)

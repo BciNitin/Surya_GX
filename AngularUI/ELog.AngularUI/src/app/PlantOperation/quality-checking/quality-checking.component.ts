@@ -80,9 +80,9 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
 
   addEditFormGroup: FormGroup = this.formBuilder.group({
     LineCodeFormControl: [null, [Validators.required, NoWhitespaceValidator]],
-    plantCodeFormCControl: [null, [Validators.required, NoWhitespaceValidator]],
-    packingOrderFormControl: [null, [Validators.required, NoWhitespaceValidator]],
-    passFormControl: [null, [Validators.required, NoWhitespaceValidator]]
+    plantCodeFormCControl: [null, Validators.required, NoWhitespaceValidator],
+    packingOrderFormControl: [null, Validators.required, NoWhitespaceValidator],
+    passFormControl: [null, Validators.required, NoWhitespaceValidator]
   });
   matcher = new MyErrorStateMatcher();
 
@@ -143,15 +143,15 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
   }
 
   Clear() {
-
-    this.addEditFormGroup.controls['LineCodeFormControl'].setValue(null);
-    this.addEditFormGroup.controls['plantCodeFormCControl'].setValue(null);
-    this.addEditFormGroup.controls['packingOrderFormControl'].setValue(null);
-    this.addEditFormGroup.controls['CartonBarCodeFormControl'].setValue(null);
-    this.addEditFormGroup.controls['ItemBarCodeFormControl'].setValue(null);
-    this.addEditFormGroup.controls['passFormControl'].setValue(null);
+//LineCodeFormControl: [null, Validators.required, NoWhitespaceValidator],
+this.addEditFormGroup.controls['LineCodeFormControl'].setValue(null);
+    // this.addEditFormGroup.controls['plantCodeFormCControl'].setValue(null);
+    // this.addEditFormGroup.controls['packingOrderFormControl'].setValue(null);
+    // this.addEditFormGroup.controls['CartonBarCodeFormControl'].setValue(null);
+    // this.addEditFormGroup.controls['ItemBarCodeFormControl'].setValue(null);
+    // this.addEditFormGroup.controls['passFormControl'].setValue(null);
     this.dataSource.data = [];
-
+    
   }
 
   getDetails() {

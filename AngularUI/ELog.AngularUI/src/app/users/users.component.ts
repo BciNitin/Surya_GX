@@ -281,7 +281,6 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
                 })
             )
             .subscribe((result: UsersListDtoPagedResultDto) => {
-                debugger;
                 if(result.items.length >0)
                 {
                     this.users = this.users.concat(result.items);
@@ -312,7 +311,6 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
       } 
       onSelect($event,user: UserDto): void
       {
-        debugger;
          if($event.target.classList.contains('deleteUser'))
           {
               this.delete(user);
@@ -362,7 +360,6 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
       }
       
       public handlePage(e: any) {
-      debugger;
         this.currentPage = e.pageIndex;
         this.pageSize = e.pageSize;
         this.iterator();
@@ -371,7 +368,6 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
     
       
       private iterator() {
-        debugger;
         const end = (this.currentPage + 1) * this.pageSize;
         const start = this.currentPage * this.pageSize;
         this.dataSource.filteredData = this.dataSourcePagination.filteredData.slice(start, end);

@@ -8,6 +8,8 @@ import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-componen
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 interface grid {
 
@@ -51,7 +53,10 @@ export class QualitySamplingComponent implements OnInit {
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
     public _appComponent: ValidationService,
-    private titleService: Title
+    private titleService: Title,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private location: Location
 
   ) { }
 
@@ -121,6 +126,7 @@ export class QualitySamplingComponent implements OnInit {
         .subscribe((response) => {
           if (response["result"][0].error) {
             abp.notify.error(response["result"][0].error);
+            
             abp.ui.clearBusy();
 
           }
@@ -128,7 +134,7 @@ export class QualitySamplingComponent implements OnInit {
             if(!this.checked)
             {
           //  abp.notify.success(response["result"][0].valid);
-          abp.ui.clearBusy();
+              abp.ui.clearBusy();
 
             }
           }
@@ -143,6 +149,7 @@ export class QualitySamplingComponent implements OnInit {
     // else {
     //  // abp.notify.error('Please Enter the required value.');
     // }
+    abp.ui.clearBusy();
   }
 
   onScaningItem(value) {
@@ -185,7 +192,10 @@ export class QualitySamplingComponent implements OnInit {
             else {
               abp.notify.success(result["result"][0].valid);
               this.Qty = 0;
-              this.Clear();
+              let currentUrl = this._router.url;
+              this._router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+              this._router.navigate([currentUrl]);
+            });
               abp.ui.clearBusy();
             }
         },

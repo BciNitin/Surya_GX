@@ -90,7 +90,6 @@ export class AddEditUserComponent extends AppComponentBase {
         this.GetUserStatus();
         // this.GetReportingManager();
         // this.GetPlantMaster();
-debugger;
         this._route.params.subscribe((routeData: Params) => {
             if (routeData['userId']) {
                 this.routeEncrypt = routeData['userId'];
@@ -159,7 +158,6 @@ debugger;
     }
 
     GetRoles() {
-        debugger;
         this._userService.getAllRoles().subscribe((roleData: RoleCheckboxDto) => {
             this.UserRoles = roleData;
         });
@@ -277,7 +275,6 @@ debugger;
         return createUserDto;
     }
     AddUser() {
-        debugger;
         let userToAdd = this.user;
         let createUserDto: CreateUserDto = this.GetCreateUserDtoFromUserDto(userToAdd);
         if (this.UserRoles && this.UserRoles.userRoles) {

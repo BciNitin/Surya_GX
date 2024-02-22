@@ -114,7 +114,7 @@ namespace MobiVueEVO.BO.Models
             public int Customercode { get; set; }
             [Required]
             [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
-            public string MaterialCode { get; set; }
+            public List<string> MaterialCode { get; set; }
             [Required]
             [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string Fromstorage { get; set; }
@@ -130,13 +130,25 @@ namespace MobiVueEVO.BO.Models
         }
         public class STODelivery
         {
+            [Required]
+            [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string DeliveryChallanNo { get; set; }
+            [Required]
+            [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string SalesOrderNo { get; set; }
             public DateTime SODate { get; set; }
+            [Required]
+            [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string SendingPlantCode { get; set; }
+            [Required]
+            [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string ReceivingPlantCode { get; set; }
-            public string MaterialCode { get; set; }
+            public List<string> MaterialCode { get; set; }
+            [Required]
+            [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string StorageLoc { get; set; }
+            [Required]
+            [RegularExpression(@"^[0-9]+$", ErrorMessage = "Only Numbers Are Allowed.")]
             public int Quantity { get; set; }
         }
         public class MATERIALMASTER

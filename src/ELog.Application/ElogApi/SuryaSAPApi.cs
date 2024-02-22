@@ -268,14 +268,15 @@ namespace ELog.Application.ElogApi
                     }
                     else
                     {
-                        insertquery = "UPDATE tpackingorder SET PlantCode='" + objcls.PlantCode + "',Quantity='" + objcls.Quantity + "',StrLocCode='" + objcls.StorageLocation + "',Packing_Date='" + objcls.Packing_Date + "',Bom='" + objcls.BOM + "',Work_Center='" + objcls.WorkCenter + "',CreatedBy='SAPAPI',Createdon=NOW() WHERE PackingOrderNo='" + objcls.PackingOrderNumber + "' and MaterialCode='" + objcls.MaterialCode + "';";
-                        MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
-                        MySqlDataReader MyReader2;
-                        MyReader2 = MyCommandINSERT.ExecuteReader();
+                        //insertquery = "UPDATE tpackingorder SET PlantCode='" + objcls.PlantCode + "',Quantity='" + objcls.Quantity + "',StrLocCode='" + objcls.StorageLocation + "',Packing_Date='" + objcls.Packing_Date + "',Bom='" + objcls.BOM + "',Work_Center='" + objcls.WorkCenter + "',CreatedBy='SAPAPI',Createdon=NOW() WHERE PackingOrderNo='" + objcls.PackingOrderNumber + "' and MaterialCode='" + objcls.MaterialCode + "';";
+                        //MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
+                        //MySqlDataReader MyReader2;
+                        //MyReader2 = MyCommandINSERT.ExecuteReader();
+                        sReturn = "Duplicate Packing Order.";
 
                     }
                     conn.Close();
-                    sReturn = "Data Save Successfully.";
+                    sReturn = "Packing Order Created Successfully.";
                 }
 
             }
@@ -314,10 +315,13 @@ namespace ELog.Application.ElogApi
                     string insertquery = string.Empty;
                     if (dt.Rows.Count == 0)
                     {
-                        insertquery = "insert into tsodelivery(DeliveryChallanNo, SONo, SODate, PlantBranchCode, CustomerCode, FromStrLoc, MaterialCode, Quantity, CreatedOn, CreatedBy ) values('" + objcls.DeliveryChallanno + "','" + objcls.SONo + "','" + objcls.SODate + "','" + objcls.FromPlantCode + "','" + objcls.Customercode + "','" + objcls.Fromstorage + "','" + objcls.MaterialCode + "','" + objcls.QTY + "',now(),'SAPAPI');";
-                        MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
-                        MySqlDataReader MyReader2;
-                        MyReader2 = MyCommandINSERT.ExecuteReader();
+                        foreach (var material in objcls.MaterialCode)
+                        {
+                            insertquery = "insert into tsodelivery(DeliveryChallanNo, SONo, SODate, PlantBranchCode, CustomerCode, FromStrLoc, MaterialCode, Quantity, CreatedOn, CreatedBy ) values('" + objcls.DeliveryChallanno + "','" + objcls.SONo + "','" + objcls.SODate + "','" + objcls.FromPlantCode + "','" + objcls.Customercode + "','" + objcls.Fromstorage + "','" + material + "','" + objcls.QTY + "',now(),'SAPAPI');";
+                            MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
+                            MySqlDataReader MyReader2;
+                            MyReader2 = MyCommandINSERT.ExecuteReader();
+                        }
                     }
                     else
                     {
@@ -328,7 +332,7 @@ namespace ELog.Application.ElogApi
 
                     }
                     conn.Close();
-                    sReturn = "Data Save Successfully.";
+                    sReturn = "SO Delivery Created Successfully.";
                 }
 
             }
@@ -368,12 +372,15 @@ namespace ELog.Application.ElogApi
                     string insertquery = string.Empty;
                     if (dt.Rows.Count == 0)
                     {
-                        insertquery = "insert into tstodelivery(" +
+                        foreach (var material in objcls.MaterialCode)
+                        {
+                            insertquery = "insert into tstodelivery(" +
                             "DeliveryChallanNo, SONo, SODate, SendingPlantCode , ReceivingPlantCode , MaterialCode , FromStrLoc , Quantity , CreatedOn, CreatedBy ) " +
-                            "values('" + objcls.DeliveryChallanNo + "','" + objcls.SalesOrderNo + "','" + objcls.SODate.ToString("yyyy-MM-dd") + "','" + objcls.SendingPlantCode + "','" + objcls.ReceivingPlantCode + "','" + objcls.MaterialCode + "','" + objcls.StorageLoc + "','" + objcls.Quantity + "',now(),'SAPAPI');";
-                        MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
-                        MySqlDataReader MyReader2;
-                        MyReader2 = MyCommandINSERT.ExecuteReader();
+                            "values('" + objcls.DeliveryChallanNo + "','" + objcls.SalesOrderNo + "','" + objcls.SODate.ToString("yyyy-MM-dd") + "','" + objcls.SendingPlantCode + "','" + objcls.ReceivingPlantCode + "','" + material + "','" + objcls.StorageLoc + "','" + objcls.Quantity + "',now(),'SAPAPI');";
+                            MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
+                            MySqlDataReader MyReader2;
+                            MyReader2 = MyCommandINSERT.ExecuteReader();
+                        }
                     }
                     else
                     {
@@ -384,7 +391,7 @@ namespace ELog.Application.ElogApi
 
                     }
                     conn.Close();
-                    sReturn = "Data Save Successfully.";
+                    sReturn = "STO Delivery Created Successfully.";
                 }
 
             }

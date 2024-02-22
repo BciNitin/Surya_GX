@@ -749,7 +749,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + "sp_PackingOrderMaster";
+                    Command.CommandText = "sp_PackingOrderMaster";
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "GETPackingOrder";
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
@@ -783,7 +783,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + "sp_LineBinMapping";
+                    Command.CommandText =  "sp_LineBinMapping";
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "CheckLineBarCode";
                     Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
                     Command.Parameters.Add("@sUserID", MySqlDbType.VarChar).Value = AbpSession.UserId;
@@ -819,7 +819,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + "sp_LineBinMapping";
+                    Command.CommandText = "sp_LineBinMapping";
                     Command.Parameters.Add("@sType", MySqlDbType.VarChar).Value = "CheckBarcode";
                     Command.Parameters.Add("@sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
                     Command.Parameters.Add("@sBarCode", MySqlDbType.VarChar).Value = Barcode;
@@ -856,7 +856,7 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.Schema + "sp_LineBinMapping";
+                    Command.CommandText = "sp_LineBinMapping";
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "MappingLineBin";
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sUserID", MySqlDbType.VarChar).Value = AbpSession.UserId;
