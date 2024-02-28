@@ -8,6 +8,7 @@ import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-componen
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module/dist/src/notify/notify.service';
 import { Title } from '@angular/platform-browser';
+import {  Router } from '@angular/router';
 
 interface grid {
   parentBarcode: any,
@@ -67,8 +68,8 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
     public _appComponent: ValidationService,
-    private titleService: Title
-
+    private titleService: Title,
+    private _router: Router,
   ) { }
 
   ngOnInit() {
@@ -80,15 +81,15 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
 
   addEditFormGroup: FormGroup = this.formBuilder.group({
     LineCodeFormControl: [null, [Validators.required, NoWhitespaceValidator]],
-    plantCodeFormCControl: [null, Validators.required, NoWhitespaceValidator],
-    packingOrderFormControl: [null, Validators.required, NoWhitespaceValidator],
-    passFormControl: [null, Validators.required, NoWhitespaceValidator]
+    plantCodeFormCControl: [null, [Validators.required, NoWhitespaceValidator]],
+    packingOrderFormControl: [null, [Validators.required, NoWhitespaceValidator]],
+    passFormControl: [null, [Validators.required, NoWhitespaceValidator]]
   });
   matcher = new MyErrorStateMatcher();
 
-  async GetPlantCode() {
+   GetPlantCode() {
     abp.ui.setBusy();
-    await this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
+    this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
       this.plnaCodeList = modeSelectList["result"];
       abp.ui.clearBusy();
     });
@@ -126,7 +127,11 @@ export class QualityCheckingComponent implements OnInit, AfterViewInit {
         } else {
           abp.notify.success(result['result'][0].valid);
           this.iterator();
-          this.Clear();
+          let currentUrl = this._router.url;
+          this._router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this._router.navigate([currentUrl]);
+          });
+          //this.Clear();
         }
       },
       (error) => {

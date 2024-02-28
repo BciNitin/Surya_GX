@@ -421,13 +421,13 @@ export class SerialbarcodegenerationComponent implements OnInit {
   }
 
   Clear() {
-
-    this.addEditFormGroup.controls['LineCodeFormControl'].setValue(null);
-    this.addEditFormGroup.controls['plantCodeFormCControl'].setValue(null);
-    this.addEditFormGroup.controls['packingOrderFormControl'].setValue(null);
-    this.addEditFormGroup.controls['supplierCodeFormControl'].setValue(null);
-    this.addEditFormGroup.controls['driverCodeFormControl'].setValue(null);
-
+    this.addEditFormGroup.reset({
+      LineCodeFormControl: null,
+      plantCodeFormCControl: null,
+      packingOrderFormControl: null,
+      supplierCodeFormControl: null,
+      driverCodeFormControl: null
+    })
   }
 
   onKeyPress(event: any) {

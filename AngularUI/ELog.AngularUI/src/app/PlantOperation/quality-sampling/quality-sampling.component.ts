@@ -61,6 +61,7 @@ export class QualitySamplingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    abp.ui.setBusy();
     this.titleService.setTitle('Quality Sampling');
     this.GetPlantCode();
   }
@@ -79,7 +80,7 @@ export class QualitySamplingComponent implements OnInit {
 
   async GetPlantCode() {
     abp.ui.setBusy();
-   await this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
+     await this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
       this.plnaCodeList = modeSelectList["result"];
       abp.ui.clearBusy();
     },

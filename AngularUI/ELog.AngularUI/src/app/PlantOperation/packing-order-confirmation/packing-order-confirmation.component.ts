@@ -7,6 +7,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { MyErrorStateMatcher, NoWhitespaceValidator } from '@shared/app-component-base';
 import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import {  Router } from '@angular/router';
 
 interface PackingOrderConfirmation {
   packingOrderNo: string,
@@ -51,7 +52,8 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
     public _appComponent: ValidationService,
-    private titleService: Title
+    private titleService: Title,
+    private _router: Router,
 
   ) { }
 
@@ -166,6 +168,10 @@ export class PackingOrderConfirmationComponent implements OnInit, AfterViewInit 
         abp.ui.clearBusy();
         this.dataSource.filteredData = null;
         // this.Clear();
+        let currentUrl = this._router.url;
+        this._router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this._router.navigate([currentUrl]);
+        });
       }
       else {
         abp.notify.error(result["result"][0]['error']);

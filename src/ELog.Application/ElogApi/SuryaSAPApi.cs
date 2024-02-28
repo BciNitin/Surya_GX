@@ -60,7 +60,7 @@ namespace ELog.Application.ElogApi
                            
                         }
                         conn.Close();
-                       sReturn = "Data Save Successfully.";
+                       sReturn = "Plant Created Successfully.";
                     }
                           
             }
@@ -106,14 +106,14 @@ namespace ELog.Application.ElogApi
                     }
                     else
                     {
-                        insertquery = "UPDATE mcustomerdealer SET Name='" + objcls.CustomerName + "',Address='" + objcls.Address + "',City='" + objcls.City + "',District='" + objcls.District + "',CreatedBy='SAPAPI',Createdon=NOW() WHERE Code='" + objcls.CustomerName + "';";
+                        insertquery = "UPDATE mcustomerdealer SET Name='" + objcls.CustomerName + "',Address='" + objcls.Address + "',City='" + objcls.City + "',District='" + objcls.District + "',CreatedBy='SAPAPI',Createdon=NOW() WHERE Code='" + objcls.CustomerCode + "';";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();
 
                     }
                     conn.Close();
-                    sReturn = "Data Save Successfully.";
+                    sReturn = "Customer/Dealer Created Successfully.";
                 }
 
             }
@@ -152,14 +152,14 @@ namespace ELog.Application.ElogApi
                     string insertquery = string.Empty;
                     if (dt.Rows.Count == 0)
                     {
-                        insertquery = "insert into mworkcenterorline(PlantCode, WorkCenterCode, Work_Center_Discription, Active, CreatedOn, CreatedBy) values('" + objcls.PlantCode + "','" + objcls.WorkCenterCode + "','" + objcls.Work_Center_Discription + "','" + objcls.Status + "',now(),'SAPAPI');";
+                        insertquery = "insert into mworkcenterorline(PlantCode, WorkCenterCode, Work_Center_Discription, Active, CreatedOn, CreatedBy) values('" + objcls.PlantCode + "','" + objcls.WorkCenterCode + "','" + objcls.Work_Center_Discription + "','" + (objcls.Status ? 1 : 0) + "',now(),'SAPAPI');";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();
                     }
                     else
                     {
-                        insertquery = "UPDATE mworkcenterorline SET PlantCode='" + objcls.PlantCode + "',Work_Center_Discription='" + objcls.Work_Center_Discription + "',Active='" + objcls.Status + "',CreatedBy='SAPAPI',Createdon=NOW() WHERE WorkCenterCode='" + objcls.WorkCenterCode + "';";
+                        insertquery = "UPDATE mworkcenterorline SET PlantCode='" + objcls.PlantCode + "',Work_Center_Discription='" + objcls.Work_Center_Discription + "',Active='" + (objcls.Status ? 1 : 0) + "',CreatedBy='SAPAPI',Createdon=NOW() WHERE WorkCenterCode='" + objcls.WorkCenterCode + "';";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();
@@ -195,7 +195,7 @@ namespace ELog.Application.ElogApi
                 foreach (SAPMaster.STORAGELOCATION objcls in _objstoragelocationmaster)
                 {
                     String Query = String.Empty;
-                    Query = "SELECT * FROM mstrloc where StrLocCode='" + objcls.StrLocCode + "';";
+                    Query = "SELECT * FROM mstrloc where StrLocCode='" + objcls.StrLocCode + "' and PlantCode = '"+objcls.PlantCode+ "';";
                     MySqlCommand MyCommand2 = new MySqlCommand(Query, conn);
                     MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
                     conn.Open();
@@ -205,14 +205,14 @@ namespace ELog.Application.ElogApi
                     string insertquery = string.Empty;
                     if (dt.Rows.Count == 0)
                     {
-                        insertquery = "insert into mstrloc(Code, StrLocCode, Description, CreatedOn, CreatedBy) values('" + objcls.Code + "','" + objcls.StrLocCode + "','" + objcls.Description + "',now(),'SAPAPI');";
+                        insertquery = "insert into mstrloc(PlantCode, StrLocCode, Description, CreatedOn, CreatedBy) values('" + objcls.PlantCode + "','" + objcls.StrLocCode + "','" + objcls.Description + "',now(),'SAPAPI');";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();
                     }
                     else
                     {
-                        insertquery = "UPDATE mstrloc SET StrLocCode='" + objcls.StrLocCode + "',Description='" + objcls.Description + "',CreatedBy='SAPAPI',Createdon=NOW() WHERE StrLocCode='" + objcls.StrLocCode + "';";
+                        insertquery = "UPDATE mstrloc SET StrLocCode='" + objcls.StrLocCode + "',Description='" + objcls.Description + "',CreatedBy='SAPAPI',Createdon=NOW() WHERE StrLocCode='" + objcls.StrLocCode + "' and PlantCode='"+objcls.PlantCode+"';";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();

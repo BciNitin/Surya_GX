@@ -310,26 +310,31 @@ export class ApiServiceService {
     );
   }
 
-  GetStorageLocation(): Observable<any> {
-    return from(this.getUrl('StorageLocationApi/GetStorageLocation')).pipe(
+  GetStorageLocation(plantcode:any): Observable<any> {
+    return from(this.getUrl(`StorageLocationApi/GetStorageLocation?plantcode=${plantcode}`)).pipe(
       switchMap(sturi => this.http.get(sturi, this.httpOptions))
     );
   }
 
-  GetStrLocationDtls(plancode, LocationID) {
-    return from(this.getUrl(`StorageLocationApi/GetStorageLocationDetails?plancode=${plancode}&LocationID=${LocationID}`)).pipe(
+  GetStrLocationDtls(plancode, LocationID,MaterialCode) {
+    return from(this.getUrl(`StorageLocationApi/GetStorageLocationDetails?plancode=${plancode}&LocationID=${LocationID}&MaterialCode=${MaterialCode}`)).pipe(
       switchMap(sturi => this.http.get(sturi, this.httpOptions))
     );
   }
 
-  GetBarcodeScannedDetails(barcode, plantcode) {
-    return from(this.getUrl(`StorageLocationApi/GetBarcodeScannedDetails?barcode=${barcode}&plantcode=${plantcode}`)).pipe(
+  GetBarcodeScannedDetails(barcode, plantcode,LocationID,MaterialCode) {
+    return from(this.getUrl(`StorageLocationApi/GetBarcodeScannedDetails?barcode=${barcode}&plantcode=${plantcode}&StrLocation=${LocationID}&MaterialCode=${MaterialCode}`)).pipe(
+      switchMap(sturi => this.http.get(sturi, this.httpOptions))
+    );
+  }
+  GetSTRMaterialCode(plantcode) {
+    return from(this.getUrl(`StorageLocationApi/GetMaterialCode?plantcode=${plantcode}`)).pipe(
       switchMap(sturi => this.http.get(sturi, this.httpOptions))
     );
   }
 
-  StorageLocationConfirmation(barcode, LocationID) {
-    const url = `StorageLocationApi/StorageLocationConfirmation?barcode=${barcode}&LocationID=${LocationID}`;
+  StorageLocationConfirmation(barcode, LocationID,MaterialCode) {
+    const url = `StorageLocationApi/StorageLocationConfirmation?barcode=${barcode}&LocationID=${LocationID}&MaterialCode=${MaterialCode}`;
     return from(this.getUrl(url)).pipe(
       switchMap(sturi => this.http.post<any[]>(sturi, this.httpOptions))
     );

@@ -23,6 +23,7 @@ interface grid {
   ngQty: number;
   checkBoxValues : false;
   childBarcode:string;
+  cartonBarCode:string;
 }
 
 @Component({
@@ -75,8 +76,8 @@ export class QualityConfirmationComponent implements OnInit, AfterViewInit {
   }
 
   addEditFormGroup: FormGroup = this.formBuilder.group({
-    plantCodeFormControl: [null, [Validators.required, NoWhitespaceValidator]],
     packingOrderFormControl: [null, [Validators.required, NoWhitespaceValidator]],
+    plantCodeFormControl: [null, [Validators.required, NoWhitespaceValidator]],
   });
 
   matcher = new MyErrorStateMatcher();
@@ -108,7 +109,7 @@ export class QualityConfirmationComponent implements OnInit, AfterViewInit {
     abp.ui.clearBusy();
   }
 
-  async Save() {
+   Save() {
     abp.ui.setBusy();
    
     for (let i = 0; i < this.dataSource.filteredData.length; i++) {
@@ -118,8 +119,9 @@ export class QualityConfirmationComponent implements OnInit, AfterViewInit {
       }
     }
        const filteredData = this.dataSourceModel.filteredData.filter(item => item !== null && item !== undefined);
-      // console.log(filteredData); 
-       await this._apiservice.saveQualityConfirmation(filteredData).subscribe(
+      debugger
+       // console.log(filteredData); 
+        this._apiservice.saveQualityConfirmation(filteredData).subscribe(
           (response) => {
             if (response.result[0].valid) {
               console.log(response)
@@ -145,8 +147,9 @@ export class QualityConfirmationComponent implements OnInit, AfterViewInit {
   }
 
   Clear() {
-    this.addEditFormGroup.controls['plantCodeFormCControl'].setValue(null);
+
     this.addEditFormGroup.controls['packingOrderFormControl'].setValue(null);
+     this.addEditFormGroup.controls['plantCodeFormControl'].setValue(null);
     this.dataSource.filter = null;
   }
 
@@ -161,6 +164,7 @@ export class QualityConfirmationComponent implements OnInit, AfterViewInit {
             this.array = response['result'];
             this.totalSize = this.array.length;
             this.iterator();
+            console.log('rr',response['result'])
           }
           else {
             this.dataSource.filter = null;
@@ -206,6 +210,20 @@ export class QualityConfirmationComponent implements OnInit, AfterViewInit {
     this.currentPage = e.pageIndex;
     this.pageSize = e.pageSize;
     this.iterator();
+  }
+
+  toggleAllCheckboxes(event) {
+    console.log("event", event)
+    if (event.checked) {
+      this.dataSource.filteredData.forEach((obj: any) => {
+        obj.checkBoxValue = true;
+      });
+    }
+    else {
+      this.dataSource.filteredData.forEach((obj: any) => {
+        obj.checkBoxValue = false;
+      });
+    }
   }
 }
 

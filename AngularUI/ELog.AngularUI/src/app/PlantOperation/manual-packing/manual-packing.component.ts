@@ -8,6 +8,8 @@ import { ValidationService } from '@shared/ValidationService';
 import { NoWhitespaceValidator ,MyErrorStateMatcher} from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { Title } from '@angular/platform-browser';
+import { debug } from 'console';
+import { toInt } from '@rxweb/reactive-form-validators';
 
  
   
@@ -124,31 +126,39 @@ markDirty() {
    return true;
 }
 
-Save() {
+  Save() {
+    abp.ui.setBusy();
+    this._apiservice.ValidateBarcode(this.BinBarCode, this.macAddresses, this.plantCode, this.packingOrder, this.linecode, this.materialCode).subscribe(result => {
 
- this._apiservice.ValidateBarcode(this.BinBarCode,this.macAddresses,this.plantCode,this.packingOrder,this.linecode,this.materialCode).subscribe(result => {
-   
-   if (result["result"][0]['valid']) {
-     this.message = result["result"][0]['valid'];
-     this.messageSplit = this.message.split('~');
-     this.count = this.messageSplit[1];
-     this.tCount = this.messageSplit[2];
-    //  abp.notify.success(this.messageSplit[0]+' '+ this.messageSplit[3]);
-    abp.notify.success(this.messageSplit[0]);
-     this.BinBarCode=null;
-if(this.packSize==this.count)
-{
-  this.Clear();
-}
-   }
-   else {
-     abp.notify.error(result["result"][0]['error']);
-     this.BinBarCode=null;
-   }
+      if (result["result"][0]['valid']) {
+        this.message = result["result"][0]['valid'];
+        this.messageSplit = this.message.split('~');
+        this.count = this.messageSplit[1];
+        //this.tCount = this.messageSplit[2];
+        if(this.tCount == null && this.tCount == undefined)
+        {
+          this.tCount = parseInt(this.messageSplit[2]);
+        }
+        else{
+          this.tCount = parseInt(this.tCount) + 1;
+        }
+        //  abp.notify.success(this.messageSplit[0]+' '+ this.messageSplit[3]);
+        abp.notify.success(this.messageSplit[0]);
+        this.BinBarCode = null;
+        abp.ui.clearBusy();
+        if (this.packSize == this.count) {
+          this.Clear();
+        }
+      }
+      else {
+        abp.notify.error(result["result"][0]['error']);
+        this.BinBarCode = null;
+        abp.ui.clearBusy();
+      }
 
- });
+    });
 
-}
+  }
 onChangePlantCode() {
 
   if (this.plantCode !== '') {

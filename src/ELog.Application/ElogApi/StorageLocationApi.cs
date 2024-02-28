@@ -28,7 +28,9 @@ namespace ELog.Application.ElogApi
             connection = _configuration["ConnectionStrings:Default"];
             _sessionAppService = sessionAppService;
         }
-        public async Task<Object> GetStorageLocation()
+
+
+        public async Task<Object> GetMaterialCode(string PlantCode)
         {
             List<SelectListDto> value = new List<SelectListDto>();
 
@@ -42,8 +44,58 @@ namespace ELog.Application.ElogApi
                 {
                     Command.Connection = conn;
 
-                    Command.CommandText = Constants.SP_SelectList;
-                    Command.Parameters.Add(Constants.Type, MySqlDbType.VarChar).Value = Constants.GetStorageLocCode;
+                    Command.CommandText = Constants.SP_StorageLocation;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetMaterialCode";
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sLocationID", MySqlDbType.VarChar).Value = string.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = string.Empty;
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Connection.Open();
+                    myReader = await Command.ExecuteReaderAsync();
+                    dt.Load(myReader);
+                    Command.Connection.Close();
+                }
+
+                foreach (DataRow dtRow in dt.Rows)
+                {
+                    SelectListDto selectListDto = new SelectListDto();
+                    selectListDto.Id = Convert.ToString(dtRow["materialcode"]);
+                    selectListDto.Value = Convert.ToString(dtRow["materialcode"]);
+
+                    value.Add(selectListDto);
+                }
+                return value;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return null;
+
+        }
+        public async Task<Object> GetStorageLocation(string PlantCode)
+        {
+            List<SelectListDto> value = new List<SelectListDto>();
+
+            try
+            {
+                string connection = _configuration["ConnectionStrings:Default"];
+                MySqlConnection conn = new MySqlConnection(connection);
+                MySqlDataReader myReader = null;
+                DataTable dt = new DataTable();
+                using (MySqlCommand Command = new MySqlCommand())
+                {
+                    Command.Connection = conn;
+
+                    Command.CommandText = Constants.SP_StorageLocation;
+                    Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = "GetStorageLocCode";
+                    Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = PlantCode;
+                    Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sLocationID", MySqlDbType.VarChar).Value = string.Empty;
+                    Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = string.Empty;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -68,7 +120,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        public async Task<Object> GetStorageLocationDetails(string plancode,string LocationID)
+        public async Task<Object> GetStorageLocationDetails(string plancode,string LocationID,string MaterialCode)
         {
 
             try
@@ -86,6 +138,7 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sLocationID", MySqlDbType.VarChar).Value = LocationID;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = MaterialCode;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -101,7 +154,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        public async Task<Object> GetBarcodeScannedDetails(string barcode,string plantcode)
+        public async Task<Object> GetBarcodeScannedDetails(string barcode,string plantcode,string StrLocation,string MaterialCode)
         {
 
             try
@@ -117,8 +170,9 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sType", MySqlDbType.VarChar).Value = Constants.GetbarcodeDetails;
                     Command.Parameters.Add("sBarcode", MySqlDbType.VarChar).Value = barcode;
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = plantcode;
-                    Command.Parameters.Add("sLocationID", MySqlDbType.VarChar).Value = String.Empty;
+                    Command.Parameters.Add("sLocationID", MySqlDbType.VarChar).Value = StrLocation;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = MaterialCode;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();
@@ -136,7 +190,7 @@ namespace ELog.Application.ElogApi
             return null;
 
         }
-        public async Task<Object> StorageLocationConfirmation(string barcode,string LocationID)
+        public async Task<Object> StorageLocationConfirmation(string barcode,string LocationID,string MaterialCode)
         {
             try
             {
@@ -153,7 +207,7 @@ namespace ELog.Application.ElogApi
                     Command.Parameters.Add("sPlantCode", MySqlDbType.VarChar).Value = String.Empty;
                     Command.Parameters.Add("sLocationID", MySqlDbType.VarChar).Value = LocationID;
                     Command.Parameters.Add("sUserId", MySqlDbType.VarChar).Value = AbpSession.UserId;
-
+                    Command.Parameters.Add("sMaterialCode", MySqlDbType.VarChar).Value = MaterialCode;
                     Command.CommandType = CommandType.StoredProcedure;
                     Command.Connection.Open();
                     myReader = await Command.ExecuteReaderAsync();

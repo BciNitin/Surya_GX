@@ -52,15 +52,14 @@ namespace MobiVueEVO.BO.Models
             [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string Work_Center_Discription { get; set; }
             [Required]
-            [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
-            public string Status { get; set; }
+            public bool Status { get; set; }
             
         }
         public class STORAGELOCATION
         {
             [Required]
             [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
-            public string Code { get; set; }
+            public string PlantCode { get; set; }
             [Required]
             [RegularExpression(@"^[^!@#$%^&*]+$", ErrorMessage = "Invalid Characters Detected.")]
             public string StrLocCode { get; set; }

@@ -20,10 +20,8 @@
                 <div class="col-12 filter-by-string filter-font" *ngIf="filterBy && !isFilterOpen">Filter By :
                     {{filterBy}}</div>
             </div>
-            <div class="body mh500 tabelScroll table-responsive" infiniteScroll [infiniteScrollDistance]="2"
-                [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false"
-                [ngClass]="{'table-scroll':dataSource.filteredData?.length != 0}">
-                <table class="table table-hover table-striped table-sm table-bordered">
+            <div class="body table-responsive">
+                <table id="excel-table" class="table table-hover table-striped table-sm table-bordered">
                     <thead>
                         <tr>
                             <th class="th-center-align">{{ "Plant Code" | localize }}</th>
@@ -33,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let line of dataSource.filteredData" (tap)="onSelect($event,line)">
+                        <tr *ngFor="let line of dataSource.filteredData">
                             <td class="td-center-align add-wrap">{{line.plantCode}}</td>
                             <td class="td-center-align add-wrap">{{line.workCenterCode}}</td>
                             <td class="td-center-align add-wrap">{{line.workCenterDiscription}}</td>

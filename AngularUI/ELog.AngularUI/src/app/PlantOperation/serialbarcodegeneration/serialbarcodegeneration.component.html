@@ -173,8 +173,8 @@
                                             </ng-template>
                                             </td>
                                         </tr>
-                                        <tr *ngIf="obj?.length == 0">
-                                            <td colspan="6" class="no-data-available">No data to display.</td>
+                                        <tr *ngIf="obj?.length == 0 || picklistItems == null">
+                                            <td colspan="8" class="no-data-available">No data to display.</td>
                                         </tr>
                                     </tbody>
                                 </table>

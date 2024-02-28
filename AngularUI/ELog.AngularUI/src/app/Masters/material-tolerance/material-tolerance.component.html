@@ -49,7 +49,7 @@
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                             <mat-label>Min Tolerance</mat-label>
                                             <input (keypress)="numberOnly($event)" matInput required [(ngModel)]="minWeight" name="minWeight"  [errorStateMatcher]="matcher" 
-                                                    formControlName="minWeightFormControl" maxlength="20" >
+                                                    formControlName="minWeightFormControl">
                                             <mat-error *ngIf="addEditFormGroup?.get('minWeightFormControl')?.hasError('required') || addEditFormGroup?.get('minWeightFormControl')?.hasError('whitespace')">
                                                 Min Tolerance is required.
                                             </mat-error>
@@ -61,17 +61,11 @@
                                         <mat-form-field [formGroup]="addEditFormGroup" #addEditUserForm="ngForm">
                                             <mat-label>Max Tolerance</mat-label>
                                             <input (keypress)="numberOnly($event)" matInput required [(ngModel)]="maxWeight" name="maxWeight"  [errorStateMatcher]="matcher" 
-                                                    formControlName="maxWeightFormControl" maxlength="20" >
+                                                    formControlName="maxWeightFormControl">
                                             <mat-error *ngIf="addEditFormGroup?.get('maxWeightFormControl')?.hasError('required') || addEditFormGroup?.get('maxWeightFormControl')?.hasError('whitespace')">
                                                 Max Tolerance is required.
                                             </mat-error>
                                         </mat-form-field>
-
-
-
-
-
-                                        
                                     </div>
                                 </div>
                                 

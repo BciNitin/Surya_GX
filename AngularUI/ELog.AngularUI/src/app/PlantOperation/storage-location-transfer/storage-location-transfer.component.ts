@@ -1,19 +1,18 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ViewChildren, OnInit, NgModule, ViewChild,QueryList, AfterViewInit } from '@angular/core';
+import { Component, ViewChildren, OnInit, NgModule, ViewChild, QueryList, AfterViewInit } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { ApiServiceService } from '@shared/APIServices/ApiService';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@shared/ValidationService';
-import { NoWhitespaceValidator ,MyErrorStateMatcher} from '@shared/app-component-base';
+import { NoWhitespaceValidator, MyErrorStateMatcher } from '@shared/app-component-base';
 import { SelectListDto } from '@shared/service-proxies/service-proxies';
 import { Title } from '@angular/platform-browser';
 
-export class SgtorageLocation
-{
-     plantcode: string="";
-     Barcode:string="";
-     LocationID:string=""; 
+export class SgtorageLocation {
+  plantcode: string = "";
+  Barcode: string = "";
+  LocationID: string = "";
 }
 @Component({
   selector: 'app-storage-location-transfer',
@@ -23,117 +22,143 @@ export class SgtorageLocation
   providers: [ValidationService]
 })
 export class StorageLocationTransferComponent implements OnInit {
-  plnatCodeList:any;
-  storageLocation:any;
+  plnatCodeList: any;
+  storageLocation: any;
   storageLocationdtls: any;
-  plantCode : string="";
-  LocationID:string="";
-     
-  storageLocationQty:any;
-  qty:any;
-  ScanItem: string="";
+  plantCode: string = "";
+  LocationID: string = "";
+  MaterialCode: string = "";
+  storageLocationQty: any;
+  qty: any;
+  ScanItem: string = "";
+  materiallist:any;
+
   constructor(
     private _apiservice: ApiServiceService,
     private formBuilder: FormBuilder,
-    public _appComponent : ValidationService,
+    public _appComponent: ValidationService,
     private titleService: Title
 
-    
+
   ) { }
 
   ngOnInit() {
+    abp.ui.setBusy();
     this.titleService.setTitle('Storage Location Transfer');
     this.GetPlantCode();
-    this.GetStorageCode();
-    
+    //  this.GetStorageCode();
+
   }
   addEditFormGroup: FormGroup = this.formBuilder.group({
     plantCodeFormCControl: [null, [Validators.required, NoWhitespaceValidator]],
-   
-    toStoragelocationFormControl: ['',[Validators.required,NoWhitespaceValidator]],
+    toStoragelocationFormControl: ['', [Validators.required, NoWhitespaceValidator]],
     scannedItemFormControl: [null, [Validators.required, NoWhitespaceValidator]],
     scannedqtyFormControl: [null, [Validators.required, NoWhitespaceValidator]],
-    
-});
+    MaterialCodeFormControl:[null, [Validators.required, NoWhitespaceValidator]]
+  });
 
-GetPlantCode() {
-  this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
+  GetPlantCode() {
+    this._apiservice.getPlantCode().subscribe((modeSelectList: SelectListDto[]) => {
       this.plnatCodeList = modeSelectList["result"];
-  });
-};
+      abp.ui.clearBusy();
+    });
+  };
 
-GetStorageCode() {
-  this._apiservice.GetStorageLocation().subscribe((response) => {
-      this.storageLocation = response["result"];
-  });
-};
-
-GrtTableGrid()
-{
-  var _Storage =  new SgtorageLocation();
-  _Storage.plantcode=this.plantCode;
-  _Storage.LocationID=this.LocationID;
-  this._apiservice.GetStrLocationDtls(this.plantCode,this.LocationID).subscribe((response) => {
-    
-    if (response['result'][0].error) {
-      abp.notify.error(response['result'][0].error);
-    } else {
-      this.storageLocationdtls = response["result"];
-      
-      
-    }
-})
-}
-GetBarcodeScannedDetails()
-{
-  var _Storage =  new SgtorageLocation();
-
-  _Storage.Barcode=this.ScanItem;
-  _Storage.plantcode=this.plantCode;
-  _Storage.LocationID=this.LocationID;
-  this._apiservice.GetBarcodeScannedDetails(this.ScanItem,this.plantCode).subscribe((response) => {
-    
-
-    if (response['result'][0].error) {
-      abp.notify.error(response['result'][0].error);
-    } else {
-      this.storageLocationQty = response["result"];
-    this.qty=response["result"][0]['qty'];
-      
-      
-    }
-    
-})
-}
-
-
-Save() {
-  
-  var _Storage =  new SgtorageLocation();
-  _Storage.Barcode=this.ScanItem;
-  _Storage.LocationID=this.LocationID;
-  this._apiservice.StorageLocationConfirmation(this.ScanItem,this.LocationID).subscribe(result => {
-    
-           if(result["result"][0]['valid'])
-           {
-             abp.notify.success(result["result"][0]['valid']);
-             this.storageLocationdtls = null;
-             this.Clear();
-
-           }
-           else
-           {
-            abp.notify.error(result["result"][0]['error']);
-           }
-           
+  GetStorageCode(plantCode) {
+    abp.ui.setBusy();
+    if (plantCode !== '' && plantCode !== '') {
+      this._apiservice.GetStorageLocation(plantCode).subscribe((response) => {
+        this.storageLocation = response["result"];
+        abp.ui.clearBusy();
       });
- }
- markDirty() {
-  this._appComponent.markGroupDirty(this.addEditFormGroup);
-   return true;
-}
-Clear() {
-        
-  this.addEditFormGroup.reset();
-}
+    }
+  };
+
+  GrtTableGrid() {
+    debugger
+    if (this.plantCode !== '' && this.LocationID !== '' && this.plantCode !== undefined && this.LocationID !== undefined) {
+      abp.ui.setBusy();
+      this._apiservice.GetStrLocationDtls(this.plantCode, this.LocationID,this.MaterialCode).subscribe((response) => {
+        if (response['result'][0].error) {
+          abp.notify.error(response['result'][0].error);
+          abp.ui.clearBusy();
+        } else {
+          this.storageLocationdtls = response["result"];
+          abp.ui.clearBusy();
+
+        }
+      })
+    }
+  }
+  GetBarcodeScannedDetails() {
+    if (this.ScanItem !== '' && this.plantCode !== '' && this.MaterialCode !== '') {
+      abp.ui.setBusy();
+      this._apiservice.GetBarcodeScannedDetails(this.ScanItem, this.plantCode, this.LocationID,this.MaterialCode).subscribe((response) => {
+        if (response['result'][0].error) {
+          abp.notify.error(response['result'][0].error);
+          abp.ui.clearBusy();
+        } else {
+          this.storageLocationQty = response["result"];
+          this.qty = response["result"][0]['qty'];
+          abp.ui.clearBusy();
+        }
+
+      })
+    }
+  }
+
+
+  Save() {
+    abp.ui.setBusy();
+    if (this.ScanItem !== '' && this.LocationID !== '') {
+      this._apiservice.StorageLocationConfirmation(this.ScanItem, this.LocationID,this.MaterialCode).subscribe(result => {
+
+        if (result["result"][0]['valid']) {
+          abp.notify.success(result["result"][0]['valid']);
+          this.storageLocationdtls = null;
+          this.Clear();
+          abp.ui.clearBusy();
+        }
+        else {
+          abp.notify.error(result["result"][0]['error']);
+          abp.ui.clearBusy();
+        }
+
+      });
+    }
+  }
+  markDirty() {
+    this._appComponent.markGroupDirty(this.addEditFormGroup);
+    return true;
+  }
+  Clear() {
+    // this.addEditFormGroup.get('plantCodeFormCControl').setValue(null);
+    // this.addEditFormGroup.get('toStoragelocationFormControl').setValue('');
+    // this.addEditFormGroup.get('scannedItemFormControl').setValue(null);
+    // this.addEditFormGroup.get('scannedqtyFormControl').setValue(null);
+    this.addEditFormGroup.reset({
+      plantCodeFormCControl: null,
+      toStoragelocationFormControl: '',
+      scannedItemFormControl: null,
+      scannedqtyFormControl: null,
+      MaterialCodeFormControl:null
+    });
+    this.storageLocationdtls = null;
+  }
+
+  GetMaterialCode(plantCode) {
+    abp.ui.setBusy();
+    if (this.plantCode !== '') {
+      this._apiservice.GetSTRMaterialCode(plantCode).subscribe((response) => {
+        if (response['result'][0].error) {
+          abp.notify.error(response['result'][0].error);
+          abp.ui.clearBusy();
+        } else {
+          this.materiallist = response["result"];
+          abp.ui.clearBusy();
+        }
+
+      })
+    }
+  }
 }
