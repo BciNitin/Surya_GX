@@ -311,30 +311,35 @@ export class ApiServiceService {
   }
 
   GetStorageLocation(plantcode:any): Observable<any> {
-    return from(this.getUrl(`StorageLocationApi/GetStorageLocation?plantcode=${plantcode}`)).pipe(
+    return from(this.getUrl(`StorageLocationApi/GetToStorageLocation?plantcode=${plantcode}`)).pipe(
       switchMap(sturi => this.http.get(sturi, this.httpOptions))
     );
   }
 
-  GetStrLocationDtls(plancode, LocationID,MaterialCode) {
-    return from(this.getUrl(`StorageLocationApi/GetStorageLocationDetails?plancode=${plancode}&LocationID=${LocationID}&MaterialCode=${MaterialCode}`)).pipe(
+  GetStrLocationDtls(plancode, FromLocation,MaterialCode,ToLocation) {
+    return from(this.getUrl(`StorageLocationApi/GetStorageLocationDetails?plancode=${plancode}&FromLocation=${FromLocation}&MaterialCode=${MaterialCode}&ToLocation=${ToLocation}`)).pipe(
       switchMap(sturi => this.http.get(sturi, this.httpOptions))
     );
   }
 
-  GetBarcodeScannedDetails(barcode, plantcode,LocationID,MaterialCode) {
-    return from(this.getUrl(`StorageLocationApi/GetBarcodeScannedDetails?barcode=${barcode}&plantcode=${plantcode}&StrLocation=${LocationID}&MaterialCode=${MaterialCode}`)).pipe(
+  GetBarcodeScannedDetails(barcode, plantcode,FromLocation,ToLocation,MaterialCode) {
+    return from(this.getUrl(`StorageLocationApi/GetBarcodeScannedDetails?barcode=${barcode}&plantcode=${plantcode}&FromLocation=${FromLocation}&ToLocation=${ToLocation}&MaterialCode=${MaterialCode}`)).pipe(
       switchMap(sturi => this.http.get(sturi, this.httpOptions))
     );
   }
-  GetSTRMaterialCode(plantcode) {
-    return from(this.getUrl(`StorageLocationApi/GetMaterialCode?plantcode=${plantcode}`)).pipe(
+  GetSTRMaterialCode(plantcode,FromLocation) {
+    return from(this.getUrl(`StorageLocationApi/GetMaterialCode?plantcode=${plantcode}&FromLocation=${FromLocation}`)).pipe(
+      switchMap(sturi => this.http.get(sturi, this.httpOptions))
+    );
+  }
+  GetFromStorageLocation(plantcode) {
+    return from(this.getUrl(`StorageLocationApi/GetFromStorageLocation?plantcode=${plantcode}`)).pipe(
       switchMap(sturi => this.http.get(sturi, this.httpOptions))
     );
   }
 
-  StorageLocationConfirmation(barcode, LocationID,MaterialCode) {
-    const url = `StorageLocationApi/StorageLocationConfirmation?barcode=${barcode}&LocationID=${LocationID}&MaterialCode=${MaterialCode}`;
+  StorageLocationConfirmation(PlantCode,barcode, FromLocation,MaterialCode,ToLocation) {
+    const url = `StorageLocationApi/StorageLocationConfirmation?PlantCode=${PlantCode}&barcode=${barcode}&FromLocation=${FromLocation}&ToLocation=${ToLocation}&MaterialCode=${MaterialCode}`;
     return from(this.getUrl(url)).pipe(
       switchMap(sturi => this.http.post<any[]>(sturi, this.httpOptions))
     );

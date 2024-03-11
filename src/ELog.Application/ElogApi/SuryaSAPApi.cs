@@ -312,26 +312,30 @@ namespace ELog.Application.ElogApi
                     MyAdapter.SelectCommand = MyCommand2;
                     DataTable dt = new DataTable();
                     MyAdapter.Fill(dt);
+                    conn.Close();
                     string insertquery = string.Empty;
                     if (dt.Rows.Count == 0)
                     {
                         foreach (var material in objcls.MaterialCode)
                         {
+                            conn.Open();
                             insertquery = "insert into tsodelivery(DeliveryChallanNo, SONo, SODate, PlantBranchCode, CustomerCode, FromStrLoc, MaterialCode, Quantity, CreatedOn, CreatedBy ) values('" + objcls.DeliveryChallanno + "','" + objcls.SONo + "','" + objcls.SODate + "','" + objcls.FromPlantCode + "','" + objcls.Customercode + "','" + objcls.Fromstorage + "','" + material + "','" + objcls.QTY + "',now(),'SAPAPI');";
                             MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                             MySqlDataReader MyReader2;
                             MyReader2 = MyCommandINSERT.ExecuteReader();
+                            conn.Close();
                         }
                     }
                     else
                     {
+                        conn.Open();
                         insertquery = "UPDATE tsodelivery SET  SODate='"+ objcls.SODate + "',PlantBranchCode='" + objcls.FromPlantCode + "', CustomerCode='" + objcls.Customercode + "', FromStrLoc='"+ objcls.Fromstorage + "', Quantity='"+ objcls.QTY + "' WHERE DeliveryChallanNo='" + objcls.DeliveryChallanno + "' and SONo='"+ objcls.SONo + "' and MaterialCode='" + objcls.MaterialCode + "';";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();
+                        conn.Close();
 
                     }
-                    conn.Close();
                     sReturn = "SO Delivery Created Successfully.";
                 }
 
@@ -369,28 +373,32 @@ namespace ELog.Application.ElogApi
                     MyAdapter.SelectCommand = MyCommand2;
                     DataTable dt = new DataTable();
                     MyAdapter.Fill(dt);
+                    conn.Close();
                     string insertquery = string.Empty;
                     if (dt.Rows.Count == 0)
                     {
                         foreach (var material in objcls.MaterialCode)
                         {
+                            conn.Open();
                             insertquery = "insert into tstodelivery(" +
                             "DeliveryChallanNo, SONo, SODate, SendingPlantCode , ReceivingPlantCode , MaterialCode , FromStrLoc , Quantity , CreatedOn, CreatedBy ) " +
                             "values('" + objcls.DeliveryChallanNo + "','" + objcls.SalesOrderNo + "','" + objcls.SODate.ToString("yyyy-MM-dd") + "','" + objcls.SendingPlantCode + "','" + objcls.ReceivingPlantCode + "','" + material + "','" + objcls.StorageLoc + "','" + objcls.Quantity + "',now(),'SAPAPI');";
                             MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                             MySqlDataReader MyReader2;
                             MyReader2 = MyCommandINSERT.ExecuteReader();
+                            conn.Close();
                         }
                     }
                     else
                     {
+                        conn.Open();
                         insertquery = "UPDATE tstodelivery SET  SODate='" + objcls.SODate + "', SendingPlantCode='" + objcls.SendingPlantCode + "', ReceivingPlantCode='" + objcls.ReceivingPlantCode + "', MaterialCode='" + objcls.MaterialCode + "', FromStrLoc='" + objcls.StorageLoc + "', Quantity='" + objcls.Quantity + "' WHERE DeliveryChallanNo='" + objcls.DeliveryChallanNo + "' and SONo='" + objcls.SalesOrderNo + "' and MaterialCode='" + objcls.MaterialCode + "';";
                         MySqlCommand MyCommandINSERT = new MySqlCommand(insertquery, conn);
                         MySqlDataReader MyReader2;
                         MyReader2 = MyCommandINSERT.ExecuteReader();
+                        conn.Close();
 
                     }
-                    conn.Close();
                     sReturn = "STO Delivery Created Successfully.";
                 }
 
